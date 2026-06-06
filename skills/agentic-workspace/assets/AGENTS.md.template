@@ -1,0 +1,32 @@
+<!--
+  Canonical agent entry for this workspace. Source of truth for every agent.
+  Other tools point here: CLAUDE.md / GEMINI.md are pointers, not forks.
+  Keep this plain Markdown — no tool-specific syntax — so every agent parses it.
+-->
+
+# <Project> — Agent Guide
+
+One paragraph: what this project is and what an agent is here to do.
+
+## Rules (hand-written)
+
+- Build / test / run commands an agent needs.
+- Hard constraints and "don't touch" list.
+- Code style or output conventions that aren't obvious from the tree.
+- Keep this section short. Durable facts go in `knowledge/` and are dispatched by the manifest below.
+
+## Knowledge
+
+Load a file below only when its line matches your task. The manifest is **generated** —
+do not hand-edit between the markers; regenerate after any change to `knowledge/`.
+
+<!-- KNOWLEDGE MANIFEST (generated) — load a file when its line matches your task -->
+
+<!-- (empty until the first knowledge atom is added) -->
+
+<!-- END KNOWLEDGE MANIFEST -->
+
+## Skills
+
+Procedures live in `skills/<name>/SKILL.md`. Your tool auto-discovers them via its own
+`*/skills/` pointer (see the cross-agent table in the agentic-workspace convention).

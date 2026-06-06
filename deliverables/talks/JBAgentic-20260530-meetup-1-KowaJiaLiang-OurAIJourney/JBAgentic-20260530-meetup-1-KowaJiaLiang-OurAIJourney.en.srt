@@ -1,0 +1,3491 @@
+1
+00:00:00,200 --> 00:00:03,100
+so thanks everyone for joining this talk
+
+2
+00:00:03,100 --> 00:00:04,400
+especially Hui Ming
+
+3
+00:00:04,400 --> 00:00:07,000
+cause he is giving me this opportunity to share here
+
+4
+00:00:07,000 --> 00:00:10,300
+cause before that I'm playing AI with my teams
+
+5
+00:00:10,600 --> 00:00:11,366
+and then we
+
+6
+00:00:11,366 --> 00:00:11,700
+not sure
+
+7
+00:00:11,700 --> 00:00:13,366
+whether we are going to the right track or not
+
+8
+00:00:13,433 --> 00:00:15,200
+so he give me this opportunity
+
+9
+00:00:15,200 --> 00:00:16,666
+here to share about my knowledge
+
+10
+00:00:16,666 --> 00:00:19,866
+in AI so at least I can gather some feedback or what
+
+11
+00:00:19,866 --> 00:00:22,400
+so I can know whether or not we are on the right track
+
+12
+00:00:22,400 --> 00:00:25,966
+so today I'm going to share my company AI journey
+
+13
+00:00:26,100 --> 00:00:28,066
+so my title is from manual coding to chat
+
+14
+00:00:28,066 --> 00:00:31,566
+ChatGPT, Cursor and Claude Code yeah okay
+
+15
+00:00:31,566 --> 00:00:34,133
+so let's start so something about me
+
+16
+00:00:34,166 --> 00:00:35,733
+so my name is Kowa Jia Liang
+
+17
+00:00:36,100 --> 00:00:39,766
+my surname is Kowa and I'm a senior software engineer
+
+18
+00:00:39,766 --> 00:00:40,766
+working in Singapore
+
+19
+00:00:41,033 --> 00:00:43,833
+my company name is Payboy Private Limited
+
+20
+00:00:43,833 --> 00:00:46,566
+it's not Playboy, we do HRMS SaaS product
+
+21
+00:00:46,566 --> 00:00:48,466
+it's like human resource things
+
+22
+00:00:48,466 --> 00:00:51,533
+so we helping companies handling like payrolls
+
+23
+00:00:51,766 --> 00:00:54,166
+leave attendance taxes etcetera
+
+24
+00:00:54,600 --> 00:00:57,600
+so we mainly use Ruby on Rails for back end and Vue
+
+25
+00:00:57,600 --> 00:00:58,900
+JS for front end so
+
+26
+00:00:58,900 --> 00:01:00,766
+my day to day task will be mostly on planning
+
+27
+00:01:00,766 --> 00:01:02,733
+task with my project manager
+
+28
+00:01:02,900 --> 00:01:05,166
+and then also reviewing PR right
+
+29
+00:01:05,166 --> 00:01:06,400
+so let's get start
+
+30
+00:01:06,833 --> 00:01:10,266
+so this is our evolution of AI in our workspace
+
+31
+00:01:10,266 --> 00:01:12,966
+so first definitely we are all on manual coding
+
+32
+00:01:13,000 --> 00:01:15,166
+like traditional syntax typing
+
+33
+00:01:15,266 --> 00:01:18,366
+browsing documentation StackOverflow for solutions
+
+34
+00:01:18,400 --> 00:01:21,300
+then after that we go to prompting like ChatGPT
+
+35
+00:01:21,766 --> 00:01:24,033
+so ChatGPT is like we copy and paste
+
+36
+00:01:24,033 --> 00:01:27,366
+code fragments to webchat for opinion and answers ya
+
+37
+00:01:27,366 --> 00:01:28,766
+but it's very fast bit
+
+38
+00:01:28,766 --> 00:01:30,600
+but it's totally context blindness
+
+39
+00:01:30,600 --> 00:01:32,833
+every time we need to re explain what we want
+
+40
+00:01:32,833 --> 00:01:34,300
+and what is our product logic
+
+41
+00:01:34,366 --> 00:01:36,833
+so it's very time consuming ya
+
+42
+00:01:36,833 --> 00:01:38,933
+then after that we go to cursor IDE
+
+43
+00:01:39,100 --> 00:01:42,733
+so we finally have an AI agent sit inside IDE
+
+44
+00:01:43,100 --> 00:01:44,766
+so it gives us fast response
+
+45
+00:01:45,100 --> 00:01:47,466
+indexing files and auto complete recommendation
+
+46
+00:01:47,466 --> 00:01:50,466
+like Copilot like the Tab thing ya
+
+47
+00:01:50,700 --> 00:01:53,633
+then lastly we go to VS Code plus Claude
+
+48
+00:01:53,633 --> 00:01:55,800
+which is our currently using 1
+
+49
+00:01:56,033 --> 00:01:58,633
+so this is very similar to Claude but a bit different
+
+50
+00:01:58,633 --> 00:02:00,833
+it has different background agent
+
+51
+00:02:00,833 --> 00:02:01,966
+looping and running checks
+
+52
+00:02:01,966 --> 00:02:04,100
+tasks and diagnostics locally
+
+53
+00:02:04,100 --> 00:02:06,733
+so this one I'll share later in later slides
+
+54
+00:02:07,433 --> 00:02:08,166
+alright okay
+
+55
+00:02:08,166 --> 00:02:11,366
+next so different era
+
+56
+00:02:11,366 --> 00:02:13,266
+this one is just like supporting the previous slide
+
+57
+00:02:13,266 --> 00:02:14,966
+so we have two different AI
+
+58
+00:02:15,200 --> 00:02:16,500
+so first is like browser era
+
+59
+00:02:16,500 --> 00:02:17,900
+like is like the ChatGPT
+
+60
+00:02:17,900 --> 00:02:18,100
+like
+
+61
+00:02:18,100 --> 00:02:20,900
+we keep copying and switching windows to get solutions
+
+62
+00:02:20,900 --> 00:02:22,800
+like they have no context
+
+63
+00:02:22,800 --> 00:02:24,300
+requires manual describing model
+
+64
+00:02:24,300 --> 00:02:26,500
+every time I need to describe what is my product
+
+65
+00:02:26,600 --> 00:02:27,933
+logic
+
+66
+00:02:28,100 --> 00:02:30,000
+then I need to keep repeating the same thing
+
+67
+00:02:30,000 --> 00:02:31,966
+then it's very troublesome for me
+
+68
+00:02:32,266 --> 00:02:34,700
+then after that we have this editor native AI
+
+69
+00:02:34,700 --> 00:02:36,533
+so he sit within our editor
+
+70
+00:02:36,800 --> 00:02:39,266
+so with this we have no more copy and paste
+
+71
+00:02:39,500 --> 00:02:40,700
+switching browser
+
+72
+00:02:40,700 --> 00:02:43,066
+it just live directly inside my workspace
+
+73
+00:02:43,066 --> 00:02:45,566
+to read and write my files ya
+
+74
+00:02:45,566 --> 00:02:46,866
+so he have awareness
+
+75
+00:02:46,866 --> 00:02:49,566
+so means that he have background indexing of files
+
+76
+00:02:49,766 --> 00:02:52,100
+utilities and my code styling standards
+
+77
+00:02:52,300 --> 00:02:55,466
+so we don't need to repeat what we using like
+
+78
+00:02:55,466 --> 00:02:57,200
+what library we using
+
+79
+00:02:57,200 --> 00:03:00,100
+what code structure we expecting
+
+80
+00:03:00,433 --> 00:03:02,433
+so we don't need to repeat all these things
+
+81
+00:03:02,433 --> 00:03:04,433
+they already know what we need ya
+
+82
+00:03:04,433 --> 00:03:06,100
+so every time I prompt my agent right
+
+83
+00:03:06,100 --> 00:03:08,000
+so he already know what I'm expecting
+
+84
+00:03:08,166 --> 00:03:09,666
+so I don't need to keep repeating
+
+85
+00:03:09,666 --> 00:03:11,766
+I don't want this I don't want that change that format
+
+86
+00:03:11,800 --> 00:03:15,333
+ya so this is the good of the editor AI
+
+87
+00:03:15,866 --> 00:03:16,766
+so
+
+88
+00:03:17,100 --> 00:03:20,566
+how we use Claude Code to improve our team performance
+
+89
+00:03:20,566 --> 00:03:23,400
+right so we have these three main things
+
+90
+00:03:23,600 --> 00:03:26,000
+so we automate processes with Claude Code
+
+91
+00:03:26,100 --> 00:03:28,866
+first thing is we have permanent context
+
+92
+00:03:29,200 --> 00:03:32,500
+so it's a markdown file inside my project repo
+
+93
+00:03:32,800 --> 00:03:35,800
+so it's a file that step is storing standardized
+
+94
+00:03:35,800 --> 00:03:37,766
+active tech stack for my project
+
+95
+00:03:37,866 --> 00:03:41,733
+like my build with sequence testing parameters
+
+96
+00:03:42,000 --> 00:03:44,100
+styling rules and what gem we use
+
+97
+00:03:44,100 --> 00:03:45,400
+what library we use
+
+98
+00:03:45,433 --> 00:03:47,666
+and it's placed directly at the project root
+
+99
+00:03:47,800 --> 00:03:49,966
+so whenever I start my ID right
+
+100
+00:03:49,966 --> 00:03:53,733
+so he already loads all the rules from my markdown file
+
+101
+00:03:53,800 --> 00:03:57,400
+ya so when I start chat chatting with my agent
+
+102
+00:03:57,400 --> 00:03:57,900
+everything right
+
+103
+00:03:57,900 --> 00:04:00,600
+he already know what we expecting ya
+
+104
+00:04:00,833 --> 00:04:02,700
+so this is the permanent context
+
+105
+00:04:03,100 --> 00:04:06,466
+so next with Claude we can create custom skills
+
+106
+00:04:06,700 --> 00:04:09,100
+so we can create custom repository
+
+107
+00:04:09,300 --> 00:04:11,300
+workflow inside the Claude skills
+
+108
+00:04:11,433 --> 00:04:13,866
+repository is something coming with Claude 1
+
+109
+00:04:13,866 --> 00:04:16,533
+ya so we can trigger instantly
+
+110
+00:04:16,700 --> 00:04:20,300
+via sidebar slash command for example
+
+111
+00:04:20,300 --> 00:04:22,466
+changelog this one ya
+
+112
+00:04:22,833 --> 00:04:26,400
+then lastly is MCP like what Jun Wei showed just now
+
+113
+00:04:26,400 --> 00:04:29,366
+it's something like a USB-C for AI apps
+
+114
+00:04:29,366 --> 00:04:31,833
+so it just like a tools that you can connect
+
+115
+00:04:31,833 --> 00:04:33,500
+then you don't need to configure yourself
+
+116
+00:04:33,566 --> 00:04:34,566
+ya
+
+117
+00:04:35,000 --> 00:04:37,566
+so this one I will show some example later also
+
+118
+00:04:37,566 --> 00:04:39,966
+this one I have some proof of concept already
+
+119
+00:04:39,966 --> 00:04:42,866
+but I haven't got chance to set up yet ya
+
+120
+00:04:42,866 --> 00:04:44,500
+but maybe I will share some
+
+121
+00:04:44,500 --> 00:04:46,100
+like the proof of concept
+
+122
+00:04:46,100 --> 00:04:49,700
+ya so let me proceed
+
+123
+00:04:50,166 --> 00:04:53,466
+so first thing this is the permanent context
+
+124
+00:04:53,900 --> 00:04:57,066
+so this is the initial file that placed in my project
+
+125
+00:04:57,066 --> 00:04:57,600
+root
+
+126
+00:04:57,600 --> 00:05:00,966
+which it will auto loads whenever the IDE is loaded up
+
+127
+00:05:01,033 --> 00:05:02,966
+so I also call it as knowledge
+
+128
+00:05:02,966 --> 00:05:06,666
+so it's easier for us to understand among our team yeah
+
+129
+00:05:06,666 --> 00:05:08,966
+as you can see there's a lot of hashes here
+
+130
+00:05:09,200 --> 00:05:10,500
+so all these hashes right
+
+131
+00:05:10,500 --> 00:05:12,333
+they are act like a header
+
+132
+00:05:12,766 --> 00:05:15,766
+then we specify our requirement like apps overview
+
+133
+00:05:15,766 --> 00:05:18,833
+logic code structure and more within them
+
+134
+00:05:18,833 --> 00:05:21,366
+so you can see here I have like project architecture
+
+135
+00:05:21,700 --> 00:05:22,933
+front end architecture
+
+136
+00:05:22,966 --> 00:05:25,133
+then how many portals we have for our apps
+
+137
+00:05:25,266 --> 00:05:27,300
+then our code review checklist
+
+138
+00:05:27,366 --> 00:05:29,166
+all this I can specify here
+
+139
+00:05:29,166 --> 00:05:31,466
+this is a very huge file ya
+
+140
+00:05:31,466 --> 00:05:32,833
+so with this file right
+
+141
+00:05:32,833 --> 00:05:36,000
+then they already know before I start prompting them
+
+142
+00:05:36,233 --> 00:05:39,200
+so they know what I expecting ya
+
+143
+00:05:39,300 --> 00:05:43,533
+then go next this is my second thing is a custom skill
+
+144
+00:05:43,866 --> 00:05:45,900
+so you can see here this one is the Claude one
+
+145
+00:05:45,900 --> 00:05:47,900
+so I have a skills repo here
+
+146
+00:05:48,066 --> 00:05:52,566
+so all these are my custom skills for my repository
+
+147
+00:05:52,600 --> 00:05:53,766
+so you see here
+
+148
+00:05:54,366 --> 00:05:56,233
+each repo right as you can see here
+
+149
+00:05:56,233 --> 00:06:00,066
+this is like ai-agents, attendance, changelog, claims
+
+150
+00:06:00,066 --> 00:06:03,500
+these are like maybe my knowledge or it
+
+151
+00:06:03,600 --> 00:06:04,966
+it's something like a skill
+
+152
+00:06:04,966 --> 00:06:06,866
+I can trigger it for something
+
+153
+00:06:06,866 --> 00:06:08,733
+ask him to help me do something
+
+154
+00:06:08,866 --> 00:06:11,866
+or maybe I put some product knowledge in
+
+155
+00:06:11,866 --> 00:06:14,466
+so that he can know whenever I touch something
+
+156
+00:06:14,466 --> 00:06:15,700
+similar to this one
+
+157
+00:06:15,800 --> 00:06:19,566
+so he can retrieve the product logic here from here
+
+158
+00:06:19,833 --> 00:06:22,500
+this is my logic clocking out hours
+
+159
+00:06:22,500 --> 00:06:24,166
+calculation overtime requirements
+
+160
+00:06:24,166 --> 00:06:24,633
+something like that
+
+161
+00:06:24,633 --> 00:06:27,000
+so this feature is storing my knowledge
+
+162
+00:06:27,300 --> 00:06:29,166
+so it's like something like my product
+
+163
+00:06:29,166 --> 00:06:30,500
+no product logic
+
+164
+00:06:30,633 --> 00:06:33,033
+so whenever I trigger something related to attendance
+
+165
+00:06:33,033 --> 00:06:36,166
+right then he will like on self-check
+
+166
+00:06:36,166 --> 00:06:38,033
+whether he need like something like this
+
+167
+00:06:38,033 --> 00:06:39,766
+some product logic here
+
+168
+00:06:39,766 --> 00:06:42,533
+then we go on self retrieve the data
+
+169
+00:06:42,800 --> 00:06:45,966
+so he can know before I when he's doing some tasks
+
+170
+00:06:45,966 --> 00:06:49,066
+then he will on self go retrieve the data here
+
+171
+00:06:49,766 --> 00:06:53,333
+ya but this one is optional cause this one
+
+172
+00:06:53,700 --> 00:06:55,666
+for skill is like SKILL.md is a must
+
+173
+00:06:55,866 --> 00:06:57,400
+SKILL.md sits within the skill
+
+174
+00:06:57,400 --> 00:06:58,800
+it within the attendance
+
+175
+00:06:59,000 --> 00:07:01,600
+then feature is another repo inside attendance
+
+176
+00:07:01,800 --> 00:07:04,600
+so skill is a must skill is like something like
+
+177
+00:07:04,600 --> 00:07:07,000
+describing what is this attendance doing
+
+178
+00:07:07,000 --> 00:07:10,000
+and when we should trigger this skill right
+
+179
+00:07:10,000 --> 00:07:12,933
+then she inside here feature is the product logics
+
+180
+00:07:13,633 --> 00:07:15,566
+yup then I go next
+
+181
+00:07:15,600 --> 00:07:19,466
+then I will give some case study for custom skills
+
+182
+00:07:20,000 --> 00:07:22,800
+k so first thing is changelog
+
+183
+00:07:22,800 --> 00:07:24,466
+so for our team we do changelog
+
+184
+00:07:24,466 --> 00:07:26,666
+to record down what we did for each PR
+
+185
+00:07:26,666 --> 00:07:28,733
+that get merged into staging
+
+186
+00:07:29,200 --> 00:07:30,033
+and sometimes it's like
+
+187
+00:07:30,033 --> 00:07:32,166
+quite hard to summarize what we did for our PR
+
+188
+00:07:32,166 --> 00:07:33,866
+like for example
+
+189
+00:07:33,866 --> 00:07:36,566
+I fix a bug but I need to think like
+
+190
+00:07:36,566 --> 00:07:38,266
+what is the bug and how to describe
+
+191
+00:07:38,400 --> 00:07:39,033
+sometimes it's just like
+
+192
+00:07:39,033 --> 00:07:41,133
+consuming to log this thing down
+
+193
+00:07:41,300 --> 00:07:42,366
+so to solve this issue
+
+194
+00:07:42,366 --> 00:07:44,500
+I just created this change log skill
+
+195
+00:07:45,000 --> 00:07:46,866
+so what does this do right
+
+196
+00:07:46,866 --> 00:07:51,200
+is actually after I trigger agent will read my changes
+
+197
+00:07:51,200 --> 00:07:53,700
+current branch versus the target branch
+
+198
+00:07:53,833 --> 00:07:56,366
+then he will help me to summarize what I have done
+
+199
+00:07:56,500 --> 00:07:57,666
+so I can skip thinking like
+
+200
+00:07:57,666 --> 00:07:59,233
+what need to be logged down into changelog
+
+201
+00:07:59,233 --> 00:08:01,366
+then spending minutes to do this
+
+202
+00:08:01,366 --> 00:08:03,366
+then I just give him few seconds
+
+203
+00:08:03,366 --> 00:08:04,466
+he done already
+
+204
+00:08:04,766 --> 00:08:07,266
+then it will list down like what module I touch
+
+205
+00:08:07,300 --> 00:08:09,700
+the reason of these changes and what is the impact
+
+206
+00:08:09,700 --> 00:08:12,300
+etcetera so I can add in more things like Jira
+
+207
+00:08:12,300 --> 00:08:15,400
+card link or GitScrum card or whatever you like
+
+208
+00:08:15,400 --> 00:08:18,666
+for me I only add the PR link here
+
+209
+00:08:18,766 --> 00:08:22,700
+so as you can see here so he label this one as a fix
+
+210
+00:08:22,800 --> 00:08:25,066
+my PR is a fix then what I fix
+
+211
+00:08:25,066 --> 00:08:25,866
+this is the module
+
+212
+00:08:25,866 --> 00:08:27,733
+then he will list down everything
+
+213
+00:08:27,966 --> 00:08:30,766
+then together with like reason and impact
+
+214
+00:08:30,900 --> 00:08:33,400
+so what's my reason why I fixing this one
+
+215
+00:08:33,400 --> 00:08:37,366
+and what's the impact so this is my first custom skill
+
+216
+00:08:38,400 --> 00:08:42,900
+okay then second is called code-auditor skills
+
+217
+00:08:42,900 --> 00:08:43,833
+this one is my favourite
+
+218
+00:08:43,833 --> 00:08:45,600
+'cause okay
+
+219
+00:08:45,600 --> 00:08:46,700
+so for me
+
+220
+00:08:46,700 --> 00:08:49,766
+because I'm in charge of doing PR review for my teams
+
+221
+00:08:50,000 --> 00:08:52,600
+so I've been always repeating the same commands
+
+222
+00:08:53,000 --> 00:08:54,500
+so same comments to the devs
+
+223
+00:08:54,633 --> 00:08:57,400
+so instead of keep repeating the same comments right
+
+224
+00:08:57,400 --> 00:08:59,733
+I came up with this skill code-auditor
+
+225
+00:08:59,800 --> 00:09:00,566
+so what it does right
+
+226
+00:09:00,566 --> 00:09:03,066
+is to help me to run a pre PR review
+
+227
+00:09:03,166 --> 00:09:04,800
+so I ask my devs to run this skill
+
+228
+00:09:04,800 --> 00:09:07,966
+before they send to me for actual PR review
+
+229
+00:09:08,300 --> 00:09:09,066
+and with this
+
+230
+00:09:09,066 --> 00:09:11,766
+it wipes out a lot of redundant comments for me
+
+231
+00:09:11,766 --> 00:09:14,766
+so I need only need to review on the actual logic side
+
+232
+00:09:15,100 --> 00:09:18,200
+with which it saves save me a lot of times
+
+233
+00:09:18,600 --> 00:09:21,700
+so let me show you all how this work okay
+
+234
+00:09:21,800 --> 00:09:23,033
+so code-auditor right
+
+235
+00:09:23,033 --> 00:09:25,800
+actually he separate into like 3 main step
+
+236
+00:09:25,966 --> 00:09:28,300
+so first step is gather context
+
+237
+00:09:28,300 --> 00:09:31,866
+so code-auditor will request agent to ask the user
+
+238
+00:09:31,866 --> 00:09:34,900
+so like which branch you want to compare with default
+
+239
+00:09:34,900 --> 00:09:36,466
+I set to staging
+
+240
+00:09:36,466 --> 00:09:37,700
+our main branch
+
+241
+00:09:37,800 --> 00:09:40,666
+but we also can input like other branch to proceed
+
+242
+00:09:40,700 --> 00:09:45,133
+so second is after I getting the context
+
+243
+00:09:45,200 --> 00:09:49,000
+then I will run the actual PR review as per my corp
+
+244
+00:09:49,000 --> 00:09:52,400
+auditor rules also whatever modules you updated right
+
+245
+00:09:52,400 --> 00:09:54,833
+it will also trigger the related skills
+
+246
+00:09:54,833 --> 00:09:55,566
+the knowledge
+
+247
+00:09:55,566 --> 00:09:57,300
+which is the one I show you all just now
+
+248
+00:09:58,266 --> 00:10:02,400
+the first custom this the permanent context ya
+
+249
+00:10:02,500 --> 00:10:02,833
+so
+
+250
+00:10:02,833 --> 00:10:07,633
+to make sure AI understand the product logic correctly
+
+251
+00:10:07,633 --> 00:10:10,266
+so they can give valid and correct inputs
+
+252
+00:10:10,700 --> 00:10:11,633
+then after that right
+
+253
+00:10:11,633 --> 00:10:13,600
+step 3 is after review done
+
+254
+00:10:13,700 --> 00:10:16,600
+it will output a markdown file with all the concerns
+
+255
+00:10:16,833 --> 00:10:20,133
+label from critical important and suggestion
+
+256
+00:10:20,166 --> 00:10:22,033
+it will also list down the concern
+
+257
+00:10:22,033 --> 00:10:24,466
+come up with suggested solutions to
+
+258
+00:10:24,600 --> 00:10:26,433
+so before I do actual PR review right
+
+259
+00:10:26,433 --> 00:10:29,900
+the skill help me to eliminate 70 to 80%
+
+260
+00:10:30,100 --> 00:10:32,400
+of redundant comments already ya
+
+261
+00:10:32,400 --> 00:10:34,233
+so I will show you all some like
+
+262
+00:10:34,233 --> 00:10:36,200
+example that I run in the PR
+
+263
+00:10:37,200 --> 00:10:38,400
+yeah so wait
+
+264
+00:10:39,300 --> 00:10:43,566
+k right so this right hand side is my Claude Code
+
+265
+00:10:43,633 --> 00:10:45,033
+so I ran it yesterday
+
+266
+00:10:45,033 --> 00:10:46,666
+so I can show here yeah
+
+267
+00:10:46,666 --> 00:10:47,766
+wait let me try
+
+268
+00:10:47,833 --> 00:10:49,600
+can k wait right
+
+269
+00:10:49,866 --> 00:10:51,833
+so after I run this code-auditor right
+
+270
+00:10:51,833 --> 00:10:55,133
+then he will just run all these assert things
+
+271
+00:10:55,200 --> 00:10:57,266
+then after that ya okay
+
+272
+00:10:57,266 --> 00:11:00,466
+so based reserved to here is he asking me question
+
+273
+00:11:00,466 --> 00:11:02,666
+like which branch I want to compare with
+
+274
+00:11:02,800 --> 00:11:05,066
+so I choose production
+
+275
+00:11:05,066 --> 00:11:07,333
+cause I want to merge this directly to production
+
+276
+00:11:07,600 --> 00:11:09,166
+then he will start gathering the difference
+
+277
+00:11:09,166 --> 00:11:11,733
+between my branch and production branch
+
+278
+00:11:12,200 --> 00:11:14,600
+so you can see all these are he on self run one
+
+279
+00:11:14,600 --> 00:11:16,500
+like based on my rules
+
+280
+00:11:16,500 --> 00:11:17,900
+then he run all these thing like
+
+281
+00:11:17,900 --> 00:11:21,433
+cause this is a quite big PR
+
+282
+00:11:21,433 --> 00:11:24,233
+so he did a lot get diff
+
+283
+00:11:24,233 --> 00:11:28,200
+and do a sort to check whether or not I
+
+284
+00:11:28,200 --> 00:11:30,600
+like to check what changes I made
+
+285
+00:11:30,966 --> 00:11:31,800
+then after that right
+
+286
+00:11:31,800 --> 00:11:36,066
+this is the output in a markdown file so called audit
+
+287
+00:11:36,266 --> 00:11:39,366
+then he will list down like what's my source
+
+288
+00:11:39,666 --> 00:11:44,933
+this is my current branch versus the production branch
+
+289
+00:11:45,433 --> 00:11:46,900
+then what the PR does
+
+290
+00:11:46,900 --> 00:11:49,800
+then this is the summary then coverage
+
+291
+00:11:50,100 --> 00:11:51,966
+then he will list down like critical
+
+292
+00:11:52,100 --> 00:11:55,166
+issue that he think must fix before merge
+
+293
+00:11:55,233 --> 00:11:58,366
+then he will he will list down the following the cost
+
+294
+00:11:58,633 --> 00:12:01,400
+the fix then he will label important
+
+295
+00:12:01,500 --> 00:12:03,166
+the one he thinks should fix
+
+296
+00:12:03,233 --> 00:12:05,600
+and then like maybe suggestion
+
+297
+00:12:05,600 --> 00:12:09,300
+some nice to have and what's the strength of this PR
+
+298
+00:12:09,633 --> 00:12:11,900
+so all this thing he definitely
+
+299
+00:12:11,900 --> 00:12:13,800
+we still I still need to like
+
+300
+00:12:13,900 --> 00:12:17,433
+filter out what is the valid concerns yeah
+
+301
+00:12:17,433 --> 00:12:17,900
+but this one
+
+302
+00:12:17,900 --> 00:12:20,033
+he already help me to eliminate a lot of things already
+
+303
+00:12:20,033 --> 00:12:21,566
+cause I have this wait
+
+304
+00:12:21,566 --> 00:12:23,066
+let me show you all the yeah
+
+305
+00:12:23,066 --> 00:12:25,566
+this is my markdown file for the rules
+
+306
+00:12:25,866 --> 00:12:31,900
+it's a big file so I insert all my concerns here
+
+307
+00:12:32,266 --> 00:12:34,033
+so like what are the steps
+
+308
+00:12:34,033 --> 00:12:36,600
+what they need to do and what are the rules here
+
+309
+00:12:36,600 --> 00:12:38,066
+so it's a very big file
+
+310
+00:12:38,233 --> 00:12:39,600
+but this one is not come up by me
+
+311
+00:12:39,600 --> 00:12:41,466
+it's just I input what I want
+
+312
+00:12:41,466 --> 00:12:43,466
+so he wrote this file for me
+
+313
+00:12:43,766 --> 00:12:47,133
+like what they need to check what they need to do
+
+314
+00:12:48,300 --> 00:12:51,000
+yup so all this thing is written by AI
+
+315
+00:12:51,000 --> 00:12:52,866
+but it helps me a lot yes
+
+316
+00:12:52,866 --> 00:12:57,900
+a very big file so this is a code-auditor
+
+317
+00:12:58,366 --> 00:13:03,900
+yup okay so let me go next right
+
+318
+00:13:03,900 --> 00:13:10,400
+okay so that one is superpower parking so superpower
+
+319
+00:13:10,400 --> 00:13:13,166
+so whenever our team trying to do a new feature right
+
+320
+00:13:13,166 --> 00:13:14,700
+normally we will use this
+
+321
+00:13:14,766 --> 00:13:18,100
+open source call superpower plug in
+
+322
+00:13:18,366 --> 00:13:21,200
+so superpower is a software development methodology
+
+323
+00:13:21,200 --> 00:13:23,066
+for AI for coding agent
+
+324
+00:13:23,200 --> 00:13:26,166
+it's a public repo on GitHub one yeah
+
+325
+00:13:26,166 --> 00:13:29,033
+so how does this superpower work right
+
+326
+00:13:29,033 --> 00:13:31,266
+is whenever you trigger this superpower
+
+327
+00:13:31,633 --> 00:13:34,266
+first you digest your requirement from chat
+
+328
+00:13:34,766 --> 00:13:36,566
+then they will give you a proposal
+
+329
+00:13:36,666 --> 00:13:39,400
+or we can say is a coding plan with details
+
+330
+00:13:39,400 --> 00:13:41,066
+like what files you will be creating
+
+331
+00:13:41,233 --> 00:13:43,300
+according to your coding standard rules
+
+332
+00:13:43,666 --> 00:13:45,466
+come up with core logic functions
+
+333
+00:13:45,466 --> 00:13:47,800
+with test cases in the markdown file ya
+
+334
+00:13:47,866 --> 00:13:49,600
+so after you review the markdown file right
+
+335
+00:13:49,600 --> 00:13:51,766
+you can check and make any changes you want
+
+336
+00:13:51,833 --> 00:13:54,266
+then finally you sign off to green
+
+337
+00:13:54,266 --> 00:13:57,766
+to give green light to agent and proceed lastly
+
+338
+00:13:57,766 --> 00:13:59,166
+client will follow the markdown file
+
+339
+00:13:59,166 --> 00:14:00,800
+to start coding and design
+
+340
+00:14:01,100 --> 00:14:02,800
+then Claude will correct
+
+341
+00:14:02,800 --> 00:14:05,333
+parallel agents to test the written code
+
+342
+00:14:05,433 --> 00:14:08,666
+fix bug test and report repeat until all good ya
+
+343
+00:14:08,666 --> 00:14:09,366
+so all these
+
+344
+00:14:09,366 --> 00:14:12,466
+he speak into like different agent in background
+
+345
+00:14:13,000 --> 00:14:14,866
+and do the work parallelly
+
+346
+00:14:15,300 --> 00:14:20,100
+so I will give you an example of what I
+
+347
+00:14:20,366 --> 00:14:24,600
+1 of the project I use superpower to complete okay
+
+348
+00:14:24,600 --> 00:14:27,366
+so example in my company system
+
+349
+00:14:27,366 --> 00:14:28,933
+we have a back end control
+
+350
+00:14:29,066 --> 00:14:31,266
+system for our data's like
+
+351
+00:14:31,266 --> 00:14:32,666
+we always wanted to do a report
+
+352
+00:14:32,666 --> 00:14:35,200
+page to know what is our MRR also
+
+353
+00:14:35,200 --> 00:14:37,500
+you search for each module per month
+
+354
+00:14:37,500 --> 00:14:39,600
+per year because we are a SaaS product
+
+355
+00:14:39,900 --> 00:14:41,100
+but due to
+
+356
+00:14:41,100 --> 00:14:43,933
+we really no time to invest into this because
+
+357
+00:14:43,933 --> 00:14:46,666
+it's a report only no money is coming in mah
+
+358
+00:14:46,866 --> 00:14:49,000
+so the project was delayed for months
+
+359
+00:14:49,066 --> 00:14:51,466
+so after that I use this superpower and prompt
+
+360
+00:14:51,666 --> 00:14:55,100
+so this is my prompt refer to this GitHub
+
+361
+00:14:55,400 --> 00:14:57,033
+help me to create something similar
+
+362
+00:14:57,033 --> 00:14:59,700
+in my back end control system page
+
+363
+00:15:00,000 --> 00:15:02,666
+also I want a report for each of my modules
+
+364
+00:15:02,766 --> 00:15:03,733
+this my problem
+
+365
+00:15:04,200 --> 00:15:06,866
+then he start planning for around 8 to 10 minutes
+
+366
+00:15:06,866 --> 00:15:08,633
+and he back to back checking with me
+
+367
+00:15:08,633 --> 00:15:09,600
+what are the requirements
+
+368
+00:15:09,600 --> 00:15:11,266
+for this feature after that
+
+369
+00:15:11,266 --> 00:15:13,033
+right after he confirm everything
+
+370
+00:15:13,033 --> 00:15:16,400
+it took around 15 minutes to finish the feature
+
+371
+00:15:16,900 --> 00:15:20,600
+so I can show you all this PR so wait ya
+
+372
+00:15:20,833 --> 00:15:22,166
+so this one wait
+
+373
+00:15:22,166 --> 00:15:27,466
+so he this is created by I have this branch
+
+374
+00:15:27,466 --> 00:15:28,800
+but all these commits
+
+375
+00:15:28,800 --> 00:15:31,000
+right are created by this superpower
+
+376
+00:15:31,000 --> 00:15:33,100
+as you can see here is co-authored
+
+377
+00:15:33,800 --> 00:15:35,000
+yeah, it's Claude
+
+378
+00:15:35,500 --> 00:15:37,900
+so all these thing he following my
+
+379
+00:15:37,900 --> 00:15:39,800
+the markdown file that he design
+
+380
+00:15:39,800 --> 00:15:41,533
+and he create all these in
+
+381
+00:15:42,033 --> 00:15:44,100
+within 30 minutes yeah
+
+382
+00:15:44,233 --> 00:15:46,066
+for me it's definitely impossible
+
+383
+00:15:46,766 --> 00:15:49,433
+yeah and what are the good things right
+
+384
+00:15:49,433 --> 00:15:54,500
+is he come together with the test cases in my repo ya
+
+385
+00:15:54,500 --> 00:15:58,400
+so I totally don't need to care everything about this
+
+386
+00:15:58,466 --> 00:16:02,533
+ya and then this is the plan for superpower
+
+387
+00:16:03,033 --> 00:16:04,733
+after I using this one right
+
+388
+00:16:04,866 --> 00:16:09,100
+so this is his plan for this project
+
+389
+00:16:09,166 --> 00:16:11,300
+so you can see what he is showing
+
+390
+00:16:11,300 --> 00:16:12,600
+what is the file structure
+
+391
+00:16:12,766 --> 00:16:14,466
+what are the new files he will be creating
+
+392
+00:16:14,700 --> 00:16:15,933
+so he list down everything
+
+393
+00:16:16,433 --> 00:16:19,766
+what he will be modifying navigation notes
+
+394
+00:16:20,200 --> 00:16:22,366
+then what is his task sequence
+
+395
+00:16:22,400 --> 00:16:25,066
+all these thing he list down here until you sign off
+
+396
+00:16:25,066 --> 00:16:27,900
+so that he will start working on this project
+
+397
+00:16:28,066 --> 00:16:29,800
+so here are all the tasks
+
+398
+00:16:29,900 --> 00:16:31,600
+then the calculator for MRR
+
+399
+00:16:31,600 --> 00:16:34,566
+everything is listed here ya
+
+400
+00:16:34,566 --> 00:16:37,066
+even the queries he will ask for my opinion
+
+401
+00:16:37,066 --> 00:16:42,000
+how I want to query the DB for results yeah
+
+402
+00:16:42,000 --> 00:16:46,166
+so yup this is a superpower hmm
+
+403
+00:16:46,900 --> 00:16:50,200
+yes it's a huge file like over thousand of lines
+
+404
+00:16:50,800 --> 00:16:53,700
+so to me we use this quite often
+
+405
+00:16:53,700 --> 00:16:56,266
+because it's good to come up with something first
+
+406
+00:16:56,266 --> 00:16:58,200
+like for example you are given a feature
+
+407
+00:16:58,200 --> 00:17:00,500
+so to me I always use this one first to come up
+
+408
+00:17:00,500 --> 00:17:02,900
+at least prototype cause I
+
+409
+00:17:03,066 --> 00:17:04,433
+I'm not a front end person
+
+410
+00:17:04,433 --> 00:17:06,200
+so my frontend is
+
+411
+00:17:06,200 --> 00:17:07,033
+no sorry
+
+412
+00:17:07,300 --> 00:17:10,433
+say that my frontend is not good yeah
+
+413
+00:17:10,433 --> 00:17:13,566
+then I can fix from the implementation to avoid
+
+414
+00:17:13,566 --> 00:17:15,366
+a lot easier job like front end UI
+
+415
+00:17:15,366 --> 00:17:17,366
+cause I'm not a front end guy ya
+
+416
+00:17:17,466 --> 00:17:20,300
+so ya this is what he gave me in like 30 minutes
+
+417
+00:17:20,300 --> 00:17:21,766
+so it's a report page
+
+418
+00:17:21,766 --> 00:17:24,900
+each of the activity for my each of my modules
+
+419
+00:17:24,966 --> 00:17:26,266
+what are the count here
+
+420
+00:17:26,266 --> 00:17:28,000
+then he also come with the filters
+
+421
+00:17:28,066 --> 00:17:30,100
+then also the MRR revenue page
+
+422
+00:17:30,433 --> 00:17:32,500
+all these are done within like 30 minutes
+
+423
+00:17:32,600 --> 00:17:35,633
+with this superpower plug in ya okay
+
+424
+00:17:35,633 --> 00:17:42,866
+so let me go next so next is MCP tools okay
+
+425
+00:17:42,866 --> 00:17:45,866
+so MCP is a standardized interface for AI agent
+
+426
+00:17:45,866 --> 00:17:46,900
+so we can use MCP
+
+427
+00:17:46,900 --> 00:17:49,933
+to connect to various of data sources and tools
+
+428
+00:17:50,100 --> 00:17:51,900
+enabling the data to
+
+429
+00:17:51,900 --> 00:17:55,166
+enabling the AI to retrieve or post data easily
+
+430
+00:17:55,233 --> 00:17:57,433
+so the old way before MCP
+
+431
+00:17:57,433 --> 00:17:59,633
+we always need to create our custom API
+
+432
+00:17:59,633 --> 00:18:02,033
+code for every external connection
+
+433
+00:18:02,033 --> 00:18:04,166
+and it's very fragile cause
+
+434
+00:18:04,166 --> 00:18:06,266
+the in integration is easily broke
+
+435
+00:18:06,266 --> 00:18:09,800
+break whenever the tool API structure change ya
+
+436
+00:18:09,800 --> 00:18:11,500
+so this is very cause we
+
+437
+00:18:11,500 --> 00:18:12,400
+I never did this
+
+438
+00:18:12,400 --> 00:18:15,466
+cause this is very hard to maintain but now after MCP
+
+439
+00:18:15,466 --> 00:18:15,666
+right
+
+440
+00:18:15,666 --> 00:18:18,966
+so just one port expose the tools capability natively
+
+441
+00:18:18,966 --> 00:18:19,966
+directly inside Claude
+
+442
+00:18:19,966 --> 00:18:23,066
+so Claude can connects to a lot other applications
+
+443
+00:18:23,066 --> 00:18:24,766
+as long as they have this MCP
+
+444
+00:18:24,833 --> 00:18:26,366
+for us to connect the tools
+
+445
+00:18:26,833 --> 00:18:29,033
+so I just I don't need com
+
+446
+00:18:29,033 --> 00:18:31,666
+I don't need to do any integration or what
+
+447
+00:18:31,666 --> 00:18:33,566
+I just easy set up through JSON
+
+448
+00:18:33,566 --> 00:18:34,533
+B files only
+
+449
+00:18:34,633 --> 00:18:38,833
+cause they already have available gems and library yeah
+
+450
+00:18:38,833 --> 00:18:41,000
+so for me right this is my company
+
+451
+00:18:41,000 --> 00:18:42,400
+this is my next move
+
+452
+00:18:42,633 --> 00:18:45,833
+so I will be connecting Claude to this
+
+453
+00:18:45,833 --> 00:18:47,266
+something called sentry
+
+454
+00:18:47,366 --> 00:18:50,966
+is a error logging applications yeah
+
+455
+00:18:50,966 --> 00:18:53,366
+so to show you all what is a sentry right
+
+456
+00:18:53,366 --> 00:18:55,566
+is something like this
+
+457
+00:18:55,766 --> 00:18:59,833
+so he will log down all my like production
+
+458
+00:18:59,833 --> 00:19:02,966
+or staging unexpected areas
+
+459
+00:19:03,166 --> 00:19:04,966
+so all these sometimes I need to go in
+
+460
+00:19:04,966 --> 00:19:07,800
+and then see what's the issue here
+
+461
+00:19:07,866 --> 00:19:11,200
+and then I need to guess how I can fix this bug
+
+462
+00:19:11,200 --> 00:19:13,533
+so it's very hard to trace all these thing
+
+463
+00:19:13,866 --> 00:19:16,433
+so with this Sentry MCP right
+
+464
+00:19:16,433 --> 00:19:20,100
+so I can just ask Claude to help me just look at
+
+465
+00:19:20,100 --> 00:19:22,833
+this log and then give me what's the result
+
+466
+00:19:22,833 --> 00:19:24,800
+to help me resolve this bug
+
+467
+00:19:24,866 --> 00:19:27,500
+so I don't need to guess I don't need to wait ya
+
+468
+00:19:27,500 --> 00:19:29,466
+cause sometimes the bug is like very hidden
+
+469
+00:19:29,466 --> 00:19:30,166
+very deep
+
+470
+00:19:30,166 --> 00:19:33,000
+so I can't really solve in minutes or hours
+
+471
+00:19:33,200 --> 00:19:33,966
+so with Claude
+
+472
+00:19:33,966 --> 00:19:37,366
+then she can help me to solve maybe within 30 minutes
+
+473
+00:19:37,366 --> 00:19:38,166
+etcetera
+
+474
+00:19:38,900 --> 00:19:42,500
+yeah so below table is like the before and after
+
+475
+00:19:42,500 --> 00:19:45,933
+before we are hunting the logs and metrics and
+
+476
+00:19:46,600 --> 00:19:47,866
+see what's the bug
+
+477
+00:19:47,866 --> 00:19:50,166
+then we try to try to fix the bug
+
+478
+00:19:50,233 --> 00:19:51,300
+cause we need to guess mah
+
+479
+00:19:51,300 --> 00:19:54,166
+then lastly we verify whether the fix is work or not
+
+480
+00:19:54,500 --> 00:19:56,766
+then after that if I connect to MCP
+
+481
+00:19:56,766 --> 00:19:58,566
+then Claude will do everything for me
+
+482
+00:19:58,566 --> 00:20:00,700
+I just need to verify their changes
+
+483
+00:20:00,766 --> 00:20:02,933
+so lastly
+
+484
+00:20:02,966 --> 00:20:06,000
+why we move cause initially we are using cursor
+
+485
+00:20:06,100 --> 00:20:07,933
+but then after that we move to Claude
+
+486
+00:20:08,033 --> 00:20:10,666
+so understand that Claude and cursor actually
+
+487
+00:20:10,666 --> 00:20:12,200
+they behave quite similar
+
+488
+00:20:12,566 --> 00:20:13,100
+but in the end
+
+489
+00:20:13,100 --> 00:20:15,766
+we still choosing Claude for our team is because of
+
+490
+00:20:15,766 --> 00:20:17,100
+we are product based company
+
+491
+00:20:17,366 --> 00:20:20,466
+so our product logic are very customized and heavy
+
+492
+00:20:20,633 --> 00:20:21,500
+so in the end of the day
+
+493
+00:20:21,500 --> 00:20:23,500
+we choose quality over speed
+
+494
+00:20:23,900 --> 00:20:26,000
+so here are some metric that differentiate
+
+495
+00:20:26,000 --> 00:20:28,066
+the different between cursor and Claude
+
+496
+00:20:28,400 --> 00:20:30,466
+so just to summary what's the difference right
+
+497
+00:20:30,466 --> 00:20:31,366
+is that
+
+498
+00:20:31,366 --> 00:20:36,000
+for cursor whenever we try to prompt the AI right
+
+499
+00:20:36,000 --> 00:20:38,566
+so they will just like put everything inside the chat
+
+500
+00:20:38,766 --> 00:20:40,166
+and then whenever if you
+
+501
+00:20:40,166 --> 00:20:41,666
+if your feature is like very big right
+
+502
+00:20:41,666 --> 00:20:43,600
+then he will get chat population is like
+
+503
+00:20:43,600 --> 00:20:45,066
+he fit too many thing into the chat
+
+504
+00:20:45,066 --> 00:20:46,066
+then in the end of the day
+
+505
+00:20:46,066 --> 00:20:47,500
+he on self loss already
+
+506
+00:20:47,500 --> 00:20:50,633
+so he give you like very bad result but for Claude
+
+507
+00:20:50,633 --> 00:20:52,800
+he do different is that cause he will like
+
+508
+00:20:53,166 --> 00:20:55,900
+create a lot of sub agents for different task
+
+509
+00:20:56,066 --> 00:20:58,466
+so after the sub agent he complete right
+
+510
+00:20:58,466 --> 00:21:00,400
+then he will get the result
+
+511
+00:21:00,600 --> 00:21:02,166
+and send back to the main agent
+
+512
+00:21:02,400 --> 00:21:04,033
+so he only get what he needs
+
+513
+00:21:04,033 --> 00:21:06,466
+it's not the whole chunk of code or question
+
+514
+00:21:06,466 --> 00:21:08,833
+etcetera ya so this is the different
+
+515
+00:21:08,833 --> 00:21:10,566
+main different between current
+
+516
+00:21:10,566 --> 00:21:14,000
+and Claude but the drawback is
+
+517
+00:21:14,000 --> 00:21:16,166
+Claude has slower response
+
+518
+00:21:16,233 --> 00:21:17,500
+but I think it's smarter
+
+519
+00:21:17,500 --> 00:21:19,200
+it takes longer to process
+
+520
+00:21:19,200 --> 00:21:20,733
+but the result logic is
+
+521
+00:21:20,833 --> 00:21:22,900
+I think more accurate than cursor
+
+522
+00:21:23,500 --> 00:21:27,633
+yeah but if to do something like quite small one
+
+523
+00:21:27,633 --> 00:21:29,966
+then I think cursor definitely is better one
+
+524
+00:21:29,966 --> 00:21:33,166
+cause it has like a autocomplete
+
+525
+00:21:33,700 --> 00:21:37,100
+and nearly instant response compared to Claude
+
+526
+00:21:37,833 --> 00:21:43,266
+then I think should be that's all right okay
+
+527
+00:21:43,266 --> 00:21:45,666
+thank you all do you have any questions
+
+528
+00:21:46,233 --> 00:21:46,600
+yeah
+
+529
+00:21:46,600 --> 00:21:47,966
+thank you for the talk
+
+530
+00:21:47,966 --> 00:21:50,500
+sure I have several question about first question
+
+531
+00:21:50,500 --> 00:21:53,566
+first regarding the CLAUDE.md
+
+532
+00:21:53,966 --> 00:21:57,266
+what is the content that you primarily include in it
+
+533
+00:21:57,266 --> 00:21:58,833
+do you put like the how
+
+534
+00:21:58,833 --> 00:22:01,500
+is the architecture of the back end
+
+535
+00:22:01,633 --> 00:22:02,700
+or anything like that
+
+536
+00:22:02,700 --> 00:22:05,800
+yes correct so we do include like what so firstly
+
+537
+00:22:05,800 --> 00:22:08,400
+I need to describe what is my apps so like for example
+
+538
+00:22:08,400 --> 00:22:09,433
+my apps is a HRM
+
+539
+00:22:09,433 --> 00:22:11,500
+S so what module we have
+
+540
+00:22:11,500 --> 00:22:13,433
+and how many log in portal is there
+
+541
+00:22:13,433 --> 00:22:16,200
+for example mobile like web
+
+542
+00:22:16,300 --> 00:22:19,366
+maybe our back end management system etcetera
+
+543
+00:22:19,366 --> 00:22:21,066
+we have different portals to log in
+
+544
+00:22:21,100 --> 00:22:23,600
+so that's my first layer of
+
+545
+00:22:23,600 --> 00:22:25,400
+the details cause I need to list down first
+
+546
+00:22:25,400 --> 00:22:28,433
+so that they understand what is the different law
+
+547
+00:22:28,433 --> 00:22:29,633
+importers then from there
+
+548
+00:22:29,633 --> 00:22:31,466
+we have different rules for each portal
+
+549
+00:22:31,766 --> 00:22:32,300
+then after that
+
+550
+00:22:32,300 --> 00:22:36,100
+I list down the code structure and also logic within
+
+551
+00:22:37,266 --> 00:22:39,466
+so does it also like describe like
+
+552
+00:22:39,466 --> 00:22:42,800
+if I want to implement a new feature over there
+
+553
+00:22:42,800 --> 00:22:47,066
+like does the CLAUDE.md by itself already told like
+
+554
+00:22:47,066 --> 00:22:50,433
+oh what you have to follow this standard to do this
+
+555
+00:22:50,433 --> 00:22:51,000
+do that
+
+556
+00:22:51,000 --> 00:22:55,200
+or it got like reference to other files or what's not
+
+557
+00:22:55,200 --> 00:22:56,066
+ya it okay
+
+558
+00:22:56,066 --> 00:22:57,800
+so it does reference to other files
+
+559
+00:22:57,800 --> 00:23:00,166
+like the skill I show here
+
+560
+00:23:01,400 --> 00:23:03,466
+ya this one so like for example
+
+561
+00:23:03,466 --> 00:23:04,666
+I want to do like
+
+562
+00:23:04,666 --> 00:23:07,500
+maybe something re related to attendance
+
+563
+00:23:07,766 --> 00:23:09,200
+so you will come here and find
+
+564
+00:23:09,200 --> 00:23:11,300
+what are the trigger keyword here
+
+565
+00:23:11,300 --> 00:23:13,700
+cause I will store the keyword inside this SKILL.md
+
+566
+00:23:13,866 --> 00:23:16,366
+then whenever I do something like
+
+567
+00:23:16,400 --> 00:23:18,133
+I want to update my attendance
+
+568
+00:23:18,766 --> 00:23:20,166
+clocking out something like that
+
+569
+00:23:20,166 --> 00:23:22,100
+then he will try to find this file
+
+570
+00:23:22,566 --> 00:23:24,433
+then he will get the knowledge there
+
+571
+00:23:24,433 --> 00:23:26,700
+then he start doing the feature
+
+572
+00:23:26,766 --> 00:23:29,066
+and also about the skills
+
+573
+00:23:29,066 --> 00:23:31,266
+I noticed that you mainly like
+
+574
+00:23:31,266 --> 00:23:34,433
+separate each of the skill based on like feature right
+
+575
+00:23:34,433 --> 00:23:35,566
+the modules like
+
+576
+00:23:35,566 --> 00:23:35,966
+for
+
+577
+00:23:35,966 --> 00:23:38,500
+example attendance is one of the skill
+
+578
+00:23:38,566 --> 00:23:42,200
+and then maybe the claims is another skill
+
+579
+00:23:42,300 --> 00:23:45,366
+I also got do like skills for my company
+
+580
+00:23:45,366 --> 00:23:47,233
+me as well but right now
+
+581
+00:23:47,233 --> 00:23:50,766
+because I also am getting just getting started
+
+582
+00:23:50,766 --> 00:23:53,566
+and how I create this skill is actually like
+
+583
+00:23:53,633 --> 00:23:59,000
+make it like one skill for one kind of the
+
+584
+00:23:59,300 --> 00:24:00,900
+application layer for example
+
+585
+00:24:00,900 --> 00:24:04,066
+I want to do database migration one skill
+
+586
+00:24:04,066 --> 00:24:04,966
+database seeding
+
+587
+00:24:04,966 --> 00:24:07,500
+one skill or if you want to create a new API
+
+588
+00:24:07,500 --> 00:24:11,033
+one skill for that so I mainly want to know like
+
+589
+00:24:11,033 --> 00:24:11,866
+what are the
+
+590
+00:24:11,866 --> 00:24:15,133
+like how you come up with the decision to like
+
+591
+00:24:15,200 --> 00:24:18,566
+separate the skill based on the module and then
+
+592
+00:24:18,633 --> 00:24:22,066
+how it eventually lead to making this decision
+
+593
+00:24:22,200 --> 00:24:24,400
+separate it based on the module okay
+
+594
+00:24:24,400 --> 00:24:26,566
+understand your question so basically
+
+595
+00:24:26,566 --> 00:24:29,566
+why we split into like different report here right
+
+596
+00:24:29,566 --> 00:24:31,966
+is because of the product logic
+
+597
+00:24:32,266 --> 00:24:33,266
+cause our product logic
+
+598
+00:24:33,266 --> 00:24:36,300
+cause I need some place to store my product logic
+
+599
+00:24:36,300 --> 00:24:38,833
+what and the code structure is like quite different
+
+600
+00:24:38,833 --> 00:24:40,466
+like for each of the module
+
+601
+00:24:40,466 --> 00:24:42,466
+the expected code is different
+
+602
+00:24:42,500 --> 00:24:44,333
+expected code structure is different
+
+603
+00:24:44,566 --> 00:24:46,366
+so ya to us ya
+
+604
+00:24:46,366 --> 00:24:48,966
+so that's why I need a separate modules here
+
+605
+00:24:49,066 --> 00:24:51,600
+to store the different code structure ya
+
+606
+00:24:51,600 --> 00:24:53,833
+like for example different log in portals
+
+607
+00:24:53,833 --> 00:24:56,833
+we have different code standard also for example
+
+608
+00:24:56,833 --> 00:24:57,700
+our back end one
+
+609
+00:24:57,700 --> 00:24:59,966
+cause it's mainly used by our people only
+
+610
+00:24:59,966 --> 00:25:02,900
+so we just like do very basic code standard only
+
+611
+00:25:02,900 --> 00:25:05,166
+it's just like one time one 1 chunk big
+
+612
+00:25:05,166 --> 00:25:08,166
+one big chunk of code then just leave it
+
+613
+00:25:08,166 --> 00:25:10,366
+cause we not really maintaining that part mah
+
+614
+00:25:10,366 --> 00:25:11,800
+it's only for our own use
+
+615
+00:25:12,000 --> 00:25:14,100
+but if it's the main app right
+
+616
+00:25:14,100 --> 00:25:16,100
+then like we have like OOP
+
+617
+00:25:16,100 --> 00:25:19,333
+that kind we structure in OOP way etcetera
+
+618
+00:25:19,433 --> 00:25:22,400
+so that's the reason why I separate into like
+
+619
+00:25:22,400 --> 00:25:23,866
+by module oh
+
+620
+00:25:23,866 --> 00:25:25,800
+I see ya so each of the module
+
+621
+00:25:25,800 --> 00:25:27,900
+basically in maybe inside the skill and d
+
+622
+00:25:27,900 --> 00:25:30,600
+or maybe the reference file that it includes
+
+623
+00:25:30,600 --> 00:25:33,200
+or got mention like each of the module
+
+624
+00:25:33,200 --> 00:25:35,666
+how should the agent like quote out
+
+625
+00:25:35,666 --> 00:25:39,200
+what is the pros procedure that you should follow
+
+626
+00:25:39,233 --> 00:25:41,300
+yes ya something along the line
+
+627
+00:25:41,666 --> 00:25:43,400
+I understand another question
+
+628
+00:25:43,400 --> 00:25:46,966
+you use the superpower what
+
+629
+00:25:47,033 --> 00:25:48,266
+the one the plug in right
+
+630
+00:25:49,100 --> 00:25:50,666
+have you ever like run it
+
+631
+00:25:50,666 --> 00:25:53,500
+because it seems like it does a lot of thing
+
+632
+00:25:53,766 --> 00:25:56,466
+does it like if you ever run into the
+
+633
+00:25:57,033 --> 00:25:57,500
+oh never
+
+634
+00:25:57,500 --> 00:26:00,100
+cause this one is sponsored by my company 1
+
+635
+00:26:00,100 --> 00:26:01,933
+so I don't care about the token
+
+636
+00:26:04,166 --> 00:26:08,766
+ya huh I think the max 1 already ya
+
+637
+00:26:08,766 --> 00:26:10,300
+so I don't care about tokens
+
+638
+00:26:12,033 --> 00:26:14,933
+ya so I totally don't care about tokens
+
+639
+00:26:24,166 --> 00:26:25,300
+oh for me I
+
+640
+00:26:25,300 --> 00:26:26,300
+don't have that concern
+
+641
+00:26:26,300 --> 00:26:29,466
+cause it's free 1 and normally I run like 2
+
+642
+00:26:29,466 --> 00:26:32,533
+3 chat in parallel then ya that's why ya
+
+643
+00:26:45,833 --> 00:26:49,566
+Maybe in Claude documentation
+
+644
+00:26:49,566 --> 00:26:53,000
+the this one supposed to be the slash limit right
+
+645
+00:26:53,066 --> 00:26:54,466
+yeah
+
+646
+00:26:54,466 --> 00:26:54,966
+okay ya
+
+647
+00:26:54,966 --> 00:26:56,500
+you continue first and then
+
+648
+00:26:56,566 --> 00:26:58,266
+does the team
+
+649
+00:26:58,500 --> 00:27:01,000
+continue to extend the context of the limit
+
+650
+00:27:01,266 --> 00:27:02,566
+oh accuracy
+
+651
+00:27:02,566 --> 00:27:03,466
+yes correct ya
+
+652
+00:27:03,466 --> 00:27:05,400
+this one I keep many yeah
+
+653
+00:27:05,400 --> 00:27:07,100
+but I will maintaining the code structure
+
+654
+00:27:07,100 --> 00:27:09,000
+cause to me the different skill
+
+655
+00:27:09,000 --> 00:27:10,700
+I also keep maintaining for example
+
+656
+00:27:10,700 --> 00:27:11,933
+my code auditor
+
+657
+00:27:12,066 --> 00:27:14,500
+I also keep maintaining it cause I need
+
+658
+00:27:14,500 --> 00:27:17,166
+we need rules to make it accurate mah
+
+659
+00:27:17,300 --> 00:27:18,566
+so maybe something like
+
+660
+00:27:18,566 --> 00:27:20,400
+have something different happens
+
+661
+00:27:20,400 --> 00:27:21,800
+the rules is not
+
+662
+00:27:22,166 --> 00:27:24,233
+definitely the rules is not perfect one mah
+
+663
+00:27:24,233 --> 00:27:24,400
+so
+
+664
+00:27:24,400 --> 00:27:26,400
+I need to keep maintaining to make sure it's correct
+
+665
+00:27:26,400 --> 00:27:29,366
+it's accurate so this one we have to the
+
+666
+00:27:29,366 --> 00:27:31,500
+my team have to maintaining this one
+
+667
+00:27:31,500 --> 00:27:34,166
+like whenever whatever thing we add in right
+
+668
+00:27:34,166 --> 00:27:35,600
+so we need to add to here also
+
+669
+00:27:35,900 --> 00:27:37,433
+so this one should not be
+
+670
+00:27:37,433 --> 00:27:39,366
+have any stale information right
+
+671
+00:27:39,366 --> 00:27:43,266
+yes ya and this solve a lot of hmm
+
+672
+00:27:43,266 --> 00:27:44,600
+because this one
+
+673
+00:27:44,600 --> 00:27:47,366
+initially it need to load into the CLAUDE.md right
+
+674
+00:27:47,366 --> 00:27:51,600
+but then if for us the pro user
+
+675
+00:27:51,600 --> 00:27:52,766
+not the max user
+
+676
+00:27:53,400 --> 00:27:59,266
+I think this one is not that possible for pro user
+
+677
+00:27:59,266 --> 00:27:59,800
+right ya
+
+678
+00:27:59,800 --> 00:28:01,666
+this one I not too sure
+
+679
+00:28:01,666 --> 00:28:04,400
+cause we started with max and then next one is
+
+680
+00:28:04,400 --> 00:28:07,200
+ya I see there's a lot of
+
+681
+00:28:07,200 --> 00:28:10,066
+AI usage here then
+
+682
+00:28:10,466 --> 00:28:13,700
+what's the accuracy like how often's
+
+683
+00:28:14,433 --> 00:28:17,633
+this one the product is in production right
+
+684
+00:28:17,633 --> 00:28:22,266
+yes and then how often the product face like AI bugs
+
+685
+00:28:22,400 --> 00:28:23,066
+okay
+
+686
+00:28:23,066 --> 00:28:26,000
+so this one definitely we still got local test 1
+
+687
+00:28:26,066 --> 00:28:28,600
+so we have like before we ship to production
+
+688
+00:28:28,600 --> 00:28:29,900
+we have our QA team
+
+689
+00:28:29,900 --> 00:28:35,600
+etcetera to make sure the AI code is workable one ya
+
+690
+00:28:35,600 --> 00:28:38,433
+so we do have like different production
+
+691
+00:28:38,433 --> 00:28:40,800
+so first we in our team
+
+692
+00:28:40,800 --> 00:28:44,466
+we load our features to staging first
+
+693
+00:28:44,466 --> 00:28:45,633
+then in staging environment
+
+694
+00:28:45,633 --> 00:28:47,100
+we test everything and make sure it's good
+
+695
+00:28:47,100 --> 00:28:48,766
+then only we ship to production
+
+696
+00:28:48,800 --> 00:28:50,633
+so definitely AI is not perfect
+
+697
+00:28:50,633 --> 00:28:53,066
+so sometimes it still have some issue
+
+698
+00:28:53,066 --> 00:28:54,233
+but it's a tools that
+
+699
+00:28:54,233 --> 00:28:57,033
+to help us to cut down the development time yeah
+
+700
+00:28:57,033 --> 00:28:58,666
+so definitely it's still making mistake
+
+701
+00:28:58,666 --> 00:29:00,700
+so that's why I still need to maintain this
+
+702
+00:29:01,000 --> 00:29:04,066
+permanent context file ya
+
+703
+00:29:04,433 --> 00:29:06,833
+so actually my question is not like that
+
+704
+00:29:06,833 --> 00:29:07,900
+it's very professional
+
+705
+00:29:07,900 --> 00:29:10,366
+because since I'm not a software engineer
+
+706
+00:29:10,366 --> 00:29:14,533
+but I just want to pass because I also trying to see
+
+707
+00:29:14,600 --> 00:29:17,400
+because I also got to do these skills every
+
+708
+00:29:17,433 --> 00:29:19,500
+and also the AGENTS.md
+
+709
+00:29:19,500 --> 00:29:21,300
+I just want to ask
+
+710
+00:29:21,300 --> 00:29:24,000
+have you have explored other agents
+
+711
+00:29:24,000 --> 00:29:25,000
+for example the Codex
+
+712
+00:29:25,000 --> 00:29:26,700
+because the Codex have Codex
+
+713
+00:29:26,700 --> 00:29:28,266
+that there is a Codex also
+
+714
+00:29:28,566 --> 00:29:29,833
+then Codex also using this
+
+715
+00:29:29,833 --> 00:29:32,500
+and AGENTS.md and also SKILL.md
+
+716
+00:29:32,500 --> 00:29:34,966
+have you comparing like which one is more better
+
+717
+00:29:34,966 --> 00:29:36,300
+like this one
+
+718
+00:29:36,300 --> 00:29:39,300
+we actually currently we testing Codex also
+
+719
+00:29:39,433 --> 00:29:40,766
+but we just started last week
+
+720
+00:29:40,766 --> 00:29:41,633
+so we also not sure
+
+721
+00:29:41,633 --> 00:29:43,466
+but at first we start from cursor mah
+
+722
+00:29:43,466 --> 00:29:44,166
+so I can just now
+
+723
+00:29:44,166 --> 00:29:47,433
+I was showing the difference between cursor and Claude
+
+724
+00:29:47,433 --> 00:29:50,000
+so after in the end of the day we choose Claude
+
+725
+00:29:50,166 --> 00:29:51,766
+but now we trying Codex also
+
+726
+00:29:51,766 --> 00:29:53,866
+so we still not sure whether we switch there or not
+
+727
+00:29:53,866 --> 00:29:56,900
+but ya we still testing ya
+
+728
+00:29:56,900 --> 00:29:59,566
+so I also not sure what's the difference yet ya
+
+729
+00:29:59,566 --> 00:30:01,833
+but I have friends using Codex also
+
+730
+00:30:01,833 --> 00:30:04,866
+they say it's quite power than Claude
+
+731
+00:30:04,866 --> 00:30:07,700
+but I also not sure ya still testing ya because I
+
+732
+00:30:07,700 --> 00:30:10,000
+the quality is also more better than the Claude
+
+733
+00:30:10,000 --> 00:30:12,366
+but I think it's not because of the accuracy
+
+734
+00:30:12,366 --> 00:30:14,600
+maybe it's because of the value
+
+735
+00:30:14,666 --> 00:30:15,966
+because the token
+
+736
+00:30:16,000 --> 00:30:19,366
+you say for the Codex is more cheaper than the Claude
+
+737
+00:30:19,766 --> 00:30:21,033
+ya the Claude is like
+
+738
+00:30:21,033 --> 00:30:25,566
+for example 1 million token there is a $17 for Claude
+
+739
+00:30:25,566 --> 00:30:27,800
+but maybe for Codex is only $6
+
+740
+00:30:27,866 --> 00:30:29,033
+so maybe it's more viable
+
+741
+00:30:29,033 --> 00:30:31,566
+so that's why Codex is more viable
+
+742
+00:30:32,700 --> 00:30:34,466
+this one so
+
+743
+00:30:34,500 --> 00:30:36,500
+this one third to 15 oh
+
+744
+00:30:36,500 --> 00:30:39,000
+and the next question is for this particular context
+
+745
+00:30:39,000 --> 00:30:39,433
+right
+
+746
+00:30:39,433 --> 00:30:41,900
+so you are attending this
+
+747
+00:30:42,400 --> 00:30:45,500
+ya correct ya correct ya correct
+
+748
+00:30:45,500 --> 00:30:47,800
+so I also do have a rules here to say like
+
+749
+00:30:47,800 --> 00:30:50,433
+if they're trying to add some new logic right
+
+750
+00:30:50,433 --> 00:30:53,000
+then they will automatically check whether or not this
+
+751
+00:30:53,166 --> 00:30:55,800
+logic should be inserted into this markdown file ya
+
+752
+00:30:55,800 --> 00:30:57,000
+so that's where
+
+753
+00:30:57,000 --> 00:30:59,500
+AI also help us to maintaining this markdown file
+
+754
+00:30:59,500 --> 00:31:02,100
+ya so that's why it's getting very big
+
+755
+00:31:03,600 --> 00:31:05,033
+I think this permanent context
+
+756
+00:31:05,033 --> 00:31:06,666
+you cannot separate like for example
+
+757
+00:31:06,666 --> 00:31:08,966
+different parts of the permanent one contacts
+
+758
+00:31:09,100 --> 00:31:11,033
+that's all you only can
+
+759
+00:31:11,033 --> 00:31:14,233
+create all those room inside one farm ya correct cause
+
+760
+00:31:14,500 --> 00:31:16,966
+this one is basically like storing the general one mah
+
+761
+00:31:16,966 --> 00:31:18,600
+so I don't want woah
+
+762
+00:31:18,600 --> 00:31:20,900
+store like general inside the different skill markdown
+
+763
+00:31:20,900 --> 00:31:23,666
+cause maybe like if they never trigger that skill
+
+764
+00:31:23,666 --> 00:31:25,033
+then my roots
+
+765
+00:31:25,033 --> 00:31:26,833
+then cannot work already
+
+766
+00:31:26,833 --> 00:31:27,833
+ya so
+
+767
+00:31:27,833 --> 00:31:29,233
+that's why I just put all the general thing
+
+768
+00:31:29,233 --> 00:31:30,700
+inside this man
+
+769
+00:31:30,700 --> 00:31:32,533
+markdown file ya
+
+770
+00:31:33,266 --> 00:31:35,066
+hey that's a good question oh
+
+771
+00:31:35,066 --> 00:31:38,100
+ha yeah but
+
+772
+00:31:38,100 --> 00:31:41,400
+how around how many lines
+
+773
+00:31:41,400 --> 00:31:42,466
+like three two
+
+774
+00:31:42,466 --> 00:31:43,300
+three hundreds
+
+775
+00:31:43,300 --> 00:31:44,933
+I think more than that
+
+776
+00:31:45,000 --> 00:31:47,433
+the best practice is 200 lines ya
+
+777
+00:31:47,433 --> 00:31:49,466
+but we over the limit over
+
+778
+00:31:49,466 --> 00:31:52,533
+the limit already it's very a lot but
+
+779
+00:31:52,833 --> 00:31:54,333
+something I Learned recently
+
+780
+00:31:54,666 --> 00:31:57,000
+is I
+
+781
+00:31:57,000 --> 00:32:02,066
+still keep my CLAUDE.md 2 hundred line below 200 then
+
+782
+00:32:02,066 --> 00:32:04,766
+I do reference oh
+
+783
+00:32:05,000 --> 00:32:07,300
+so it's like when I say like may
+
+784
+00:32:07,300 --> 00:32:07,900
+maybe
+
+785
+00:32:07,900 --> 00:32:10,166
+there's a block about my architecture or something
+
+786
+00:32:10,166 --> 00:32:12,000
+right then I say like
+
+787
+00:32:12,100 --> 00:32:15,566
+load then the path to that
+
+788
+00:32:15,566 --> 00:32:18,000
+the relative path from the project folder
+
+789
+00:32:18,033 --> 00:32:19,000
+let's say like
+
+790
+00:32:19,000 --> 00:32:22,266
+docs slash arteca AR architecture dot MD
+
+791
+00:32:22,266 --> 00:32:25,700
+when then maybe like the keyword
+
+792
+00:32:25,700 --> 00:32:28,566
+like when to load this on demand oh
+
+793
+00:32:28,666 --> 00:32:30,233
+something like that I do that also
+
+794
+00:32:30,233 --> 00:32:33,100
+but I never separate the general 1
+
+795
+00:32:33,100 --> 00:32:34,766
+I also not sure whether this one is
+
+796
+00:32:34,766 --> 00:32:36,933
+but so far it's working okay
+
+797
+00:32:37,100 --> 00:32:39,133
+so that's why I never touch
+
+798
+00:32:39,433 --> 00:32:42,066
+but it's a very huge file ya
+
+799
+00:32:42,300 --> 00:32:45,866
+then I guess the trade off is because like
+
+800
+00:32:45,866 --> 00:32:47,866
+this file will load every single time
+
+801
+00:32:47,900 --> 00:32:50,400
+when you open a new session
+
+802
+00:32:50,400 --> 00:32:51,366
+no actually he
+
+803
+00:32:51,366 --> 00:32:52,866
+I don't know how he read also leh
+
+804
+00:32:53,200 --> 00:32:55,000
+it says that whenever I start my editor
+
+805
+00:32:55,000 --> 00:32:56,966
+then he have all these thing in background already
+
+806
+00:32:57,033 --> 00:32:57,500
+ya so
+
+807
+00:32:57,500 --> 00:33:00,433
+the I mean like when you start a Claude Code
+
+808
+00:33:00,433 --> 00:33:02,700
+if not wrong it will always load this file
+
+809
+00:33:02,800 --> 00:33:04,233
+because it's permanent contact yeah
+
+810
+00:33:04,233 --> 00:33:04,866
+correct yeah
+
+811
+00:33:04,866 --> 00:33:08,366
+so then it always load that 700 lines yeah
+
+812
+00:33:08,433 --> 00:33:12,033
+so maybe the token usage is more ya
+
+813
+00:33:12,033 --> 00:33:17,300
+but I don't care company one ya company sponsor one
+
+814
+00:33:17,366 --> 00:33:19,666
+so I don't care ya but ya
+
+815
+00:33:19,666 --> 00:33:21,000
+I think maybe can do that
+
+816
+00:33:21,000 --> 00:33:23,066
+cause now I also separate into all these
+
+817
+00:33:23,066 --> 00:33:25,833
+like different but ya
+
+818
+00:33:25,833 --> 00:33:29,533
+but I just ya I lazy to separate them
+
+819
+00:33:30,900 --> 00:33:34,566
+ya why your company decide to like try out Codex
+
+820
+00:33:34,566 --> 00:33:36,500
+cause they just like what
+
+821
+00:33:36,600 --> 00:33:39,000
+Peng say just now they say that token is
+
+822
+00:33:39,000 --> 00:33:40,566
+cause I think currently we hit
+
+823
+00:33:40,600 --> 00:33:42,033
+I'm not sure how much already
+
+824
+00:33:42,033 --> 00:33:44,800
+but quite expensive on our Claude Code ya
+
+825
+00:33:44,800 --> 00:33:46,900
+I think over few thousand
+
+826
+00:33:46,900 --> 00:33:49,366
+but it's cheaper than an engineer
+
+827
+00:33:49,366 --> 00:33:51,000
+so we decide to cut down the cost
+
+828
+00:33:51,000 --> 00:33:55,166
+that's why we trying to test out Codex ya
+
+829
+00:33:55,166 --> 00:33:58,566
+it still matters it still matters ya
+
+830
+00:33:59,200 --> 00:34:03,900
+1 one tool that recently ex company
+
+831
+00:34:04,000 --> 00:34:06,033
+ex company is using it
+
+832
+00:34:06,033 --> 00:34:07,400
+is called Graphify
+
+833
+00:34:07,400 --> 00:34:11,200
+and then I kind of like research what is the
+
+834
+00:34:11,200 --> 00:34:14,266
+purpose of Graphify it is like
+
+835
+00:34:14,266 --> 00:34:17,000
+cache the entire bundle file or context
+
+836
+00:34:17,000 --> 00:34:18,866
+then that's why every time you open
+
+837
+00:34:18,866 --> 00:34:20,266
+the VS Code right
+
+838
+00:34:20,266 --> 00:34:23,466
+it will directly already cached it there
+
+839
+00:34:23,500 --> 00:34:25,666
+it's something so
+
+840
+00:34:25,666 --> 00:34:27,866
+if you reading the context of the article
+
+841
+00:34:27,866 --> 00:34:28,800
+from the cache
+
+842
+00:34:28,800 --> 00:34:32,066
+so if you not use the proper usage to read again
+
+843
+00:34:32,066 --> 00:34:32,866
+on the phone
+
+844
+00:34:37,900 --> 00:34:40,700
+ya I think it's a skill because I because I saw the ya
+
+845
+00:34:40,900 --> 00:34:44,333
+there's a /graphify command so I think it's a skill
+
+846
+00:34:45,266 --> 00:34:46,066
+maybe I can
+
+847
+00:34:51,000 --> 00:34:52,100
+maybe I can look into this
+
+848
+00:34:52,100 --> 00:34:52,900
+also
+
+849
+00:34:53,100 --> 00:34:55,533
+I'm curious about your team
+
+850
+00:34:55,666 --> 00:34:57,766
+because there seems a lot of
+
+851
+00:34:58,566 --> 00:35:01,400
+the markdown file to maintain
+
+852
+00:35:01,800 --> 00:35:04,700
+so does it mean the team switch toward
+
+853
+00:35:04,700 --> 00:35:06,766
+to maintaining the markdown file
+
+854
+00:35:06,800 --> 00:35:07,566
+so like
+
+855
+00:35:07,566 --> 00:35:08,166
+what
+
+856
+00:35:08,166 --> 00:35:11,200
+I think just now Jun Wei asked a similar question
+
+857
+00:35:11,200 --> 00:35:11,966
+so I
+
+858
+00:35:11,966 --> 00:35:14,900
+did insert the rules into my markdown file already
+
+859
+00:35:14,900 --> 00:35:17,500
+so whenever they try to insert like new logics or what
+
+860
+00:35:17,500 --> 00:35:17,966
+right
+
+861
+00:35:17,966 --> 00:35:21,033
+then they will self-assert what's the related logic
+
+862
+00:35:21,033 --> 00:35:24,100
+then they will self-maintain the skill within
+
+863
+00:35:24,166 --> 00:35:26,166
+the markdown file ya
+
+864
+00:35:26,466 --> 00:35:30,100
+so I actually put a rules inside the markdown file to
+
+865
+00:35:30,200 --> 00:35:34,833
+check in every check section so if there is any new
+
+866
+00:35:34,833 --> 00:35:37,500
+logic added in while I running the code auditor
+
+867
+00:35:37,500 --> 00:35:37,866
+right
+
+868
+00:35:37,866 --> 00:35:39,933
+then he will help me to maintain the markdown file
+
+869
+00:35:40,266 --> 00:35:41,366
+which mean the
+
+870
+00:35:41,366 --> 00:35:44,166
+full team share the same skills and yes
+
+871
+00:35:44,166 --> 00:35:45,866
+correct ya this in our report
+
+872
+00:35:45,866 --> 00:35:48,566
+then I think this is the next month topic - Graphify
+
+873
+00:35:50,400 --> 00:35:53,133
+so ya any other questions

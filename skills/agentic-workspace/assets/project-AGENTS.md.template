@@ -1,0 +1,25 @@
+<!--
+  Project-level agent entry (optional level 2). Additive to the workspace AGENTS.md — never forks it.
+  Read order for a project agent: workspace AGENTS.md FIRST, then this file.
+-->
+
+# <Project> — Agent Guide
+
+> Read the workspace `AGENTS.md` first. This file holds only what is specific to <Project>.
+
+## Project-specific rules
+
+- What differs for this project (accounts, domains, tone, constraints).
+
+## Knowledge (this project only)
+
+<!-- KNOWLEDGE MANIFEST (generated) — load a file when its line matches your task -->
+
+<!-- (empty until the first project knowledge atom is added) -->
+
+<!-- END KNOWLEDGE MANIFEST -->
+
+## Skill overrides
+
+Only override or add procedures here. A same-name skill in this project wins over the
+workspace one; otherwise the workspace procedures apply unchanged.

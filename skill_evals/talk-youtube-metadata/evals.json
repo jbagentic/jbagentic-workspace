@@ -1,0 +1,26 @@
+{
+  "skill_name": "talk-youtube-metadata",
+  "evals": [
+    {
+      "id": 0,
+      "name": "khew-iac",
+      "prompt": "Generate the YouTube metadata for the Khew Jia Peng talk in deliverables/talks/JBAgentic-20260530-meetup-1-KhewJiaPeng-AIMeetsInfrastructure.",
+      "expected_output": "youtube-content.md in the talk folder: 3 A/B titles (distinct angles, <=70 chars incl. ' | JB Agentic Meetup #1'), description with 0:00-anchored chapters + verbatim community blurb/links, tags (<500 chars), category Science & Technology.",
+      "files": []
+    },
+    {
+      "id": 1,
+      "name": "kowa-journey",
+      "prompt": "Prep Kowa Jia Liang's talk for upload — I need youtube titles, description and tags. Folder: deliverables/talks/JBAgentic-20260530-meetup-1-KowaJiaLiang-OurAIJourney",
+      "expected_output": "youtube-content.md in the talk folder with the same structure and invariants; titles reflect the manual-coding -> Claude Code journey.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "name": "soh-friction",
+      "prompt": "Make the youtube content for deliverables/talks/JBAgentic-20260530-meetup-1-SohJunWei-AIForEverydayFriction",
+      "expected_output": "youtube-content.md in the talk folder with the same structure and invariants; titles reflect the Telegram expense agent + MCP build.",
+      "files": []
+    }
+  ]
+}

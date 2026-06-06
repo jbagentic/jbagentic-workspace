@@ -1,0 +1,16 @@
+# Skill eval run outputs — disposable scratch produced by skill-creator.
+# Committed: skill_evals/<name>/evals.json (specs) and skill_evals/<name>/benchmarks/ (durable summaries).
+# Ignored: skill_evals/<name>/runs/ (raw outputs, per-run grading/timing, viewer HTML).
+skill_evals/*/runs/
+
+*.mov
+
+deliverables/temp/*.*
+
+# macOS
+.DS_Store
+
+# Python
+.venv/
+__pycache__/
+*.pyc
