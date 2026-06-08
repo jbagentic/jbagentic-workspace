@@ -16,6 +16,8 @@
       "Bash(file *)",
       "Bash(xxd *)",
       "Bash(xargs *)",
+      "Bash(cd *)",
+      "Bash(for *)",
       "Bash(git log *)",
       "Bash(git diff *)",
       "Bash(git show *)",
