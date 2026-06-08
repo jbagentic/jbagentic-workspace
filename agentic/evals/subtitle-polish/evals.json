@@ -1,0 +1,73 @@
+{
+  "skill_name": "subtitle-polish",
+  "notes": "Case 0 is a real auto-transcript (KhewJiaPeng) graded on invariants + spot-checked term corrections, since the speaker's own polish may differ from the skill's. Cases 1-2 are synthetic: a contiguous excerpt of a real polished talk SRT is the gold answer, and the raw input is that gold with a documented set of fillers, stutters, and phonetic term errors injected (see each fixture's answer-key.json). That makes every injected error individually checkable.",
+  "evals": [
+    {
+      "id": 0,
+      "name": "real-fulllength-khewjiapeng",
+      "prompt": "Can you polish the subtitles for my talk? The raw transcript and the slide deck are in agentic/evals/subtitle-polish/fixtures/khewjiapeng-real/ — khewjiapeng.en.raw.srt is the auto-generated SRT, and slides/ plus slides.pdf are the deck. Clean it up and save the polished version next to it.",
+      "expected_output": "A polished SRT (raw marker dropped from the stem) that strips fillers/stutters and fixes mis-transcribed terms against the slides, while holding the invariants: no empty cues, contiguous numbering (cues may be dropped+renumbered but no holes), surviving cues keep their original timestamps, UTF-8 without BOM. The speaker mangles 'IaC' many ways (IAC, ISC, ISA, ICNA, 'I a C', 'I C') and 'Azure portal' ('Asia bottle'); these should converge to the slide-canonical forms.",
+      "files": [
+        "fixtures/khewjiapeng-real/khewjiapeng.en.raw.srt",
+        "fixtures/khewjiapeng-real/slides.pdf",
+        "fixtures/khewjiapeng-real/slides/"
+      ],
+      "assertions": [
+        "Output SRT exists with the .raw marker removed from the stem",
+        "Output parses as valid SRT (index, timing, body per cue)",
+        "No empty cues in the output",
+        "Cue numbering is contiguous from 1 with no holes",
+        "Every output cue's timestamp is present in the input (no timestamps invented or shifted)",
+        "Output is UTF-8 without a BOM",
+        "Filler density (standalone um/uh/like-fillers) is lower in the output than in the raw input",
+        "The term 'IaC' appears in slide-canonical form and the mis-hearings (IAC/ISC/ISA/ICNA/'I a C') are gone",
+        "'Azure portal' is recovered from 'Asia bottle' / 'Azure service' mis-transcriptions where context supports it",
+        "Affirmations and Singlish particles (lah/ya) are preserved, not scrubbed"
+      ]
+    },
+    {
+      "id": 1,
+      "name": "synth-sohjunwei-excerpt",
+      "prompt": "I have a rough auto-transcript excerpt from a talk that needs cleaning up — fillers and some wrong technical terms. The file is agentic/evals/subtitle-polish/fixtures/sohjunwei-synth/sohjunwei-synth.en.raw.srt and the talk's slides are in the slides/ folder next to it. Please polish it and save the result alongside.",
+      "expected_output": "Polished SRT matching the gold (sohjunwei-synth.en.srt.gold). All 13 injected errors fixed: term mis-hearings corrected to slide-canonical (Herpes agent->Hermes agent x2, telegraph->Telegram x2, EMCP->MCP x2), injected standalone fillers removed (um, uh, you know, like x4), injected duplicate-word stutters collapsed (so so, the the, of of). Invariants held: 43 contiguous cues, no empties, timestamps unchanged, UTF-8 no BOM. Restraint: the speaker's own term 'OpenClaw' is left as-is (the slides say 'OpenRouter', but that is the speaker's word, not a transcription error).",
+      "files": [
+        "fixtures/sohjunwei-synth/sohjunwei-synth.en.raw.srt",
+        "fixtures/sohjunwei-synth/slides/"
+      ],
+      "assertions": [
+        "Output SRT exists with the .raw marker removed from the stem",
+        "Output has 43 contiguous cues with no empties and no holes",
+        "Every cue's timestamp is unchanged from the raw input",
+        "Output is UTF-8 without a BOM",
+        "'Herpes agent' is corrected to 'Hermes agent' (both occurrences)",
+        "'telegraph' is corrected to 'Telegram' (both occurrences)",
+        "'EMCP' is corrected to 'MCP' (both occurrences)",
+        "All 4 injected fillers (um, uh, you know, and the inline 'like') are removed",
+        "All 3 injected stutters (so so, the the, of of) are collapsed",
+        "Restraint: 'OpenClaw' is preserved and NOT rewritten to the slide term 'OpenRouter'"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "synth-kowajialiang-excerpt",
+      "prompt": "This SRT is from an auto-transcribed meetup talk and the transcription garbled a few product names and added some stutters. File: agentic/evals/subtitle-polish/fixtures/kowajialiang-synth/kowajialiang-synth.en.raw.srt. The deck is in the slides/ folder beside it. Clean it up for me and write the polished file next to the raw one.",
+      "expected_output": "Polished SRT matching the gold (kowajialiang-synth.en.srt.gold). All 10 injected errors fixed: term mis-hearings corrected to slide-canonical (NCP->MCP x2, cloud->Claude x2, Jason->JSON), injected fillers removed (um, like, uh), injected stutters collapsed (AI AI->AI, for for->for). Invariants held: 24 contiguous cues, no empties, timestamps unchanged, UTF-8 no BOM. Restraint: Singlish particle 'ya' and affirmation 'okay' preserved.",
+      "files": [
+        "fixtures/kowajialiang-synth/kowajialiang-synth.en.raw.srt",
+        "fixtures/kowajialiang-synth/slides/"
+      ],
+      "assertions": [
+        "Output SRT exists with the .raw marker removed from the stem",
+        "Output has 24 contiguous cues with no empties and no holes",
+        "Every cue's timestamp is unchanged from the raw input",
+        "Output is UTF-8 without a BOM",
+        "'NCP' is corrected to 'MCP' (both occurrences)",
+        "'cloud' is corrected to 'Claude' (both occurrences, where it means the product)",
+        "'Jason' is corrected to 'JSON'",
+        "All 3 injected fillers (um, like, uh) are removed",
+        "All 2 injected stutters (AI AI, for for) are collapsed",
+        "Restraint: 'ya' and 'okay' are preserved, not scrubbed as filler"
+      ]
+    }
+  ]
+}

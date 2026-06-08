@@ -1,0 +1,68 @@
+{
+  "case": "kowajialiang-synth",
+  "source": "JBAgentic-20260530-meetup-1-KowaJiaLiang-OurAIJourney .en.srt cues 424-447",
+  "gold": "kowajialiang-synth.en.srt.gold",
+  "raw": "kowajialiang-synth.en.raw.srt",
+  "cue_count": 24,
+  "term_corrections": [
+    {
+      "cue": 2,
+      "wrong": "NCP",
+      "should_become": "MCP"
+    },
+    {
+      "cue": 7,
+      "wrong": "NCP",
+      "should_become": "MCP"
+    },
+    {
+      "cue": 18,
+      "wrong": "cloud",
+      "should_become": "Claude"
+    },
+    {
+      "cue": 19,
+      "wrong": "cloud",
+      "should_become": "Claude"
+    },
+    {
+      "cue": 24,
+      "wrong": "Jason",
+      "should_become": "JSON"
+    }
+  ],
+  "term_targets": [
+    "Claude",
+    "JSON",
+    "MCP"
+  ],
+  "injected_fillers": [
+    {
+      "cue": 1,
+      "added": "so um let me go next"
+    },
+    {
+      "cue": 6,
+      "added": "enabling the AI to like retrieve"
+    },
+    {
+      "cue": 15,
+      "added": "this is uh very hard"
+    }
+  ],
+  "injected_stutters": [
+    {
+      "cue": 2,
+      "added": "for AI AI agent"
+    },
+    {
+      "cue": 9,
+      "added": "for for every external"
+    }
+  ],
+  "restraint_keep": [
+    "ya",
+    "okay"
+  ],
+  "total_injected_errors": 10
+}

@@ -1,0 +1,171 @@
+1
+00:04:59,666 --> 00:05:03,666
+so more specific on the implementation
+
+2
+00:05:03,666 --> 00:05:06,866
+so it basically will be designed like this
+
+3
+00:05:07,000 --> 00:05:09,066
+so previously
+
+4
+00:05:09,266 --> 00:05:09,666
+at the
+
+5
+00:05:09,666 --> 00:05:13,500
+with the idea that at that time also quite popular
+
+6
+00:05:13,900 --> 00:05:15,433
+the OpenClaw the OpenClaw
+
+7
+00:05:15,433 --> 00:05:18,433
+and then also the Hermes agent is quite popular at the
+
+8
+00:05:18,433 --> 00:05:19,633
+at the time also
+
+9
+00:05:19,633 --> 00:05:21,633
+I'm also trying to explore about that
+
+10
+00:05:21,633 --> 00:05:22,966
+so I saw
+
+11
+00:05:23,766 --> 00:05:25,600
+so it is convenient
+
+12
+00:05:25,600 --> 00:05:28,400
+so this idea and then I think
+
+13
+00:05:28,400 --> 00:05:32,766
+maybe that one entire system can be top of that
+
+14
+00:05:32,766 --> 00:05:34,966
+or open claw and the Hermes agent
+
+15
+00:05:35,033 --> 00:05:36,866
+so that one we will
+
+16
+00:05:36,866 --> 00:05:40,400
+we will use the Telegram as the primary platform to
+
+17
+00:05:40,400 --> 00:05:41,266
+like
+
+18
+00:05:41,366 --> 00:05:43,666
+have send my message through
+
+19
+00:05:43,666 --> 00:05:44,200
+and then
+
+20
+00:05:44,200 --> 00:05:47,700
+the AI will basically do the category detection
+
+21
+00:05:47,766 --> 00:05:51,066
+and then it extract the necessary information
+
+22
+00:05:51,066 --> 00:05:52,400
+text all of that
+
+23
+00:05:52,400 --> 00:05:55,600
+and then all of that will be saved to the database
+
+24
+00:05:55,866 --> 00:05:58,500
+saved to the database and then all of the
+
+25
+00:05:58,500 --> 00:06:00,766
+records will be visible in the dashboard
+
+26
+00:06:01,000 --> 00:06:05,766
+so the agent will not only be just chatting with
+
+27
+00:06:05,833 --> 00:06:06,966
+me like that
+
+28
+00:06:07,100 --> 00:06:09,500
+it will actually perform the real action
+
+29
+00:06:09,666 --> 00:06:12,966
+through the use of tools and that is why
+
+30
+00:06:12,966 --> 00:06:14,833
+we will have to use
+
+31
+00:06:14,833 --> 00:06:19,333
+MCP which I chose in this particular use case
+
+32
+00:06:19,433 --> 00:06:23,233
+for this one I will quickly demo a little bit
+
+33
+00:06:23,233 --> 00:06:23,800
+like
+
+34
+00:06:23,800 --> 00:06:27,633
+what I have built over the case and true demo
+
+35
+00:06:27,633 --> 00:06:28,833
+I will just show
+
+36
+00:06:28,833 --> 00:06:32,466
+one is the Telegram and the second is the dashboard
+
+37
+00:06:32,600 --> 00:06:35,266
+so if you can see my telegram over here
+
+38
+00:06:35,266 --> 00:06:38,300
+this is how I use the telegram right now
+
+39
+00:06:38,300 --> 00:06:41,733
+I have used it for quite like a month already
+
+40
+00:06:42,033 --> 00:06:44,066
+so like I buy some
+
+41
+00:06:44,066 --> 00:06:47,066
+snacks and then have some voice messages
+
+42
+00:06:47,066 --> 00:06:48,300
+you see you can see it
+
+43
+00:06:48,300 --> 00:06:51,900
+records all of into the database using the MCP
