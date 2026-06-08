@@ -13,6 +13,16 @@ Before you read, create, or change a file, gather context in this order and stop
 If two `README.md` files disagree, follow the nearest one. Ignore folders that aren't relevant.
 
 
+## Git Workflow
+
+Work directly on `main`. No feature branches, no PRs.
+
+- **Commit early, commit often** — small, focused commits with clear messages.
+- **Never force-push** `main`.
+- **No branches** unless explicitly asked for a risky/experimental change. If you do branch, merge it back and delete the branch promptly.
+- **Commit message style**: imperative mood, one-line summary under 72 chars. Add a body paragraph only when the "why" isn't obvious from the summary.
+
+
 ## Authoring skills
 
 When creating, editing, or improving any skill in `skills/`:
