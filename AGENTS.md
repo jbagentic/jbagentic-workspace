@@ -4,15 +4,15 @@ Instructions for agents that apply to this entire workspace.
 
 ## Ground Rules
 
-### Context Discovery
+### Efficient Context Discovery
 
-Before you read, create, change a file, or explore the workspace, gather context efficiently first using 3 simple steps:
+Before you read, create, change a file, or explore the workspace, discover context efficiently using this approach:
 
 1. Read the nearest `README.md` **first** — check the file's own folder, then parent folders.
 2. Use its manifest to load **only** the linked docs your task needs.
-3. Still need more? Keep going up to the next `README.md`. Otherwise, stop once you know enough.
+3. You know enough? Then stop. Otherwise, keep going up to read the parent folder's `README.md`.
 
-Do **not** launch Explore/search subagents or run broad `Grep`/`Glob` sweeps before reading the nearest `README.md` — the manifest usually points you straight to the answer, so a blind search wastes tokens and skips the curated entry point.
+Do **not** launch Explore/search subagents or run broad `Grep`/`Glob` sweeps before using this more efficient approach. README files usually point you straight to the answer, so a blind search wastes tokens and skips the curated entry point.
 
 If two `README.md` files disagree, follow the nearest one. Ignore folders that aren't relevant.
 
