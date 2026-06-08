@@ -1,11 +1,8 @@
 # JB Agentic Workspace
 
-## About
-
 - Digital workspace for various projects run by JB Agentic community.
 
-
-## Skills
+## Skills to Use 
 
 Workspace-wide skills, usable in any folder. (Project-specific skills live with their project.)
 
