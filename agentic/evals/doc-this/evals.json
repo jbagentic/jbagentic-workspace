@@ -21,6 +21,20 @@
       "prompt": "Update the docs in agents/evals/doc-this/fixtures/existing-widget/ — we just added a rule that widgets wider or taller than 4000px are rejected with an error. Fold that in.",
       "expected_output": "The new 4000px limit added to the existing docs/widget-config.reference.md (the right home for a spec fact), not a new parallel file and not duplicated into the README. README manifest left intact. No frontmatter introduced. Output stays conformant and idempotent — structure unchanged apart from the added fact.",
       "files": ["fixtures/existing-widget/README.md", "fixtures/existing-widget/docs/widget-config.reference.md"]
+    },
+    {
+      "id": 3,
+      "name": "no-input-asks-for-material",
+      "prompt": "doc this",
+      "expected_output": "No source material was provided, so the skill asks the user what to document — it requests the raw material (notes, transcript, description, existing docs) first. It writes no files and does not scan or read unrelated repo files to invent a subject. Baseline (no skill) is expected to start scanning the repo, so this case discriminates.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "name": "suggests-home-folder-awaits-approval",
+      "prompt": "Doc this for me — here's my brain dump on our backup-tool CLI. Notes are in agents/evals/doc-this/fixtures/backup-tool-notes.md.",
+      "expected_output": "Material is provided but no target folder is named, so the skill proposes a single home folder (e.g. tools/backup-tool/) with a clear reason for the choice and level, then waits for the user's approval before writing anything. It does not silently create a folder and dump docs. Baseline (no skill) is expected to write docs without asking for placement approval, so this case discriminates.",
+      "files": ["fixtures/backup-tool-notes.md"]
     }
   ]
 }
