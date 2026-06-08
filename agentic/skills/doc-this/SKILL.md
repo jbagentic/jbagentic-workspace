@@ -18,8 +18,8 @@ Take raw input materials and produce documentation for a folder that conforms to
 
 ## Input
 
-- **Raw materials**: loose notes, a transcript, a description, a feature brief, or existing scattered/half-written docs. Whatever the user hands over as the source of truth for *what* to document.
-- **A home folder** (the directory the docs will describe). Often implied rather than stated — deriving it is the first workflow step, not an assumption.
+- **Raw materials**: loose notes, a transcript, a description, a feature brief, or existing scattered/half-written docs. Whatever the user hands over as the source of truth for *what* to document. **Required** — if none were handed over (e.g. the skill was invoked bare), ask the user for the source material first, before anything else. Never scan the repo to invent a subject.
+- **A home folder** (the directory the docs will describe). Use it if the user named one; otherwise infer it *from the raw material* and propose it with a reason for approval before writing — never assumed silently and never guessed by walking the tree.
 - **The Contextful Folder spec** — bundled with this skill at [`references/contextful-folder.reference.md`](references/contextful-folder.reference.md) and its [guide](references/contextful-folder.guide.md). These travel inside the skill, so the contract is satisfied in any repo without external files. Read the reference for the authoritative spec; the *Conventions* section below is a routing quick-reference.
 
 ## Output
@@ -43,13 +43,15 @@ Invariants (what makes the output conform):
 
 ## Workflow
 
-1. **Locate the home folder.** Decide the single directory the docs describe *and the right level for it* — attach to the nearest specific existing folder, or create one when none fits. Don't park docs too high (a parent that owns more than this material) or too low (a leaf that's really part of a larger unit). Everything downstream anchors to this folder layer. If the home is genuinely ambiguous, ask rather than guess.
+1. **Get the raw material first — don't scan.** This skill runs on material the user provides, not on a repo scan. If no material was handed over (e.g. the skill was invoked bare), ask the user what to document and stop. Don't glob the tree, read unrelated files, or infer a subject — that produces docs nobody asked for.
 
-2. **Classify each piece of raw material by intent.** For every chunk of input, ask which one job it does: *orientation* → README; *agent instruction/constraint* → AGENTS; *concept/explanation* → guide; *fact/spec* → reference; *procedure/recurring task* → runbook. One chunk, one home — if a note mixes intents, split it into atoms first. This routing is the heart of the skill.
+2. **Settle the home folder.** Decide the single directory the docs describe *and the right level for it* — attach to the nearest specific existing folder, or create one when none fits. Don't park docs too high (a parent that owns more than this material) or too low (a leaf that's really part of a larger unit). Everything downstream anchors to this folder layer. If the user already named a target folder, that's your answer — use it. If they didn't, infer the best fit *from the raw material*, tell the user your choice and why, and wait for their approval before writing — placement is the user's final call, so don't create a folder and dump docs into it unprompted.
 
-3. **Write or update the files.** Produce the README (with a manifest that links each deeper doc and a one-line hook), then any AGENTS and typed docs the material warranted. When updating an existing folder, fold new material into the right existing file instead of creating a parallel one; replace stale content rather than appending duplicates. **Whenever you add, remove, or rename a `docs/` file**, update the README manifest in the same pass so it lists every current doc and no stale ones. Keep each file to one topic and link across them.
+3. **Classify each piece of raw material by intent.** For every chunk of input, ask which one job it does: *orientation* → README; *agent instruction/constraint* → AGENTS; *concept/explanation* → guide; *fact/spec* → reference; *procedure/recurring task* → runbook. One chunk, one home — if a note mixes intents, split it into atoms first. This routing is the heart of the skill.
 
-4. **Verify before reporting done.** Confirm: a README exists; only approved file types/names are present; the manifest and `docs/` are in sync — every `docs/*` file has a manifest entry and every manifest link resolves; content is routed to the correct type; nothing is duplicated across files. Fix anything that fails.
+4. **Write or update the files.** Produce the README (with a manifest that links each deeper doc and a one-line hook), then any AGENTS and typed docs the material warranted. When updating an existing folder, fold new material into the right existing file instead of creating a parallel one; replace stale content rather than appending duplicates. **Whenever you add, remove, or rename a `docs/` file**, update the README manifest in the same pass so it lists every current doc and no stale ones. Keep each file to one topic and link across them.
+
+5. **Verify before reporting done.** Confirm: a README exists; only approved file types/names are present; the manifest and `docs/` are in sync — every `docs/*` file has a manifest entry and every manifest link resolves; content is routed to the correct type; nothing is duplicated across files. Fix anything that fails.
 
 ## Conventions
 
