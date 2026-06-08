@@ -2,6 +2,7 @@
   "permissions": {
     "allow": [
       "Bash(cat *)",
+      "Bash(date *)",
       "Bash(echo *)",
       "Bash(find *)",
       "Bash(grep *)",
@@ -23,7 +24,8 @@
       "Bash(git show *)",
       "Bash(git branch *)",
       "Bash(git status *)",
-      "WebSearch"
+      "WebSearch",
+      "Read(//tmp/**)"
     ]
   },
   "enabledPlugins": {
