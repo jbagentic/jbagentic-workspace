@@ -1,0 +1,50 @@
+{
+  "expectations": [
+    {
+      "text": "youtube-content.md exists",
+      "passed": true,
+      "evidence": "present"
+    },
+    {
+      "text": "Series suffix 'JB Agentic Meetup #1' present",
+      "passed": false,
+      "evidence": "0x"
+    },
+    {
+      "text": "Exactly 3 A/B titles",
+      "passed": false,
+      "evidence": "0 A/B titles: [] chars"
+    },
+    {
+      "text": "All titles <=70 chars",
+      "passed": false,
+      "evidence": "none"
+    },
+    {
+      "text": "Chapters start at 0:00",
+      "passed": true,
+      "evidence": "0:00 present"
+    },
+    {
+      "text": "Tags < 500 chars",
+      "passed": true,
+      "evidence": "~409 chars"
+    },
+    {
+      "text": "Verbatim short Luma link (lu.ma/jbagentic)",
+      "passed": false,
+      "evidence": "absent"
+    },
+    {
+      "text": "Category = Science & Technology",
+      "passed": true,
+      "evidence": "present"
+    }
+  ],
+  "summary": {
+    "pass_rate": 0.5,
+    "passed": 4,
+    "failed": 4,
+    "total": 8
+  }
+}

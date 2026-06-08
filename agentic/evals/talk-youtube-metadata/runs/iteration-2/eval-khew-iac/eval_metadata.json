@@ -1,0 +1,15 @@
+{
+  "eval_id": "eval-khew-iac",
+  "eval_name": "eval-khew-iac",
+  "prompt": "Generate the YouTube metadata for the Khew Jia Peng talk in deliverables/talks/JBAgentic-20260530-meetup-1-KhewJiaPeng-AIMeetsInfrastructure.",
+  "assertions": [
+    "youtube-content.md exists",
+    "Series suffix 'JB Agentic Meetup #1' present",
+    "Exactly 3 A/B titles",
+    "All titles <=70 chars",
+    "Chapters start at 0:00",
+    "Tags < 500 chars",
+    "Verbatim short Luma link (lu.ma/jbagentic)",
+    "Category = Science & Technology"
+  ]
+}

@@ -1,0 +1,413 @@
+{
+  "metadata": {
+    "skill_name": "talk-youtube-metadata",
+    "skill_path": "skills/talk-youtube-metadata",
+    "executor_model": "<model-name>",
+    "analyzer_model": "<model-name>",
+    "timestamp": "2026-06-05T12:06:35Z",
+    "evals_run": [
+      "eval-khew-iac",
+      "eval-kowa-journey",
+      "eval-soh-friction"
+    ],
+    "runs_per_configuration": 3
+  },
+  "runs": [
+    {
+      "eval_id": "eval-khew-iac",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 8,
+        "failed": 0,
+        "total": 8,
+        "time_seconds": 157.5,
+        "tokens": 56431,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "youtube-content.md exists",
+          "passed": true,
+          "evidence": "present"
+        },
+        {
+          "text": "Series suffix 'JB Agentic Meetup #1' present",
+          "passed": true,
+          "evidence": "6x"
+        },
+        {
+          "text": "Exactly 3 A/B titles",
+          "passed": true,
+          "evidence": "3 A/B titles: [63, 65, 62] chars"
+        },
+        {
+          "text": "All titles <=70 chars",
+          "passed": true,
+          "evidence": "lengths [62, 63, 65]"
+        },
+        {
+          "text": "Chapters start at 0:00",
+          "passed": true,
+          "evidence": "0:00 present"
+        },
+        {
+          "text": "Tags < 500 chars",
+          "passed": true,
+          "evidence": "~204 chars"
+        },
+        {
+          "text": "Verbatim short Luma link (lu.ma/jbagentic)",
+          "passed": true,
+          "evidence": "present"
+        },
+        {
+          "text": "Category = Science & Technology",
+          "passed": true,
+          "evidence": "present"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": "eval-kowa-journey",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 8,
+        "failed": 0,
+        "total": 8,
+        "time_seconds": 114.0,
+        "tokens": 40958,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "youtube-content.md exists",
+          "passed": true,
+          "evidence": "present"
+        },
+        {
+          "text": "Series suffix 'JB Agentic Meetup #1' present",
+          "passed": true,
+          "evidence": "4x"
+        },
+        {
+          "text": "Exactly 3 A/B titles",
+          "passed": true,
+          "evidence": "3 A/B titles: [67, 62, 70] chars"
+        },
+        {
+          "text": "All titles <=70 chars",
+          "passed": true,
+          "evidence": "lengths [62, 67, 70]"
+        },
+        {
+          "text": "Chapters start at 0:00",
+          "passed": true,
+          "evidence": "0:00 present"
+        },
+        {
+          "text": "Tags < 500 chars",
+          "passed": true,
+          "evidence": "~188 chars"
+        },
+        {
+          "text": "Verbatim short Luma link (lu.ma/jbagentic)",
+          "passed": true,
+          "evidence": "present"
+        },
+        {
+          "text": "Category = Science & Technology",
+          "passed": true,
+          "evidence": "present"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": "eval-soh-friction",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 8,
+        "failed": 0,
+        "total": 8,
+        "time_seconds": 71.4,
+        "tokens": 49588,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "youtube-content.md exists",
+          "passed": true,
+          "evidence": "present"
+        },
+        {
+          "text": "Series suffix 'JB Agentic Meetup #1' present",
+          "passed": true,
+          "evidence": "6x"
+        },
+        {
+          "text": "Exactly 3 A/B titles",
+          "passed": true,
+          "evidence": "3 A/B titles: [70, 60, 67] chars"
+        },
+        {
+          "text": "All titles <=70 chars",
+          "passed": true,
+          "evidence": "lengths [60, 67, 70]"
+        },
+        {
+          "text": "Chapters start at 0:00",
+          "passed": true,
+          "evidence": "0:00 present"
+        },
+        {
+          "text": "Tags < 500 chars",
+          "passed": true,
+          "evidence": "~204 chars"
+        },
+        {
+          "text": "Verbatim short Luma link (lu.ma/jbagentic)",
+          "passed": true,
+          "evidence": "present"
+        },
+        {
+          "text": "Category = Science & Technology",
+          "passed": true,
+          "evidence": "present"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": "eval-khew-iac",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.5,
+        "passed": 4,
+        "failed": 4,
+        "total": 8,
+        "time_seconds": 46.4,
+        "tokens": 64267,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "youtube-content.md exists",
+          "passed": true,
+          "evidence": "present"
+        },
+        {
+          "text": "Series suffix 'JB Agentic Meetup #1' present",
+          "passed": false,
+          "evidence": "0x"
+        },
+        {
+          "text": "Exactly 3 A/B titles",
+          "passed": false,
+          "evidence": "0 A/B titles: [] chars"
+        },
+        {
+          "text": "All titles <=70 chars",
+          "passed": false,
+          "evidence": "none"
+        },
+        {
+          "text": "Chapters start at 0:00",
+          "passed": true,
+          "evidence": "0:00 present"
+        },
+        {
+          "text": "Tags < 500 chars",
+          "passed": true,
+          "evidence": "~409 chars"
+        },
+        {
+          "text": "Verbatim short Luma link (lu.ma/jbagentic)",
+          "passed": false,
+          "evidence": "absent"
+        },
+        {
+          "text": "Category = Science & Technology",
+          "passed": true,
+          "evidence": "present"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": "eval-kowa-journey",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.5,
+        "passed": 4,
+        "failed": 4,
+        "total": 8,
+        "time_seconds": 47.4,
+        "tokens": 61634,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "youtube-content.md exists",
+          "passed": true,
+          "evidence": "present"
+        },
+        {
+          "text": "Series suffix 'JB Agentic Meetup #1' present",
+          "passed": false,
+          "evidence": "0x"
+        },
+        {
+          "text": "Exactly 3 A/B titles",
+          "passed": false,
+          "evidence": "0 A/B titles: [] chars"
+        },
+        {
+          "text": "All titles <=70 chars",
+          "passed": false,
+          "evidence": "none"
+        },
+        {
+          "text": "Chapters start at 0:00",
+          "passed": true,
+          "evidence": "0:00 present"
+        },
+        {
+          "text": "Tags < 500 chars",
+          "passed": true,
+          "evidence": "~393 chars"
+        },
+        {
+          "text": "Verbatim short Luma link (lu.ma/jbagentic)",
+          "passed": false,
+          "evidence": "absent"
+        },
+        {
+          "text": "Category = Science & Technology",
+          "passed": true,
+          "evidence": "present"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": "eval-soh-friction",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.5,
+        "passed": 4,
+        "failed": 4,
+        "total": 8,
+        "time_seconds": 61.2,
+        "tokens": 58511,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "youtube-content.md exists",
+          "passed": true,
+          "evidence": "present"
+        },
+        {
+          "text": "Series suffix 'JB Agentic Meetup #1' present",
+          "passed": true,
+          "evidence": "2x"
+        },
+        {
+          "text": "Exactly 3 A/B titles",
+          "passed": false,
+          "evidence": "0 A/B titles: [] chars"
+        },
+        {
+          "text": "All titles <=70 chars",
+          "passed": false,
+          "evidence": "none"
+        },
+        {
+          "text": "Chapters start at 0:00",
+          "passed": true,
+          "evidence": "0:00 present"
+        },
+        {
+          "text": "Tags < 500 chars",
+          "passed": false,
+          "evidence": "~592 chars"
+        },
+        {
+          "text": "Verbatim short Luma link (lu.ma/jbagentic)",
+          "passed": false,
+          "evidence": "absent"
+        },
+        {
+          "text": "Category = Science & Technology",
+          "passed": true,
+          "evidence": "present"
+        }
+      ],
+      "notes": []
+    }
+  ],
+  "run_summary": {
+    "with_skill": {
+      "pass_rate": {
+        "mean": 1.0,
+        "stddev": 0.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "time_seconds": {
+        "mean": 114.3,
+        "stddev": 43.0508,
+        "min": 71.4,
+        "max": 157.5
+      },
+      "tokens": {
+        "mean": 48992.3333,
+        "stddev": 7753.6795,
+        "min": 40958,
+        "max": 56431
+      }
+    },
+    "without_skill": {
+      "pass_rate": {
+        "mean": 0.5,
+        "stddev": 0.0,
+        "min": 0.5,
+        "max": 0.5
+      },
+      "time_seconds": {
+        "mean": 51.6667,
+        "stddev": 8.2712,
+        "min": 46.4,
+        "max": 61.2
+      },
+      "tokens": {
+        "mean": 61470.6667,
+        "stddev": 2881.474,
+        "min": 58511,
+        "max": 64267
+      }
+    },
+    "delta": {
+      "pass_rate": "+0.50",
+      "time_seconds": "+62.6",
+      "tokens": "-12478"
+    }
+  },
+  "notes": []
+}

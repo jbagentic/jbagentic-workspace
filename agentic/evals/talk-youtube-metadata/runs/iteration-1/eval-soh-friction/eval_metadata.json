@@ -1,0 +1,15 @@
+{
+  "eval_id": "eval-soh-friction",
+  "eval_name": "eval-soh-friction",
+  "prompt": "Make the youtube content for ...SohJunWei-AIForEverydayFriction.",
+  "assertions": [
+    "youtube-content.md exists",
+    "Series suffix 'JB Agentic Meetup #1' present",
+    "Exactly 3 A/B titles",
+    "All titles <=70 chars",
+    "Chapters start at 0:00",
+    "Tags < 500 chars",
+    "Verbatim short Luma link (lu.ma/jbagentic)",
+    "Category = Science & Technology"
+  ]
+}

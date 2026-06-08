@@ -1,0 +1,26 @@
+{
+  "skill_name": "doc-this",
+  "evals": [
+    {
+      "id": 0,
+      "name": "backup-tool-from-notes",
+      "prompt": "Doc this for me. Here's my brain dump on our backup-tool CLI — turn it into proper docs under a new folder tools/backup-tool/. Notes are in agents/evals/doc-this/fixtures/backup-tool-notes.md.",
+      "expected_output": "A standardized folder tools/backup-tool/ with: README.md (purpose + manifest linking the deeper docs); AGENTS.md capturing the two hard rules (always --dry-run before a real restore; never delete a full snapshot); docs/*.guide.md explaining incremental snapshot chains; docs/*.reference.md for the env vars + command list; docs/*.runbook.md for the step-by-step restore. {topic}.{type}.md naming, kebab-case. No frontmatter on any docs/*.md. No content duplicated across files; each manifest link resolves.",
+      "files": ["fixtures/backup-tool-notes.md"]
+    },
+    {
+      "id": 1,
+      "name": "readme-only-minimal",
+      "prompt": "Can you document the scripts/ folder? All it has is one script, release-notes.sh, that prints the git log since the last tag formatted as markdown bullets. Nothing fancy. Folder: agents/evals/doc-this/fixtures/scratch-scripts/.",
+      "expected_output": "Just a README.md in the folder — purpose, what release-notes.sh does, and how to run it. No docs/ subfolder, no AGENTS.md, no guide/reference/runbook invented from thin material. Demonstrates restraint: orientation-only content stays in the README rather than being over-split into typed docs.",
+      "files": ["fixtures/scratch-scripts/release-notes.sh"]
+    },
+    {
+      "id": 2,
+      "name": "fold-into-existing",
+      "prompt": "Update the docs in agents/evals/doc-this/fixtures/existing-widget/ — we just added a rule that widgets wider or taller than 4000px are rejected with an error. Fold that in.",
+      "expected_output": "The new 4000px limit added to the existing docs/widget-config.reference.md (the right home for a spec fact), not a new parallel file and not duplicated into the README. README manifest left intact. No frontmatter introduced. Output stays conformant and idempotent — structure unchanged apart from the added fact.",
+      "files": ["fixtures/existing-widget/README.md", "fixtures/existing-widget/docs/widget-config.reference.md"]
+    }
+  ]
+}

@@ -1,0 +1,1325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eval Review</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js" integrity="sha384-EnyY0/GSHQGSxSgMwaIPzSESbqoOLSexfnSMN2AP+39Ckmn92stwABZynq1JyzdT" crossorigin="anonymous"></script>
+  <style>
+    :root {
+      --bg: #faf9f5;
+      --surface: #ffffff;
+      --border: #e8e6dc;
+      --text: #141413;
+      --text-muted: #b0aea5;
+      --accent: #d97757;
+      --accent-hover: #c4613f;
+      --green: #788c5d;
+      --green-bg: #eef2e8;
+      --red: #c44;
+      --red-bg: #fceaea;
+      --header-bg: #141413;
+      --header-text: #faf9f5;
+      --radius: 6px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Lora', Georgia, serif;
+      background: var(--bg);
+      color: var(--text);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ---- Header ---- */
+    .header {
+      background: var(--header-bg);
+      color: var(--header-text);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    .header h1 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+    .header .instructions {
+      font-size: 0.8rem;
+      opacity: 0.7;
+      margin-top: 0.25rem;
+    }
+    .header .progress {
+      font-size: 0.875rem;
+      opacity: 0.8;
+      text-align: right;
+    }
+
+    /* ---- Main content ---- */
+    .main {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1.5rem 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    /* ---- Sections ---- */
+    .section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      flex-shrink: 0;
+    }
+    .section-header {
+      font-family: 'Poppins', sans-serif;
+      padding: 0.75rem 1rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border);
+      background: var(--bg);
+    }
+    .section-body {
+      padding: 1rem;
+    }
+
+    /* ---- Config badge ---- */
+    .config-badge {
+      display: inline-block;
+      padding: 0.2rem 0.625rem;
+      border-radius: 9999px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      margin-left: 0.75rem;
+      vertical-align: middle;
+    }
+    .config-badge.config-primary {
+      background: rgba(33, 150, 243, 0.12);
+      color: #1976d2;
+    }
+    .config-badge.config-baseline {
+      background: rgba(255, 193, 7, 0.15);
+      color: #f57f17;
+    }
+
+    /* ---- Prompt ---- */
+    .prompt-text {
+      white-space: pre-wrap;
+      font-size: 0.9375rem;
+      line-height: 1.6;
+    }
+
+    /* ---- Outputs ---- */
+    .output-file {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .output-file + .output-file {
+      margin-top: 1rem;
+    }
+    .output-file-header {
+      padding: 0.5rem 0.75rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      font-family: 'SF Mono', SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .output-file-header .dl-btn {
+      font-size: 0.7rem;
+      color: var(--accent);
+      text-decoration: none;
+      cursor: pointer;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-weight: 500;
+      opacity: 0.8;
+    }
+    .output-file-header .dl-btn:hover {
+      opacity: 1;
+      text-decoration: underline;
+    }
+    .output-file-content {
+      padding: 0.75rem;
+      overflow-x: auto;
+    }
+    .output-file-content pre {
+      font-size: 0.8125rem;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: 'SF Mono', SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
+    }
+    .output-file-content img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 4px;
+    }
+    .output-file-content iframe {
+      width: 100%;
+      height: 600px;
+      border: none;
+    }
+    .output-file-content table {
+      border-collapse: collapse;
+      font-size: 0.8125rem;
+      width: 100%;
+    }
+    .output-file-content table td,
+    .output-file-content table th {
+      border: 1px solid var(--border);
+      padding: 0.375rem 0.5rem;
+      text-align: left;
+    }
+    .output-file-content table th {
+      background: var(--bg);
+      font-weight: 600;
+    }
+    .output-file-content .download-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.875rem;
+      cursor: pointer;
+    }
+    .output-file-content .download-link:hover {
+      background: var(--border);
+    }
+    .empty-state {
+      color: var(--text-muted);
+      font-style: italic;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    /* ---- Feedback ---- */
+    .prev-feedback {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.625rem 0.75rem;
+      margin-top: 0.75rem;
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    .prev-feedback-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.25rem;
+      color: var(--text-muted);
+    }
+    .feedback-textarea {
+      width: 100%;
+      min-height: 100px;
+      padding: 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-family: inherit;
+      font-size: 0.9375rem;
+      line-height: 1.5;
+      resize: vertical;
+      color: var(--text);
+    }
+    .feedback-textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+    .feedback-status {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 0.5rem;
+      min-height: 1.1em;
+    }
+
+    /* ---- Grades (collapsible) ---- */
+    .grades-toggle {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+    .grades-toggle:hover {
+      color: var(--accent);
+    }
+    .grades-toggle .arrow {
+      margin-right: 0.5rem;
+      transition: transform 0.15s;
+      font-size: 0.75rem;
+    }
+    .grades-toggle .arrow.open {
+      transform: rotate(90deg);
+    }
+    .grades-content {
+      display: none;
+      margin-top: 0.75rem;
+    }
+    .grades-content.open {
+      display: block;
+    }
+    .grades-summary {
+      font-size: 0.875rem;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .grade-badge {
+      display: inline-block;
+      padding: 0.125rem 0.5rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .grade-pass { background: var(--green-bg); color: var(--green); }
+    .grade-fail { background: var(--red-bg); color: var(--red); }
+    .assertion-list {
+      list-style: none;
+    }
+    .assertion-item {
+      padding: 0.625rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.8125rem;
+    }
+    .assertion-item:last-child { border-bottom: none; }
+    .assertion-status {
+      font-weight: 600;
+      margin-right: 0.5rem;
+    }
+    .assertion-status.pass { color: var(--green); }
+    .assertion-status.fail { color: var(--red); }
+    .assertion-evidence {
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      margin-top: 0.25rem;
+      padding-left: 1.5rem;
+    }
+
+    /* ---- View tabs ---- */
+    .view-tabs {
+      display: flex;
+      gap: 0;
+      padding: 0 2rem;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .view-tab {
+      font-family: 'Poppins', sans-serif;
+      padding: 0.625rem 1.25rem;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      cursor: pointer;
+      border: none;
+      background: none;
+      color: var(--text-muted);
+      border-bottom: 2px solid transparent;
+      transition: all 0.15s;
+    }
+    .view-tab:hover { color: var(--text); }
+    .view-tab.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+    .view-panel { display: none; }
+    .view-panel.active { display: flex; flex-direction: column; flex: 1; overflow: hidden; }
+
+    /* ---- Benchmark view ---- */
+    .benchmark-view {
+      padding: 1.5rem 2rem;
+      overflow-y: auto;
+      flex: 1;
+    }
+    .benchmark-table {
+      border-collapse: collapse;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 0.8125rem;
+      width: 100%;
+      margin-bottom: 1.5rem;
+    }
+    .benchmark-table th, .benchmark-table td {
+      padding: 0.625rem 0.75rem;
+      text-align: left;
+      border: 1px solid var(--border);
+    }
+    .benchmark-table th {
+      font-family: 'Poppins', sans-serif;
+      background: var(--header-bg);
+      color: var(--header-text);
+      font-weight: 500;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .benchmark-table tr:hover { background: var(--bg); }
+    .benchmark-table tr.benchmark-row-with { background: rgba(33, 150, 243, 0.06); }
+    .benchmark-table tr.benchmark-row-without { background: rgba(255, 193, 7, 0.06); }
+    .benchmark-table tr.benchmark-row-with:hover { background: rgba(33, 150, 243, 0.12); }
+    .benchmark-table tr.benchmark-row-without:hover { background: rgba(255, 193, 7, 0.12); }
+    .benchmark-table tr.benchmark-row-avg { font-weight: 600; border-top: 2px solid var(--border); }
+    .benchmark-table tr.benchmark-row-avg.benchmark-row-with { background: rgba(33, 150, 243, 0.12); }
+    .benchmark-table tr.benchmark-row-avg.benchmark-row-without { background: rgba(255, 193, 7, 0.12); }
+    .benchmark-delta-positive { color: var(--green); font-weight: 600; }
+    .benchmark-delta-negative { color: var(--red); font-weight: 600; }
+    .benchmark-notes {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem;
+    }
+    .benchmark-notes h3 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.875rem;
+      margin-bottom: 0.75rem;
+    }
+    .benchmark-notes ul {
+      list-style: disc;
+      padding-left: 1.25rem;
+    }
+    .benchmark-notes li {
+      font-size: 0.8125rem;
+      line-height: 1.6;
+      margin-bottom: 0.375rem;
+    }
+    .benchmark-empty {
+      color: var(--text-muted);
+      font-style: italic;
+      text-align: center;
+      padding: 3rem;
+    }
+
+    /* ---- Navigation ---- */
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+      flex-shrink: 0;
+    }
+    .nav-btn {
+      font-family: 'Poppins', sans-serif;
+      padding: 0.5rem 1.25rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+      cursor: pointer;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text);
+      transition: all 0.15s;
+    }
+    .nav-btn:hover:not(:disabled) {
+      background: var(--bg);
+      border-color: var(--text-muted);
+    }
+    .nav-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+    .done-btn {
+      font-family: 'Poppins', sans-serif;
+      padding: 0.5rem 1.5rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+      color: var(--text);
+      cursor: pointer;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: all 0.15s;
+    }
+    .done-btn:hover {
+      background: var(--bg);
+      border-color: var(--text-muted);
+    }
+    .done-btn.ready {
+      border: none;
+      background: var(--accent);
+      color: white;
+      font-weight: 600;
+    }
+    .done-btn.ready:hover {
+      background: var(--accent-hover);
+    }
+    /* ---- Done overlay ---- */
+    .done-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 100;
+      justify-content: center;
+      align-items: center;
+    }
+    .done-overlay.visible {
+      display: flex;
+    }
+    .done-card {
+      background: var(--surface);
+      border-radius: 12px;
+      padding: 2rem 3rem;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      max-width: 500px;
+    }
+    .done-card h2 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .done-card p {
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+      line-height: 1.5;
+    }
+    .done-card .btn-row {
+      display: flex;
+      gap: 0.5rem;
+      justify-content: center;
+    }
+    .done-card button {
+      padding: 0.5rem 1.25rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+      cursor: pointer;
+      font-size: 0.875rem;
+    }
+    .done-card button:hover {
+      background: var(--bg);
+    }
+    /* ---- Toast ---- */
+    .toast {
+      position: fixed;
+      bottom: 5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--header-bg);
+      color: var(--header-text);
+      padding: 0.625rem 1.25rem;
+      border-radius: var(--radius);
+      font-size: 0.875rem;
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+      z-index: 200;
+    }
+    .toast.visible {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <div id="app" style="height:100vh; display:flex; flex-direction:column;">
+    <div class="header">
+      <div>
+        <h1>Eval Review: <span id="skill-name"></span></h1>
+        <div class="instructions">Review each output and leave feedback below. Navigate with arrow keys or buttons. When done, copy feedback and paste into Claude Code.</div>
+      </div>
+      <div class="progress" id="progress"></div>
+    </div>
+
+    <!-- View tabs (only shown when benchmark data exists) -->
+    <div class="view-tabs" id="view-tabs" style="display:none;">
+      <button class="view-tab active" onclick="switchView('outputs')">Outputs</button>
+      <button class="view-tab" onclick="switchView('benchmark')">Benchmark</button>
+    </div>
+
+    <!-- Outputs panel (qualitative review) -->
+    <div class="view-panel active" id="panel-outputs">
+    <div class="main">
+      <!-- Prompt -->
+      <div class="section">
+        <div class="section-header">Prompt <span class="config-badge" id="config-badge" style="display:none;"></span></div>
+        <div class="section-body">
+          <div class="prompt-text" id="prompt-text"></div>
+        </div>
+      </div>
+
+      <!-- Outputs -->
+      <div class="section">
+        <div class="section-header">Output</div>
+        <div class="section-body" id="outputs-body">
+          <div class="empty-state">No output files found</div>
+        </div>
+      </div>
+
+      <!-- Previous Output (collapsible) -->
+      <div class="section" id="prev-outputs-section" style="display:none;">
+        <div class="section-header">
+          <div class="grades-toggle" onclick="togglePrevOutputs()">
+            <span class="arrow" id="prev-outputs-arrow">&#9654;</span>
+            Previous Output
+          </div>
+        </div>
+        <div class="grades-content" id="prev-outputs-content"></div>
+      </div>
+
+      <!-- Grades (collapsible) -->
+      <div class="section" id="grades-section" style="display:none;">
+        <div class="section-header">
+          <div class="grades-toggle" onclick="toggleGrades()">
+            <span class="arrow" id="grades-arrow">&#9654;</span>
+            Formal Grades
+          </div>
+        </div>
+        <div class="grades-content" id="grades-content"></div>
+      </div>
+
+      <!-- Feedback -->
+      <div class="section">
+        <div class="section-header">Your Feedback</div>
+        <div class="section-body">
+          <textarea
+            class="feedback-textarea"
+            id="feedback"
+            placeholder="What do you think of this output? Any issues, suggestions, or things that look great?"
+          ></textarea>
+          <div class="feedback-status" id="feedback-status"></div>
+          <div class="prev-feedback" id="prev-feedback" style="display:none;">
+            <div class="prev-feedback-label">Previous feedback</div>
+            <div id="prev-feedback-text"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav" id="outputs-nav">
+      <button class="nav-btn" id="prev-btn" onclick="navigate(-1)">&#8592; Previous</button>
+      <button class="done-btn" id="done-btn" onclick="showDoneDialog()">Submit All Reviews</button>
+      <button class="nav-btn" id="next-btn" onclick="navigate(1)">Next &#8594;</button>
+    </div>
+    </div><!-- end panel-outputs -->
+
+    <!-- Benchmark panel (quantitative stats) -->
+    <div class="view-panel" id="panel-benchmark">
+      <div class="benchmark-view" id="benchmark-content">
+        <div class="benchmark-empty">No benchmark data available. Run a benchmark to see quantitative results here.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Done overlay -->
+  <div class="done-overlay" id="done-overlay">
+    <div class="done-card">
+      <h2>Review Complete</h2>
+      <p>Your feedback has been saved. Go back to your Claude Code session and tell Claude you're done reviewing.</p>
+      <div class="btn-row">
+        <button onclick="closeDoneDialog()">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // ---- Embedded data (injected by generate_review.py) ----
+    const EMBEDDED_DATA = {"skill_name": "talk-youtube-metadata", "runs": [{"id": "eval-khew-iac-with_skill", "prompt": "Generate the YouTube metadata for the Khew Jia Peng talk in deliverables/talks/JBAgentic-20260530-meetup-1-KhewJiaPeng-AIMeetsInfrastructure.", "eval_id": "eval-khew-iac", "outputs": [{"name": "youtube-content.md", "type": "text", "content": "# YouTube Content\n\n## Original Talk Title\n\nAI Meets Infrastructure \u2014 Integrating IaC, AI Agents, and Markdown\n\n## A/B Test Titles\n\n1. Terraform + AI Agent: Automate Cloud Infra | JB Agentic Meetup #1\n2. Can AI Deploy Your Cloud Infrastructure? | JB Agentic Meetup #1\n3. Stop Clicking the Portal: AI-Driven IaC | JB Agentic Meetup #1\n\n## Description\n\nTerraform is powerful but writing IaC by hand means reading docs, clicking portals, and juggling tickets. What if an AI agent could read your requirements from a markdown file and generate the Terraform code for you? Khew Jia Peng demos exactly that \u2014 a proof-of-concept where a Codex agent reads structured requirements, writes Terraform, validates with `terraform plan`, and even updates the documentation automatically.\n\n\ud83c\udfa4 Talk: \"AI Meets Infrastructure \u2014 Integrating IaC, AI Agents, and Markdown\" by Khew Jia Peng\n\ud83d\udccd JB Agentic Meetup #1 \u2014 30 May 2026\n\nWhat's covered:\n\u2022 What Infrastructure as Code (IaC) is and why it beats portal clicking\n\u2022 Writing infrastructure requirements in markdown for AI agents to consume\n\u2022 Live demo: Codex agent reads a new requirement and generates Terraform code\n\u2022 Agent behaviour rules and skills markdown to keep production safe\n\u2022 Terraform plan/validate/apply workflow with PR review before deploy\n\u2022 CI/CD pipeline as the next step to close the loop\n\u2022 Traditional manual provisioning vs AI-assisted infrastructure workflow\n\nChapters:\n0:00 Introduction \u2014 cloud engineer background\n0:39 Talk topic: AI meets infrastructure\n0:53 What is Infrastructure as Code (IaC)\n1:24 Before IaC: manual provisioning pain points\n2:58 The vision: markdown + AI agent + Terraform\n4:44 Terraform code walkthrough \u2014 variables and main.tf\n6:08 Terraform plan and apply demo\n6:51 Agent markdown: behaviour rules and skills\n8:53 Requirements markdown structure\n9:28 Live demo: adding a new requirement with Codex\n12:00 Agent reads code, validates, and runs terraform plan\n13:01 Protecting production \u2014 no terraform apply without approval\n14:01 End-to-end workflow and CI/CD next steps\n15:11 Traditional method vs AI-assisted method\n16:59 Q&A: How does Terraform handle existing infrastructure?\n19:53 Q&A: Git diff for tracking requirement changes\n21:38 Q&A: Plan-first approach and agent reasoning\n23:43 Q&A: Real project adoption and portfolio plans\n26:44 Q&A: Suggestions on agent structure and Context7\n30:40 Q&A: Cloud costing and pricing calculator\n34:55 Closing\n\n\ud83d\udcc5 JB Agentic is a friendly community in Johor Bahru for people building software with AI. We meet on the 4th Saturday of every month. Join the next one: https://lu.ma/jbagentic\n\n\ud83d\udc49 Subscribe for more talks: https://www.youtube.com/@jbagentic\n\n#Terraform #InfrastructureAsCode #AIAgents #CloudEngineering #JBAgentic\n\n## Tags\n\nTerraform, Infrastructure as Code, IaC, AI agents, cloud infrastructure, AWS, Azure, DevOps, cloud engineering, Codex, markdown, infrastructure automation, AI coding assistant, cloud architecture, JB Agentic\n\n## Category\n\nScience & Technology\n"}], "grading": {"expectations": [{"text": "youtube-content.md exists", "passed": true, "evidence": "present"}, {"text": "Series suffix 'JB Agentic Meetup #1' present", "passed": true, "evidence": "4x"}, {"text": "Exactly 3 A/B titles", "passed": true, "evidence": "3 titles found"}, {"text": "All titles <=70 chars", "passed": true, "evidence": "lengths [65, 63, 62]"}, {"text": "Chapters start at 0:00", "passed": true, "evidence": "0:00 present"}, {"text": "Tags < 500 chars", "passed": true, "evidence": "~207 chars"}, {"text": "Verbatim short Luma link (lu.ma/jbagentic)", "passed": true, "evidence": "present"}, {"text": "Category = Science & Technology", "passed": true, "evidence": "present"}]}}, {"id": "eval-khew-iac-without_skill", "prompt": "Generate the YouTube metadata for the Khew Jia Peng talk in deliverables/talks/JBAgentic-20260530-meetup-1-KhewJiaPeng-AIMeetsInfrastructure.", "eval_id": "eval-khew-iac", "outputs": [{"name": "youtube-content.md", "type": "text", "content": "# YouTube content \u2014 Khew Jia Peng, \"AI Meets Infrastructure\"\n\n## Original talk title\n\n**AI Meets Infrastructure** \u2014 integrating IaC, AI agents, and markdown (Khew Jia Peng, JB Agentic Meetup #1, 2026-05-30)\n\n## 3 A/B-test titles\n\n1. **Terraform + AI Agents: Deploy Cloud Infra from Markdown | JB Agentic Meetup #1** (70 chars)\n2. **Can AI Agents Replace Manual Cloud Provisioning? | JB Agentic Meetup #1** (68 chars)\n3. **AI Meets Infrastructure: IaC with AI Agents Demo | JB Agentic Meetup #1** (68 chars)\n\n## Description (copy-paste ready)\n\n```\nCloud engineer Khew Jia Peng demos his proof-of-concept for using AI agents to generate and deploy Infrastructure as Code (Terraform) from markdown requirements \u2014 no more clicking through cloud portals one by one.\n\nAt JB Agentic Meetup #1, Jia Peng walks through his end-to-end workflow: write infrastructure requirements in markdown, let an AI agent (Codex) read them and generate Terraform code, validate with terraform plan, and deploy to AWS \u2014 with guardrails to prevent accidental destruction.\n\nWhat's covered\n- What Infrastructure as Code (IaC) is and why manual portal provisioning is painful\n- The markdown-driven approach: requirement.md, skills.md, and agent.md\n- Defining agent behaviour and security rules to protect production infrastructure\n- Live demo: adding a new subnet requirement and watching the agent generate Terraform code\n- terraform plan validation and the \"no terraform apply\" guardrail\n- Seeing the new subnet created live in the AWS console\n- Traditional manual workflow vs AI-assisted cloud architect workflow\n- Future plans: CI/CD pipeline integration with PR review before deployment\n- Q&A highlights: Terraform state (tfstate), git diffs for change tracking, Context7 for up-to-date docs, and cloud costing with pricing calculators\n\nChapters\n0:00 Intro \u2014 Jia Peng's background as a cloud engineer\n0:40 What is Infrastructure as Code (IaC)?\n1:25 Before IaC: manual portal provisioning pain points\n2:15 The idea: integrating AI agents with IaC and markdown\n3:00 The workflow: requirements in markdown, agent generates Terraform, PR review\n4:30 Terraform code walkthrough: main.tf, variables, regions, subnets\n6:45 Agent markdown setup: behaviour rules and security guardrails\n8:00 Skills and requirement markdown files\n9:00 Live demo: adding a new subnet requirement with Codex\n12:00 Terraform plan validation and apply guardrail\n13:30 Applying the change \u2014 new subnet appears in AWS\n14:15 End-to-end workflow summary and CI/CD next steps\n15:00 Traditional vs AI-assisted workflow comparison\n17:00 Q&A: Handling updates to existing infrastructure and Terraform state\n20:00 Q&A: Git diffs for change review and plan-first agent approach\n22:30 Q&A: Real-project adoption and portfolio plans\n26:30 Q&A: Keeping agents accurate \u2014 Context7 for latest documentation\n30:45 Q&A: Cloud costing, pricing calculators, and reserved instances\n\nJB Agentic is a friendly community in Johor Bahru for people building software with AI. We meet on the 4th Saturday of every month. Join the next one: https://lu.ma/jbagentic\n\nSubscribe for more talks: https://www.youtube.com/@jbagentic\n\n#JBAgentic #InfrastructureAsCode #Terraform #AIagents #CloudEngineering\n```\n\n## Tags\n\n```\nAI agents, Infrastructure as Code, Terraform, IaC, cloud engineering, AWS, Azure, Codex, cloud automation, terraform plan, markdown driven development, DevOps, Context7, cloud architect, JB Agentic\n```\n\n(15 tags, 201 characters \u2014 under YouTube's 500-character limit.)\n\n## Category\n\nScience & Technology\n"}], "grading": {"expectations": [{"text": "youtube-content.md exists", "passed": true, "evidence": "present"}, {"text": "Series suffix 'JB Agentic Meetup #1' present", "passed": true, "evidence": "5x"}, {"text": "Exactly 3 A/B titles", "passed": true, "evidence": "3 titles found"}, {"text": "All titles <=70 chars", "passed": false, "evidence": "lengths [78, 71, 71]"}, {"text": "Chapters start at 0:00", "passed": true, "evidence": "0:00 present"}, {"text": "Tags < 500 chars", "passed": true, "evidence": "~197 chars"}, {"text": "Verbatim short Luma link (lu.ma/jbagentic)", "passed": true, "evidence": "present"}, {"text": "Category = Science & Technology", "passed": true, "evidence": "present"}]}}, {"id": "eval-kowa-journey-with_skill", "prompt": "Prep Kowa Jia Liang's talk for upload \u2014 I need youtube titles, description and tags. Folder: deliverables/talks/JBAgentic-20260530-meetup-1-KowaJiaLiang-OurAIJourney", "eval_id": "eval-kowa-journey", "outputs": [{"name": "youtube-content.md", "type": "text", "content": "# YouTube Content\n\n## Original Talk Title\n\nFrom Manual Coding to ChatGPT, Cursor and Claude Code\n\n## A/B Test Titles\n\n1. Our AI Coding Journey: ChatGPT to Claude Code | JB Agentic Meetup #1\n2. AI Cut 70% of Our PR Review Comments | JB Agentic Meetup #1\n3. How One Team Went AI-First with Claude Code | JB Agentic Meetup #1\n\n## Description\n\nA senior engineer walks through his team's real journey from manual coding to ChatGPT to Cursor to Claude Code \u2014 and shares the custom skills, permanent context files, and workflows that now power their daily development at a Singapore HRMS startup.\n\n\ud83c\udfa4 Talk: \"From Manual Coding to ChatGPT, Cursor and Claude Code\" by Kowa Jia Liang\n\ud83d\udccd JB Agentic Meetup #1 \u2014 30 May 2026\n\nWhat's covered:\n\u2022 The four stages of AI adoption: manual coding \u2192 ChatGPT \u2192 Cursor \u2192 Claude Code\n\u2022 Setting up permanent context with CLAUDE.md so the AI already knows your codebase\n\u2022 Building custom Claude skills for changelog generation and automated PR review\n\u2022 Using the Superpower plugin to plan and ship a full feature in 30 minutes\n\u2022 Connecting Claude to Sentry via MCP for automated bug diagnosis\n\u2022 Why the team chose Claude over Cursor: sub-agents and output quality vs speed\n\u2022 Live demo of the code-auditor skill eliminating 70\u201380% of redundant PR comments\n\nTech stack: Ruby on Rails, Vue.js, Claude Code, Cursor, Sentry, Superpower plugin\n\nChapters:\n0:00 Introduction\n0:26 About me \u2014 Payboy and the HRMS stack\n1:06 Evolution of AI in our workspace\n2:08 Browser-era AI vs editor-native AI\n3:17 How we use Claude Code: context, skills, MCP\n4:50 Permanent context \u2014 the CLAUDE.md knowledge file\n5:43 Custom skills and the skill repository\n7:22 Case study: Changelog skill\n8:42 Case study: Code-auditor for automated PR review\n13:03 Superpower plugin \u2014 AI development methodology\n14:24 Building an MRR report page in 30 minutes\n17:42 MCP tools and Sentry integration\n20:02 Why we moved from Cursor to Claude Code\n21:43 Q&A \u2014 skills, CLAUDE.md size, Codex, and accuracy\n\n\ud83d\udcc5 JB Agentic is a friendly community in Johor Bahru for people building software with AI. We meet on the 4th Saturday of every month. Join the next one: https://lu.ma/jbagentic\n\n\ud83d\udc49 Subscribe for more talks: https://www.youtube.com/@jbagentic\n\n#AIcoding #ClaudeCode #JBAgentic #SoftwareEngineering #CodingWithAI\n\n## Tags\n\nAI coding, Claude Code, Cursor, ChatGPT, AI code review, CLAUDE.md, custom skills, MCP tools, Sentry, Ruby on Rails, Vue.js, HRMS SaaS, agentic coding, developer productivity, JB Agentic\n\n## Category\n\nScience & Technology\n"}], "grading": {"expectations": [{"text": "youtube-content.md exists", "passed": true, "evidence": "present"}, {"text": "Series suffix 'JB Agentic Meetup #1' present", "passed": true, "evidence": "4x"}, {"text": "Exactly 3 A/B titles", "passed": true, "evidence": "3 titles found"}, {"text": "All titles <=70 chars", "passed": true, "evidence": "lengths [68, 59, 66]"}, {"text": "Chapters start at 0:00", "passed": true, "evidence": "0:00 present"}, {"text": "Tags < 500 chars", "passed": true, "evidence": "~186 chars"}, {"text": "Verbatim short Luma link (lu.ma/jbagentic)", "passed": true, "evidence": "present"}, {"text": "Category = Science & Technology", "passed": true, "evidence": "present"}]}}, {"id": "eval-kowa-journey-without_skill", "prompt": "Prep Kowa Jia Liang's talk for upload \u2014 I need youtube titles, description and tags. Folder: deliverables/talks/JBAgentic-20260530-meetup-1-KowaJiaLiang-OurAIJourney", "eval_id": "eval-kowa-journey", "outputs": [{"name": "youtube-content.md", "type": "text", "content": "# YouTube content \u2014 Kowa Jia Liang, \"Our AI Journey\"\n\n## Original talk title\n\nFrom Manual Coding to ChatGPT, Cursor and Claude Code\n\n## A/B test titles (3 variants)\n\n1. `Manual Coding to Claude Code: Our AI Journey | JB Agentic Meetup #1`\n2. `Why We Switched from Cursor to Claude Code | JB Agentic Meetup #1`\n3. `Ship a Feature in 30 Min with Claude Code | JB Agentic Meetup #1`\n\n## Description (copy-paste ready)\n\n```\nKowa Jia Liang, a senior software engineer at Payboy (an HRMS SaaS company in Singapore), shares his team's real-world journey from manual coding through ChatGPT and Cursor to their current setup with VS Code + Claude Code.\n\nHe walks through the practical tools and techniques that made AI coding work in production: a CLAUDE.md permanent context file, custom Claude skills for changelog generation and automated code auditing, the Superpowers plugin for plan-then-build feature development, and MCP integration with Sentry for debugging. The talk includes a live demo of a code-auditor skill that eliminates 70-80% of redundant PR review comments, and a real project where an MRR report page was shipped in roughly 30 minutes after being delayed for months.\n\nTalk: \"From Manual Coding to ChatGPT, Cursor and Claude Code\" by Kowa Jia Liang\n\nWhat you'll learn:\n- The evolution from manual coding to ChatGPT to Cursor to Claude Code\n- Setting up CLAUDE.md as a permanent context file for your codebase\n- Building custom Claude skills for changelog generation and code auditing\n- How the Superpowers plugin plans features, then uses parallel agents to build and test\n- A real case study: shipping an MRR report page in 30 minutes\n- Connecting Sentry via MCP for AI-assisted production debugging\n- Honest comparison of Cursor vs Claude Code and why a product-heavy team chose quality over speed\n\nChapters:\n0:00 Intro and about Kowa (Payboy, Ruby on Rails + Vue.js)\n1:06 Evolution of AI in the workspace\n2:08 Browser-era AI vs editor-native AI\n3:17 How Claude Code improves team performance\n4:50 Permanent context: the CLAUDE.md file\n5:43 Custom skills overview\n7:20 Case study: changelog skill\n8:42 Case study: code-auditor skill (automated pre-PR review)\n13:03 Superpowers: plan-first development methodology\n14:20 Real project: MRR report page built in 30 minutes\n17:35 MCP tools and connecting Sentry\n20:02 Cursor vs Claude Code comparison\n21:37 Q&A begins\n21:50 Q: What goes in your CLAUDE.md?\n24:24 Q: How do you organize skills by module vs layer?\n26:00 Q: Have you tried OpenAI Codex?\n29:04 Q: CLAUDE.md file size and token usage\n31:00 Q: Does the team share and maintain the same skills?\n33:46 Q: Cost of Claude Code and why try Codex\n35:00 Wrap-up\n\nJB Agentic is a volunteer-led community in Johor Bahru, Malaysia for tech practitioners building software with AI agents. We meet regularly to share best practices and real-world experiences.\n\nJoin the next meetup: https://lu.ma/jbagentic\nSubscribe for more talks: https://www.youtube.com/@jbagentic\n```\n\n## Tags\n\n```\nClaude Code, AI coding, Cursor IDE, ChatGPT, CLAUDE.md, MCP, Claude skills, Superpowers, Sentry, code review automation, AI pair programming, Ruby on Rails, Vue.js, HRMS, SaaS, software engineering, AI agents, developer productivity, JB Agentic, Payboy\n```\n\n## Category\n\nScience & Technology\n"}], "grading": {"expectations": [{"text": "youtube-content.md exists", "passed": true, "evidence": "present"}, {"text": "Series suffix 'JB Agentic Meetup #1' present", "passed": true, "evidence": "3x"}, {"text": "Exactly 3 A/B titles", "passed": true, "evidence": "3 titles found"}, {"text": "All titles <=70 chars", "passed": true, "evidence": "lengths [67, 65, 64]"}, {"text": "Chapters start at 0:00", "passed": true, "evidence": "0:00 present"}, {"text": "Tags < 500 chars", "passed": true, "evidence": "~252 chars"}, {"text": "Verbatim short Luma link (lu.ma/jbagentic)", "passed": true, "evidence": "present"}, {"text": "Category = Science & Technology", "passed": true, "evidence": "present"}]}}, {"id": "eval-soh-friction-with_skill", "prompt": "Make the youtube content for deliverables/talks/JBAgentic-20260530-meetup-1-SohJunWei-AIForEverydayFriction", "eval_id": "eval-soh-friction", "outputs": [{"name": "youtube-content.md", "type": "text", "content": "# YouTube Content\n\n## Original talk title\n\nAI for Everyday Friction\n\n## A/B test titles\n\n1. AI Expense Tracker With MCP and Telegram | JB Agentic Meetup #1\n2. Why I Built an AI Agent for My Receipts | JB Agentic Meetup #1\n3. Stop Logging Expenses Manually \u2014 Let AI Do It | JB Agentic Meetup #1\n\n## Description\n\nManual expense tracking is tedious \u2014 what if you could just text \"lunch 5.50\", send a voice note, or snap a receipt photo and have an AI agent handle the rest? Soh Jun Wei built exactly that: a personal expense agent using Hermes, MCP, and Telegram, and shares what he learned about designing reliable AI applications.\n\n\ud83c\udfa4 Talk: \"AI for Everyday Friction\" by Soh Jun Wei\n\ud83d\udccd JB Agentic Meetup #1 \u2014 30 May 2026\n\nWhat's covered:\n\u2022 The friction problem with traditional expense-tracking apps\n\u2022 Building an AI agent that accepts text, voice, and receipt photos via Telegram\n\u2022 Architecture: Hermes Agent + MCP + SQLite on Oracle Cloud free-tier VPS\n\u2022 Why MCP gives agents predictable, reusable tool boundaries instead of raw prompting\n\u2022 Separating fuzzy input (AI's strength) from deterministic actions (tools' strength)\n\u2022 MCP vs CLI: when each approach fits\n\u2022 How the developer role shifts from coder to AI orchestrator and architect\n\nTech stack: Hermes Agent, MCP, Telegram Bot API, SQLite, Next.js, Oracle Cloud, Groq Whisper API, OpenRouter (Qwen 3.5 27B), Gemini Flash Vision\n\nChapters:\n0:00 Introduction\n0:24 The problem: friction in expense tracking\n3:03 What if input were effortless?\n4:57 Architecture overview\n6:23 Live demo: Telegram bot & dashboard\n8:28 System architecture deep dive\n11:00 Why MCP instead of raw prompting\n14:33 MCP in practice: tool design\n16:07 Fuzzy input vs deterministic actions\n21:40 MCP vs CLI: when to use which\n24:20 Areas of improvement and future plans\n25:52 Key takeaways\n26:36 Q&A: Telegram + Hermes integration\n29:01 Q&A: WhatsApp support & open source plans\n\n\ud83d\udcc5 JB Agentic is a friendly community in Johor Bahru for people building software with AI. We meet on the 4th Saturday of every month. Join the next one: https://lu.ma/jbagentic\n\n\ud83d\udc49 Subscribe for more talks: https://www.youtube.com/@jbagentic\n\n#AIExpenseTracker #MCP #AIAgents #Telegram #JBAgentic\n\n## Tags\n\nAI expense tracker, MCP, Model Context Protocol, Hermes agent, Telegram bot, AI agent, personal finance AI, expense tracking, voice input AI, receipt scanning AI, SQLite, Oracle Cloud, Groq, Whisper, OpenRouter, fuzzy input, deterministic tools, AI architecture, developer workflow, JB Agentic\n\n## Category\n\nScience & Technology\n"}], "grading": {"expectations": [{"text": "youtube-content.md exists", "passed": true, "evidence": "present"}, {"text": "Series suffix 'JB Agentic Meetup #1' present", "passed": true, "evidence": "4x"}, {"text": "Exactly 3 A/B titles", "passed": true, "evidence": "3 titles found"}, {"text": "All titles <=70 chars", "passed": true, "evidence": "lengths [63, 62, 68]"}, {"text": "Chapters start at 0:00", "passed": true, "evidence": "0:00 present"}, {"text": "Tags < 500 chars", "passed": true, "evidence": "~293 chars"}, {"text": "Verbatim short Luma link (lu.ma/jbagentic)", "passed": true, "evidence": "present"}, {"text": "Category = Science & Technology", "passed": true, "evidence": "present"}]}}, {"id": "eval-soh-friction-without_skill", "prompt": "Make the youtube content for deliverables/talks/JBAgentic-20260530-meetup-1-SohJunWei-AIForEverydayFriction", "eval_id": "eval-soh-friction", "outputs": [{"name": "youtube-content.md", "type": "text", "content": "# YouTube Content\n\n## Title Options\n\n1. AI for Everyday Friction: Building a Personal Expense Agent with Hermes & MCP\n2. Building an AI Expense Tracker with Telegram, Hermes Agent & MCP\n3. From Friction to Flow: How I Built a Personal AI Expense Agent\n\n## Description\n\nSoh Jun Wei shares his journey building a personal AI-powered expense tracking agent that eliminates the everyday friction of recording expenses. Using Hermes Agent, MCP (Model Context Protocol), and Telegram as the input interface, Jun Wei demonstrates how text messages, voice notes, and receipt photos can be automatically processed and stored \u2014 no manual data entry required.\n\nThe talk covers the full architecture \u2014 from Telegram input through Hermes Agent for fuzzy understanding, to a custom MCP server for deterministic database operations \u2014 and explores the key design principle of separating what AI does best (natural language understanding) from what tools do best (validation, calculation, data persistence). Jun Wei also reflects on how AI is shifting the developer role from coder to architect and orchestrator.\n\nPresented at JB Agentic Meetup on 30 May 2026.\n\n## Chapters\n\n0:00 Introduction\n0:32 The problem: friction in expense tracking\n3:04 Imagining effortless input \u2014 text, voice, and receipt photos\n4:57 System architecture overview\n6:28 Live demo: Telegram bot and expense dashboard\n8:28 Architecture deep dive \u2014 Hermes, Groq, OpenRouter, MCP\n11:58 Why MCP over raw prompts \u2014 reducing unpredictability\n14:33 MCP as well-defined tool boundaries\n16:07 Key design principle: fuzzy input vs deterministic action\n17:07 How AI changes the developer role\n19:55 Fuzzy input vs deterministic action \u2014 detailed breakdown\n24:04 MCP vs CLI \u2014 when to use which\n25:06 Areas for improvement and next steps\n26:01 Conclusion and key takeaways\n26:36 Q&A: Telegram integration with Hermes\n29:02 Q&A: WhatsApp support\n29:53 Q&A: Open source plans\n30:30 Q&A: Whisper model \u2014 small vs large, usage limits\n\n## Tags\n\nAI agent, expense tracker, personal finance, MCP, Model Context Protocol, Hermes Agent, Telegram bot, voice input, receipt scanning, AI tools, developer workflow, fuzzy input, deterministic action, OpenRouter, Groq, Whisper, speech to text, SQLite, Next.js, Docker, Oracle Cloud, AI architecture, agentic AI, JB Agentic, meetup talk\n\n## Category\n\nScience & Technology\n"}], "grading": {"expectations": [{"text": "youtube-content.md exists", "passed": true, "evidence": "present"}, {"text": "Series suffix 'JB Agentic Meetup #1' present", "passed": false, "evidence": "not found"}, {"text": "Exactly 3 A/B titles", "passed": true, "evidence": "3 titles found"}, {"text": "All titles <=70 chars", "passed": false, "evidence": "lengths [77, 64, 62]"}, {"text": "Chapters start at 0:00", "passed": true, "evidence": "0:00 present"}, {"text": "Tags < 500 chars", "passed": true, "evidence": "~332 chars"}, {"text": "Verbatim short Luma link (lu.ma/jbagentic)", "passed": false, "evidence": "not found"}, {"text": "Category = Science & Technology", "passed": true, "evidence": "present"}]}}], "previous_feedback": {}, "previous_outputs": {"eval-khew-iac-with_skill": [{"name": "youtube-content.md", "type": "text", "content": "# YouTube content \u2014 Khew Jia Peng, \"AI Meets Infrastructure\"\n\nJB Agentic Meetup #1 \u00b7 2026-05-30 \u00b7 Speaker: Khew Jia Peng\n\n---\n\n## Original talk title\n\n**AI Meets Infrastructure** \u2014 integrating Infrastructure as Code (IaC), AI agents, and markdown.\n\n---\n\n## 3 A/B-test titles\n\nEach is \u2264 70 characters including the ` | JB Agentic Meetup #1` suffix, with the searchable keyword ahead of the ~60-char search-truncation point. The three test different angles.\n\n1. **(keyword / SEO)** `AI Agents + Terraform: IaC from Markdown | JB Agentic Meetup #1` \u2014 63 chars\n2. **(curiosity hook)** `I Let AI Write My Terraform Infrastructure | JB Agentic Meetup #1` \u2014 65 chars\n3. **(concrete benefit)** `Deploy Cloud Infra Faster with AI + IaC | JB Agentic Meetup #1` \u2014 62 chars\n\n---\n\n## Description (copy-paste ready)\n\n```\nAI agents + Terraform: drive Infrastructure as Code (IaC) from plain markdown.\nA cloud engineer's POC for provisioning Azure/AWS infra with an AI agent \u2014 write requirements in markdown, let the agent generate and validate the Terraform, then plan/apply behind a PR review.\n\n\"AI Meets Infrastructure\" by Khew Jia Peng \u2014 JB Agentic Meetup #1.\n\nWhat's covered:\n\u2022 What Infrastructure as Code (IaC) is, and why click-by-click portal provisioning doesn't scale\n\u2022 A markdown-driven setup: agents.md (behaviour + guardrails), skills.md (workflow), requirement.md\n\u2022 Live demo: adding a new subnet via a Codex agent \u2192 terraform plan \u2192 apply on AWS\n\u2022 Guardrails so the agent never blindly runs `terraform apply` in production\n\u2022 How Terraform state (tfstate) tracks existing infra so changes are diffed, not recreated\n\u2022 Q&A: git-diff + plan-first workflows, the Context7 docs skill, cost planning, AI for architecture\n\nChapters:\n0:00 Background: cloud engineer meets AI, and what IaC is\n2:15 The pain: manual, click-by-click portal provisioning\n3:00 The idea: markdown + AI agent + IaC\n4:30 Terraform demo: main.tf, terraform plan, apply\n6:45 Markdown setup: agents.md, skills.md, requirement.md\n9:00 Live demo: new requirement \u2192 Codex agent \u2192 new subnet\n14:15 Next step: CI/CD with PR-gated deploys\n15:00 Traditional vs AI-assisted infrastructure\n16:30 Q&A: verifying the requirement \u2192 Terraform flow\n18:00 Q&A: updating live infra and Terraform state (tfstate)\n20:50 Q&A: git-diff and plan-first guardrails\n22:41 Q&A: using it on a real project yet?\n27:20 Q&A: avoiding hallucinated config + the Context7 skill\n30:40 Q&A: cost planning with the pricing calculator\n34:24 Q&A: using AI for architecture diagrams\n\n(Chapter timestamps assume the published video starts where the transcript starts \u2014 sanity-check them against the final cut, since an intro card or trimmed lead-in shifts everything.)\n\nJB Agentic is a friendly community in Johor Bahru for people building software with AI. We meet on the 4th Saturday of every month to share what's working, honest lessons, and the problems we're still figuring out. Join us: https://lu.ma/jbagentic\n\nSubscribe for more talks: https://www.youtube.com/@jbagentic?sub_confirmation=1\n\n#JBAgentic #InfrastructureAsCode #Terraform #AIagents #DevOps\n```\n\n---\n\n## Tags\n\n```\nJB Agentic, AI infrastructure, Infrastructure as Code, IaC, Terraform, AI agents, Codex, Azure, AWS, cloud engineering, DevOps, markdown driven development, Terraform AI, Context7, provisioning automation\n```\n\n(15 tags, 204 characters \u2014 under YouTube's 500-character limit.)\n\n---\n\n## Category\n\nScience & Technology\n"}], "eval-khew-iac-without_skill": [{"name": "youtube-content.md", "type": "text", "content": "# YouTube Content \u2014 AI Meets Infrastructure (Khew Jia Peng)\n\n## Category\n\nScience & Technology\n\n---\n\n## Title Options\n\n1. AI Meets Infrastructure: Deploying Cloud with IaC, AI Agents & Markdown | Khew Jia Peng\n2. How I Use AI Agents + Terraform to Deploy Cloud Infrastructure from Markdown\n3. From Clicking Portals to Prompting Agents: AI-Driven Infrastructure as Code\n4. Let AI Write Your Terraform: An IaC + Agent Markdown Workflow (Live Demo)\n5. AI + Infrastructure as Code: Turning Requirements into Deployed Cloud Resources\n\nRecommended primary title: **AI Meets Infrastructure: Deploying Cloud with IaC, AI Agents & Markdown | Khew Jia Peng**\n\n---\n\n## Description\n\nWhat if you could deploy cloud infrastructure just by writing down your requirements and letting an AI agent do the rest?\n\nIn this JBAgentic meetup talk, cloud engineer Khew Jia Peng shares a proof-of-concept that brings AI into the infrastructure layer, not just the software layer. Instead of clicking through the Azure or AWS portal one resource at a time, Jia Peng captures requirements in a markdown file and lets an AI agent (Codex) read it, generate Terraform Infrastructure as Code (IaC), validate it, and run `terraform plan` before anything touches a live environment.\n\nHe walks through the full end-to-end workflow live: writing requirements in markdown, defining agent behaviour and skills markdown (including guardrails so the agent never blindly runs `terraform apply` on production), generating Terraform, planning a new subnet, and watching the resource appear in AWS. He also covers how Terraform state (`tfstate`) tracks existing infrastructure, how plan/apply handles updates and destroys, and where this is all heading next: a CI/CD pipeline with human PR review before deployment.\n\nThe talk closes with a rich Q&A on git diffing requirements, planning before implementing, avoiding agent hallucination with tools like Context7, cost planning with cloud pricing calculators and reservations, and splitting agents and skills (VM, network) for larger workflows.\n\nTopics covered:\n- What Infrastructure as Code (IaC) is and why it beats manual portal provisioning\n- Integrating AI agents, skills markdown, and agent markdown with Terraform\n- A live demo: requirement.md to generated Terraform to deployed AWS subnet\n- Terraform plan vs apply, and how tfstate tracks existing resources\n- Guardrails to stop agents from messing up production infrastructure\n- Next steps: CI/CD with human-in-the-loop PR review and approval\n- Q&A: Context7, git diff on requirements, cost planning, reservations, and scaling agents/skills\n\nSpeaker: Khew Jia Peng \u2014 Cloud Engineer\n\nRecorded at a JBAgentic meetup, 30 May 2026.\n\nChapters:\n00:00 Intro \u2014 who is Jia Peng and what is a cloud engineer\n00:36 What is Infrastructure as Code (IaC)?\n01:24 The problem: manual provisioning by clicking portals\n02:55 The idea: integrating IaC with AI agents and markdown\n04:46 Live: Terraform code, plan, and apply explained\n06:45 Agent markdown, skills markdown, and requirement.md\n09:13 Demo \u2014 adding a new subnet from a requirement\n13:00 Deploying to AWS and the end-to-end workflow\n15:08 Traditional vs AI-assisted method\n16:19 Wrap-up: the proof of concept and next steps\n17:00 Q&A \u2014 state files, git diff, plan-first, and reviews\n22:34 Q&A \u2014 real-world use, MCP servers, and portfolio plans\n26:48 Q&A \u2014 avoiding hallucination with Context7\n30:40 Q&A \u2014 Terraform and cost planning (pricing calculator, reservations)\n33:18 Q&A \u2014 AI for architecture diagrams\n35:01 Closing\n\n#InfrastructureAsCode #Terraform #AIAgents #CloudEngineering #DevOps\n\n---\n\n## Tags\n\ninfrastructure as code, IaC, terraform, AI agents, cloud engineering, devops, AWS, Azure, markdown, agentic AI, codex, AI infrastructure, cloud automation, terraform plan, terraform apply, tfstate, CI/CD, infrastructure automation, AI coding agents, skills markdown, agent markdown, cloud architecture, context7, JBAgentic, AI meets infrastructure, provisioning, subnet, VPC, pricing calculator, Khew Jia Peng\n"}], "eval-kowa-journey-with_skill": [{"name": "youtube-content.md", "type": "text", "content": "# YouTube content \u2014 Kowa Jia Liang, \"Our AI Journey\"\n\n## Original talk title\n\nFrom Manual Coding to ChatGPT, Cursor and Claude Code\n\n## A/B test titles (3 variants)\n\nTest these as 3 different hypotheses (journey / curiosity / concrete benefit). Each is \u2264 70 characters including the ` | JB Agentic Meetup #1` suffix, with the searchable keyword ahead of the ~60-char search-truncation point.\n\n1. `Manual Coding to Claude Code: Our AI Journey | JB Agentic Meetup #1`  *(journey / SEO \u2014 67 chars)*\n2. `Why a SaaS Team Switched to Claude Code | JB Agentic Meetup #1`  *(curiosity hook \u2014 62 chars)*\n3. `Ship a Stuck Feature in 30 Min with Claude Code | JB Agentic Meetup #1`  *(concrete benefit \u2014 70 chars)*\n\n## Description (copy-paste ready)\n\n```\nA senior engineer at an HRMS SaaS company walks through his team's real AI coding journey \u2014 from manual coding and copy-pasting into ChatGPT, to Cursor, to VS Code with Claude Code \u2014 and the setup that finally made AI useful in production.\n\nKowa Jia Liang (Payboy, Singapore) shows the CLAUDE.md permanent-context file, custom Claude skills (a changelog generator and a code-auditor), the Superpowers plan-then-build workflow, and wiring Sentry in through MCP \u2014 with an honest Cursor-vs-Claude comparison and a long, practical Q&A.\n\nTalk: \"From Manual Coding to ChatGPT, Cursor and Claude Code\" by Kowa Jia Liang\n\nWhat's covered:\n- The evolution: manual coding \u2192 ChatGPT \u2192 Cursor \u2192 Claude Code\n- CLAUDE.md as a permanent context file (and the struggle to keep it near 200 lines)\n- Custom skills per module, plus a code-auditor that wipes out redundant PR comments\n- Superpowers: a plan you review first, then agents build it with test cases\n- An MRR report page shipped in ~30 minutes after being stalled for months\n- Connecting Sentry through MCP to debug straight from production logs\n- Why a product-heavy team picked Claude (quality) over Cursor (speed)\n- Q&A: CLAUDE.md contents, splitting skills by module, Codex, token cost, maintenance\n\nChapters:\n0:00 Intro \u2014 Kowa, Payboy HRMS (Rails + Vue)\n1:00 The evolution: manual coding to Claude Code\n2:15 Browser-era AI vs editor-native AI\n3:00 CLAUDE.md: the permanent context file\n4:30 Custom skills and SKILL.md overview\n7:30 Case study: the changelog skill\n9:00 Case study: the code-auditor (automated pre-PR review)\n12:45 Superpowers: plan first, then build with tests\n14:15 Real project: an MRR report in ~30 minutes\n18:00 MCP and Sentry for debugging from production\n20:15 Cursor vs Claude: why we chose Claude\n21:45 Q&A \u2014 CLAUDE.md, splitting skills, Codex, tokens, maintenance\n\n(Timestamps assume the published video starts where the recording starts; if an intro card or trimmed lead-in is added, sanity-check them against the final cut.)\n\nJB Agentic is a friendly community in Johor Bahru for people building software with AI. We meet on the 4th Saturday of every month to share what's working, honest lessons, and the problems we're still figuring out. Join us: https://lu.ma/jbagentic\n\nSubscribe for more talks: https://www.youtube.com/@jbagentic?sub_confirmation=1\n\n#JBAgentic #ClaudeCode #AICoding #MCP #Cursor\n```\n\n## Tags\n\n```\nClaude Code, AI coding, ChatGPT, Cursor IDE, CLAUDE.md, MCP, Claude skills, Superpowers, Sentry, AI code review, agentic coding, Ruby on Rails, software engineering, AI agents, Vibe coding\n```\n\nTag character count: 188 (under YouTube's 500-char limit).\n\n## Category\n\nScience & Technology\n"}], "eval-kowa-journey-without_skill": [{"name": "youtube-content.md", "type": "text", "content": "# YouTube Metadata: Our AI Journey \u2014 From Manual Coding to ChatGPT, Cursor & Claude Code\n\n## Category\n\nScience & Technology\n\n---\n\n## Title Options\n\n1. Our AI Coding Journey: From Manual Coding to Claude Code | Kowa Jia Liang\n2. How a SaaS Team Ships Faster with Claude Code, Skills & MCP | Kowa Jia Liang\n3. From ChatGPT to Cursor to Claude Code: A Real Engineering Team's AI Workflow\n4. Claude Code in Production: CLAUDE.md, Custom Skills & MCP at a HR SaaS Company\n5. Building AI Coding Workflows That Actually Work | Kowa Jia Liang (Payboy)\n\n**Recommended:** Option 1 \u2014 clear speaker attribution, names the through-line of the talk, and front-loads the keyword \"Claude Code.\"\n\n---\n\n## Description\n\nWhat does it actually look like when a working software team adopts AI coding tools day to day? In this JB Agentic meetup talk, Kowa Jia Liang, a senior software engineer at Payboy (a Singapore-based HR SaaS company), walks through his team's real evolution from manual coding to ChatGPT, Cursor, and finally Claude Code.\n\nKowa shares the concrete setup his team uses to ship features faster on a Ruby on Rails + Vue.js codebase, including the trade-offs they hit along the way and why they ultimately chose quality over raw speed.\n\nIn this talk:\n- The evolution of AI in their workspace: manual coding \u2192 ChatGPT (context-blind copy-paste) \u2192 Cursor IDE \u2192 VS Code + Claude Code\n- Permanent context with CLAUDE.md: storing tech stack, architecture, portals, and code review checklists so the agent already knows what's expected\n- Custom skills organized by module (attendance, claims, etc.) to store product logic and trigger on demand\n- Case study: a \"changelog\" skill that auto-summarizes PR changes\n- Case study: a \"code-auditor\" skill for pre-PR review that eliminates 70-80% of redundant review comments\n- Using the Superpower plugin to plan and build a delayed MRR reporting feature in about 30 minutes, tests included\n- MCP tools explained (the \"USB-C for AI apps\") and a plan to connect Sentry for faster bug triage\n- Why they moved from Cursor to Claude Code: sub-agents and context management vs. speed and autocomplete\n- Honest Q&A on token costs, CLAUDE.md file size and the 200-line guideline, on-demand references, QA/staging before production, and testing Codex as a cheaper alternative\n\nThis is a practical, no-hype look at how AI coding tools fit into a real product team's workflow, with candid notes on what works, what still breaks, and what needs ongoing maintenance.\n\nSpeaker: Kowa Jia Liang, Senior Software Engineer at Payboy\nEvent: JB Agentic Meetup\n\nChapters:\n00:00 Intro & about the speaker\n01:06 Evolution of AI in our workspace\n02:08 Browser era vs. editor-native AI\n03:16 Three ways we automate with Claude Code\n04:50 Permanent context (CLAUDE.md)\n05:43 Custom skills organized by module\n07:20 Case study: changelog skill\n08:38 Case study: code-auditor skill\n13:03 Superpower plugin & the MRR report build\n17:35 MCP tools & connecting Sentry\n20:02 Why we moved from Cursor to Claude Code\n21:43 Q&A\n\n#ClaudeCode #AICoding #SoftwareEngineering\n\n---\n\n## Tags\n\nClaude Code, AI coding, AI for developers, Cursor IDE, ChatGPT for coding, CLAUDE.md, AI agents, coding agents, MCP, Model Context Protocol, Sentry MCP, AI workflow, software engineering, Ruby on Rails, Vue.js, SaaS development, code review automation, custom skills, Superpower plugin, AI pair programming, developer productivity, prompt engineering, Codex, JB Agentic, Payboy, agentic coding\n\n---\n\n## Notes\n\n- The talk is informal meetup-style with a substantial live Q&A (roughly the second half).\n- Chapter timestamps are derived from the SRT transcript and approximate the start of each topic.\n- Speaker name spelling per transcript: \"Kowa Jia Liang\" (surname Kowa). Company: \"Payboy Private Limited.\"\n- Suggested thumbnail text: \"Manual Coding \u2192 Claude Code\" or \"Claude Code in Production.\"\n"}], "eval-soh-friction-with_skill": [{"name": "youtube-content.md", "type": "text", "content": "# YouTube content \u2014 Soh Jun Wei, \"AI for Everyday Friction\"\n\n## Original talk title\n\n**AI for Everyday Friction** \u2014 building a personal expense agent with Hermes and MCP (Soh Jun Wei, JB Agentic Meetup #1, 2026-05-30)\n\n## 3 A/B-test titles\n\nEach is \u226470 characters including the ` | JB Agentic Meetup #1` suffix, with the searchable keyword ahead of the suffix. The three test different angles.\n\n1. **Keyword / SEO** \u2014 `Build an AI Expense Tracker with MCP + Telegram | JB Agentic Meetup #1` (70 chars)\n2. **Curiosity hook** \u2014 `Why I Stopped Letting AI Write My SQL | JB Agentic Meetup #1` (60 chars)\n3. **Benefit / outcome** \u2014 `Log Expenses by Voice, Text or Receipt Photo | JB Agentic Meetup #1` (67 chars)\n\n## Description (copy-paste ready)\n\n```\nBuild an AI expense tracker that logs spending from a plain Telegram message, a voice note, or a photo of a receipt \u2014 and learn why the reliable part isn't the AI, it's the MCP tools behind it.\n\nSoh Jun Wei shares the full journey of building \"AI for Everyday Friction\" \u2014 a personal expense-tracking agent on the Hermes agent framework, using MCP to give the AI safe, predictable tools \u2014 at JB Agentic Meetup #1.\n\nWhat's covered\n- The real enemy isn't a bad app, it's friction: the small steps that stop you logging expenses\n- The idea: log \"lunch 5.5\" by text, voice, or a receipt photo and have it just save\n- Live demo: Telegram bot capturing snacks, voice notes, and receipts into a dashboard\n- The architecture: Telegram \u2192 Hermes agent \u2192 MCP tools \u2192 SQLite, hosted free on Oracle Cloud\n- Speech-to-text with Whisper (local vs Groq free API) and OpenRouter (Qwen, Gemini Flash vision)\n- Why prompting the agent to write SQL is unpredictable, and how an MCP tool fixes it\n- The core lesson: AI for fuzzy input, deterministic tools for hard rules like money and validation\n- From coder to orchestrator: developers design the boundaries the AI is allowed to act within\n- MCP vs CLI: when each makes sense for handing work to an agent\n- Q&A: how Hermes polls Telegram via a gateway, WhatsApp support, open-sourcing, Whisper limits\n\nChapters\n0:00 Intro: AI for everyday friction, and the expense-logging problem\n2:15 The enemy is friction, not the app\n3:00 The idea: effortless input by text, voice, or receipt photo\n4:30 Implementation: Telegram + Hermes agent + MCP\n6:00 Live demo: logging snacks, voice notes, and receipts\n7:30 Building a dashboard for manual control\n8:15 Architecture and hosting free on Oracle Cloud\n9:45 Speech-to-text and models: Whisper, Groq, OpenRouter, Gemini\n10:30 The MCP execution layer and why raw SQL is risky\n13:30 What MCP actually is, and why it beats prompting\n15:45 Fuzzy input for AI, deterministic tools for hard rules\n17:15 AI won't replace developers \u2014 coder to orchestrator\n19:30 Splitting fuzzy input from deterministic action\n21:00 MCP vs CLI: how much work to hand the AI\n24:00 Limitations, next steps, and adding a personality\n25:30 Conclusion: start from small friction\n26:15 Q&A: how Hermes integrates with Telegram (polling, gateway)\n28:30 Q&A: WhatsApp support and open-sourcing the project\n30:45 Q&A: Whisper small vs large, accuracy, and usage limits\n\nTimestamps assume the published video starts where the transcript starts; if an intro card or trimmed lead-in shifts the timeline, sanity-check the chapters against the final cut.\n\nAbout JB Agentic\nJB Agentic is a friendly community in Johor Bahru for people building software with AI. We meet on the 4th Saturday of every month to share what's working, honest lessons, and the problems we're still figuring out. Join us: https://lu.ma/jbagentic\n\nSubscribe for past and future talks: https://www.youtube.com/@jbagentic?sub_confirmation=1\n\n#JBAgentic #MCP #AIagents #ExpenseTracker #TelegramBot\n```\n\n## Tags\n\n```\nAI agents, MCP, Model Context Protocol, Telegram bot, expense tracker, personal finance app, Hermes agent, OpenClaw, SQLite, vibe coding, AI app development, voice to text, Whisper, OpenRouter, JB Agentic\n```\n\n(15 tags, 204 characters \u2014 under YouTube's 500-character limit.)\n\n## Category\n\nScience & Technology\n"}], "eval-soh-friction-without_skill": [{"name": "youtube-content.md", "type": "text", "content": "# YouTube Content \u2014 AI for Everyday Friction\n\n**Speaker:** Soh Jun Wei\n**Event:** JB Agentic Meetup #1 (30 May 2026)\n**Topic:** Building a personal expense-tracking AI agent with Hermes + MCP\n\n---\n\n## Category\n\n**Science & Technology**\n\n(YouTube category ID 28)\n\n---\n\n## Title Options\n\nPick one. All are under 100 characters and front-load the hook.\n\n1. AI for Everyday Friction: Building a Personal Expense Agent with Hermes & MCP\n2. I Built an AI Expense Tracker on Telegram (Hermes Agent + MCP) \u2014 Soh Jun Wei\n3. Stop Logging Expenses Manually: A Telegram AI Agent with MCP Tools\n4. From Coder to Orchestrator: Building a Real AI Agent with Hermes + MCP\n5. MCP vs CLI: How I Built an AI Budget Tracker That Actually Works\n\n**Recommended primary title:**\n> AI for Everyday Friction: Building a Personal Expense Agent with Hermes & MCP\n\n---\n\n## Description\n\n```\nWhat if logging an expense was as easy as sending a text, a voice note, or a photo of a receipt?\n\nIn this JB Agentic Meetup #1 talk, Soh Jun Wei walks through how he built a personal expense-tracking AI agent to kill the everyday friction of recording spending. Instead of opening an app and keying in numbers manually, he sends a quick Telegram message \u2014 \"lunch 5.5\" \u2014 and an AI agent extracts the details, runs any calculations, and saves the record to a database automatically. Voice messages and receipt photos work too.\n\nThe real lesson isn't the finance app \u2014 it's the architecture. Jun Wei shares why he splits an AI application into two halves: fuzzy input (natural language, voice, receipt images) where AI shines, and deterministic actions (database writes, money validation, calculations) that belong to reliable tools. That's where the Model Context Protocol (MCP) comes in \u2014 giving the agent well-defined tool boundaries instead of letting it improvise SQL or invent its own workflows.\n\nHe also makes the case that AI won't replace developers \u2014 it transforms the job. We shift from writing 80% of the code to designing 80% of the system: deciding what to build, defining how the AI is allowed to act, and verifying the result. We move from coder to orchestrator to architect.\n\nChapters:\n00:00 \u2014 Intro & the problem: friction is the enemy\n02:00 \u2014 The vision: effortless text, voice, and receipt input\n04:30 \u2014 System design: Telegram + Hermes agent + MCP\n06:00 \u2014 Live demo: Telegram bot and the dashboard\n08:00 \u2014 Architecture deep dive (Oracle Cloud, Docker, Groq, OpenRouter)\n11:30 \u2014 Why MCP? Reducing the agent's guesswork\n13:30 \u2014 Inside the MCP: tools, schemas, and a calculator\n15:30 \u2014 Fuzzy input vs deterministic action\n17:00 \u2014 From coder to orchestrator: how the developer's role changes\n21:00 \u2014 MCP vs CLI: which should you use?\n22:30 \u2014 Limitations & next steps (tax errors, personality \"Auria\")\n25:00 \u2014 Key takeaways\n26:30 \u2014 Q&A (Telegram polling, WhatsApp support, Whisper models, Groq limits)\n\nTech stack covered:\n\u2022 Hermes agent (running 24/7 in a Docker container on Oracle Cloud's free VPS tier)\n\u2022 Telegram as the messaging channel (via bot token + polling/gateway)\n\u2022 MCP server (Node.js) for deterministic tools like add-expense and calculate\n\u2022 SQLite database + Next.js admin dashboard\n\u2022 Speech-to-text via Whisper (Groq free API, large model) and OpenRouter for reasoning (Qwen) and receipt vision (Gemini Flash)\n\nKey takeaway: You don't need a huge AI project to get started. Spot the small frictions in your daily life, use AI for the fuzzy understanding, use tools for the deterministic actions, and design the boundaries the AI is allowed to operate within.\n\n#AI #MCP #AIAgents #Telegram #SoftwareEngineering\n```\n\n---\n\n## Tags\n\n```\nAI for everyday friction, AI agent, Hermes agent, MCP, Model Context Protocol, expense tracker, AI expense tracking, budget tracking app, Telegram bot, Telegram AI agent, MCP server, MCP vs CLI, Node.js MCP, personal finance AI, AI agent architecture, fuzzy input deterministic action, LLM tools, AI tool calling, Whisper speech to text, Groq API, OpenRouter, Qwen, Gemini Flash vision, SQLite, Next.js dashboard, Docker, Oracle Cloud free tier, AI for developers, coder to orchestrator, AI software architecture, JB Agentic, Soh Jun Wei, build an AI agent, receipt OCR, voice to text expense\n```\n\n---\n\n## Notes\n\n- The transcript is auto-generated from a non-native English speaker, so some phrasing was cleaned up for the description (e.g., \"OpenClaw\" appears to refer to an open-source agent framework discussed alongside Hermes; \"Auria\" is the assistant personality the speaker is adding).\n- Chapter timestamps are derived from the SRT cue times and rounded to natural section boundaries; verify against the final published video, as exact cut points may shift slightly.\n- Model names mentioned (e.g., \"Qwen 3.5 27B\") are as spoken in the talk and may be approximations by the speaker.\n- Category \"Science & Technology\" is the best fit for a technical developer talk; \"Education\" is a reasonable alternative if the channel positions content as tutorials.\n```\n"}]}, "benchmark": {"metadata": {"skill_name": "talk-youtube-metadata", "skill_path": "skills/talk-youtube-metadata", "executor_model": "claude-opus-4-6", "timestamp": "2026-06-06T00:00:00Z", "evals_run": ["eval-khew-iac", "eval-kowa-journey", "eval-soh-friction"], "runs_per_configuration": 1}, "runs": [{"eval_id": "eval-khew-iac", "configuration": "with_skill", "run_number": 1, "result": {"pass_rate": 1.0, "passed": 8, "failed": 0, "total": 8, "time_seconds": 92.6, "tokens": 74394}, "expectations": [{"text": "youtube-content.md exists", "passed": true, "evidence": "present"}, {"text": "Series suffix 'JB Agentic Meetup #1' present", "passed": true, "evidence": "4x"}, {"text": "Exactly 3 A/B titles", "passed": true, "evidence": "3 titles found"}, {"text": "All titles <=70 chars", "passed": true, "evidence": "lengths [65, 63, 62]"}, {"text": "Chapters start at 0:00", "passed": true, "evidence": "0:00 present"}, {"text": "Tags < 500 chars", "passed": true, "evidence": "~207 chars"}, {"text": "Verbatim short Luma link (lu.ma/jbagentic)", "passed": true, "evidence": "present"}, {"text": "Category = Science & Technology", "passed": true, "evidence": "present"}]}, {"eval_id": "eval-khew-iac", "configuration": "without_skill", "run_number": 1, "result": {"pass_rate": 0.875, "passed": 7, "failed": 1, "total": 8, "time_seconds": 66.4, "tokens": 73172}, "expectations": [{"text": "youtube-content.md exists", "passed": true, "evidence": "present"}, {"text": "Series suffix 'JB Agentic Meetup #1' present", "passed": true, "evidence": "5x"}, {"text": "Exactly 3 A/B titles", "passed": true, "evidence": "3 titles found"}, {"text": "All titles <=70 chars", "passed": false, "evidence": "lengths [78, 71, 71]"}, {"text": "Chapters start at 0:00", "passed": true, "evidence": "0:00 present"}, {"text": "Tags < 500 chars", "passed": true, "evidence": "~197 chars"}, {"text": "Verbatim short Luma link (lu.ma/jbagentic)", "passed": true, "evidence": "present"}, {"text": "Category = Science & Technology", "passed": true, "evidence": "present"}]}, {"eval_id": "eval-kowa-journey", "configuration": "with_skill", "run_number": 1, "result": {"pass_rate": 1.0, "passed": 8, "failed": 0, "total": 8, "time_seconds": 100.3, "tokens": 74671}, "expectations": [{"text": "youtube-content.md exists", "passed": true, "evidence": "present"}, {"text": "Series suffix 'JB Agentic Meetup #1' present", "passed": true, "evidence": "4x"}, {"text": "Exactly 3 A/B titles", "passed": true, "evidence": "3 titles found"}, {"text": "All titles <=70 chars", "passed": true, "evidence": "lengths [68, 59, 66]"}, {"text": "Chapters start at 0:00", "passed": true, "evidence": "0:00 present"}, {"text": "Tags < 500 chars", "passed": true, "evidence": "~186 chars"}, {"text": "Verbatim short Luma link (lu.ma/jbagentic)", "passed": true, "evidence": "present"}, {"text": "Category = Science & Technology", "passed": true, "evidence": "present"}]}, {"eval_id": "eval-kowa-journey", "configuration": "without_skill", "run_number": 1, "result": {"pass_rate": 1.0, "passed": 8, "failed": 0, "total": 8, "time_seconds": 74.6, "tokens": 72371}, "expectations": [{"text": "youtube-content.md exists", "passed": true, "evidence": "present"}, {"text": "Series suffix 'JB Agentic Meetup #1' present", "passed": true, "evidence": "3x"}, {"text": "Exactly 3 A/B titles", "passed": true, "evidence": "3 titles found"}, {"text": "All titles <=70 chars", "passed": true, "evidence": "lengths [67, 65, 64]"}, {"text": "Chapters start at 0:00", "passed": true, "evidence": "0:00 present"}, {"text": "Tags < 500 chars", "passed": true, "evidence": "~252 chars"}, {"text": "Verbatim short Luma link (lu.ma/jbagentic)", "passed": true, "evidence": "present"}, {"text": "Category = Science & Technology", "passed": true, "evidence": "present"}]}, {"eval_id": "eval-soh-friction", "configuration": "with_skill", "run_number": 1, "result": {"pass_rate": 1.0, "passed": 8, "failed": 0, "total": 8, "time_seconds": 85.6, "tokens": 71192}, "expectations": [{"text": "youtube-content.md exists", "passed": true, "evidence": "present"}, {"text": "Series suffix 'JB Agentic Meetup #1' present", "passed": true, "evidence": "4x"}, {"text": "Exactly 3 A/B titles", "passed": true, "evidence": "3 titles found"}, {"text": "All titles <=70 chars", "passed": true, "evidence": "lengths [63, 62, 68]"}, {"text": "Chapters start at 0:00", "passed": true, "evidence": "0:00 present"}, {"text": "Tags < 500 chars", "passed": true, "evidence": "~293 chars"}, {"text": "Verbatim short Luma link (lu.ma/jbagentic)", "passed": true, "evidence": "present"}, {"text": "Category = Science & Technology", "passed": true, "evidence": "present"}]}, {"eval_id": "eval-soh-friction", "configuration": "without_skill", "run_number": 1, "result": {"pass_rate": 0.625, "passed": 5, "failed": 3, "total": 8, "time_seconds": 46.0, "tokens": 64551}, "expectations": [{"text": "youtube-content.md exists", "passed": true, "evidence": "present"}, {"text": "Series suffix 'JB Agentic Meetup #1' present", "passed": false, "evidence": "not found"}, {"text": "Exactly 3 A/B titles", "passed": true, "evidence": "3 titles found"}, {"text": "All titles <=70 chars", "passed": false, "evidence": "lengths [77, 64, 62]"}, {"text": "Chapters start at 0:00", "passed": true, "evidence": "0:00 present"}, {"text": "Tags < 500 chars", "passed": true, "evidence": "~332 chars"}, {"text": "Verbatim short Luma link (lu.ma/jbagentic)", "passed": false, "evidence": "not found"}, {"text": "Category = Science & Technology", "passed": true, "evidence": "present"}]}], "summary": {"with_skill": {"pass_rate": 1.0, "mean_time_seconds": 92.8, "mean_tokens": 73419}, "without_skill": {"pass_rate": 0.833, "mean_time_seconds": 62.3, "mean_tokens": 70031}, "delta": {"pass_rate": 0.167, "time_seconds": 30.5, "tokens": 3388}}}};
+
+    // ---- State ----
+    let feedbackMap = {};  // run_id -> feedback text
+    let currentIndex = 0;
+    let visitedRuns = new Set();
+
+    // ---- Init ----
+    async function init() {
+      // Load saved feedback from server — but only if this isn't a fresh
+      // iteration (indicated by previous_feedback being present). When
+      // previous feedback exists, the feedback.json on disk is stale from
+      // the prior iteration and should not pre-fill the textareas.
+      const hasPrevious = Object.keys(EMBEDDED_DATA.previous_feedback || {}).length > 0
+        || Object.keys(EMBEDDED_DATA.previous_outputs || {}).length > 0;
+      if (!hasPrevious) {
+        try {
+          const resp = await fetch("/api/feedback");
+          const data = await resp.json();
+          if (data.reviews) {
+            for (const r of data.reviews) feedbackMap[r.run_id] = r.feedback;
+          }
+        } catch { /* first run, no feedback yet */ }
+      }
+
+      document.getElementById("skill-name").textContent = EMBEDDED_DATA.skill_name;
+      showRun(0);
+
+      // Wire up feedback auto-save
+      const textarea = document.getElementById("feedback");
+      let saveTimeout = null;
+      textarea.addEventListener("input", () => {
+        clearTimeout(saveTimeout);
+        document.getElementById("feedback-status").textContent = "";
+        saveTimeout = setTimeout(() => saveCurrentFeedback(), 800);
+      });
+    }
+
+    // ---- Navigation ----
+    function navigate(delta) {
+      const newIndex = currentIndex + delta;
+      if (newIndex >= 0 && newIndex < EMBEDDED_DATA.runs.length) {
+        saveCurrentFeedback();
+        showRun(newIndex);
+      }
+    }
+
+    function updateNavButtons() {
+      document.getElementById("prev-btn").disabled = currentIndex === 0;
+      document.getElementById("next-btn").disabled =
+        currentIndex === EMBEDDED_DATA.runs.length - 1;
+    }
+
+    // ---- Show a run ----
+    function showRun(index) {
+      currentIndex = index;
+      const run = EMBEDDED_DATA.runs[index];
+
+      // Progress
+      document.getElementById("progress").textContent =
+        `${index + 1} of ${EMBEDDED_DATA.runs.length}`;
+
+      // Prompt
+      document.getElementById("prompt-text").textContent = run.prompt;
+
+      // Config badge
+      const badge = document.getElementById("config-badge");
+      const configMatch = run.id.match(/(with_skill|without_skill|new_skill|old_skill)/);
+      if (configMatch) {
+        const config = configMatch[1];
+        const isBaseline = config === "without_skill" || config === "old_skill";
+        badge.textContent = config.replace(/_/g, " ");
+        badge.className = "config-badge " + (isBaseline ? "config-baseline" : "config-primary");
+        badge.style.display = "inline-block";
+      } else {
+        badge.style.display = "none";
+      }
+
+      // Outputs
+      renderOutputs(run);
+
+      // Previous outputs
+      renderPrevOutputs(run);
+
+      // Grades
+      renderGrades(run);
+
+      // Previous feedback
+      const prevFb = (EMBEDDED_DATA.previous_feedback || {})[run.id];
+      const prevEl = document.getElementById("prev-feedback");
+      if (prevFb) {
+        document.getElementById("prev-feedback-text").textContent = prevFb;
+        prevEl.style.display = "block";
+      } else {
+        prevEl.style.display = "none";
+      }
+
+      // Feedback
+      document.getElementById("feedback").value = feedbackMap[run.id] || "";
+      document.getElementById("feedback-status").textContent = "";
+
+      updateNavButtons();
+
+      // Track visited runs and promote done button when all visited
+      visitedRuns.add(index);
+      const doneBtn = document.getElementById("done-btn");
+      if (visitedRuns.size >= EMBEDDED_DATA.runs.length) {
+        doneBtn.classList.add("ready");
+      }
+
+      // Scroll main content to top
+      document.querySelector(".main").scrollTop = 0;
+    }
+
+    // ---- Render outputs ----
+    function renderOutputs(run) {
+      const container = document.getElementById("outputs-body");
+      container.innerHTML = "";
+
+      const outputs = run.outputs || [];
+      if (outputs.length === 0) {
+        container.innerHTML = '<div class="empty-state">No output files</div>';
+        return;
+      }
+
+      for (const file of outputs) {
+        const fileDiv = document.createElement("div");
+        fileDiv.className = "output-file";
+
+        // Always show file header with download link
+        const header = document.createElement("div");
+        header.className = "output-file-header";
+        const nameSpan = document.createElement("span");
+        nameSpan.textContent = file.name;
+        header.appendChild(nameSpan);
+        const dlBtn = document.createElement("a");
+        dlBtn.className = "dl-btn";
+        dlBtn.textContent = "Download";
+        dlBtn.download = file.name;
+        dlBtn.href = getDownloadUri(file);
+        header.appendChild(dlBtn);
+        fileDiv.appendChild(header);
+
+        const content = document.createElement("div");
+        content.className = "output-file-content";
+
+        if (file.type === "text") {
+          const pre = document.createElement("pre");
+          pre.textContent = file.content;
+          content.appendChild(pre);
+        } else if (file.type === "image") {
+          const img = document.createElement("img");
+          img.src = file.data_uri;
+          img.alt = file.name;
+          content.appendChild(img);
+        } else if (file.type === "pdf") {
+          const iframe = document.createElement("iframe");
+          iframe.src = file.data_uri;
+          content.appendChild(iframe);
+        } else if (file.type === "xlsx") {
+          renderXlsx(content, file.data_b64);
+        } else if (file.type === "binary") {
+          const a = document.createElement("a");
+          a.className = "download-link";
+          a.href = file.data_uri;
+          a.download = file.name;
+          a.textContent = "Download " + file.name;
+          content.appendChild(a);
+        } else if (file.type === "error") {
+          const pre = document.createElement("pre");
+          pre.textContent = file.content;
+          pre.style.color = "var(--red)";
+          content.appendChild(pre);
+        }
+
+        fileDiv.appendChild(content);
+        container.appendChild(fileDiv);
+      }
+    }
+
+    // ---- XLSX rendering via SheetJS ----
+    function renderXlsx(container, b64Data) {
+      try {
+        const raw = Uint8Array.from(atob(b64Data), c => c.charCodeAt(0));
+        const wb = XLSX.read(raw, { type: "array" });
+
+        for (let i = 0; i < wb.SheetNames.length; i++) {
+          const sheetName = wb.SheetNames[i];
+          const ws = wb.Sheets[sheetName];
+
+          if (wb.SheetNames.length > 1) {
+            const sheetLabel = document.createElement("div");
+            sheetLabel.style.cssText =
+              "font-weight:600; font-size:0.8rem; color:#b0aea5; margin-top:0.5rem; margin-bottom:0.25rem;";
+            sheetLabel.textContent = "Sheet: " + sheetName;
+            container.appendChild(sheetLabel);
+          }
+
+          const htmlStr = XLSX.utils.sheet_to_html(ws, { editable: false });
+          const wrapper = document.createElement("div");
+          wrapper.innerHTML = htmlStr;
+          container.appendChild(wrapper);
+        }
+      } catch (err) {
+        container.textContent = "Error rendering spreadsheet: " + err.message;
+      }
+    }
+
+    // ---- Grades ----
+    function renderGrades(run) {
+      const section = document.getElementById("grades-section");
+      const content = document.getElementById("grades-content");
+
+      if (!run.grading) {
+        section.style.display = "none";
+        return;
+      }
+
+      const grading = run.grading;
+      section.style.display = "block";
+      // Reset to collapsed
+      content.classList.remove("open");
+      document.getElementById("grades-arrow").classList.remove("open");
+
+      const summary = grading.summary || {};
+      const expectations = grading.expectations || [];
+
+      let html = '<div style="padding: 1rem;">';
+
+      // Summary line
+      const passRate = summary.pass_rate != null
+        ? Math.round(summary.pass_rate * 100) + "%"
+        : "?";
+      const badgeClass = summary.pass_rate >= 0.8 ? "grade-pass" : summary.pass_rate >= 0.5 ? "" : "grade-fail";
+      html += '<div class="grades-summary">';
+      html += '<span class="grade-badge ' + badgeClass + '">' + passRate + '</span>';
+      html += '<span>' + (summary.passed || 0) + ' passed, ' + (summary.failed || 0) + ' failed of ' + (summary.total || 0) + '</span>';
+      html += '</div>';
+
+      // Assertions list
+      html += '<ul class="assertion-list">';
+      for (const exp of expectations) {
+        const statusClass = exp.passed ? "pass" : "fail";
+        const statusIcon = exp.passed ? "\u2713" : "\u2717";
+        html += '<li class="assertion-item">';
+        html += '<span class="assertion-status ' + statusClass + '">' + statusIcon + '</span>';
+        html += '<span>' + escapeHtml(exp.text) + '</span>';
+        if (exp.evidence) {
+          html += '<div class="assertion-evidence">' + escapeHtml(exp.evidence) + '</div>';
+        }
+        html += '</li>';
+      }
+      html += '</ul>';
+
+      html += '</div>';
+      content.innerHTML = html;
+    }
+
+    function toggleGrades() {
+      const content = document.getElementById("grades-content");
+      const arrow = document.getElementById("grades-arrow");
+      content.classList.toggle("open");
+      arrow.classList.toggle("open");
+    }
+
+    // ---- Previous outputs (collapsible) ----
+    function renderPrevOutputs(run) {
+      const section = document.getElementById("prev-outputs-section");
+      const content = document.getElementById("prev-outputs-content");
+      const prevOutputs = (EMBEDDED_DATA.previous_outputs || {})[run.id];
+
+      if (!prevOutputs || prevOutputs.length === 0) {
+        section.style.display = "none";
+        return;
+      }
+
+      section.style.display = "block";
+      // Reset to collapsed
+      content.classList.remove("open");
+      document.getElementById("prev-outputs-arrow").classList.remove("open");
+
+      // Render the files into the content area
+      content.innerHTML = "";
+      const wrapper = document.createElement("div");
+      wrapper.style.padding = "1rem";
+
+      for (const file of prevOutputs) {
+        const fileDiv = document.createElement("div");
+        fileDiv.className = "output-file";
+
+        const header = document.createElement("div");
+        header.className = "output-file-header";
+        const nameSpan = document.createElement("span");
+        nameSpan.textContent = file.name;
+        header.appendChild(nameSpan);
+        const dlBtn = document.createElement("a");
+        dlBtn.className = "dl-btn";
+        dlBtn.textContent = "Download";
+        dlBtn.download = file.name;
+        dlBtn.href = getDownloadUri(file);
+        header.appendChild(dlBtn);
+        fileDiv.appendChild(header);
+
+        const fc = document.createElement("div");
+        fc.className = "output-file-content";
+
+        if (file.type === "text") {
+          const pre = document.createElement("pre");
+          pre.textContent = file.content;
+          fc.appendChild(pre);
+        } else if (file.type === "image") {
+          const img = document.createElement("img");
+          img.src = file.data_uri;
+          img.alt = file.name;
+          fc.appendChild(img);
+        } else if (file.type === "pdf") {
+          const iframe = document.createElement("iframe");
+          iframe.src = file.data_uri;
+          fc.appendChild(iframe);
+        } else if (file.type === "xlsx") {
+          renderXlsx(fc, file.data_b64);
+        } else if (file.type === "binary") {
+          const a = document.createElement("a");
+          a.className = "download-link";
+          a.href = file.data_uri;
+          a.download = file.name;
+          a.textContent = "Download " + file.name;
+          fc.appendChild(a);
+        }
+
+        fileDiv.appendChild(fc);
+        wrapper.appendChild(fileDiv);
+      }
+
+      content.appendChild(wrapper);
+    }
+
+    function togglePrevOutputs() {
+      const content = document.getElementById("prev-outputs-content");
+      const arrow = document.getElementById("prev-outputs-arrow");
+      content.classList.toggle("open");
+      arrow.classList.toggle("open");
+    }
+
+    // ---- Feedback (saved to server -> feedback.json) ----
+    function saveCurrentFeedback() {
+      const run = EMBEDDED_DATA.runs[currentIndex];
+      const text = document.getElementById("feedback").value;
+
+      if (text.trim() === "") {
+        delete feedbackMap[run.id];
+      } else {
+        feedbackMap[run.id] = text;
+      }
+
+      // Build reviews array from map
+      const reviews = [];
+      for (const [run_id, feedback] of Object.entries(feedbackMap)) {
+        if (feedback.trim()) {
+          reviews.push({ run_id, feedback, timestamp: new Date().toISOString() });
+        }
+      }
+
+      fetch("/api/feedback", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ reviews, status: "in_progress" }),
+      }).then(() => {
+        document.getElementById("feedback-status").textContent = "Saved";
+      }).catch(() => {
+        // Static mode or server unavailable — no-op on auto-save,
+        // feedback will be downloaded on final submit
+        document.getElementById("feedback-status").textContent = "Will download on submit";
+      });
+    }
+
+    // ---- Done ----
+    function showDoneDialog() {
+      // Save current textarea to feedbackMap (but don't POST yet)
+      const run = EMBEDDED_DATA.runs[currentIndex];
+      const text = document.getElementById("feedback").value;
+      if (text.trim() === "") {
+        delete feedbackMap[run.id];
+      } else {
+        feedbackMap[run.id] = text;
+      }
+
+      // POST once with status: complete — include ALL runs so the model
+      // can distinguish "no feedback" (looks good) from "not reviewed"
+      const reviews = [];
+      const ts = new Date().toISOString();
+      for (const r of EMBEDDED_DATA.runs) {
+        reviews.push({ run_id: r.id, feedback: feedbackMap[r.id] || "", timestamp: ts });
+      }
+      const payload = JSON.stringify({ reviews, status: "complete" }, null, 2);
+      fetch("/api/feedback", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: payload,
+      }).then(() => {
+        document.getElementById("done-overlay").classList.add("visible");
+      }).catch(() => {
+        // Server not available (static mode) — download as file
+        const blob = new Blob([payload], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "feedback.json";
+        a.click();
+        URL.revokeObjectURL(url);
+        document.getElementById("done-overlay").classList.add("visible");
+      });
+    }
+
+    function closeDoneDialog() {
+      // Reset status back to in_progress
+      saveCurrentFeedback();
+      document.getElementById("done-overlay").classList.remove("visible");
+    }
+
+    // ---- Toast ----
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+      toast.textContent = message;
+      toast.classList.add("visible");
+      setTimeout(() => toast.classList.remove("visible"), 2000);
+    }
+
+    // ---- Keyboard nav ----
+    document.addEventListener("keydown", (e) => {
+      // Don't capture when typing in textarea
+      if (e.target.tagName === "TEXTAREA") return;
+
+      if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+        e.preventDefault();
+        navigate(-1);
+      } else if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+        e.preventDefault();
+        navigate(1);
+      }
+    });
+
+    // ---- Util ----
+    function getDownloadUri(file) {
+      if (file.data_uri) return file.data_uri;
+      if (file.data_b64) return "data:application/octet-stream;base64," + file.data_b64;
+      if (file.type === "text") return "data:text/plain;charset=utf-8," + encodeURIComponent(file.content);
+      return "#";
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement("div");
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    // ---- View switching ----
+    function switchView(view) {
+      document.querySelectorAll(".view-tab").forEach(t => t.classList.remove("active"));
+      document.querySelectorAll(".view-panel").forEach(p => p.classList.remove("active"));
+      document.querySelector(`[onclick="switchView('${view}')"]`).classList.add("active");
+      document.getElementById("panel-" + view).classList.add("active");
+    }
+
+    // ---- Benchmark rendering ----
+    function renderBenchmark() {
+      const data = EMBEDDED_DATA.benchmark;
+      if (!data) return;
+
+      // Show the tabs
+      document.getElementById("view-tabs").style.display = "flex";
+
+      const container = document.getElementById("benchmark-content");
+      const summary = data.run_summary || {};
+      const metadata = data.metadata || {};
+      const notes = data.notes || [];
+
+      let html = "";
+
+      // Header
+      html += "<h2 style='font-family: Poppins, sans-serif; margin-bottom: 0.5rem;'>Benchmark Results</h2>";
+      html += "<p style='color: var(--text-muted); font-size: 0.875rem; margin-bottom: 1.25rem;'>";
+      if (metadata.skill_name) html += "<strong>" + escapeHtml(metadata.skill_name) + "</strong> &mdash; ";
+      if (metadata.timestamp) html += metadata.timestamp + " &mdash; ";
+      if (metadata.evals_run) html += "Evals: " + metadata.evals_run.join(", ") + " &mdash; ";
+      html += (metadata.runs_per_configuration || "?") + " runs per configuration";
+      html += "</p>";
+
+      // Summary table
+      html += '<table class="benchmark-table">';
+
+      function fmtStat(stat, pct) {
+        if (!stat) return "—";
+        const suffix = pct ? "%" : "";
+        const m = pct ? (stat.mean * 100).toFixed(0) : stat.mean.toFixed(1);
+        const s = pct ? (stat.stddev * 100).toFixed(0) : stat.stddev.toFixed(1);
+        return m + suffix + " ± " + s + suffix;
+      }
+
+      function deltaClass(val) {
+        if (!val) return "";
+        const n = parseFloat(val);
+        if (n > 0) return "benchmark-delta-positive";
+        if (n < 0) return "benchmark-delta-negative";
+        return "";
+      }
+
+      // Discover config names dynamically (everything except "delta")
+      const configs = Object.keys(summary).filter(k => k !== "delta");
+      const configA = configs[0] || "config_a";
+      const configB = configs[1] || "config_b";
+      const labelA = configA.replace(/_/g, " ").replace(/\b\w/g, c => c.toUpperCase());
+      const labelB = configB.replace(/_/g, " ").replace(/\b\w/g, c => c.toUpperCase());
+      const a = summary[configA] || {};
+      const b = summary[configB] || {};
+      const delta = summary.delta || {};
+
+      html += "<thead><tr><th>Metric</th><th>" + escapeHtml(labelA) + "</th><th>" + escapeHtml(labelB) + "</th><th>Delta</th></tr></thead>";
+      html += "<tbody>";
+
+      html += "<tr><td><strong>Pass Rate</strong></td>";
+      html += "<td>" + fmtStat(a.pass_rate, true) + "</td>";
+      html += "<td>" + fmtStat(b.pass_rate, true) + "</td>";
+      html += '<td class="' + deltaClass(delta.pass_rate) + '">' + (delta.pass_rate || "—") + "</td></tr>";
+
+      // Time (only show row if data exists)
+      if (a.time_seconds || b.time_seconds) {
+        html += "<tr><td><strong>Time (s)</strong></td>";
+        html += "<td>" + fmtStat(a.time_seconds, false) + "</td>";
+        html += "<td>" + fmtStat(b.time_seconds, false) + "</td>";
+        html += '<td class="' + deltaClass(delta.time_seconds) + '">' + (delta.time_seconds ? delta.time_seconds + "s" : "—") + "</td></tr>";
+      }
+
+      // Tokens (only show row if data exists)
+      if (a.tokens || b.tokens) {
+        html += "<tr><td><strong>Tokens</strong></td>";
+        html += "<td>" + fmtStat(a.tokens, false) + "</td>";
+        html += "<td>" + fmtStat(b.tokens, false) + "</td>";
+        html += '<td class="' + deltaClass(delta.tokens) + '">' + (delta.tokens || "—") + "</td></tr>";
+      }
+
+      html += "</tbody></table>";
+
+      // Per-eval breakdown (if runs data available)
+      const runs = data.runs || [];
+      if (runs.length > 0) {
+        const evalIds = [...new Set(runs.map(r => r.eval_id))].sort((a, b) => a - b);
+
+        html += "<h3 style='font-family: Poppins, sans-serif; margin-bottom: 0.75rem;'>Per-Eval Breakdown</h3>";
+
+        const hasTime = runs.some(r => r.result && r.result.time_seconds != null);
+        const hasErrors = runs.some(r => r.result && r.result.errors > 0);
+
+        for (const evalId of evalIds) {
+          const evalRuns = runs.filter(r => r.eval_id === evalId);
+          const evalName = evalRuns[0] && evalRuns[0].eval_name ? evalRuns[0].eval_name : "Eval " + evalId;
+
+          html += "<h4 style='font-family: Poppins, sans-serif; margin: 1rem 0 0.5rem; color: var(--text);'>" + escapeHtml(evalName) + "</h4>";
+          html += '<table class="benchmark-table">';
+          html += "<thead><tr><th>Config</th><th>Run</th><th>Pass Rate</th>";
+          if (hasTime) html += "<th>Time (s)</th>";
+          if (hasErrors) html += "<th>Crashes During Execution</th>";
+          html += "</tr></thead>";
+          html += "<tbody>";
+
+          // Group by config and render with average rows
+          const configGroups = [...new Set(evalRuns.map(r => r.configuration))];
+          for (let ci = 0; ci < configGroups.length; ci++) {
+            const config = configGroups[ci];
+            const configRuns = evalRuns.filter(r => r.configuration === config);
+            if (configRuns.length === 0) continue;
+
+            const rowClass = ci === 0 ? "benchmark-row-with" : "benchmark-row-without";
+            const configLabel = config.replace(/_/g, " ").replace(/\b\w/g, c => c.toUpperCase());
+
+            for (const run of configRuns) {
+              const r = run.result || {};
+              const prClass = r.pass_rate >= 0.8 ? "benchmark-delta-positive" : r.pass_rate < 0.5 ? "benchmark-delta-negative" : "";
+              html += '<tr class="' + rowClass + '">';
+              html += "<td>" + configLabel + "</td>";
+              html += "<td>" + run.run_number + "</td>";
+              html += '<td class="' + prClass + '">' + ((r.pass_rate || 0) * 100).toFixed(0) + "% (" + (r.passed || 0) + "/" + (r.total || 0) + ")</td>";
+              if (hasTime) html += "<td>" + (r.time_seconds != null ? r.time_seconds.toFixed(1) : "—") + "</td>";
+              if (hasErrors) html += "<td>" + (r.errors || 0) + "</td>";
+              html += "</tr>";
+            }
+
+            // Average row
+            const rates = configRuns.map(r => (r.result || {}).pass_rate || 0);
+            const avgRate = rates.reduce((a, b) => a + b, 0) / rates.length;
+            const avgPrClass = avgRate >= 0.8 ? "benchmark-delta-positive" : avgRate < 0.5 ? "benchmark-delta-negative" : "";
+            html += '<tr class="benchmark-row-avg ' + rowClass + '">';
+            html += "<td>" + configLabel + "</td>";
+            html += "<td>Avg</td>";
+            html += '<td class="' + avgPrClass + '">' + (avgRate * 100).toFixed(0) + "%</td>";
+            if (hasTime) {
+              const times = configRuns.map(r => (r.result || {}).time_seconds).filter(t => t != null);
+              html += "<td>" + (times.length ? (times.reduce((a, b) => a + b, 0) / times.length).toFixed(1) : "—") + "</td>";
+            }
+            if (hasErrors) html += "<td></td>";
+            html += "</tr>";
+          }
+          html += "</tbody></table>";
+
+          // Per-assertion detail for this eval
+          const runsWithExpectations = {};
+          for (const config of configGroups) {
+            runsWithExpectations[config] = evalRuns.filter(r => r.configuration === config && r.expectations && r.expectations.length > 0);
+          }
+          const hasAnyExpectations = Object.values(runsWithExpectations).some(runs => runs.length > 0);
+          if (hasAnyExpectations) {
+            // Collect all unique assertion texts across all configs
+            const allAssertions = [];
+            const seen = new Set();
+            for (const config of configGroups) {
+              for (const run of runsWithExpectations[config]) {
+                for (const exp of (run.expectations || [])) {
+                  if (!seen.has(exp.text)) {
+                    seen.add(exp.text);
+                    allAssertions.push(exp.text);
+                  }
+                }
+              }
+            }
+
+            html += '<table class="benchmark-table" style="margin-top: 0.5rem;">';
+            html += "<thead><tr><th>Assertion</th>";
+            for (const config of configGroups) {
+              const label = config.replace(/_/g, " ").replace(/\b\w/g, c => c.toUpperCase());
+              html += "<th>" + escapeHtml(label) + "</th>";
+            }
+            html += "</tr></thead><tbody>";
+
+            for (const assertionText of allAssertions) {
+              html += "<tr><td>" + escapeHtml(assertionText) + "</td>";
+
+              for (const config of configGroups) {
+                html += "<td>";
+                for (const run of runsWithExpectations[config]) {
+                  const exp = (run.expectations || []).find(e => e.text === assertionText);
+                  if (exp) {
+                    const cls = exp.passed ? "benchmark-delta-positive" : "benchmark-delta-negative";
+                    const icon = exp.passed ? "\u2713" : "\u2717";
+                    html += '<span class="' + cls + '" title="Run ' + run.run_number + ': ' + escapeHtml(exp.evidence || "") + '">' + icon + "</span> ";
+                  } else {
+                    html += "— ";
+                  }
+                }
+                html += "</td>";
+              }
+              html += "</tr>";
+            }
+            html += "</tbody></table>";
+          }
+        }
+      }
+
+      // Notes
+      if (notes.length > 0) {
+        html += '<div class="benchmark-notes">';
+        html += "<h3>Analysis Notes</h3>";
+        html += "<ul>";
+        for (const note of notes) {
+          html += "<li>" + escapeHtml(note) + "</li>";
+        }
+        html += "</ul></div>";
+      }
+
+      container.innerHTML = html;
+    }
+
+    // ---- Start ----
+    init();
+    renderBenchmark();
+  </script>
+</body>
+</html>
