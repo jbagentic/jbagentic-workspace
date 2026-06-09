@@ -35,6 +35,13 @@
       "prompt": "Doc this for me — here's my brain dump on our backup-tool CLI. Notes are in agents/evals/doc-this/fixtures/backup-tool-notes.md.",
       "expected_output": "Material is provided but no target folder is named, so the skill proposes a single home folder (e.g. tools/backup-tool/) with a clear reason for the choice and level, then waits for the user's approval before writing anything. It does not silently create a folder and dump docs. Baseline (no skill) is expected to write docs without asking for placement approval, so this case discriminates.",
       "files": ["fixtures/backup-tool-notes.md"]
+    },
+    {
+      "id": 5,
+      "name": "reconcile-removal-from-change",
+      "prompt": "We dropped SVG support from the widget exporter — it's PNG-only now. Update the docs in agents/evals/doc-this/fixtures/existing-widget/ to match.",
+      "expected_output": "A change is stated and the folder is named and already documented, so the skill reconciles in place — it does NOT ask for raw material first and does NOT run a home-folder approval round-trip (both gates apply to authoring from scratch, not to syncing a named, documented folder). The stale SVG mention is removed: docs/widget-config.reference.md's format note becomes PNG-only and the README summary line stops saying PNG/SVG. No new or parallel file, README manifest left intact, no frontmatter introduced. Minimal and idempotent — only the SVG mentions change. This is primarily a regression guard for the change-driven path: a capable model on the old skill can also execute this once invoked (the folder is named), so the change's discriminating value is in triggering — the description now advertises change-driven use — which is tested separately, not by this execution case.",
+      "files": ["fixtures/existing-widget/README.md", "fixtures/existing-widget/docs/widget-config.reference.md"]
     }
   ]
 }
