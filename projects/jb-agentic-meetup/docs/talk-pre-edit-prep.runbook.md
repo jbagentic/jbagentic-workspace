@@ -1,28 +1,28 @@
 # Pre-edit prep
 
 Render a talk's slide deck into overlay frames before the video edit. This phase
-follows [setup](talk-setup.runbook.md) and runs once per talk — see the
+follows [setup](talk-setup.runbook.md) and runs once per talk. See the
 [project README](../README.md) for the full flow.
 
 **Actor:** agent · **In:** `slides.pdf` · **Out:** `slides/slide-NN.png`
 
 ## Prerequisites
 
-- The talk folder exists — created in [setup](talk-setup.runbook.md), named to convention (`JBAgentic-<YYYYMMDD>-meetup-<N>-<Speaker>-<Title>`; see [talk-recordings.reference.md](talk-recordings.reference.md)).
+- The talk folder exists, created in [setup](talk-setup.runbook.md) and named to the slug convention (`JBAgentic-<YYYYMMDD>-meetup-<N>-<Speaker>-<Title>`; see [talk-recordings.reference.md](talk-recordings.reference.md)).
 - `slides.pdf` — the full slide deck — is in the talk folder (dropped during [setup](talk-setup.runbook.md)).
 
 ## Steps
 
 1. Confirm `slides.pdf` is in the talk folder.
 2. Run `/slides-pdf-to-png` on the talk folder. It renders one HD PNG per page to `slides/slide-NN.png` (1080p, zero-padded, 1-based) and clears any stale `slide-*.png` first.
-3. The skill self-verifies that the PNG count equals the PDF page count and the frame numbers are contiguous. Spot-check that the first and last frame look right.
+3. The skill checks that the PNG count equals the PDF page count and the frame numbers are contiguous. Spot-check that the first and last frame look right.
 
 ## Handoff
 
 `slides/slide-NN.png` feeds two later phases:
 
 - **[Video edit](talk-video-edit.runbook.md):** the editor drops the frames onto the CapCut timeline as slide overlays.
-- **[Post-edit processing](talk-post-edit-processing.runbook.md):** `/subtitle-polish` reads them as glossary/domain context when fixing mis-transcribed terms.
+- **[Post-edit processing](talk-post-edit-processing.runbook.md):** `/subtitle-polish` reads them as glossary and domain context when fixing mis-transcribed terms.
 
 ## Related
 

@@ -20,7 +20,7 @@ it runs once per meetup and fans out to one folder per talk. See the
 
 ## Handoff
 
-Each talk folder now holds its `slides.pdf` and is ready for [pre-edit prep](talk-pre-edit-prep.runbook.md). The remaining files — raw subtitles (from the [video edit](talk-video-edit.runbook.md)), the cover image, and all generated outputs — are added by the later phases.
+Each talk folder now holds its `slides.pdf` and is ready for [pre-edit prep](talk-pre-edit-prep.runbook.md). The later phases add the remaining files — raw subtitles (from the [video edit](talk-video-edit.runbook.md)), the cover image, and all generated outputs.
 
 ## Related
 

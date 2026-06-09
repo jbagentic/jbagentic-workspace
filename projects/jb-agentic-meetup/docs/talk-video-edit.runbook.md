@@ -2,7 +2,7 @@
 
 Assemble the final talk video. This phase is **fully manual** — a human edits in
 CapCut, outside this workspace. It sits between [pre-edit prep](talk-pre-edit-prep.runbook.md)
-and [post-edit processing](talk-post-edit-processing.runbook.md); see the
+and [post-edit processing](talk-post-edit-processing.runbook.md). See the
 [project README](../README.md) for the full pipeline.
 
 **Actor:** human editor · **In:** recorded video + slide overlays · **Out:** final video + `<talk-slug>.en.raw.srt`
@@ -27,8 +27,8 @@ and [post-edit processing](talk-post-edit-processing.runbook.md); see the
 
 These are the contract into [post-edit processing](talk-post-edit-processing.runbook.md):
 
-- **Final exported video** — uploaded to the committee Google Drive, then bookmarked in-repo with `/redirect-bookmark` → `video-file.html`. (The multi-GB `.mov` is gitignored out of the public repo; the stub is the durable in-repo pointer.)
-- **`<talk-slug>.en.raw.srt`** — the raw English subtitles (auto-transcript) exported from the edited video. This is the manual input post-edit processing starts from.
+- **Final exported video** — uploaded to the committee Google Drive, then bookmarked in-repo with `/redirect-bookmark` → `video-file.html`. (The multi-GB `.mov` is gitignored out of the public repo, so the stub is the durable in-repo pointer.)
+- **`<talk-slug>.en.raw.srt`** — the raw English subtitles (auto-transcript) exported from the edited video. Post-edit processing starts from this manual input.
 - **`cover.png`** present in the talk folder for the YouTube thumbnail.
 
 ## Related

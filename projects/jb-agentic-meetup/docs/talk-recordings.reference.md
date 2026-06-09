@@ -44,7 +44,7 @@ A talk's name has up to two parts:
 
 How each is used:
 
-- **Slugs use the title only.** The `<Title>` segment of the folder name — and therefore the subtitle-file stems — is the talk title in PascalCase, with any subtitle dropped.
+- **Slugs use the title only.** The `<Title>` segment of the folder name is the talk title in PascalCase, with any subtitle dropped — and the subtitle-file stems reuse that segment.
 - **Display and records use the full title.** The [meetup records](meetup-records.reference.md) Talks list and the YouTube metadata show the full title.
 
 > A talk's *subtitle* here means the secondary part of its name — not the `.srt` subtitle (caption) files described above, which this doc also calls "subtitle files."
