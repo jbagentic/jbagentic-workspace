@@ -18,7 +18,7 @@ Turn a recorded talk into upload-ready YouTube metadata. The talk already happen
 ## Input
 
 - A talk folder `deliverables/talks/JBAgentic-<YYYYMMDD>-meetup-<N>-<Speaker>-<TopicSlug>/` containing the English transcript `*.en.srt`. The folder name encodes the date, meetup number, speaker, and topic. If `meetup-<N>` is missing from the name, ask for the number rather than guessing — it drives the title suffix and can't be derived from the transcript.
-- Community facts, canonical links, and ready-made blurbs: [`knowledge/jb-agentic-meetup.reference.md`](../../knowledge/jb-agentic-meetup.reference.md). This is the single source of truth for the series suffix, the Luma/YouTube links, and the short/long blurbs. Copy them verbatim — don't paraphrase.
+- Community facts, canonical links, and ready-made blurbs — the **knowledge atom**. This is the single source of truth for the series suffix, the Luma/YouTube links, and the short/long blurbs. Copy them verbatim — don't paraphrase. The installing project supplies it (e.g. its own meetup reference doc); if it isn't provided, ask for it rather than inventing links or blurbs.
 - Suggested helper: `scripts/srt_digest.py <talk-folder>` prints the parsed folder metadata, the cleaned transcript, and a timestamp-bucketed timeline in one pass — the raw material for titles and chapters. Use it so you're not re-deriving timestamps by hand each run.
 
 ## Output
@@ -76,9 +76,3 @@ Turn a recorded talk into upload-ready YouTube metadata. The talk already happen
 - `#N` in a title is a literal label ("number N"), not a hashtag.
 - English only. The Chinese SRTs in the folder are out of scope for this skill.
 - Don't invent talk facts. If the original title or the speaker's name can't be read confidently from the folder name or transcript, ask.
-
-## Related
-- **Reference** — [jb-agentic-meetup](../../knowledge/jb-agentic-meetup.reference.md)
-- **Reference** — [skill-convention](../../knowledge/skill-convention.reference.md)
-- **How-to** — [subtitle-polish](../subtitle-polish/SKILL.md)
-- **Up** — [AGENTS.md](../../AGENTS.md)
