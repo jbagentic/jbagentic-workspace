@@ -5,7 +5,7 @@ Usage:
     python srt_digest.py <talk-folder> [--bucket SECONDS]
 
 Prints three blocks:
-  1. METADATA  — parsed from the folder name (date, meetup #, speaker, topic)
+  1. METADATA  — parsed from the folder name (date, meetup #, speaker, title)
   2. TIMELINE  — the .en.srt collapsed into time-bucketed lines (for chapters)
   3. TRANSCRIPT — the full cleaned transcript (for titles / description)
 
@@ -40,7 +40,7 @@ def parse_folder(folder: str):
             "speaker": None,
             "topic": None,
             "warning": "Folder name does not match "
-            "JBAgentic-<YYYYMMDD>-meetup-<N>-<Speaker>-<TopicSlug>. "
+            "JBAgentic-<YYYYMMDD>-meetup-<N>-<Speaker>-<Title>. "
             "Meetup number unknown — ask the user.",
         }
     date, meetup, speaker, topic = m.groups()

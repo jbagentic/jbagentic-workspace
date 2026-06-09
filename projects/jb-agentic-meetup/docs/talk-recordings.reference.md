@@ -24,15 +24,30 @@ The `.mov` video file is gitignored and not listed here.
 
 ## Folder name
 
-The folder name is the talk slug, e.g. `JBAgentic-20260530-meetup-1-KhewJiaPeng-AIMeetsInfrastructure`:
+The folder name is the talk slug — `JBAgentic-<YYYYMMDD>-meetup-<N>-<Speaker>-<Title>` — e.g. `JBAgentic-20260530-meetup-1-KhewJiaPeng-AIMeetsInfrastructure`:
 
 - `JBAgentic` — brand prefix
 - `20260530` — meetup date, `YYYYMMDD`
 - `meetup-1` — meetup number in the series
 - `KhewJiaPeng` — speaker name, PascalCase, no spaces
-- `AIMeetsInfrastructure` — talk title, PascalCase, no spaces
+- `AIMeetsInfrastructure` — the talk [**title**](#talk-title-and-subtitle) (excluding any subtitle), PascalCase, no spaces
 
 Subtitle files reuse the full slug as their stem (`<talk-slug>.<lang>.srt`). `cover.png`, `slides.pdf`, `video-file.html`, and `youtube-content.md` use fixed names.
+
+## Talk title and subtitle
+
+A talk's name has up to two parts:
+
+- **Title** — the primary name (e.g. *AI For Everyday Friction*).
+- **Subtitle** — an optional secondary part (e.g. *Building a personal expense agent with Hermes and MCP*).
+- **Full title** — the two joined by a colon, `Title: Subtitle` (e.g. *AI For Everyday Friction: Building a personal expense agent with Hermes and MCP*). With no subtitle, the full title is just the title (e.g. *AI Meets Infrastructure*).
+
+How each is used:
+
+- **Slugs use the title only.** The `<Title>` segment of the folder name — and therefore the subtitle-file stems — is the talk title in PascalCase, with any subtitle dropped.
+- **Display and records use the full title.** The [meetup records](meetup-records.reference.md) Talks list and the YouTube metadata show the full title.
+
+> A talk's *subtitle* here means the secondary part of its name — not the `.srt` subtitle (caption) files described above, which this doc also calls "subtitle files."
 
 ## Files
 

@@ -12,8 +12,8 @@ fans out to one folder per talk. See the [project README](../README.md) for the 
 
 ## Steps
 
-1. **Record the meetup (human).** Append a new `## JB Agentic Meetup #N — YYYY-MM-DD` section to [meetup-records.reference.md](meetup-records.reference.md) — newest at the top — with the time, location, guest count, and a numbered **Talks** list (each entry `Title — Speaker`). This record is the source of truth the folder names derive from.
-2. **Scaffold the talk folders (agent).** From that record, create one folder per talk under `talk-recordings/`, each named to the slug convention `JBAgentic-<YYYYMMDD>-meetup-<N>-<Speaker>-<Topic>` — speaker and a concise topic (the talk's short title, before any colon) in PascalCase, no spaces. See [talk-recordings.reference.md](talk-recordings.reference.md) for the slug rules. The folders start empty; a human reviews the names against the record.
+1. **Record the meetup (human).** Append a new `## JB Agentic Meetup #N — YYYY-MM-DD` section to [meetup-records.reference.md](meetup-records.reference.md) — newest at the top — with the time, location, guest count, and a numbered **Talks** list (each entry `Full Title — Speaker`, where the full title is `Title: Subtitle` and the [talk subtitle](talk-recordings.reference.md#talk-title-and-subtitle) is optional). This record is the source of truth the folder names derive from.
+2. **Scaffold the talk folders (agent).** From that record, create one folder per talk under `talk-recordings/`, each named to the slug convention `JBAgentic-<YYYYMMDD>-meetup-<N>-<Speaker>-<Title>` — speaker and the talk [**title**](talk-recordings.reference.md#talk-title-and-subtitle) (the title only, excluding any subtitle) in PascalCase, no spaces. See [talk-recordings.reference.md](talk-recordings.reference.md) for the slug rules. The folders start empty; a human reviews the names against the record.
 
 ## Handoff
 

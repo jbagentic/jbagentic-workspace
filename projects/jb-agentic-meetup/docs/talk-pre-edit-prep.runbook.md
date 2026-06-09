@@ -8,7 +8,7 @@ follows [setup](talk-setup.runbook.md) and runs once per talk — see the
 
 ## Prerequisites
 
-- The talk folder exists — created in [setup](talk-setup.runbook.md), named to convention (`JBAgentic-<YYYYMMDD>-meetup-<N>-<Speaker>-<Topic>`; see [talk-recordings.reference.md](talk-recordings.reference.md)).
+- The talk folder exists — created in [setup](talk-setup.runbook.md), named to convention (`JBAgentic-<YYYYMMDD>-meetup-<N>-<Speaker>-<Title>`; see [talk-recordings.reference.md](talk-recordings.reference.md)).
 - `slides.pdf` — the full slide deck — is placed in the talk folder (manual input).
 
 ## Steps

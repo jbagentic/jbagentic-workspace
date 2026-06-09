@@ -1,6 +1,6 @@
 # JB Agentic Meetup Records
 
-Per-meetup facts of record. Append a new `## JB Agentic Meetup #N` section after each event, newest at the top.
+Per-meetup facts of record. Append a new `## JB Agentic Meetup #N` section after each event, newest at the top. Each **Talks** entry is `Full Title — Speaker`, where the [full title](talk-recordings.reference.md#talk-title-and-subtitle) is `Title: Subtitle` (the talk subtitle is optional).
 
 ## JB Agentic Meetup #1 — 2026-05-30
 
