@@ -6,15 +6,15 @@ Instructions for agents that apply to this entire workspace.
 
 ### Efficient Context Discovery
 
-Before you read, create, change a file, or explore the workspace, discover context efficiently using this approach:
+A folder is a context boundary, and its `README.md` is the entry point that orients you to what's inside. When you need context, start from the README nearest your task and let it point you to what's worth reading — not just other READMEs, but whatever it links: reference docs, skill files, code.
 
-1. Read the nearest `README.md` **first** — check the file's own folder, then parent folders.
-2. Use its manifest to load **only** the linked docs your task needs.
-3. You know enough? Then stop. Otherwise, keep going up to read the parent folder's `README.md`.
+From there, navigate by context rather than by search:
 
-Do **not** launch Explore/search subagents or run broad `Grep`/`Glob` sweeps before using this more efficient approach. README files usually point you straight to the answer, so a blind search wastes tokens and skips the curated entry point.
+- Need **broader** context? Go *up* the parent folders.
+- Need **more specific** context? Go *down* into subfolders.
+- Stop once you know enough.
 
-If two `README.md` files disagree, follow the nearest one. Ignore folders that aren't relevant.
+READMEs are the curated map, so reach for them before a blind `Find`/`Grep`/`Glob` sweep — searching first wastes tokens and skips the map. If the trail doesn't cover what you need, then search.
 
 
 ## Git Workflow
