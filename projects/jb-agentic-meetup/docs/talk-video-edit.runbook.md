@@ -28,7 +28,7 @@ and [post-edit processing](talk-post-edit-processing.runbook.md); see the
 These are the contract into [post-edit processing](talk-post-edit-processing.runbook.md):
 
 - **Final exported video** — uploaded to the committee Google Drive, then bookmarked in-repo with `/redirect-bookmark` → `video-file.html`. (The multi-GB `.mov` is gitignored out of the public repo; the stub is the durable in-repo pointer.)
-- **`<talk-slug>.en.raw.srt`** — the raw English subtitles (auto-transcript) exported from the edited video. This is the manual input Phase 3 starts from.
+- **`<talk-slug>.en.raw.srt`** — the raw English subtitles (auto-transcript) exported from the edited video. This is the manual input post-edit processing starts from.
 - **`cover.png`** present in the talk folder for the YouTube thumbnail.
 
 ## Related

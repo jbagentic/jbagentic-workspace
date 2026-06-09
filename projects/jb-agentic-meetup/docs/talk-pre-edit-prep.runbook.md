@@ -1,14 +1,14 @@
 # Pre-edit prep
 
-Render a talk's slide deck into overlay frames before the video edit. This is the
-first phase of the talk-recording pipeline — see the [project README](../README.md)
-for the full flow.
+Render a talk's slide deck into overlay frames before the video edit. This phase
+follows [setup](talk-setup.runbook.md) and runs once per talk — see the
+[project README](../README.md) for the full flow.
 
 **Actor:** agent · **In:** `slides.pdf` · **Out:** `slides/slide-NN.png`
 
 ## Prerequisites
 
-- The talk folder exists and is named to convention (`JBAgentic-<YYYYMMDD>-meetup-<N>-<Speaker>-<Topic>`). See [talk-recordings.reference.md](talk-recordings.reference.md).
+- The talk folder exists — created in [setup](talk-setup.runbook.md), named to convention (`JBAgentic-<YYYYMMDD>-meetup-<N>-<Speaker>-<Topic>`; see [talk-recordings.reference.md](talk-recordings.reference.md)).
 - `slides.pdf` — the full slide deck — is placed in the talk folder (manual input).
 
 ## Steps
@@ -21,8 +21,8 @@ for the full flow.
 
 `slides/slide-NN.png` feeds two later phases:
 
-- **Phase 2 — [video edit](talk-video-edit.runbook.md):** the editor drops the frames onto the CapCut timeline as slide overlays.
-- **Phase 3 — [post-edit processing](talk-post-edit-processing.runbook.md):** `/subtitle-polish` reads them as glossary/domain context when fixing mis-transcribed terms.
+- **[Video edit](talk-video-edit.runbook.md):** the editor drops the frames onto the CapCut timeline as slide overlays.
+- **[Post-edit processing](talk-post-edit-processing.runbook.md):** `/subtitle-polish` reads them as glossary/domain context when fixing mis-transcribed terms.
 
 ## Related
 

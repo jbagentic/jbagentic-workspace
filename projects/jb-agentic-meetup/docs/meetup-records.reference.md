@@ -15,4 +15,4 @@ Per-meetup facts of record. Append a new `## JB Agentic Meetup #N` section after
 
 ## Related
 
-None.
+- [Setup runbook](talk-setup.runbook.md) — the procedure that adds a meetup here and scaffolds its talk folders.
