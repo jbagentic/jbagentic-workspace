@@ -10,8 +10,8 @@ is the final phase of the talk-recording pipeline, all agent-run; see the
 
 Available when this phase starts (from earlier phases and manual assets):
 
-- `<talk-slug>.en.raw.srt` — raw English subtitles from the [video edit](talk-2-video-edit.runbook.md).
-- `slides/slide-NN.png` — from [pre-edit prep](talk-1-pre-edit-prep.runbook.md), used as glossary context.
+- `<talk-slug>.en.raw.srt` — raw English subtitles from the [video edit](talk-video-edit.runbook.md).
+- `slides/slide-NN.png` — from [pre-edit prep](talk-pre-edit-prep.runbook.md), used as glossary context.
 - `cover.png` — the thumbnail asset.
 
 ## Steps
