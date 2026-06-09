@@ -77,6 +77,6 @@ Use these skills when processing a new talk recording:
 
 - [Details of past meetups — date, time, number, talks, speakers, attendance](meetup-records.reference.md)
 - Pipeline runbooks — the procedures that produce the files above:
-  - [Pre-edit prep](pre-edit-prep.runbook.md) — slides → overlay frames
-  - [Video edit (CapCut)](video-edit.runbook.md) — manual edit handoff
-  - [Post-edit processing](post-edit-processing.runbook.md) — subtitles & YouTube metadata
+  - [Pre-edit prep](talk-1-pre-edit-prep.runbook.md) — slides → overlay frames
+  - [Video edit (CapCut)](talk-2-video-edit.runbook.md) — manual edit handoff
+  - [Post-edit processing](talk-3-post-edit-processing.runbook.md) — subtitles & YouTube metadata
