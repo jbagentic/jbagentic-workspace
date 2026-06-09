@@ -27,10 +27,12 @@ When you change what's in a Contextful Folder, update its docs at the same time 
 
 ## Git Workflow
 
-Work directly on `main`. No feature branches, no PRs.
+Branch-based workflow, no PRs (solo dev).
 
+- **Always work on a branch** — never commit directly to `main`.
+- **Branch from `main`** — use short, descriptive names (e.g. `add-logging`, `fix-parser-crash`).
+- **Merge to `main` when done** — keep `main` history clean and well-written (squash messy branches, preserve already-clean ones). Delete the branch after merging. Push `main` to the remote after merging.
 - **Commit early, commit often** — small, focused commits with clear messages.
-- **Never force-push** `main`.
-- **No branches** unless explicitly asked for a risky/experimental change. If you do branch, merge it back and delete the branch promptly.
-- **Commit message style**: imperative mood, one-line summary under 72 chars. Add a body paragraph only when the "why" isn't obvious from the summary.
+- **Never force-push `main`.**
+- **Commit message style**: [Conventional Commits](https://www.conventionalcommits.org/) — `type: summary` under 72 chars. Common types: `feat`, `fix`, `docs`, `refactor`, `chore`, `test`. Add a body paragraph only when the "why" isn't obvious from the summary.
 
