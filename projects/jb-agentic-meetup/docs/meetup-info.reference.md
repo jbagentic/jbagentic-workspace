@@ -1,7 +1,3 @@
----
-load_when: "writing anything that describes JB Agentic to an audience — video descriptions, website copy, social posts, slides — or needing the community's facts, canonical links, or blurbs"
----
-
 # JB Agentic Meetup Info
 
 Single source of truth for what JB Agentic is. Use the facts and blurbs below **verbatim** in deliverables so the community is described consistently everywhere — don't paraphrase; edit here and re-sync.

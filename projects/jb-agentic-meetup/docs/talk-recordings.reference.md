@@ -1,7 +1,3 @@
----
-load_when: "adding or working with a talk recording under talk-recordings/ — its folder name, the asset files inside, or which skill produces each one"
----
-
 # Talk Recording Assets
 
 How a talk's recording assets are named and laid out under `talk-recordings/`, and which skill produces each file. One folder per talk.

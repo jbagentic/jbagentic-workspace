@@ -1,7 +1,3 @@
----
-load_when: "looking up facts about a past JB Agentic Meetup — its date, time, number, talks, speakers, or attendance"
----
-
 # JB Agentic Meetup Records
 
 Per-meetup facts of record. Append a new `## JB Agentic Meetup #N` section after each event, newest at the top.
