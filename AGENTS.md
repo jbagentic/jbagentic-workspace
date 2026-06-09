@@ -1,6 +1,6 @@
 # Agents Guide
 
-Instructions for agents that apply to this entire workspace.
+Instructions for every agent we collaborate with in this workspace.
 
 ## How We Work
 
@@ -34,7 +34,6 @@ When you change what's in a Contextful Folder, update its docs at the same time 
 - **Which docs** — the nearest Contextful Folder's: the nearest folder with a `README.md`, which is your file's own folder or, more often, a parent.
 - **If you're unsure what to change** — ask the `doc-this` skill to update the docs for you.
 
-
 ## Git Workflow
 
 Branch-based workflow, no PRs (solo dev).
@@ -45,4 +44,3 @@ Branch-based workflow, no PRs (solo dev).
 - **Commit early, commit often** — small, focused commits with clear messages.
 - **Never force-push `main`.**
 - **Commit message style**: [Conventional Commits](https://www.conventionalcommits.org/) — `type: summary` under 72 chars. Common types: `feat`, `fix`, `docs`, `refactor`, `chore`, `test`. Add a body paragraph only when the "why" isn't obvious from the summary.
-
