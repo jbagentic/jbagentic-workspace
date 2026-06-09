@@ -1,0 +1,47 @@
+# Context discovery — reference
+
+The **navigation half** of the Contextful Folder pattern: how an agent should *read*
+contextful folders to gather context efficiently. The [guide](contextful-folder.guide.md) and
+[reference](contextful-folder.reference.md) cover how to *produce* such folders; this covers
+how to *consume* them.
+
+This rule is **always-on behavior** — it shapes how an agent gathers context on every task,
+not just when documenting. So it belongs in the repo's root agent instructions (`AGENTS.md`,
+or `CLAUDE.md` if that's what the repo loads as always-on instructions), not in an on-demand
+skill. Install the block below there once.
+
+## The rule (install this)
+
+```md
+## Efficient Context Discovery
+
+A folder is a context boundary, and its `README.md` is the entry point that orients you to
+what's inside. When you need context, start from the README nearest your task and let it point
+you to what's worth reading — not just other READMEs, but whatever it links: reference docs,
+skill files, code.
+
+From there, navigate by context rather than by search:
+
+- Need **broader** context? Go *up* the parent folders.
+- Need **more specific** context? Go *down* into subfolders.
+- Stop once you know enough.
+
+READMEs are the curated map, so reach for them before a blind `Find`/`Grep`/`Glob` sweep —
+searching first wastes tokens and skips the map. If the trail doesn't cover what you need, then
+search.
+```
+
+Adjust the heading level (`##` vs `###`) to fit the host file's structure; keep the
+"Efficient Context Discovery" heading so it's easy to detect on re-install.
+
+## Why
+
+Producing contextful folders only pays off if agents navigate by them. Without this rule an
+agent falls back to blind `Grep`/`Glob` sweeps — loading too much or missing what's there — and
+the READMEs-as-map investment is wasted. See [the guide](contextful-folder.guide.md)
+("Why folders?" / selective loading) for the rationale behind up/down progressive disclosure.
+
+## Related
+
+- [Contextful Folder guide](contextful-folder.guide.md) — why the pattern works.
+- [Contextful Folder reference](contextful-folder.reference.md) — how to produce contextful folders.

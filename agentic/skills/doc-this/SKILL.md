@@ -8,8 +8,8 @@ description: >-
   a README, organize messy/scattered docs, turn notes or a transcript into proper
   documentation, standardize how a directory is documented, or just says "doc this"
   / "document this folder" — even if they don't name the file types. Not for editing
-  a single existing doc's prose in place (just edit it) and not for context-discovery
-  rules across parent folders (that lives in AGENTS.md).
+  a single existing doc's prose in place (just edit it) and not for authoring
+  context-discovery rules as a standalone task.
 ---
 
 # Doc This
@@ -53,6 +53,8 @@ Invariants (what makes the output conform):
 
 5. **Verify before reporting done.** Confirm: a README exists; only approved file types/names are present; the manifest and `docs/` are in sync — every `docs/*` file has a manifest entry and every manifest link resolves; content is routed to the correct type; nothing is duplicated across files. Fix anything that fails.
 
+6. **Offer to install the navigation convention (first time only).** The docs you just wrote are a map; agents only benefit if they're told to *navigate* by it. That navigation rule is always-on behavior, so it belongs in the repo's root agent instructions — not in this skill's on-demand scope. Check the repo's root `AGENTS.md` (or `CLAUDE.md`, if that's what it loads as always-on instructions) for the context-discovery convention. If it's **already present**, do nothing. If it's **absent**, offer to add the block from [`references/context-discovery.reference.md`](references/context-discovery.reference.md) and **ask the user before writing** — it's a root file outside the folder you're documenting. If they decline, point them to that atom so they can copy it in themselves.
+
 ## Conventions
 
 The bundled [`references/contextful-folder.reference.md`](references/contextful-folder.reference.md) (with its [guide](references/contextful-folder.guide.md)) is the **authoritative** spec — file vocabulary, naming, structure, and the rest. It ships inside this skill, so it's always available; read it for anything beyond the routing table below. The routing table is the one piece mirrored here because it's needed on nearly every classification decision.
@@ -73,4 +75,5 @@ The bundled [`references/contextful-folder.reference.md`](references/contextful-
 ## Related
 
 - **Reference (bundled)** — [Contextful Folder reference](references/contextful-folder.reference.md) and its [guide](references/contextful-folder.guide.md) — the authority this skill enforces, shipped inside the skill.
+- **Context-discovery convention (bundled)** — [context-discovery.reference.md](references/context-discovery.reference.md) — the always-on navigation rule to install into a repo's `AGENTS.md`/`CLAUDE.md`, so agents read the docs this skill writes.
 
