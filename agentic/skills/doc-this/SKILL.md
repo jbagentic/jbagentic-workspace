@@ -71,7 +71,7 @@ The bundled [`references/contextful-folder.reference.md`](references/contextful-
 | Agent instructions and constraints | `AGENTS.md` |
 | Concepts and explanations | `docs/*.guide.md` |
 | Facts and specifications | `docs/*.reference.md` |
-| Procedures and recurring tasks | `*.runbook.md` |
+| Procedures and recurring tasks | `docs/*.runbook.md` |
 | Design decisions and tradeoffs | `docs/decisions/YYYYMMDD-*.md` |
 
 **Don't:** invent facts the materials don't support (ask if a key detail is missing); duplicate a fact across files; create file shapes outside the vocabulary.

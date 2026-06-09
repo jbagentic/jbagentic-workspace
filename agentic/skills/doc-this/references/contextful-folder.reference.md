@@ -58,9 +58,9 @@ Decision records are named `YYYYMMDD-{topic}.md` inside `docs/decisions/`:
 |---------|---------|
 | Directory purpose and navigation | `README.md` |
 | Agent instructions and constraints | `AGENTS.md` |
-| Concepts and explanations | `*.guide.md` |
-| Facts and specifications | `*.reference.md` |
-| Procedures and workflows | `*.runbook.md` |
+| Concepts and explanations | `docs/*.guide.md` |
+| Facts and specifications | `docs/*.reference.md` |
+| Procedures and workflows | `docs/*.runbook.md` |
 | Design decisions and tradeoffs | `docs/decisions/YYYYMMDD-*.md` |
 
 ## Keep it small
