@@ -14,7 +14,7 @@ Instructions for agents that apply to this entire workspace.
 
 ## Ground Rules
 
-### Efficient Context Discovery
+### Context Discovery Rule
 
 A folder is a context boundary, and its `README.md` is the entry point that orients you to what's inside. When you need context, start from the README nearest your task and let it point you to what's worth reading — not just other READMEs, but whatever it links: reference docs, skill files, code.
 
@@ -26,9 +26,9 @@ From there, navigate by context rather than by search:
 
 READMEs are the curated map, so reach for them before a blind `Find`/`Grep`/`Glob` sweep — searching first wastes tokens and skips the map. If the trail doesn't cover what you need, then search.
 
-### Keeping Context Current
+### Context Maintenance Rule
 
-When you change what's in a Contextful Folder, update its docs at the same time — a default you apply with judgment, not a hard rule.
+When you change what's in a Contextful Folder, update its docs at the same time — a rule you apply with judgment, not a hard one.
 
 - **Why** — the next agent or person relies on those docs and can't ask you later; if the docs are out of date, they get it wrong.
 - **Which docs** — the nearest Contextful Folder's: the nearest folder with a `README.md`, which is your file's own folder or, more often, a parent.
