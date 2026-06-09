@@ -18,7 +18,7 @@ READMEs are the curated map, so reach for them before a blind `Find`/`Grep`/`Glo
 
 ### Keeping Context Current
 
-Whoever changes what's in a Contextful Folder should update its contextual information, so its docs stay accurate.
+Whoever changes what's in a Contextful Folder should update its contextual information, so its docs stay accurate. This is a default you apply with judgment, not a hard rule — skip it when it doesn't fit (a throwaway experiment, or docs deliberately left for someone else).
 
 When you add, remove, rename, or change files, the docs that describe them live in the **nearest Contextful Folder** — the nearest enclosing folder with a `README.md`. That may be the file's own folder or a parent, since not every folder has its own docs and some are left to a parent on purpose. After a change, find that folder and update its `README.md` (and any `AGENTS.md` or `docs/*`) in the same pass:
 
