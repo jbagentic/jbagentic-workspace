@@ -1,7 +1,5 @@
 # Project Guide: JB Agentic Meetup
 
-## About
-
 The project folder for the JB Agentic Meetup — brand facts, past-meetup records, and the assets for each talk recording.
 
 ## Structure
@@ -11,7 +9,7 @@ The project folder for the JB Agentic Meetup — brand facts, past-meetup record
 | [`docs/`](docs/) | Reference docs — brand facts, past-meetup records, and the talk-recording convention (see the manifest below). |
 | [`talk-recordings/`](talk-recordings/) | Per-talk recording assets, one folder per talk — subtitles, slides, video link, cover image, and more. |
 
-## Talk recording pipeline
+## Talk Recording Pipeline
 
 How a recorded talk becomes a published video, in four phases. Each links to its runbook.
 

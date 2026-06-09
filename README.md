@@ -1,6 +1,6 @@
 # JB Agentic Workspace
 
-- Digital workspace for various projects run by JB Agentic community.
+A digital workspace for the projects run by the JB Agentic community.
 
 ## Structure
 
@@ -16,11 +16,11 @@
 
 ## Common Skills
 
-We use these common skills across projects in this workspace:
+Skills we use across projects in this workspace:
 
-- [`/doc-this`](agentic/skills/doc-this/SKILL.md) — turn raw materials (notes, transcripts, scattered docs) into structured contextual information and store into a relevant folder. Implements [**Contextful Folder**](agentic/skills/doc-this/references/contextful-folder.guide.md) pattern.
+- [`/doc-this`](agentic/skills/doc-this/SKILL.md) — turn raw materials (notes, transcripts, scattered docs) into structured, contextual docs and save them in the right folder. Implements the [**Contextful Folder**](agentic/skills/doc-this/references/contextful-folder.guide.md) pattern.
 
-For other skills, see the [agentic skill catalog](agentic/README.md#skills) for the full list — including the subtitle, slides, and YouTube skills the meetup project relies on.
+For other skills, see the [agentic skill catalog](agentic/README.md#skills) for the full list — including the subtitle, slides, and YouTube skills the meetup project uses.
 
 
 ## Docs Manifest

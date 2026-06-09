@@ -1,8 +1,8 @@
 # Skill evals
 
 Dev-time evaluation specs and durable benchmark records for the skills in [`../skills/`](../skills/).
-Everything here is **dev-time only** — it is read by skill-creator while building and iterating skills,
-never by a skill at runtime, and it lives **outside the skill folders so it never ships in the installed
+Everything here is **dev-time only** — skill-creator reads it while building and improving skills,
+never a skill at runtime, and it lives **outside the skill folders so it never ships in the installed
 `.skill`**.
 
 ## Structure
@@ -20,7 +20,7 @@ One folder per skill being evaluated, named to match the skill (e.g. `doc-this/`
 ## Running and promoting evals
 
 - Auto-discovery does not reach this path, so **point skill-creator at the eval folder explicitly**
-  when running or iterating.
+  when running or improving a skill.
 - **`subtitle-polish` stages its inputs first.** Run `python3 subtitle-polish/prepare.py` to
   materialize each talk's real `.en.raw.srt` + slide deck into `subtitle-polish/stage/`
   (gitignored) from `talk-recordings/`. The skill runs against that throwaway copy so its
