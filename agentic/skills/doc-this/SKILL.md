@@ -53,7 +53,7 @@ Invariants (what makes the output conform):
 
 5. **Verify before reporting done.** Confirm: a README exists; only approved file types/names are present; the manifest and `docs/` are in sync — every `docs/*` file has a manifest entry and every manifest link resolves; content is routed to the correct type; nothing is duplicated across files. Fix anything that fails.
 
-6. **Offer to install the navigation convention (first time only).** The docs you just wrote are a map; agents only benefit if they're told to *navigate* by it. That navigation rule is always-on behavior, so it belongs in the repo's root agent instructions — not in this skill's on-demand scope. Check the repo's root `AGENTS.md` (or `CLAUDE.md`, if that's what it loads as always-on instructions) for the context-discovery convention. If it's **already present**, do nothing. If it's **absent**, offer to add the block from [`references/context-discovery.reference.md`](references/context-discovery.reference.md) and **ask the user before writing** — it's a root file outside the folder you're documenting. If they decline, point them to that atom so they can copy it in themselves.
+6. **Offer to install the navigation convention (first time only).** The docs you just wrote are a map; agents only benefit if they're told to *navigate* by it. That navigation rule is always-on behavior, so it belongs in your **always-on agent instructions** — the top-level `AGENTS.md` or `CLAUDE.md` that's loaded on every task and applies to every folder, not the local `AGENTS.md` of the folder you just documented, and not this skill's on-demand scope. Check that file for the context-discovery convention: if it's **already present**, do nothing; if it's **absent** (or no such file exists yet), offer to add the block from [`references/context-discovery.reference.md`](references/context-discovery.reference.md) and **ask the user before writing** — confirm where it should go, since it applies above the folder you're documenting. If they decline, point them to that atom so they can copy it in themselves.
 
 ## Conventions
 
@@ -75,5 +75,5 @@ The bundled [`references/contextful-folder.reference.md`](references/contextful-
 ## Related
 
 - **Reference (bundled)** — [Contextful Folder reference](references/contextful-folder.reference.md) and its [guide](references/contextful-folder.guide.md) — the authority this skill enforces, shipped inside the skill.
-- **Context-discovery convention (bundled)** — [context-discovery.reference.md](references/context-discovery.reference.md) — the always-on navigation rule to install into a repo's `AGENTS.md`/`CLAUDE.md`, so agents read the docs this skill writes.
+- **Context-discovery convention (bundled)** — [context-discovery.reference.md](references/context-discovery.reference.md) — the always-on navigation rule to install into your top-level `AGENTS.md`/`CLAUDE.md` (the always-on instructions), so agents read the docs this skill writes.
 

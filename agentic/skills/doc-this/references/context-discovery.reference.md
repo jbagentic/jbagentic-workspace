@@ -6,9 +6,10 @@ contextful folders to gather context efficiently. The [guide](contextful-folder.
 how to *consume* them.
 
 This rule is **always-on behavior** — it shapes how an agent gathers context on every task,
-not just when documenting. So it belongs in the repo's root agent instructions (`AGENTS.md`,
-or `CLAUDE.md` if that's what the repo loads as always-on instructions), not in an on-demand
-skill. Install the block below there once.
+not just when documenting. So it belongs in your **always-on agent instructions** — the
+top-level `AGENTS.md` or `CLAUDE.md` loaded on every task, the one that applies to every folder
+— not in an on-demand skill, and not in any single folder's local `AGENTS.md`. Install the
+block below there once.
 
 ## The rule (install this)
 
