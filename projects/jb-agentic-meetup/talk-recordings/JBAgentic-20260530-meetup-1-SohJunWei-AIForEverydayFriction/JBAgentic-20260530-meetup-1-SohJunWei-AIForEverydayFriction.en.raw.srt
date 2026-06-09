@@ -1,0 +1,3224 @@
+1
+00:00:00,100 --> 00:00:01,600
+a good evening everyone
+
+2
+00:00:01,600 --> 00:00:04,033
+I'm so Jun Wei and first of all
+
+3
+00:00:04,033 --> 00:00:06,166
+thank you all for joining today's talk
+
+4
+00:00:06,166 --> 00:00:10,000
+and especially thank you to Hui Ming for hosting today
+
+5
+00:00:10,200 --> 00:00:12,200
+for hosting this event
+
+6
+00:00:12,200 --> 00:00:15,266
+so that I have the opportunity to share what
+
+7
+00:00:15,366 --> 00:00:19,266
+I have Learned when building up an application
+
+8
+00:00:19,600 --> 00:00:24,200
+so the topic today for me is AI for everyday friction
+
+9
+00:00:25,900 --> 00:00:27,833
+is essentially about
+
+10
+00:00:27,833 --> 00:00:30,766
+building a personal experience agent with
+
+11
+00:00:30,766 --> 00:00:33,200
+Hermes also using the MCP
+
+12
+00:00:33,433 --> 00:00:37,066
+this is not like about like to advertise like the
+
+13
+00:00:37,066 --> 00:00:39,766
+the finance app or to like
+
+14
+00:00:39,900 --> 00:00:42,400
+especially on the AI workflow or something like that
+
+15
+00:00:42,400 --> 00:00:45,300
+it's more like sharing my experience
+
+16
+00:00:45,766 --> 00:00:47,400
+at the entire journey in like
+
+17
+00:00:47,400 --> 00:00:49,666
+building out this entire product 
+
+18
+00:00:49,700 --> 00:00:52,700
+so let us just jump into it
+
+19
+00:00:52,766 --> 00:00:53,800
+so
+
+20
+00:00:53,800 --> 00:00:57,100
+for this one I will start out with explaining
+
+21
+00:00:57,100 --> 00:01:00,800
+I got this idea to like build build this thing out 
+
+22
+00:01:00,966 --> 00:01:02,100
+so we
+
+23
+00:01:02,100 --> 00:01:04,400
+I think we can all agree that
+
+24
+00:01:04,400 --> 00:01:06,866
+recording expense is a good habit 
+
+25
+00:01:07,266 --> 00:01:10,100
+because you can know like where your money is going
+
+26
+00:01:10,166 --> 00:01:10,500
+where
+
+27
+00:01:10,500 --> 00:01:13,966
+where did you spend all all your like money at
+
+28
+00:01:14,266 --> 00:01:15,666
+but then NPS
+
+29
+00:01:15,666 --> 00:01:19,200
+before that I actually always been using a app
+
+30
+00:01:19,200 --> 00:01:21,800
+called Fortune City to record my expenses
+
+31
+00:01:22,100 --> 00:01:26,166
+it is actually a good application because it gamis
+
+32
+00:01:26,400 --> 00:01:27,866
+gamifies the experience like
+
+33
+00:01:27,866 --> 00:01:30,100
+at the same time I record the expense
+
+34
+00:01:30,100 --> 00:01:32,733
+I also like building out a city from it
+
+35
+00:01:32,766 --> 00:01:34,366
+but then eventually
+
+36
+00:01:34,433 --> 00:01:37,633
+I have been using it for already few years
+
+37
+00:01:37,633 --> 00:01:42,000
+and it eventually like it getting feel a little bit
+
+38
+00:01:42,200 --> 00:01:46,000
+tiresome a little bit of troublesome like you
+
+39
+00:01:46,200 --> 00:01:47,133
+because like
+
+40
+00:01:47,466 --> 00:01:50,400
+you have to open the app and then key in manually
+
+41
+00:01:50,400 --> 00:01:52,900
+thing by yourself and then yeah
+
+42
+00:01:52,900 --> 00:01:56,000
+especially if you have a like older model phone or the
+
+43
+00:01:56,000 --> 00:01:56,833
+your phone is not
+
+44
+00:01:56,833 --> 00:01:58,700
+like the gaming phone or something like that
+
+45
+00:01:58,700 --> 00:02:00,033
+then opening at the app
+
+46
+00:02:00,033 --> 00:02:01,633
+even opening the app will take like
+
+47
+00:02:01,633 --> 00:02:03,700
+a few seconds to do it
+
+48
+00:02:03,866 --> 00:02:06,000
+then you can imagine like situation
+
+49
+00:02:06,000 --> 00:02:07,833
+like when you are eating out with
+
+50
+00:02:07,833 --> 00:02:08,800
+other people
+
+51
+00:02:08,833 --> 00:02:11,266
+other people and then they after they check out
+
+52
+00:02:11,266 --> 00:02:12,866
+then you got the receipt and everything
+
+53
+00:02:13,000 --> 00:02:15,800
+everyone want to leave already but then you
+
+54
+00:02:15,833 --> 00:02:18,266
+you suddenly you need to like ex ex
+
+55
+00:02:18,266 --> 00:02:19,766
+uh record the expense right
+
+56
+00:02:19,766 --> 00:02:21,766
+then you have to go through all these step
+
+57
+00:02:21,766 --> 00:02:23,466
+but everyone already go
+
+58
+00:02:23,466 --> 00:02:28,033
+so you like feel a kind of awkward  because like
+
+59
+00:02:28,033 --> 00:02:29,833
+you want you want to record the expenses
+
+60
+00:02:29,833 --> 00:02:32,466
+and everyone is already want to leave already
+
+61
+00:02:32,466 --> 00:02:34,166
+and then maybe you can say oh
+
+62
+00:02:34,166 --> 00:02:35,800
+maybe I will just record it later 
+
+63
+00:02:35,800 --> 00:02:38,600
+but of course  there will be cases
+
+64
+00:02:38,600 --> 00:02:40,933
+where you forget to record the expenses
+
+65
+00:02:41,300 --> 00:02:43,766
+so this is why I feel like
+
+66
+00:02:43,966 --> 00:02:47,400
+maybe there is some easier way for me to like
+
+67
+00:02:47,500 --> 00:02:51,800
+record my expense for for this typical use case
+
+68
+00:02:51,900 --> 00:02:55,200
+so the enemy here is not the expense checking
+
+69
+00:02:55,200 --> 00:02:58,000
+app is not to say like the checking app is not
+
+70
+00:02:58,000 --> 00:03:00,033
+not good or anything it's actually very good
+
+71
+00:03:00,033 --> 00:03:03,766
+it gamifies the experience but the enemy is friction ah
+
+72
+00:03:03,766 --> 00:03:07,133
+basically you have to go through these little steps
+
+73
+00:03:07,266 --> 00:03:10,500
+it all it all builds up to like a frust
+
+74
+00:03:10,500 --> 00:03:13,700
+frustration and keep me from
+
+75
+00:03:13,800 --> 00:03:15,566
+keep using it something like that 
+
+76
+00:03:15,633 --> 00:03:18,366
+so what if let's say this is
+
+77
+00:03:18,366 --> 00:03:19,200
+what I imagine 
+
+78
+00:03:19,200 --> 00:03:23,366
+what if the input can be made to be more effortless 
+
+79
+00:03:26,766 --> 00:03:27,033
+uh
+
+80
+00:03:27,033 --> 00:03:30,366
+first of all the the basic idea is the text input 
+
+81
+00:03:30,366 --> 00:03:32,966
+something like if let's say I just simple
+
+82
+00:03:33,666 --> 00:03:35,966
+very simple phrase like lunch
+
+83
+00:03:35,966 --> 00:03:39,266
+5.5 then it immediately the a
+
+84
+00:03:39,266 --> 00:03:42,166
+a agent will know or no you are talking about
+
+85
+00:03:42,166 --> 00:03:44,100
+or you want to add a expense record
+
+86
+00:03:44,100 --> 00:03:47,300
+your lunch and 5.5 Malaysian ringgit
+
+87
+00:03:47,366 --> 00:03:49,666
+and then it will just store it entirely
+
+88
+00:03:49,966 --> 00:03:53,566
+the entire record in the database or even
+
+89
+00:03:53,566 --> 00:03:56,366
+in some cases maybe the expense is not so easy
+
+90
+00:03:56,366 --> 00:03:58,633
+maybe it needs you do some arithmetic
+
+91
+00:03:58,633 --> 00:04:00,866
+some calculation maybe like one time
+
+92
+00:04:00,866 --> 00:04:02,600
+uh 10 ringgit plus something
+
+93
+00:04:02,600 --> 00:04:05,700
+plus something and maybe you got your tax again
+
+94
+00:04:05,700 --> 00:04:07,066
+maybe 6% tax
+
+95
+00:04:07,066 --> 00:04:10,266
+you also need to calculate that kind of stuff
+
+96
+00:04:10,266 --> 00:04:11,766
+maybe in in
+
+97
+00:04:11,766 --> 00:04:13,566
+you need to use calculator
+
+98
+00:04:13,566 --> 00:04:15,466
+if let's say you are just using a
+
+99
+00:04:15,466 --> 00:04:17,666
+a regular expense checking app
+
+100
+00:04:17,666 --> 00:04:21,000
+but then in this case maybe I can just state it out
+
+101
+00:04:21,000 --> 00:04:23,400
+and then the AI agent will do all the calculation
+
+102
+00:04:23,400 --> 00:04:25,366
+and then record it in the database
+
+103
+00:04:25,466 --> 00:04:26,400
+or even better
+
+104
+00:04:26,400 --> 00:04:28,966
+all of these I can just use a voice message
+
+105
+00:04:28,966 --> 00:04:32,300
+I just record like user I just say or
+
+106
+00:04:32,300 --> 00:04:36,100
+dinner 10.5 + 3.5 something like that
+
+107
+00:04:36,100 --> 00:04:39,400
+and then the AI agent will be able to like
+
+108
+00:04:39,400 --> 00:04:42,200
+and then just record in the database or even better
+
+109
+00:04:42,200 --> 00:04:43,466
+right you got the receipt
+
+110
+00:04:43,466 --> 00:04:44,400
+you got the receipt
+
+111
+00:04:44,400 --> 00:04:47,300
+I just take a photo of the receipt and say nothing else
+
+112
+00:04:47,300 --> 00:04:49,766
+then the AI agent will directly create the record
+
+113
+00:04:49,766 --> 00:04:51,600
+and add the attachment of the
+
+114
+00:04:51,600 --> 00:04:53,700
+receipt to this particular record
+
+115
+00:04:53,766 --> 00:04:57,166
+so this is idea that I try to build
+
+116
+00:04:57,300 --> 00:04:59,666
+uh earlier on and so right
+
+117
+00:04:59,666 --> 00:05:03,666
+so more more specific on the implementation
+
+118
+00:05:03,666 --> 00:05:06,866
+so it basically will be designed like this
+
+119
+00:05:07,000 --> 00:05:09,066
+so previously
+
+120
+00:05:09,266 --> 00:05:09,666
+at the
+
+121
+00:05:09,666 --> 00:05:13,500
+with the idea  that at that time also quite popular
+
+122
+00:05:13,900 --> 00:05:15,433
+the Open Claw the open Claw
+
+123
+00:05:15,433 --> 00:05:18,433
+and then also the Hermes agent is quite popular at the
+
+124
+00:05:18,433 --> 00:05:19,633
+at the time also 
+
+125
+00:05:19,633 --> 00:05:21,633
+I'm also trying to explore about that
+
+126
+00:05:21,633 --> 00:05:22,966
+so I saw
+
+127
+00:05:23,766 --> 00:05:25,600
+so it is convenient 
+
+128
+00:05:25,600 --> 00:05:28,400
+so this idea and then I think eh
+
+129
+00:05:28,400 --> 00:05:32,766
+maybe that one entire system can be top of that
+
+130
+00:05:32,766 --> 00:05:34,966
+or open claw and the Hermes agent
+
+131
+00:05:35,033 --> 00:05:36,866
+so that one we will
+
+132
+00:05:36,866 --> 00:05:40,400
+we will use the Telegram as the primary platform to
+
+133
+00:05:40,400 --> 00:05:41,266
+like
+
+134
+00:05:41,366 --> 00:05:43,666
+have send my message through 
+
+135
+00:05:43,666 --> 00:05:44,200
+and then
+
+136
+00:05:44,200 --> 00:05:47,700
+the AI will basically do the category detection
+
+137
+00:05:47,766 --> 00:05:51,066
+and then it extract the necessary information
+
+138
+00:05:51,066 --> 00:05:52,400
+text all of that
+
+139
+00:05:52,400 --> 00:05:55,600
+and then all of that will be saved to the database ah
+
+140
+00:05:55,866 --> 00:05:58,500
+saved to the database and then all of the
+
+141
+00:05:58,500 --> 00:06:00,766
+records will be visible in the dashboard
+
+142
+00:06:01,000 --> 00:06:05,766
+so the agent will not only be just chatting with
+
+143
+00:06:05,833 --> 00:06:06,966
+me like that 
+
+144
+00:06:07,100 --> 00:06:09,500
+it will actually perform the real action
+
+145
+00:06:09,666 --> 00:06:12,966
+through the use of tools and that is why
+
+146
+00:06:12,966 --> 00:06:14,833
+we will have to use
+
+147
+00:06:14,833 --> 00:06:19,333
+MCT which I chose in this particular use case 
+
+148
+00:06:19,433 --> 00:06:23,233
+for this one I will quickly demo a little bit 
+
+149
+00:06:23,233 --> 00:06:23,800
+like
+
+150
+00:06:23,800 --> 00:06:27,633
+what I have built over the case and true demo
+
+151
+00:06:27,633 --> 00:06:28,833
+I will just show
+
+152
+00:06:28,833 --> 00:06:32,466
+one is the Telegram and the second is the dashboard 
+
+153
+00:06:32,600 --> 00:06:35,266
+so if you can see my telegram over here
+
+154
+00:06:35,266 --> 00:06:38,300
+this is how I use the telegram right now 
+
+155
+00:06:38,300 --> 00:06:41,733
+I have used it for quite like a month already 
+
+156
+00:06:42,033 --> 00:06:44,066
+so like I I buy some
+
+157
+00:06:44,066 --> 00:06:47,066
+snacks and then have some voice messages
+
+158
+00:06:47,066 --> 00:06:48,300
+you see you can see it
+
+159
+00:06:48,300 --> 00:06:51,900
+it records all of into the database using the MCP
+
+160
+00:06:52,100 --> 00:06:55,266
+uh today my chat GPT got expired so I
+
+161
+00:06:55,266 --> 00:06:59,366
+I have to subscribe again and then have some
+
+162
+00:06:59,366 --> 00:07:01,466
+voice message I see if all of you can hear
+
+163
+00:07:03,900 --> 00:07:04,700
+okay
+
+164
+00:07:06,600 --> 00:07:07,766
+something like this so
+
+165
+00:07:07,766 --> 00:07:10,633
+you just extract the information required
+
+166
+00:07:10,633 --> 00:07:11,600
+and then just
+
+167
+00:07:11,800 --> 00:07:13,466
+record it into the database ah
+
+168
+00:07:13,466 --> 00:07:15,766
+and also like photo of receipt right
+
+169
+00:07:15,766 --> 00:07:17,300
+photo of receipt like this
+
+170
+00:07:17,300 --> 00:07:18,200
+uh go to my news
+
+171
+00:07:18,200 --> 00:07:21,000
+buy some breakfast and then it will just
+
+172
+00:07:21,100 --> 00:07:25,400
+get all of this and then record it into and then
+
+173
+00:07:25,600 --> 00:07:27,166
+initially when I build this
+
+174
+00:07:27,166 --> 00:07:29,033
+it is just a AI agent
+
+175
+00:07:29,033 --> 00:07:31,100
+the telegram something like that 
+
+176
+00:07:31,100 --> 00:07:32,500
+but then I figure out 
+
+177
+00:07:32,500 --> 00:07:36,633
+the is let's say it have mistake or I have to like
+
+178
+00:07:36,633 --> 00:07:40,566
+I mean I I prefer to manually edit this entire myself
+
+179
+00:07:40,566 --> 00:07:41,933
+right so
+
+180
+00:07:42,300 --> 00:07:45,200
+I eventually I also need the custom control
+
+181
+00:07:45,200 --> 00:07:46,333
+manual control 
+
+182
+00:07:46,400 --> 00:07:50,400
+and that's why I also use AI to build out a dashboard
+
+183
+00:07:50,700 --> 00:07:53,400
+that which connect to the s Q light database
+
+184
+00:07:53,400 --> 00:07:56,900
+and then it come out of for the entrance
+
+185
+00:07:56,900 --> 00:07:59,166
+it basically got a dashboard something like this
+
+186
+00:07:59,166 --> 00:08:00,100
+so like
+
+187
+00:08:00,100 --> 00:08:02,566
+this month expenses all the category
+
+188
+00:08:02,566 --> 00:08:05,666
+all the the the the charts and all the stuff
+
+189
+00:08:05,700 --> 00:08:07,100
+and then you can see over here
+
+190
+00:08:07,100 --> 00:08:08,266
+uh record expenses 
+
+191
+00:08:08,266 --> 00:08:10,500
+like something like this and then like
+
+192
+00:08:10,500 --> 00:08:11,900
+uh for example
+
+193
+00:08:12,200 --> 00:08:14,766
+if let's say I have uploaded the
+
+194
+00:08:14,766 --> 00:08:15,600
+the receipt right
+
+195
+00:08:15,600 --> 00:08:18,133
+it can be it can be attached over here
+
+196
+00:08:18,166 --> 00:08:20,133
+so I can see the receipt oh
+
+197
+00:08:20,300 --> 00:08:21,266
+uh like this 
+
+198
+00:08:21,266 --> 00:08:24,666
+so the receipt just now is all attached in here alright
+
+199
+00:08:24,666 --> 00:08:27,666
+so this is the demo flow
+
+200
+00:08:27,766 --> 00:08:31,633
+so let touch a bit about the entire architecture 
+
+201
+00:08:31,633 --> 00:08:34,333
+like of this action and build out of
+
+202
+00:08:34,366 --> 00:08:36,466
+so from over here from us
+
+203
+00:08:36,466 --> 00:08:39,800
+user side right we have like text mes text message
+
+204
+00:08:39,833 --> 00:08:41,866
+we have a voice input
+
+205
+00:08:41,866 --> 00:08:45,766
+speech input and also it can also be a receipt photo
+
+206
+00:08:45,866 --> 00:08:48,966
+and all of these will be sent through the Telegram
+
+207
+00:08:49,100 --> 00:08:50,066
+platform although
+
+208
+00:08:50,066 --> 00:08:52,566
+there is also other platform that we can set up of 
+
+209
+00:08:52,566 --> 00:08:54,000
+like WhatsApp or anything
+
+210
+00:08:54,333 --> 00:08:56,300
+and then all of this infrastructure
+
+211
+00:08:56,300 --> 00:09:00,066
+I host it inside the Oracle Cloud actually
+
+212
+00:09:00,100 --> 00:09:01,700
+Oracle Cloud is quite generous
+
+213
+00:09:01,700 --> 00:09:05,000
+I they got provide a virtual private server service
+
+214
+00:09:05,000 --> 00:09:08,800
+I for free and the resource provided generous
+
+215
+00:09:08,800 --> 00:09:11,866
+so if you need something hosted like 24 hour
+
+216
+00:09:11,866 --> 00:09:13,600
+you can check that out 
+
+217
+00:09:14,100 --> 00:09:18,066
+so all of this is inside the Oracle Cloud and then in
+
+218
+00:09:18,066 --> 00:09:19,033
+in inside a Docker container
+
+219
+00:09:19,033 --> 00:09:21,566
+primarily built on top of the
+
+220
+00:09:21,900 --> 00:09:23,866
+Hermes Agent container
+
+221
+00:09:23,900 --> 00:09:28,066
+then I just add some of my personal dashboard inside it
+
+222
+00:09:28,266 --> 00:09:31,600
+and then yes this this is the primary Hermes agent
+
+223
+00:09:31,600 --> 00:09:34,766
+all of the messages from Telegram will go through it
+
+224
+00:09:34,766 --> 00:09:36,900
+and then for the speech to text
+
+225
+00:09:37,066 --> 00:09:41,400
+uh Hermes agent actually support several options
+
+226
+00:09:41,633 --> 00:09:44,900
+like for example the whisper model hosted locally
+
+227
+00:09:45,133 --> 00:09:46,766
+but then because
+
+228
+00:09:46,766 --> 00:09:50,166
+those AI models will need some resources
+
+229
+00:09:50,200 --> 00:09:51,800
+so for my case
+
+230
+00:09:51,800 --> 00:09:55,666
+it will only be limited to whisper small model
+
+231
+00:09:55,800 --> 00:09:57,566
+which can be quite inaccurate
+
+232
+00:09:57,566 --> 00:10:00,400
+at the same time Hermes agent support the Glock
+
+233
+00:10:00,466 --> 00:10:02,433
+free API for the large model
+
+234
+00:10:02,433 --> 00:10:04,200
+so actually quite nice
+
+235
+00:10:04,200 --> 00:10:07,666
+the rate limit is quite hard to free free
+
+236
+00:10:07,666 --> 00:10:10,466
+the free limit is quite rich 
+
+237
+00:10:10,466 --> 00:10:11,700
+so it's it's
+
+238
+00:10:11,700 --> 00:10:13,400
+it's enough for my use case 
+
+239
+00:10:13,500 --> 00:10:14,900
+and for the model that I use
+
+240
+00:10:14,900 --> 00:10:17,333
+I primarily use the open router
+
+241
+00:10:17,400 --> 00:10:18,100
+open router
+
+242
+00:10:18,100 --> 00:10:24,266
+I choose the Q1 3.5 27B for the primary reasoning ah
+
+243
+00:10:24,266 --> 00:10:26,300
+it it needs to charge money for that 
+
+244
+00:10:26,300 --> 00:10:27,366
+that one needs to charge money
+
+245
+00:10:27,366 --> 00:10:30,066
+it's pay as you go usage
+
+246
+00:10:30,100 --> 00:10:34,300
+but right now haven't exceed like 10 USD
+
+247
+00:10:34,366 --> 00:10:36,766
+something like that so up until now ah
+
+248
+00:10:36,766 --> 00:10:38,966
+so it can be considered quite cheap 
+
+249
+00:10:38,966 --> 00:10:41,600
+maybe a message only 0.01 cent
+
+250
+00:10:41,600 --> 00:10:44,566
+something like that and for the receipt photo
+
+251
+00:10:44,566 --> 00:10:46,666
+you need to pass the image so it will
+
+252
+00:10:46,666 --> 00:10:48,200
+the open router will automatically
+
+253
+00:10:48,200 --> 00:10:51,133
+use the Germany Flash Vision motor 
+
+254
+00:10:51,266 --> 00:10:54,666
+then we have the UH2 execution layer ah
+
+255
+00:10:54,666 --> 00:10:58,833
+this one is the MCP that is also developed for it
+
+256
+00:10:58,833 --> 00:11:00,966
+because alright have this agent
+
+257
+00:11:00,966 --> 00:11:02,166
+it reads the message
+
+258
+00:11:02,166 --> 00:11:05,933
+and then it have to perform the insert to the database
+
+259
+00:11:06,300 --> 00:11:09,200
+but then for inserting to the database
+
+260
+00:11:09,200 --> 00:11:11,866
+if let I I also don't want it to like
+
+261
+00:11:11,866 --> 00:11:12,600
+always like
+
+262
+00:11:12,600 --> 00:11:15,500
+generate the SQL and then insert it by itself
+
+263
+00:11:15,500 --> 00:11:16,833
+every time because that one
+
+264
+00:11:16,833 --> 00:11:17,566
+it maybe if
+
+265
+00:11:17,566 --> 00:11:17,866
+let's say
+
+266
+00:11:17,866 --> 00:11:20,566
+I clear the session and then next time it don't know
+
+267
+00:11:20,566 --> 00:11:22,400
+don't know it generate the SQL
+
+268
+00:11:22,400 --> 00:11:24,200
+or maybe it download some tool
+
+269
+00:11:24,200 --> 00:11:25,400
+and then insert the database
+
+270
+00:11:25,400 --> 00:11:28,766
+so it's very unpredictable
+
+271
+00:11:29,066 --> 00:11:32,300
+so I have to create a MCP and then have
+
+272
+00:11:32,300 --> 00:11:37,066
+provide some tools for it to correctly insert the data
+
+273
+00:11:37,233 --> 00:11:39,166
+uh to the database ah
+
+274
+00:11:39,166 --> 00:11:39,966
+that one I can
+
+275
+00:11:39,966 --> 00:11:42,000
+I will elaborate in the following slides
+
+276
+00:11:42,266 --> 00:11:44,100
+and then the database is Sqlite
+
+277
+00:11:44,100 --> 00:11:45,966
+and then this one to
+
+278
+00:11:45,966 --> 00:11:46,833
+store the images
+
+279
+00:11:46,833 --> 00:11:49,733
+is basically a folder inside the Docker container 
+
+280
+00:11:49,800 --> 00:11:51,733
+and then lastly I have a dashboard
+
+281
+00:11:51,766 --> 00:11:54,133
+the admin interface  using the next JS
+
+282
+00:11:54,733 --> 00:11:58,400
+yes so this one basically the topic just now ah
+
+283
+00:11:58,566 --> 00:12:00,566
+many people when they like
+
+284
+00:12:00,566 --> 00:12:03,366
+set up their Hermes or maybe the open claw agent
+
+285
+00:12:03,366 --> 00:12:04,866
+they will just think like
+
+286
+00:12:05,066 --> 00:12:07,100
+and may maybe they will just eat like
+
+287
+00:12:07,100 --> 00:12:08,766
+I just directly prompt it like oh
+
+288
+00:12:08,766 --> 00:12:10,700
+I want to save this thing
+
+289
+00:12:10,833 --> 00:12:12,100
+this help me to save this thing
+
+290
+00:12:12,100 --> 00:12:13,700
+help me to send that
+
+291
+00:12:13,700 --> 00:12:15,800
+that thing and something like that 
+
+292
+00:12:15,966 --> 00:12:21,033
+so that one is okay to use but then it will break
+
+293
+00:12:21,033 --> 00:12:24,000
+also you have to also deal with the agent being
+
+294
+00:12:24,000 --> 00:12:25,166
+unpredictable at times
+
+295
+00:12:25,166 --> 00:12:30,066
+because L L m by itself is is a AI model
+
+296
+00:12:30,066 --> 00:12:32,900
+it is unpredictable  so you cannot expect like
+
+297
+00:12:32,900 --> 00:12:35,833
+oh thing you will do the things the same way
+
+298
+00:12:35,833 --> 00:12:38,033
+even if you like create a skill to it
+
+299
+00:12:38,033 --> 00:12:41,466
+there is always some certain degree of the
+
+300
+00:12:41,466 --> 00:12:43,733
+unpredictability in it 
+
+301
+00:12:43,966 --> 00:12:46,500
+so if let's say you just use the prompt
+
+302
+00:12:46,500 --> 00:12:50,766
+if you have to like reexplain the always repeatedly
+
+303
+00:12:50,900 --> 00:12:55,100
+there is a chance of it being a inconsistent there
+
+304
+00:12:55,100 --> 00:12:58,100
+also at the same time it will use more token also
+
+305
+00:12:58,266 --> 00:12:59,566
+and then if let's say
+
+306
+00:12:59,566 --> 00:13:01,666
+because I cannot just keep the session
+
+307
+00:13:01,666 --> 00:13:02,800
+keep going like that ah
+
+308
+00:13:02,800 --> 00:13:05,266
+the session eventually it will have to like
+
+309
+00:13:05,266 --> 00:13:08,033
+either compact or I have to clear out the session
+
+310
+00:13:08,033 --> 00:13:10,966
+and then it will just magically forget from it
+
+311
+00:13:10,966 --> 00:13:12,100
+be earlier before 
+
+312
+00:13:12,100 --> 00:13:15,266
+and also the may invent the process by itself 
+
+313
+00:13:15,266 --> 00:13:17,166
+maybe invent the process and then you
+
+314
+00:13:17,166 --> 00:13:20,266
+you feel that that that one is not what I
+
+315
+00:13:20,266 --> 00:13:21,400
+what I want you
+
+316
+00:13:21,400 --> 00:13:24,266
+you ask it to freeze and then there's more token used
+
+317
+00:13:24,433 --> 00:13:30,000
+ya so this is why I choose to like develop a MCP ah
+
+318
+00:13:30,000 --> 00:13:34,500
+MCP is actually that MCP will show how is the
+
+319
+00:13:34,500 --> 00:13:36,633
+the MCP is actually in the next slide
+
+320
+00:13:36,633 --> 00:13:40,900
+but it's actually you can think of it like API
+
+321
+00:13:40,900 --> 00:13:43,800
+but more suitable for the the AI 
+
+322
+00:13:43,800 --> 00:13:45,833
+it actually like on top of the
+
+323
+00:13:45,833 --> 00:13:48,866
+because you it be it also got endpoints
+
+324
+00:13:49,000 --> 00:13:50,833
+it's actually called tools over here 
+
+325
+00:13:50,833 --> 00:13:53,766
+but it's actually like API endpoints but
+
+326
+00:13:53,766 --> 00:13:56,566
+you also code the logic behind every endpoint
+
+327
+00:13:56,900 --> 00:13:59,166
+but then on top of every point and point
+
+328
+00:13:59,166 --> 00:14:01,166
+you also add like a description
+
+329
+00:14:01,166 --> 00:14:02,366
+like a for the AI
+
+330
+00:14:02,366 --> 00:14:05,100
+like explaining how you would use this tool
+
+331
+00:14:05,200 --> 00:14:06,466
+what is the input schema
+
+332
+00:14:06,466 --> 00:14:08,666
+and then what is the output will be formatted
+
+333
+00:14:08,666 --> 00:14:11,866
+like kind of like that so by using m c
+
+334
+00:14:11,866 --> 00:14:12,900
+m C p
+
+335
+00:14:12,900 --> 00:14:14,900
+it will provide with name tools
+
+336
+00:14:14,900 --> 00:14:18,900
+required fields valid categories validation rules
+
+337
+00:14:18,900 --> 00:14:21,633
+predictable outputs and also it
+
+338
+00:14:21,633 --> 00:14:23,100
+will be reusable 
+
+339
+00:14:23,100 --> 00:14:25,666
+so this m c P like like a API server
+
+340
+00:14:25,666 --> 00:14:27,366
+I can just throw it everywhere
+
+341
+00:14:27,366 --> 00:14:30,733
+everywhere the agent also can use the m C P
+
+342
+00:14:30,966 --> 00:14:33,666
+if let's say one day I decided to go back
+
+343
+00:14:33,666 --> 00:14:34,766
+claw or something like that
+
+344
+00:14:34,766 --> 00:14:37,566
+uh this m C P can also be applied to it 
+
+345
+00:14:37,966 --> 00:14:40,366
+so the core message is that
+
+346
+00:14:40,366 --> 00:14:43,866
+m C P will reduce your West guess work
+
+347
+00:14:43,900 --> 00:14:44,266
+guess work
+
+348
+00:14:44,266 --> 00:14:48,000
+by giving the agent a more well defined tool boundary
+
+349
+00:14:48,066 --> 00:14:53,533
+so a little bit you can see on this MCP  so
+
+350
+00:14:53,566 --> 00:14:56,600
+you can see it almost like a API  like
+
+351
+00:14:56,600 --> 00:15:00,266
+for example this app expense tool over here
+
+352
+00:15:00,266 --> 00:15:02,600
+you also provide it with a amount
+
+353
+00:15:02,600 --> 00:15:06,266
+a category which is a define of the category
+
+354
+00:15:06,266 --> 00:15:07,700
+you are allowed to pass in 
+
+355
+00:15:07,766 --> 00:15:09,033
+and also the description
+
+356
+00:15:09,033 --> 00:15:11,966
+the date and also additional remarks have to 
+
+357
+00:15:11,966 --> 00:15:15,300
+and also a calculate calculate 2 over here
+
+358
+00:15:15,633 --> 00:15:18,700
+a little bit about this calculator  because like
+
+359
+00:15:18,766 --> 00:15:20,100
+when AI do the math
+
+360
+00:15:20,100 --> 00:15:22,466
+it will sometimes it will get wrongly 
+
+361
+00:15:22,500 --> 00:15:24,366
+I have no experience with it before
+
+362
+00:15:24,366 --> 00:15:25,800
+when I tell tell it like
+
+363
+00:15:25,800 --> 00:15:28,666
+uh the food plus the beverage
+
+364
+00:15:28,666 --> 00:15:30,533
+then it come out with the wrong number
+
+365
+00:15:31,000 --> 00:15:33,533
+I when I try to calculate it myself 
+
+366
+00:15:33,600 --> 00:15:35,433
+and so figure it out
+
+367
+00:15:35,433 --> 00:15:40,100
+right now maybe best way is let him it to like
+
+368
+00:15:40,200 --> 00:15:42,366
+every time you have to do some calculation
+
+369
+00:15:42,366 --> 00:15:45,033
+call this function don't don't calculate it by yourself
+
+370
+00:15:45,033 --> 00:15:48,800
+okay so it's it's ya so basically
+
+371
+00:15:48,800 --> 00:15:51,466
+this MCP also by AI 
+
+372
+00:15:51,466 --> 00:15:52,566
+I just tell the AI
+
+373
+00:15:52,566 --> 00:15:58,433
+what I need for and develop it as a AI as a MCP server
+
+374
+00:15:58,433 --> 00:16:00,033
+and then it just come all up
+
+375
+00:16:00,033 --> 00:16:00,833
+all of this 
+
+376
+00:16:00,833 --> 00:16:04,500
+it's basically a not not develop with not JS 
+
+377
+00:16:04,833 --> 00:16:07,000
+so this one
+
+378
+00:16:07,066 --> 00:16:09,300
+the main take away is that that you
+
+379
+00:16:09,300 --> 00:16:10,966
+when you develop an application
+
+380
+00:16:10,966 --> 00:16:12,966
+you have to like split it by the two parts
+
+381
+00:16:13,000 --> 00:16:15,800
+one is the fuzzy input fuzzy input is like
+
+382
+00:16:15,833 --> 00:16:18,333
+for example natural language like
+
+383
+00:16:18,366 --> 00:16:20,033
+the Wu Chan Ah Wei pan ah
+
+384
+00:16:20,033 --> 00:16:23,466
+that that one that one is a fuzzy input that is not
+
+385
+00:16:23,800 --> 00:16:27,600
+always be the case for the computer so that one
+
+386
+00:16:27,700 --> 00:16:31,966
+for AI they will they perform the best in it
+
+387
+00:16:31,966 --> 00:16:33,100
+but like
+
+388
+00:16:33,100 --> 00:16:36,266
+inserting the record into the database and everything
+
+389
+00:16:36,800 --> 00:16:39,166
+for is deterministic
+
+390
+00:16:39,166 --> 00:16:42,566
+behaviour and that one is best performed by AI
+
+391
+00:16:42,566 --> 00:16:45,266
+but no not by AI by by tools like
+
+392
+00:16:45,500 --> 00:16:47,066
+we define the logic like at the
+
+393
+00:16:47,066 --> 00:16:49,633
+using the MCP or using CRI
+
+394
+00:16:49,633 --> 00:16:52,033
+everything like that so for fuzzy input
+
+395
+00:16:52,033 --> 00:16:53,933
+we use AI for
+
+396
+00:16:54,300 --> 00:16:57,766
+for hard rules like money validation and calculation
+
+397
+00:16:57,766 --> 00:17:00,400
+we define tools for the AI to use
+
+398
+00:17:00,400 --> 00:17:02,766
+that one is the best scenario
+
+399
+00:17:02,900 --> 00:17:03,766
+which I think ah
+
+400
+00:17:04,166 --> 00:17:08,200
+and then this one is basically more like
+
+401
+00:17:08,300 --> 00:17:12,166
+what I feel after like develop of this stuff 
+
+402
+00:17:12,266 --> 00:17:16,800
+like there is always a feel feeling  like
+
+403
+00:17:17,100 --> 00:17:19,400
+AI is going to replace us right
+
+404
+00:17:19,400 --> 00:17:22,366
+but then my right now my
+
+405
+00:17:22,366 --> 00:17:26,800
+my thought on this is actually AI will not
+
+406
+00:17:26,800 --> 00:17:28,166
+remove developers 
+
+407
+00:17:28,166 --> 00:17:32,166
+but if we are undergoing transformation 
+
+408
+00:17:32,233 --> 00:17:35,700
+we have to change like what our primary
+
+409
+00:17:35,700 --> 00:17:39,100
+daily job as a developer is
+
+410
+00:17:39,100 --> 00:17:40,733
+you with using AI 
+
+411
+00:17:40,766 --> 00:17:43,200
+it changes what we have to focus on 
+
+412
+00:17:43,466 --> 00:17:44,033
+previously
+
+413
+00:17:44,033 --> 00:17:47,633
+we always do the manual coding and everything right
+
+414
+00:17:47,633 --> 00:17:49,900
+and we have to code everything by ourselves
+
+415
+00:17:49,900 --> 00:17:52,900
+then we got like co pilot it auto complete
+
+416
+00:17:52,900 --> 00:17:53,833
+just tap tap
+
+417
+00:17:53,833 --> 00:17:55,166
+tap tap and then everything
+
+418
+00:17:55,266 --> 00:17:57,966
+and right now the AI already help us to like
+
+419
+00:17:57,966 --> 00:18:01,033
+I just prompt the AI it just help us to code
+
+420
+00:18:01,033 --> 00:18:03,000
+code out all of this stuff
+
+421
+00:18:03,133 --> 00:18:05,300
+so right now I think our
+
+422
+00:18:05,300 --> 00:18:08,366
+responsibility will have a little bit of the shift 
+
+423
+00:18:08,566 --> 00:18:09,666
+maybe previously
+
+424
+00:18:09,666 --> 00:18:14,300
+we do 20% of the design and then 80% of like
+
+425
+00:18:14,300 --> 00:18:16,900
+uh coding out the thing that we want to build
+
+426
+00:18:17,000 --> 00:18:19,233
+but right now maybe we have to shift it
+
+427
+00:18:19,233 --> 00:18:22,266
+more like a 80% of designing and dis
+
+428
+00:18:22,433 --> 00:18:25,433
+deciding on what we have to build up
+
+429
+00:18:25,433 --> 00:18:28,133
+and then tell the AI to build
+
+430
+00:18:28,266 --> 00:18:31,600
+to code it out and then we verify the result ourselves
+
+431
+00:18:31,666 --> 00:18:33,366
+so we move more like
+
+432
+00:18:33,366 --> 00:18:36,966
+from a coder to become a orchestrator of the AI
+
+433
+00:18:36,966 --> 00:18:39,566
+and then to become a architect some
+
+434
+00:18:39,566 --> 00:18:41,866
+uh that is what I thought 
+
+435
+00:18:42,000 --> 00:18:43,366
+a normal we
+
+436
+00:18:43,366 --> 00:18:44,000
+a normal
+
+437
+00:18:44,000 --> 00:18:48,133
+regular AI user ask the AI to solve the problem
+
+438
+00:18:48,166 --> 00:18:50,066
+but we as a developer
+
+439
+00:18:50,066 --> 00:18:53,100
+will go and design how AI
+
+440
+00:18:53,100 --> 00:18:57,300
+is allowed to solve the problem at the hand  to
+
+441
+00:18:57,366 --> 00:18:58,333
+to solve problem at hand
+
+442
+00:18:58,433 --> 00:19:00,800
+we cannot let it like go wild or do
+
+443
+00:19:00,800 --> 00:19:03,633
+do whatever it need  because
+
+444
+00:19:03,633 --> 00:19:05,966
+AI cannot see the picture that we
+
+445
+00:19:06,000 --> 00:19:09,266
+we can see AI you will just like
+
+446
+00:19:09,266 --> 00:19:10,500
+or you tell me what to do
+
+447
+00:19:10,500 --> 00:19:14,166
+I will do whatever it takes to reach that
+
+448
+00:19:14,166 --> 00:19:16,400
+that goal that you give give me
+
+449
+00:19:16,500 --> 00:19:18,166
+so we have to give it
+
+450
+00:19:18,166 --> 00:19:21,300
+like the constraint and the restrictions that is to
+
+451
+00:19:21,300 --> 00:19:22,100
+like
+
+452
+00:19:22,566 --> 00:19:23,900
+achieve what we
+
+453
+00:19:24,633 --> 00:19:25,966
+so we don't just code
+
+454
+00:19:25,966 --> 00:19:29,866
+we design how the AI is allowed to act
+
+455
+00:19:29,866 --> 00:19:31,866
+so basically this is the
+
+456
+00:19:31,866 --> 00:19:37,166
+the part where we have to identify which part of it is
+
+457
+00:19:37,166 --> 00:19:38,433
+like a fuzzy input
+
+458
+00:19:38,433 --> 00:19:40,866
+and which part is a deterministic act
+
+459
+00:19:40,933 --> 00:19:42,266
+deterministic action
+
+460
+00:19:42,266 --> 00:19:45,366
+when we are developing a AI application ah
+
+461
+00:19:45,366 --> 00:19:47,933
+we cannot just entirely depend everything
+
+462
+00:19:48,000 --> 00:19:51,900
+throw to AI and let AI expect AI to do the stuff to us
+
+463
+00:19:51,900 --> 00:19:52,866
+ah we have to know like
+
+464
+00:19:52,866 --> 00:19:53,600
+oh which one
+
+465
+00:19:53,600 --> 00:19:57,033
+which one of the job is actually best performed by AI
+
+466
+00:19:57,033 --> 00:20:00,866
+and which part of it is best performed by by
+
+467
+00:20:00,866 --> 00:20:02,633
+by the set of rule
+
+468
+00:20:02,633 --> 00:20:05,733
+predefined rules which is deterministic ah
+
+469
+00:20:05,866 --> 00:20:06,633
+like like
+
+470
+00:20:06,633 --> 00:20:08,966
+like natural language understanding
+
+471
+00:20:09,033 --> 00:20:11,100
+or voice or messy phrasing
+
+472
+00:20:11,100 --> 00:20:13,433
+and also the receipt interpretation
+
+473
+00:20:13,433 --> 00:20:15,200
+ah all of these is fuzzy input
+
+474
+00:20:15,200 --> 00:20:17,933
+and that one is what the AI do best
+
+475
+00:20:18,166 --> 00:20:21,266
+but then for deterministic action like
+
+476
+00:20:21,266 --> 00:20:23,166
+I have to like from the message
+
+477
+00:20:23,200 --> 00:20:27,000
+uh like Wu Chan is basically categorize
+
+478
+00:20:27,500 --> 00:20:30,866
+uh food and then maybe like a petrol and everything
+
+479
+00:20:30,866 --> 00:20:33,066
+that one is categorized as transport
+
+480
+00:20:33,233 --> 00:20:36,100
+that one category validation is validation
+
+481
+00:20:36,100 --> 00:20:37,233
+ah not categorization
+
+482
+00:20:37,233 --> 00:20:38,666
+if categorization is
+
+483
+00:20:38,666 --> 00:20:41,266
+is still the fuzzy input best performed by AI
+
+484
+00:20:41,266 --> 00:20:42,900
+but then if
+
+485
+00:20:42,900 --> 00:20:43,266
+let's say
+
+486
+00:20:43,266 --> 00:20:46,666
+I only have a limited amount of the category that I
+
+487
+00:20:46,666 --> 00:20:48,766
+define the database can have
+
+488
+00:20:48,766 --> 00:20:51,266
+that one is deterministic and has to be set
+
+489
+00:20:51,266 --> 00:20:54,366
+the rules and also text and calculation
+
+490
+00:20:54,533 --> 00:20:57,900
+we have used tools for that data validation database
+
+491
+00:20:57,900 --> 00:21:01,400
+right summary and also attachment handling
+
+492
+00:21:01,400 --> 00:21:05,233
+all of these best to have a predefined set of rules
+
+493
+00:21:05,233 --> 00:21:07,700
+we we don't want the AI to be like
+
+494
+00:21:07,700 --> 00:21:12,766
+oh for for right now or maybe it it has one
+
+495
+00:21:12,766 --> 00:21:14,666
+it just generate a sequel
+
+496
+00:21:14,866 --> 00:21:18,233
+sequel by itself to insert database later in the next
+
+497
+00:21:18,233 --> 00:21:20,900
+next next time when you like clear the session
+
+498
+00:21:21,066 --> 00:21:23,700
+it just somehow come up with
+
+499
+00:21:23,700 --> 00:21:25,566
+it called a entire what
+
+500
+00:21:25,566 --> 00:21:28,466
+the the framework for you to insert into the database
+
+501
+00:21:28,466 --> 00:21:31,800
+or something like that that one is very unpredictable
+
+502
+00:21:31,800 --> 00:21:34,766
+and we don't want that in our AI application 
+
+503
+00:21:34,866 --> 00:21:39,266
+so we have a little bit of like mention here
+
+504
+00:21:39,266 --> 00:21:40,466
+uh previously I
+
+505
+00:21:40,466 --> 00:21:42,466
+have also discussed with Hui Min
+
+506
+00:21:42,600 --> 00:21:46,000
+and we discuss on whether we should use
+
+507
+00:21:46,000 --> 00:21:50,300
+MCP or or CRI and the core message
+
+508
+00:21:50,300 --> 00:21:52,900
+the way is I think like that  is
+
+509
+00:21:53,000 --> 00:21:56,700
+how much less work do we want to lift to the AI
+
+510
+00:21:56,700 --> 00:21:59,466
+uh if let's say CLI CLI is like
+
+511
+00:21:59,466 --> 00:22:00,466
+just in the terminal
+
+512
+00:22:00,466 --> 00:22:03,500
+and then AI will just generate the command inside the
+
+513
+00:22:03,500 --> 00:22:05,266
+of the terminal right
+
+514
+00:22:05,366 --> 00:22:09,700
+so if let's say for my use case over here
+
+515
+00:22:09,700 --> 00:22:13,000
+like the expense checking application at the end
+
+516
+00:22:13,000 --> 00:22:13,900
+if let's say I have
+
+517
+00:22:13,900 --> 00:22:17,166
+I develop the entire tool set inside the CIA
+
+518
+00:22:17,166 --> 00:22:20,833
+I also need to a guideline for the AI to understand
+
+519
+00:22:20,833 --> 00:22:22,533
+or how do I use this command
+
+520
+00:22:22,600 --> 00:22:24,800
+unless it's a very popular command
+
+521
+00:22:24,866 --> 00:22:28,866
+a geek command or maybe like the the one in Linus
+
+522
+00:22:29,166 --> 00:22:30,833
+all of that that one me
+
+523
+00:22:30,833 --> 00:22:34,266
+AI is already has been assisted for a long time
+
+524
+00:22:34,266 --> 00:22:37,366
+AI probably very familiar with it
+
+525
+00:22:37,366 --> 00:22:39,766
+that one is no problem to use the CRI 
+
+526
+00:22:39,900 --> 00:22:42,700
+the C L I is mm the the
+
+527
+00:22:42,700 --> 00:22:45,066
+the the a I is already trained of
+
+528
+00:22:45,066 --> 00:22:47,200
+on many of the C L I command
+
+529
+00:22:47,300 --> 00:22:50,166
+so for those popular commands
+
+530
+00:22:50,166 --> 00:22:52,866
+AI will have no problem working with it
+
+531
+00:22:52,866 --> 00:22:55,966
+but let's say if I have developed a custom tool set
+
+532
+00:22:56,133 --> 00:22:57,966
+and then I also need to attach like oh
+
+533
+00:22:57,966 --> 00:23:00,366
+you you need to call this
+
+534
+00:23:00,466 --> 00:23:02,933
+tool when you want to do what thing
+
+535
+00:23:02,966 --> 00:23:04,100
+uh maybe what
+
+536
+00:23:04,100 --> 00:23:06,900
+are the inputs arguments that you have to pass in
+
+537
+00:23:06,900 --> 00:23:10,900
+what shape what kind of the input is allowed to have
+
+538
+00:23:10,966 --> 00:23:13,233
+and then also when during the error
+
+539
+00:23:13,233 --> 00:23:15,100
+it will need to return the error message
+
+540
+00:23:15,100 --> 00:23:17,600
+then the error message will also need to be
+
+541
+00:23:17,633 --> 00:23:19,700
+properly formatted for the AI
+
+542
+00:23:19,700 --> 00:23:21,666
+to understand or what goes wrong
+
+543
+00:23:21,666 --> 00:23:26,766
+and also what output structure the AI needs
+
+544
+00:23:27,066 --> 00:23:29,300
+what output the AI has to expect
+
+545
+00:23:29,300 --> 00:23:31,166
+when the 2 call is success
+
+546
+00:23:31,266 --> 00:23:32,466
+uh is success ah
+
+547
+00:23:32,833 --> 00:23:35,233
+so if let's say I have to build all of this thing
+
+548
+00:23:35,233 --> 00:23:37,566
+actually the will be still be MCP ah
+
+549
+00:23:37,566 --> 00:23:38,466
+because MCP
+
+550
+00:23:38,566 --> 00:23:42,400
+you call the tool and then it also will list out like
+
+551
+00:23:42,400 --> 00:23:44,200
+or this endpoint this tool
+
+552
+00:23:44,433 --> 00:23:45,166
+uh we'll
+
+553
+00:23:45,166 --> 00:23:46,866
+what did the description will describe
+
+554
+00:23:46,866 --> 00:23:50,666
+or when will you you should be calling this tool
+
+555
+00:23:50,666 --> 00:23:52,766
+and then what are the input arguments
+
+556
+00:23:52,766 --> 00:23:54,500
+what what's schema you
+
+557
+00:23:54,500 --> 00:23:56,366
+we will have and also the output
+
+558
+00:23:56,500 --> 00:23:59,500
+the output structure that will be returned to the AI
+
+559
+00:23:59,500 --> 00:24:04,000
+lah so this is the take away 
+
+560
+00:24:04,000 --> 00:24:09,033
+so basically when deciding or whether to m C P or C R I
+
+561
+00:24:09,033 --> 00:24:12,666
+you can you still can use C R I if let's say
+
+562
+00:24:12,766 --> 00:24:17,300
+the the operation not don't have to be so like
+
+563
+00:24:17,300 --> 00:24:19,300
+well defined something like that
+
+564
+00:24:19,366 --> 00:24:20,233
+so of course 
+
+565
+00:24:20,233 --> 00:24:23,200
+the application is still far from perfect
+
+566
+00:24:23,200 --> 00:24:26,100
+there is still some areas of improvement
+
+567
+00:24:26,100 --> 00:24:29,666
+for example like for the to text
+
+568
+00:24:29,800 --> 00:24:30,600
+like we
+
+569
+00:24:31,400 --> 00:24:32,233
+like with the text right
+
+570
+00:24:32,233 --> 00:24:34,833
+you know I have a 6% I
+
+571
+00:24:34,833 --> 00:24:35,466
+just
+
+572
+00:24:35,466 --> 00:24:37,066
+say Liu Liupasien
+
+573
+00:24:37,066 --> 00:24:39,333
+and then you will add liupasien
+
+574
+00:24:39,433 --> 00:24:44,166
+and then it will calculate it like a 6.8% or 68%
+
+575
+00:24:44,166 --> 00:24:45,133
+something like that
+
+576
+00:24:45,166 --> 00:24:47,566
+and then also for the receipt receipt ah
+
+577
+00:24:47,566 --> 00:24:48,366
+the the
+
+578
+00:24:48,366 --> 00:24:49,866
+the sometimes I just
+
+579
+00:24:49,866 --> 00:24:51,066
+maybe in the lunch ah
+
+580
+00:24:51,066 --> 00:24:53,166
+I just say lunch
+
+581
+00:24:53,166 --> 00:24:56,000
+ah 5.5 ringgit and then
+
+582
+00:24:56,433 --> 00:24:58,266
+for the dinner I just upload a receipt
+
+583
+00:24:58,266 --> 00:24:58,566
+and then
+
+584
+00:24:58,566 --> 00:25:01,033
+if you think that receipt is actually the lunch receipt
+
+585
+00:25:01,033 --> 00:25:02,600
+and then just tell me that
+
+586
+00:25:02,600 --> 00:25:04,233
+the that the
+
+587
+00:25:04,233 --> 00:25:06,133
+maybe you want to attach the receipt
+
+588
+00:25:06,200 --> 00:25:09,466
+and then that is also the tax and calculation error 
+
+589
+00:25:09,666 --> 00:25:10,300
+but then
+
+590
+00:25:10,300 --> 00:25:13,566
+this one area is still going to be improved 
+
+591
+00:25:13,566 --> 00:25:16,733
+and because of the time I rush a bit ah
+
+592
+00:25:16,866 --> 00:25:18,700
+this is the next
+
+593
+00:25:18,700 --> 00:25:20,066
+next step improvement ah
+
+594
+00:25:20,066 --> 00:25:21,433
+a little bit of introduce ah
+
+595
+00:25:21,433 --> 00:25:24,700
+this one is actually a personality that I trying to
+
+596
+00:25:24,700 --> 00:25:26,366
+like add into the
+
+597
+00:25:26,366 --> 00:25:27,266
+the over here
+
+598
+00:25:27,433 --> 00:25:28,500
+this one
+
+599
+00:25:28,500 --> 00:25:31,200
+call awiya and then basically the character
+
+600
+00:25:31,200 --> 00:25:33,266
+I just generally using the chat GPT ah
+
+601
+00:25:33,266 --> 00:25:33,833
+like
+
+602
+00:25:33,833 --> 00:25:37,200
+it will be a character to inside the
+
+603
+00:25:37,200 --> 00:25:37,700
+inside this
+
+604
+00:25:37,700 --> 00:25:39,100
+uh finance checking
+
+605
+00:25:39,300 --> 00:25:42,066
+uh assistant to give it a more of a awiya
+
+606
+00:25:42,066 --> 00:25:44,800
+and then there is still many improvements to be done
+
+607
+00:25:44,800 --> 00:25:46,066
+in the later phase ah
+
+608
+00:25:46,133 --> 00:25:47,000
+so okay
+
+609
+00:25:47,000 --> 00:25:49,400
+so call to conclude this about ppt
+
+610
+00:25:49,400 --> 00:25:51,200
+so basically
+
+611
+00:25:51,600 --> 00:25:52,866
+we we don't have
+
+612
+00:25:52,866 --> 00:25:55,266
+to always find a huge AI project
+
+613
+00:25:55,266 --> 00:25:57,700
+idea to get started to using the AI 
+
+614
+00:25:57,700 --> 00:26:01,466
+we can just observe from our life like oh eh
+
+615
+00:26:01,466 --> 00:26:04,700
+maybe we got some friction doing this and doing that
+
+616
+00:26:04,766 --> 00:26:07,900
+we just start from small fiction and then try to see eh
+
+617
+00:26:07,900 --> 00:26:10,300
+how AI can actually help us to
+
+618
+00:26:10,300 --> 00:26:12,366
+improve the workflow and and everything
+
+619
+00:26:12,600 --> 00:26:14,966
+and use AI for fuzzy understanding
+
+620
+00:26:14,966 --> 00:26:16,266
+part of the application
+
+621
+00:26:16,400 --> 00:26:18,733
+use tool for deterministic action
+
+622
+00:26:18,866 --> 00:26:21,000
+and then we as developers
+
+623
+00:26:21,233 --> 00:26:23,233
+we will design the boundary
+
+624
+00:26:23,233 --> 00:26:25,366
+for what the AI is allowed to use
+
+625
+00:26:25,366 --> 00:26:26,766
+the I think the I believe
+
+626
+00:26:26,766 --> 00:26:29,500
+I strongly believe this is the correct way to
+
+627
+00:26:29,500 --> 00:26:31,766
+for us developers to use the AI 
+
+628
+00:26:32,066 --> 00:26:34,433
+so I think that's all for today
+
+629
+00:26:34,433 --> 00:26:36,066
+uh thank you everyone
+
+630
+00:26:36,066 --> 00:26:39,166
+so the Q&A session so any questions
+
+631
+00:26:39,233 --> 00:26:40,666
+maybe I go first so
+
+632
+00:26:40,666 --> 00:26:41,166
+uh actually
+
+633
+00:26:41,166 --> 00:26:44,233
+I very curious on the part that you say
+
+634
+00:26:44,233 --> 00:26:46,700
+you are integrating the Telegram with the
+
+635
+00:26:47,000 --> 00:26:49,666
+with the Hermes Hermes AI agent actually
+
+636
+00:26:49,666 --> 00:26:51,900
+because I was
+
+637
+00:26:51,900 --> 00:26:52,766
+getting from you also
+
+638
+00:26:52,766 --> 00:26:55,600
+because I saw you are doing the AI budget tracking
+
+639
+00:26:55,600 --> 00:26:58,033
+so actually I also wonder that eh
+
+640
+00:26:58,033 --> 00:27:00,700
+is it I also can do it so I so
+
+641
+00:27:00,700 --> 00:27:02,700
+I think this week I just try it
+
+642
+00:27:02,700 --> 00:27:04,900
+during my time to develop my own
+
+643
+00:27:04,900 --> 00:27:06,833
+AI budget tracking itself also
+
+644
+00:27:06,833 --> 00:27:09,600
+but my agent is actually using the cloud
+
+645
+00:27:09,633 --> 00:27:12,500
+the desktop and then I building the connector to the
+
+646
+00:27:12,500 --> 00:27:13,433
+to my own
+
+647
+00:27:13,433 --> 00:27:14,500
+MCP server
+
+648
+00:27:14,633 --> 00:27:17,166
+to and then do it like you like a API endpoint
+
+649
+00:27:17,166 --> 00:27:18,800
+there's a add expenses
+
+650
+00:27:18,800 --> 00:27:21,200
+all those inside my MCP server endpoint
+
+651
+00:27:21,200 --> 00:27:24,266
+so I just configure your RL inside the cloud desktop
+
+652
+00:27:24,266 --> 00:27:26,600
+to do the connection so I just
+
+653
+00:27:26,666 --> 00:27:28,233
+very curious about how Hermes
+
+654
+00:27:28,233 --> 00:27:30,766
+can work with the Telegram actually
+
+655
+00:27:30,766 --> 00:27:32,900
+it's like this  if let's say for Hermes
+
+656
+00:27:32,900 --> 00:27:36,300
+it is hosted like 24 hours on my
+
+657
+00:27:36,300 --> 00:27:38,866
+Docker container inside my virtual private server
+
+658
+00:27:39,066 --> 00:27:41,500
+and when setting up the Hermes agent
+
+659
+00:27:41,500 --> 00:27:44,366
+it will essentially ask you for the channel
+
+660
+00:27:44,366 --> 00:27:47,166
+they call it Channel  and then for it
+
+661
+00:27:47,166 --> 00:27:49,600
+you will like ask for the
+
+662
+00:27:49,600 --> 00:27:52,266
+the Telegram token that will you
+
+663
+00:27:52,266 --> 00:27:54,733
+you will get when you set up the Telegram bot
+
+664
+00:27:54,900 --> 00:27:58,866
+and then how it is actually doing getting the message
+
+665
+00:27:59,166 --> 00:28:01,600
+it it he it is doing polling
+
+666
+00:28:01,666 --> 00:28:03,233
+it's like oh
+
+667
+00:28:03,233 --> 00:28:06,500
+like for for over some time
+
+668
+00:28:06,500 --> 00:28:07,866
+for some interval of time
+
+669
+00:28:07,866 --> 00:28:11,033
+it will go hit the telegram or do or do do
+
+670
+00:28:11,033 --> 00:28:13,566
+do this bot have new in or no
+
+671
+00:28:13,566 --> 00:28:15,400
+then I wait for like few seconds
+
+672
+00:28:15,400 --> 00:28:17,400
+and then I just ask again
+
+673
+00:28:17,400 --> 00:28:17,666
+or how
+
+674
+00:28:17,666 --> 00:28:21,466
+how do do it have like a new new new message coming in
+
+675
+00:28:21,466 --> 00:28:23,633
+no ah then then repeat rinse and repeat oh
+
+676
+00:28:23,633 --> 00:28:26,066
+I see so like like a like a break off special
+
+677
+00:28:26,066 --> 00:28:28,300
+special job if you run it like every
+
+678
+00:28:28,300 --> 00:28:32,033
+every minute or every single every period we call this
+
+679
+00:28:32,033 --> 00:28:34,200
+uh they regret to see there is a any new
+
+680
+00:28:34,200 --> 00:28:35,700
+new message coming in
+
+681
+00:28:35,766 --> 00:28:39,366
+then that one inside the Hermes or the Open Claw they
+
+682
+00:28:39,366 --> 00:28:41,066
+this concept they call they
+
+683
+00:28:41,066 --> 00:28:43,200
+they call it they have a service for it 
+
+684
+00:28:43,200 --> 00:28:44,366
+they call it the gateway
+
+685
+00:28:44,366 --> 00:28:48,666
+if you see the term gateway essentially means this
+
+686
+00:28:48,900 --> 00:28:52,433
+channel service message and also some on top of other
+
+687
+00:28:52,433 --> 00:28:53,066
+other things ah
+
+688
+00:28:53,066 --> 00:28:54,733
+like they got the job
+
+689
+00:28:54,766 --> 00:28:58,200
+the heartbeat and everything like that  I see okay
+
+690
+00:28:58,200 --> 00:28:59,100
+okay thank okay
+
+691
+00:28:59,100 --> 00:29:01,066
+I think that's the question for me okay
+
+692
+00:29:01,066 --> 00:29:02,466
+thank you very good question
+
+693
+00:29:02,966 --> 00:29:04,000
+any other questions
+
+694
+00:29:04,000 --> 00:29:07,433
+I have a quick one I have a quick one I
+
+695
+00:29:07,433 --> 00:29:09,233
+does it support WhatsApp
+
+696
+00:29:09,233 --> 00:29:11,666
+for Hermes I'm not sure
+
+697
+00:29:11,666 --> 00:29:12,666
+but Openclaws
+
+698
+00:29:12,666 --> 00:29:16,800
+so far Openclaws is support most of the
+
+699
+00:29:16,866 --> 00:29:21,000
+channel  even line everything like that for Hermes
+
+700
+00:29:21,000 --> 00:29:22,533
+I'm not sure yes ah
+
+701
+00:29:22,866 --> 00:29:24,000
+uh most oh
+
+702
+00:29:24,000 --> 00:29:24,633
+okay it
+
+703
+00:29:24,633 --> 00:29:26,000
+it supports her WhatsApp 
+
+704
+00:29:26,000 --> 00:29:29,566
+but it will take a more steps for it to configure 
+
+705
+00:29:29,566 --> 00:29:31,100
+because Telegram you just
+
+706
+00:29:31,100 --> 00:29:33,000
+you just prompt a bot and then it's
+
+707
+00:29:33,000 --> 00:29:35,566
+the bot is just appear appear already oh
+
+708
+00:29:35,600 --> 00:29:37,566
+okay so actually Telegram is provide the token
+
+709
+00:29:37,566 --> 00:29:38,566
+so is it the WhatsApp
+
+710
+00:29:38,566 --> 00:29:41,000
+also provide the token for us to connect
+
+711
+00:29:41,300 --> 00:29:42,700
+to get the data from the WhatsApp
+
+712
+00:29:42,700 --> 00:29:45,966
+I think so  I haven't sent yes 
+
+713
+00:29:46,000 --> 00:29:48,100
+I think I have  cause I did something similar also
+
+714
+00:29:48,300 --> 00:29:49,100
+oh
+
+715
+00:29:49,566 --> 00:29:51,200
+so basically like that mm
+
+716
+00:29:51,800 --> 00:29:53,100
+so no more questions oh
+
+717
+00:29:53,100 --> 00:29:54,500
+I have one more like
+
+718
+00:29:54,500 --> 00:29:56,866
+do you plan to open source this project
+
+719
+00:29:56,900 --> 00:29:59,300
+I eventually I plan actually got
+
+720
+00:29:59,300 --> 00:30:02,600
+plan to upload it to my personal Github
+
+721
+00:30:02,600 --> 00:30:06,233
+after I have added the personality inside 
+
+722
+00:30:06,233 --> 00:30:07,900
+like update update a little bit
+
+723
+00:30:07,900 --> 00:30:10,000
+fix a thing here and there
+
+724
+00:30:10,000 --> 00:30:12,166
+and then I will upload it to my Gitlab
+
+725
+00:30:12,200 --> 00:30:15,966
+and then I plan to also like make a Docker container
+
+726
+00:30:15,966 --> 00:30:16,866
+lah so I
+
+727
+00:30:16,866 --> 00:30:18,900
+I just one command and everything
+
+728
+00:30:19,266 --> 00:30:22,066
+including the dashboard will be set up like that
+
+729
+00:30:22,100 --> 00:30:24,566
+but recently with the work so
+
+730
+00:30:24,566 --> 00:30:27,400
+so less time for me to work on this project 
+
+731
+00:30:27,433 --> 00:30:30,133
+then once you open source it yeah
+
+732
+00:30:31,566 --> 00:30:33,366
+I will I will inform it the group
+
+733
+00:30:33,366 --> 00:30:35,633
+I will also it on the
+
+734
+00:30:35,633 --> 00:30:37,300
+the personal personal profile
+
+735
+00:30:37,300 --> 00:30:38,733
+something like that  okay
+
+736
+00:30:39,466 --> 00:30:41,866
+any other questions no other question can
+
+737
+00:30:41,866 --> 00:30:45,300
+can you go back to the there's one NPS
+
+738
+00:30:45,300 --> 00:30:47,333
+uh slide regarding
+
+739
+00:30:47,833 --> 00:30:50,100
+regarding the the the the
+
+740
+00:30:50,100 --> 00:30:51,800
+the the token ah
+
+741
+00:30:51,800 --> 00:30:53,600
+the the whisper
+
+742
+00:30:53,600 --> 00:30:56,166
+something long whisper and short whisper
+
+743
+00:30:56,233 --> 00:30:59,000
+because you mention that there's a whisper large
+
+744
+00:30:59,000 --> 00:31:00,400
+may I know the whisper large
+
+745
+00:31:00,400 --> 00:31:02,833
+it is like let's say
+
+746
+00:31:02,833 --> 00:31:05,400
+because just now I noticed the telegram
+
+747
+00:31:05,400 --> 00:31:07,266
+whisper message is around like
+
+748
+00:31:07,266 --> 00:31:08,866
+8 seconds
+
+749
+00:31:09,033 --> 00:31:11,366
+the whisper large is it like referring
+
+750
+00:31:11,366 --> 00:31:11,766
+can
+
+751
+00:31:11,766 --> 00:31:15,200
+your voice message can like one minute or something
+
+752
+00:31:15,600 --> 00:31:18,266
+uh I think the main like the model
+
+753
+00:31:18,266 --> 00:31:21,700
+because the whisper model is actually from open AI
+
+754
+00:31:21,700 --> 00:31:24,066
+open AI they release the open source
+
+755
+00:31:24,066 --> 00:31:25,866
+uh voice voice
+
+756
+00:31:26,266 --> 00:31:28,300
+voice to text yes
+
+757
+00:31:28,300 --> 00:31:29,533
+voice to speech to text ah
+
+758
+00:31:29,566 --> 00:31:31,433
+speech to text model and the difference
+
+759
+00:31:31,433 --> 00:31:34,800
+be small and large is essentially like the models like
+
+760
+00:31:34,800 --> 00:31:37,466
+UH27B UHHUNDREDB
+
+761
+00:31:37,466 --> 00:31:40,500
+something like the how accurate  it will effect how
+
+762
+00:31:40,500 --> 00:31:43,366
+how accurate the output of the the
+
+763
+00:31:43,366 --> 00:31:47,400
+the speech to text functionality  like for example
+
+764
+00:31:47,400 --> 00:31:51,100
+if let's say I my voice is a little bit unclear
+
+765
+00:31:51,100 --> 00:31:53,166
+maybe on the small model it will come out
+
+766
+00:31:53,166 --> 00:31:53,800
+incorrect
+
+767
+00:31:53,800 --> 00:31:56,766
+but on the large model because it trained on more
+
+768
+00:31:56,766 --> 00:31:57,966
+it got more parameters
+
+769
+00:31:57,966 --> 00:32:00,366
+and then it will just come out more correct 
+
+770
+00:32:00,366 --> 00:32:00,666
+the
+
+771
+00:32:00,666 --> 00:32:03,966
+is the main difference is the accuracy of the result ah
+
+772
+00:32:04,000 --> 00:32:06,200
+but at the same time it more resource ah
+
+773
+00:32:06,200 --> 00:32:10,100
+compute resource how about the daily usage limit
+
+774
+00:32:10,300 --> 00:32:15,766
+that one is the usage limit is based on how much
+
+775
+00:32:16,000 --> 00:32:18,266
+that is produced in the
+
+776
+00:32:18,266 --> 00:32:22,233
+in the voice message and then it converts to text
+
+777
+00:32:22,233 --> 00:32:23,933
+that is the limit right
+
+778
+00:32:24,166 --> 00:32:26,900
+it's like this  if you  host
+
+779
+00:32:26,900 --> 00:32:30,600
+you decided to host the whisper model yourself
+
+780
+00:32:30,700 --> 00:32:32,900
+there is no limit  the limit is your
+
+781
+00:32:32,900 --> 00:32:36,100
+your computer then for this block free API
+
+782
+00:32:36,100 --> 00:32:42,266
+I think like one day I it have like 200 it
+
+783
+00:32:42,266 --> 00:32:43,800
+it calculate based on request ah
+
+784
+00:32:43,800 --> 00:32:47,800
+you you like you hit how many request and then eh
+
+785
+00:32:48,200 --> 00:32:50,600
+is it request or I think seconds ah
+
+786
+00:32:50,600 --> 00:32:51,766
+seconds how how
+
+787
+00:32:51,766 --> 00:32:55,100
+the total length of the voice you send in the day
+
+788
+00:32:55,300 --> 00:32:56,366
+for it to process
+
+789
+00:32:58,633 --> 00:33:00,866
+that's all from me anymore okay
+
+790
+00:33:00,866 --> 00:33:02,466
+so quick question
+
+791
+00:33:02,466 --> 00:33:07,066
+the you are using grok free API or whisper
+
+792
+00:33:07,066 --> 00:33:11,400
+in initially I you host the whisper model
+
+793
+00:33:11,400 --> 00:33:13,233
+locally on the virtual private server
+
+794
+00:33:13,233 --> 00:33:17,266
+but on it only can host up until the model
+
+795
+00:33:17,500 --> 00:33:20,566
+and then the result is a little bit inaccurate
+
+796
+00:33:20,666 --> 00:33:21,866
+then I see oh
+
+797
+00:33:21,866 --> 00:33:24,566
+it also provide the grok free API
+
+798
+00:33:24,600 --> 00:33:28,900
+this grok free API is actually also a service provider
+
+799
+00:33:28,900 --> 00:33:32,033
+lah and it hosts the whisper model also
+
+800
+00:33:32,033 --> 00:33:34,266
+but it only provides whisper large
+
+801
+00:33:34,566 --> 00:33:37,600
+so after changing to it the
+
+802
+00:33:37,833 --> 00:33:41,166
+the accuracy is increased  oh okay
+
+803
+00:33:41,233 --> 00:33:43,666
+any other question if not ya
+
+804
+00:33:43,666 --> 00:33:45,633
+I think that's all thank you
+
+805
+00:33:45,633 --> 00:33:46,500
+Jun Wei okay
+
+806
+00:33:46,500 --> 00:33:48,000
+thank you everyone for listening
+
