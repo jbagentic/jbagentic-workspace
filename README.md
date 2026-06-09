@@ -27,3 +27,10 @@ For other skills, see the [agentic skill catalog](agentic/README.md#skills) for 
 
 - [SKILL.md convention in this workspace](docs/skill-convention.reference.md)
 
+## License
+
+This repo holds material under two sets of terms:
+
+- **Community-authored work** (skills, eval harness, docs) — [MIT](LICENSE).
+- **Speaker talk material** (slides, transcripts, covers, and assets derived from them) — © the respective speakers, all rights reserved, **not** covered by the MIT license. See [NOTICE](NOTICE).
+

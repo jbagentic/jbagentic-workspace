@@ -1,0 +1,42 @@
+JB Agentic Workspace
+Copyright (c) 2026 JB Agentic
+
+This repository contains material under two different sets of terms.
+
+================================================================================
+1. Community-authored work — MIT License (see LICENSE)
+================================================================================
+
+The skills, eval harness and scripts, and documentation authored by the
+JB Agentic community are licensed under the MIT License. This includes, but is
+not limited to:
+
+  - agentic/skills/        (skill definitions and helper scripts)
+  - agentic/evals/         (eval harness, graders, fixtures builders, specs)
+  - docs/ and all README.md / *.reference.md / *.guide.md documentation
+
+Speaker talk material reproduced or derived under section 2 is excluded from
+the MIT grant even when it sits inside the directories listed above.
+
+================================================================================
+2. Speaker talk material — (c) the respective speakers, all rights reserved
+================================================================================
+
+Each talk's slide deck, cover image, transcripts and subtitles (all
+languages), the YouTube metadata derived from them, and any eval fixtures or
+run outputs derived from them — wherever they appear in this repository — are
+the property of the speaker who created that talk. They are found mainly under:
+
+  - projects/jb-agentic-meetup/talk-recordings/
+  - eval fixtures and run outputs under agentic/evals/ that are derived from
+    these talks
+
+Each speaker has granted JB Agentic a limited, non-exclusive, non-commercial
+license to record their talk and to publish the recording and these derived
+materials on JB Agentic's own distribution channels. No rights are granted to
+any other party. The MIT License in LICENSE does NOT apply to this material.
+You may not use, reproduce, adapt, or redistribute it for any purpose without
+the prior permission of the relevant speaker.
+
+To request changes or removal of any talk material, contact JB Agentic
+(https://lu.ma/jbagentic).

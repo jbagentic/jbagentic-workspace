@@ -2,6 +2,8 @@
 
 How a talk's recording assets are named and laid out under `talk-recordings/`, and which skill produces each file. One folder per talk.
 
+> **Licensing:** these talk assets are speaker-owned — © the respective speakers, all rights reserved, and **not** covered by the repo's MIT license. JB Agentic holds only a limited non-commercial license to publish them on its own channels. See the root [`NOTICE`](../../../NOTICE).
+
 ## Folder layout
 
 ```
