@@ -14,7 +14,7 @@ block below there once.
 ## The rule (install this)
 
 ```md
-## Efficient Context Discovery
+## Context Discovery Rule
 
 A folder is a context boundary, and its `README.md` is the entry point that orients you to
 what's inside. When you need context, start from the README nearest your task and let it point
@@ -33,7 +33,7 @@ search.
 ```
 
 Adjust the heading level (`##` vs `###`) to fit the host file's structure; keep the
-"Efficient Context Discovery" heading so it's easy to detect on re-install.
+"Context Discovery Rule" heading so it's easy to detect on re-install.
 
 ## Why
 

@@ -15,9 +15,9 @@ block below there once.
 ## The rule (install this)
 
 ```md
-## Keeping Context Current
+## Context Maintenance Rule
 
-When you change what's in a Contextful Folder, update its docs at the same time — a default you apply with judgment, not a hard rule.
+When you change what's in a Contextful Folder, update its docs at the same time — a rule you apply with judgment, not a hard one.
 
 - **Why** — the next agent or person relies on those docs and can't ask you later; if the docs are out of date, they get it wrong.
 - **Which docs** — the nearest Contextful Folder's: the nearest folder with a `README.md`, which is your file's own folder or, more often, a parent.
@@ -25,7 +25,7 @@ When you change what's in a Contextful Folder, update its docs at the same time 
 ```
 
 Adjust the heading level (`##` vs `###`) to fit the host file's structure; keep the
-"Keeping Context Current" heading so it's easy to detect on re-install.
+"Context Maintenance Rule" heading so it's easy to detect on re-install.
 
 ## Why
 
