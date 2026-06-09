@@ -1,11 +1,7 @@
-# Skill eval run outputs — disposable scratch produced by skill-creator.
-# Committed: skill_evals/<name>/evals.json (specs) and skill_evals/<name>/benchmarks/ (durable summaries).
-# Ignored: skill_evals/<name>/runs/ (raw outputs, per-run grading/timing, viewer HTML).
-skill_evals/*/runs/
+# Eval run outputs are ignored per-directory via agentic/evals/<name>/runs/.gitignore
+# (each commits its own evals.json + benchmarks/ but ignores raw runs/ scratch).
 
 *.mov
-
-deliverables/temp/*.*
 
 # macOS
 .DS_Store
