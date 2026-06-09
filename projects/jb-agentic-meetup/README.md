@@ -2,11 +2,14 @@
 
 ## About
 
-This is the project folder for the JB Agentic Meetup. It holds:
+The project folder for the JB Agentic Meetup — brand facts, past-meetup records, and the assets for each talk recording.
 
-- Facts about the meetup brand.
-- Details of past meetups.
-- Assets for each talk recording, one folder per talk under `talk-recordings/` (subtitles, slides, video link, cover image, and more).
+## Structure
+
+| Folder | What it holds |
+|--------|---------------|
+| [`docs/`](docs/) | Reference docs — brand facts, past-meetup records, and the talk-recording convention (see the manifest below). |
+| [`talk-recordings/`](talk-recordings/) | Per-talk recording assets, one folder per talk — subtitles, slides, video link, cover image, and more. |
 
 ## Docs Manifest
 

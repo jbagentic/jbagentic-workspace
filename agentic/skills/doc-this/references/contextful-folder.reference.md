@@ -67,6 +67,12 @@ Decision records are named `YYYYMMDD-{topic}.md` inside `docs/decisions/`:
 
 `README.md` and `AGENTS.md` are orientation and instruction, not encyclopedias. Push depth into a typed doc and **link** to it rather than duplicating. One file, one topic. When the same fact would appear twice, keep it in one place and link.
 
+## Presenting structure
+
+The README's structure coverage — the part that lists what the folder contains — should follow a **consistent, scannable convention** so any folder can be eyeballed the same way. Give it a labeled section, and make each entry pair a linked path with a one-line description of what it holds. Keep the shape uniform within a folder, and ideally across the repo.
+
+The *exact* shape is the repo's house style, not something this spec fixes: a heading word (`Structure`, `Layout`, …) and a table or a bullet list — pick what reads best for the content (a flat set of folders suits a table; entries that nest suit a list). Consistency is the requirement; the template is not.
+
 ## Finding more context
 
 Need broader context? Read the `README.md` in a parent folder. Need something more specific? Read the `README.md` in a nested folder.
