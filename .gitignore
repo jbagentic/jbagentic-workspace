@@ -1,6 +1,10 @@
 # Eval run outputs are ignored per-directory via agentic/evals/<name>/runs/.gitignore
 # (each commits its own evals.json + benchmarks/ but ignores raw runs/ scratch).
 
+# subtitle-polish evals stage real talk inputs (raw SRT + slides) from
+# talk-recordings/ here before running — rebuilt by prepare.py, never committed.
+agentic/evals/subtitle-polish/stage/
+
 *.mov
 
 # macOS

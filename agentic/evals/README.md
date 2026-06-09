@@ -21,6 +21,11 @@ One folder per skill being evaluated, named to match the skill (e.g. `doc-this/`
 
 - Auto-discovery does not reach this path, so **point skill-creator at the eval folder explicitly**
   when running or iterating.
+- **`subtitle-polish` stages its inputs first.** Run `python3 subtitle-polish/prepare.py` to
+  materialize each talk's real `.en.raw.srt` + slide deck into `subtitle-polish/stage/`
+  (gitignored) from `talk-recordings/`. The skill runs against that throwaway copy so its
+  sibling output (`<slug>.en.srt`) never overwrites the committed talk folder. The decks and
+  transcripts live once, in `talk-recordings/` — they are not copied into the eval.
 - Direct run outputs to `agentic/evals/<skill-name>/runs/` so specs and their results stay together;
   `runs/` is gitignored and disposable.
 - After aggregating a run, **promote** a curated summary to the committed

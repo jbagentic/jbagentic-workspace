@@ -6,10 +6,11 @@ this finds the produced .srt in outputs/, evaluates every assertion from the
 case's eval_metadata.json, and writes grading.json with the exact fields the
 eval viewer needs: {text, passed, evidence}.
 
-Synthetic cases (sohjunwei / kowajialiang) are checked precisely against their
-fixture answer-key.json + gold. The real case (khewjiapeng) is checked on
-invariants + filler-density drop + spot-checked term recovery, since the
-speaker's own polish legitimately differs from the skill's.
+All three cases are real talks: the input is the talk's genuine auto-transcript,
+and grading is invariants + filler-density drop + per-talk term spot-checks
+against the slide-canonical forms (the speaker's own polish legitimately differs
+from the skill's, so we don't diff against a gold). The raw input is read from
+the committed talk folder under talk-recordings/.
 
 Usage:
   python3 grade.py runs/iteration-1
@@ -20,7 +21,16 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-FIX = ROOT / "fixtures"
+REPO = ROOT.parents[2]  # subtitle-polish -> evals -> agentic -> repo root
+TALKS = REPO / "projects/jb-agentic-meetup/talk-recordings"
+
+# eval-name keyword -> (talk slug, restraint tokens that must survive)
+CASES = {
+    "khew": ("JBAgentic-20260530-meetup-1-KhewJiaPeng-AIMeetsInfrastructure", ["lah", "ya"]),
+    "kowa": ("JBAgentic-20260530-meetup-1-KowaJiaLiang-OurAIJourney", ["ya", "okay", "lah"]),
+    "soh":  ("JBAgentic-20260530-meetup-1-SohJunWei-AIForEverydayFriction", ["ya", "lah", "ah"]),
+}
+
 
 # ------------------------------ SRT parsing --------------------------------
 def parse(path_or_text, is_text=False):
@@ -40,7 +50,6 @@ def parse(path_or_text, is_text=False):
 def find_output_srt(run_dir):
     out = Path(run_dir) / "outputs"
     srts = [p for p in out.rglob("*.srt")]
-    # prefer one without a .raw marker
     nonraw = [p for p in srts if ".raw." not in p.name]
     pick = (nonraw or srts)
     return pick[0] if pick else None
@@ -77,58 +86,21 @@ def chk_no_bom(ctx):
     return (not bom), ("UTF-8 without BOM" if not bom else "BOM present")
 
 
-def out_timings(ctx):
-    return [x["timing"] for x in ctx["out"]]
-
-
 def chk_timestamps_subset(ctx):
     raw_t = {x["timing"] for x in ctx["raw"]}
-    missing = [t for t in out_timings(ctx) if t not in raw_t]
+    missing = [x["timing"] for x in ctx["out"] if x["timing"] not in raw_t]
     ok = not missing
     return ok, ("all output timestamps exist in the raw input" if ok else f"{len(missing)} invented/shifted, e.g. {missing[:3]}")
-
-
-def chk_timestamps_equal(ctx):
-    raw_t = [x["timing"] for x in ctx["raw"]]
-    out_t = out_timings(ctx)
-    ok = raw_t == out_t
-    return ok, ("timestamps identical to raw, in order" if ok else f"timestamp list differs ({len(out_t)} vs {len(raw_t)} cues)")
 
 
 def body_text(ctx):
     return "\n".join(x["body"] for x in ctx["out"])
 
 
-# ------------------------------ synth checks -------------------------------
-def term_gone_canonical(ctx, wrong, canonical):
-    t = body_text(ctx)
-    # word-boundary check for the wrong token (case-insensitive), canonical present (case-sensitive)
-    wrong_present = re.search(r"\b" + re.escape(wrong) + r"\b", t, re.I) is not None
-    # canonical presence is case-insensitive: a correct fix that differs only in
-    # capitalization (e.g. 'Hermes Agent' vs 'Hermes agent') still counts.
-    canon_present = re.search(r"\b" + re.escape(canonical) + r"\b", t, re.I) is not None
-    ok = (not wrong_present) and canon_present
-    return ok, f"'{wrong}' {'still present' if wrong_present else 'gone'}; '{canonical}' {'present' if canon_present else 'MISSING'}"
-
-
-def filler_removed(ctx, tokens):
-    """tokens: list of standalone filler words that were injected and must be gone
-    as standalone words (not as substrings of real words)."""
-    t = body_text(ctx)
-    still = [w for w in tokens if re.search(r"\b" + re.escape(w) + r"\b", t)]
-    # 'like'/'uh'/'um' can legitimately appear; we judge by count drop instead for ambiguous ones.
-    return still, t
-
-
-def chk_no_stutters(ctx, pairs):
-    """pairs: list of (word) that were duplicated; ensure no 'word word' dup remains for them."""
-    t = body_text(ctx).lower()
-    remaining = []
-    for w in pairs:
-        if re.search(r"\b" + re.escape(w.lower()) + r"\s+" + re.escape(w.lower()) + r"\b", t):
-            remaining.append(w)
-    ok = not remaining
-    return ok, ("all injected stutters collapsed" if ok else f"still duplicated: {remaining}")
+# ------------------------------ term checks --------------------------------
+def chk_present(ctx, term):
+    ok = re.search(r"\b" + re.escape(term) + r"\b", body_text(ctx), re.I) is not None
+    return ok, f"'{term}' {'present' if ok else 'MISSING'}"
 
 
 def chk_keep(ctx, tokens):
@@ -138,95 +110,53 @@ def chk_keep(ctx, tokens):
     return ok, ("preserved: " + ", ".join(tokens) if ok else f"wrongly removed: {missing}")
 
 
-# ------------------------------ case wiring --------------------------------
-def grade_synth(ctx, key):
-    """Return dict assertion_text -> (passed, evidence) for synthetic cases."""
-    res = {}
-    res["__exists"] = chk_exists_nonraw(ctx)
-    res["__contig"] = chk_contiguous(ctx)
-    res["__noempty"] = chk_no_empty(ctx)
-    res["__bom"] = chk_no_bom(ctx)
-    res["__ts"] = chk_timestamps_equal(ctx)
-    # term corrections grouped by canonical
-    by_canon = {}
-    for tc in key["term_corrections"]:
-        by_canon.setdefault((tc["wrong"], tc["should_become"]), 0)
-        by_canon[(tc["wrong"], tc["should_become"])] += 1
-    res["__terms"] = {}
-    for (wrong, canon), n in by_canon.items():
-        res["__terms"][(wrong, canon)] = term_gone_canonical(ctx, wrong, canon)
-    return res
+def term_gone_canonical(ctx, wrong, canon, tol=0):
+    """Wrong form appears <= tol times (word-boundary, case-insensitive) and the
+    canonical form is present. tol gives slack for terms whose mis-hearing is also
+    a real English word (e.g. 'cloud')."""
+    t = body_text(ctx)
+    wrong_n = len(re.findall(r"\b" + re.escape(wrong) + r"\b", t, re.I))
+    canon_present = re.search(r"\b" + re.escape(canon) + r"\b", t, re.I) is not None
+    ok = wrong_n <= tol and canon_present
+    return ok, f"'{wrong}' x{wrong_n} (tol {tol}); '{canon}' {'present' if canon_present else 'MISSING'}"
 
 
-def assertion_eval_synth(ctx, key, assertions):
-    """Map each assertion string (in order) to a checker result."""
-    out = []
-    cnt = body_text(ctx)
-    for a in assertions:
-        al = a.lower()
-        if "raw marker removed" in al:
-            p, e = chk_exists_nonraw(ctx)
-        elif "contiguous" in al and "cues" in al:
-            ok1, e1 = chk_contiguous(ctx)
-            ok2, e2 = chk_no_empty(ctx)
-            want = key["cue_count"]
-            got = len([x for x in ctx["out"] if x["idx"].isdigit()])
-            okc = got == want
-            p = ok1 and ok2 and okc
-            e = f"{e1}; {e2}; count {got}/{want}"
-        elif "timestamp" in al:
-            p, e = chk_timestamps_equal(ctx)
-        elif "bom" in al:
-            p, e = chk_no_bom(ctx)
-        elif "corrected to" in al:
-            # extract 'X' is corrected to 'Y'
-            m = re.findall(r"'([^']+)'", a)
-            wrong, canon = m[0], m[1]
-            p, e = term_gone_canonical(ctx, wrong, canon)
-        elif "injected fillers" in al:
-            # tokens listed in parens
-            toks = re.findall(r"\b(um|uh|you know|like)\b", a)
-            # judge: injected fillers gone. We check the specific injected phrases from key.
-            still = []
-            for f in key["injected_fillers"]:
-                # the inserted filler word is the token added relative to gold; check the exact inserted phrase absent
-                added = f["added"]
-                if added in cnt:
-                    still.append(f"cue{f['cue']}:{added!r}")
-            p = not still
-            e = ("all injected filler phrases gone" if p else f"still present: {still}")
-        elif "injected stutters" in al:
-            still = []
-            for s in key["injected_stutters"]:
-                if s["added"] in cnt:
-                    still.append(f"cue{s['cue']}:{s['added']!r}")
-            p = not still
-            e = ("all injected stutters collapsed" if p else f"still present: {still}")
-        elif "restraint" in al or "preserved" in al:
-            p, e = chk_keep(ctx, key["restraint_keep"])
-        elif "valid srt" in al or "parses" in al:
-            p, e = chk_valid_srt(ctx)
-        elif "no empty" in al:
-            p, e = chk_no_empty(ctx)
-        else:
-            p, e = False, "NO CHECKER MATCHED"
-        out.append({"text": a, "passed": bool(p), "evidence": e})
-    return out
-
-
-# ------------------------------ real case ----------------------------------
+# ------------------------------ Khew specials ------------------------------
 FILLER_RE = re.compile(r"\b(um|uh|uhh|umm|erm)\b", re.I)
 IAC_BAD = re.compile(r"\b(IAC|ISC|ISA|ICNA|I a C|I C|ICA)\b")
 
-def assertion_eval_real(ctx, assertions):
-    out = []
+
+def chk_iac(ctx):
     txt = body_text(ctx)
+    bad = IAC_BAD.findall(txt)
+    has_canon = "IaC" in txt
+    ok = has_canon and len(bad) <= 2  # canonical must dominate; allow a couple stray
+    return ok, f"'IaC' present={has_canon}; bad-variants={len(bad)} (e.g. {bad[:4]})"
+
+
+def chk_azure(ctx):
+    txt = body_text(ctx)
+    if "Asia bottle" in txt:
+        return False, "'Asia bottle' still present"
+    ok = "Azure portal" in txt or "Azure" in txt
+    return ok, ("'Azure portal'/'Azure' present" if ok else "no Azure recovery")
+
+
+# ------------------------------ assertion wiring ---------------------------
+def quoted(a):
+    return re.findall(r"'([^']+)'", a)
+
+
+def eval_assertions(ctx, assertions, keeps):
+    out = []
     raw_txt = "\n".join(x["body"] for x in ctx["raw"])
+    txt = body_text(ctx)
     for a in assertions:
         al = a.lower()
+        q = quoted(a)
         if "raw marker removed" in al:
             p, e = chk_exists_nonraw(ctx)
-        elif "parses as valid" in al:
+        elif "parses as valid" in al or "valid srt" in al:
             p, e = chk_valid_srt(ctx)
         elif "no empty" in al:
             p, e = chk_no_empty(ctx)
@@ -242,20 +172,20 @@ def assertion_eval_real(ctx, assertions):
             p = out_n < raw_n
             e = f"standalone um/uh: raw={raw_n} -> output={out_n}"
         elif "iac" in al:
-            bad = IAC_BAD.findall(txt)
-            has_canon = "IaC" in txt
-            p = has_canon and len(bad) <= 2  # allow a couple stray; canonical must dominate
-            e = f"'IaC' present={has_canon};残 bad-variants={len(bad)} (e.g. {bad[:4]})"
-        elif "azure portal" in al:
-            p = "Azure portal" in txt or "Azure" in txt
-            e = ("'Azure portal'/'Azure' present" if p else "no Azure recovery")
-            if "Asia bottle" in txt:
-                p = False
-                e = "'Asia bottle' still present"
-        elif "particle" in al or "preserved" in al:
-            keeps = [w for w in ("lah", "ya") if re.search(r"\b" + w + r"\b", txt)]
-            p = len(keeps) > 0
-            e = f"particles still present: {keeps}"
+            p, e = chk_iac(ctx)
+        elif "azure" in al:
+            p, e = chk_azure(ctx)
+        elif "corrected to" in al and len(q) >= 2:
+            tol = 3 if "stray" in al else 0
+            p, e = term_gone_canonical(ctx, q[0], q[1], tol)
+        elif "restraint" in al:
+            keep = [q[0]] if q else keeps  # preserve the first quoted token (not rewrite it)
+            p, e = chk_keep(ctx, keep)
+        elif "preserved" in al or "particle" in al:
+            keep = q if q else keeps
+            p, e = chk_keep(ctx, keep)
+        elif ("appears" in al or "present" in al) and q:
+            p, e = chk_present(ctx, q[0])
         else:
             p, e = False, "NO CHECKER MATCHED"
         out.append({"text": a, "passed": bool(p), "evidence": e})
@@ -263,29 +193,37 @@ def assertion_eval_real(ctx, assertions):
 
 
 # ------------------------------ driver -------------------------------------
+def case_key(name):
+    for k in CASES:
+        if k in name.lower():
+            return k
+    return None
+
+
 def grade_run(eval_dir, cfg):
     meta = json.loads((eval_dir / "eval_metadata.json").read_text())
     name = meta["eval_name"]
     assertions = meta["assertions"]
     run_dir = eval_dir / cfg
     out_path = find_output_srt(run_dir)
-    ctx = {"out_path": out_path}
     if out_path is None:
         expectations = [{"text": a, "passed": False, "evidence": "No output SRT produced"} for a in assertions]
         (run_dir / "grading.json").write_text(json.dumps({"expectations": expectations}, indent=2))
         return name, cfg, 0, len(assertions)
-    ctx["out_bytes"] = out_path.read_bytes()
-    ctx["out"] = parse(out_path)
 
-    if "khewjiapeng" in name:
-        ctx["raw"] = parse(FIX / "khewjiapeng-real/khewjiapeng.en.raw.srt")
-        expectations = assertion_eval_real(ctx, assertions)
-    else:
-        slug = "sohjunwei-synth" if "sohjunwei" in name else "kowajialiang-synth"
-        ctx["raw"] = parse(FIX / slug / f"{slug}.en.raw.srt")
-        key = json.loads((FIX / slug / "answer-key.json").read_text())
-        expectations = assertion_eval_synth(ctx, key, assertions)
+    key = case_key(name)
+    if key is None:
+        raise SystemExit(f"unknown talk for eval '{name}' (expected one of {list(CASES)})")
+    slug, keeps = CASES[key]
+    raw_path = TALKS / slug / f"{slug}.en.raw.srt"
 
+    ctx = {
+        "out_path": out_path,
+        "out_bytes": out_path.read_bytes(),
+        "out": parse(out_path),
+        "raw": parse(raw_path),
+    }
+    expectations = eval_assertions(ctx, assertions, keeps)
     (run_dir / "grading.json").write_text(json.dumps({"expectations": expectations}, indent=2))
     passed = sum(1 for x in expectations if x["passed"])
     return name, cfg, passed, len(expectations)
@@ -298,7 +236,7 @@ def main():
         for cfg in ("with_skill", "without_skill"):
             if (eval_dir / cfg).exists():
                 name, c, p, n = grade_run(eval_dir, cfg)
-                print(f"{name:38s} {c:14s} {p}/{n}")
+                print(f"{name:24s} {c:14s} {p}/{n}")
 
 
 if __name__ == "__main__":
