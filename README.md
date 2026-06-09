@@ -18,7 +18,7 @@
 
 We use these common skills across projects in this workspace:
 
-- [`/doc-this`](agentic/skills/doc-this/SKILL.md) — turn raw materials (notes, transcripts, scattered docs) into structured contextual information and store into a relevant folder. Implements Contextful Folder pattern.
+- [`/doc-this`](agentic/skills/doc-this/SKILL.md) — turn raw materials (notes, transcripts, scattered docs) into structured contextual information and store into a relevant folder. Implements [**Contextful Folder**](agentic/skills/doc-this/references/contextful-folder.guide.md) pattern.
 
 For other skills, see the [agentic skill catalog](agentic/README.md#skills) for the full list — including the subtitle, slides, and YouTube skills the meetup project relies on.
 
