@@ -17,10 +17,10 @@ block below there once.
 ```md
 ## Context Maintenance Rule
 
-When you change what's in a Contextful Folder, update its docs at the same time — a rule you apply with judgment, not a hard one.
+When you change what's in a Contextful Folder, update its docs at the same time.
 
-- **Why** — the next agent or person relies on those docs and can't ask you later; if the docs are out of date, they get it wrong.
-- **Which docs** — the nearest Contextful Folder's: the nearest folder with a `README.md`, which is your file's own folder or, more often, a parent.
+- **Why** — the next agent or person depends on those docs and can't ask you later; if the docs are stale, they get it wrong.
+- **Which docs** — the nearest Contextful Folder's: the closest folder with a `README.md`, which is your file's own folder or, more often, a parent.
 - **If you're unsure what to change** — ask the `doc-this` skill to update the docs for you.
 ```
 

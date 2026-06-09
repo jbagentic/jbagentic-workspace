@@ -16,20 +16,18 @@ block below there once.
 ```md
 ## Context Discovery Rule
 
-A folder is a context boundary, and its `README.md` is the entry point that orients you to
-what's inside. When you need context, start from the README nearest your task and let it point
-you to what's worth reading — not just other READMEs, but whatever it links: reference docs,
-skill files, code.
+A folder is a context boundary, and its `README.md` is the front door that tells you what's
+inside. When you need context, start from the README closest to your task and follow where it
+points — not just other READMEs, but anything it links: reference docs, skill files, code.
 
-From there, navigate by context rather than by search:
+From there, follow the context instead of searching:
 
-- Need **broader** context? Go *up* the parent folders.
-- Need **more specific** context? Go *down* into subfolders.
+- Need **broader** context? Go *up* to the parent folders.
+- Need **more specific** context? Go *down* into the subfolders.
 - Stop once you know enough.
 
-READMEs are the curated map, so reach for them before a blind `Find`/`Grep`/`Glob` sweep —
-searching first wastes tokens and skips the map. If the trail doesn't cover what you need, then
-search.
+READMEs are the map, so use them before a blind `Find`/`Grep`/`Glob` sweep — searching first
+wastes tokens and skips the map. If the trail doesn't cover what you need, then search.
 ```
 
 Adjust the heading level (`##` vs `###`) to fit the host file's structure; keep the
