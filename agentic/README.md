@@ -18,6 +18,17 @@ quality is tracked over time, this is the folder.
 | [`skills/`](skills/) | The skill library — one folder per skill, each with a `SKILL.md` (plus optional `references/` or `scripts/`). This is the canonical location; the repo's `.claude/skills` is a symlink to here, so installed skills and their source are the same files. |
 | [`evals/`](evals/) | Dev-time eval specs and committed benchmarks, one folder per skill under test. See [`evals/README.md`](evals/README.md) for the layout and the run → promote → history workflow. |
 
+## Skills
+
+The library in [`skills/`](skills/) — one folder per skill, each documented by its own `SKILL.md`:
+
+- [`doc-this`](skills/doc-this/SKILL.md) — turn raw materials (notes, transcripts, scattered docs) into Contextful Folder documentation.
+- [`redirect-bookmark`](skills/redirect-bookmark/SKILL.md) — committed HTML meta-refresh stub that bookmarks an external/Drive URL in the repo.
+- [`slides-pdf-to-png`](skills/slides-pdf-to-png/SKILL.md) — extract every page of a slide-deck PDF into HD PNG frames.
+- [`subtitle-polish`](skills/subtitle-polish/SKILL.md) — clean raw SRT subtitles and fix mis-transcribed terms against slide context.
+- [`subtitle-translate-zh`](skills/subtitle-translate-zh/SKILL.md) — translate an English SRT into Simplified and Taiwan-flavored Traditional Chinese.
+- [`talk-youtube-metadata`](skills/talk-youtube-metadata/SKILL.md) — generate YouTube titles, description, chapters, and tags for a recorded talk.
+
 ## Authoring
 
 Skills are authored with the **skill-creator** skill and conformed to the workspace house

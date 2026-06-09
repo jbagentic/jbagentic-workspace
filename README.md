@@ -14,14 +14,16 @@
 
 - [JB Agentic Meetup](projects/jb-agentic-meetup/README.md) — brand facts, past-meetup records, and per-talk recording assets (subtitles, slides, video links, YouTube metadata).
 
-## Skills to Use 
+## Common Skills
 
-Workspace-wide skills, usable in any folder. (Project-specific skills live with their project.)
+Common skills we use across projects in this workspace:
 
-- [`doc-this`](agentic/skills/doc-this/SKILL.md) — turn raw materials (notes, transcripts, scattered docs) into standardized documentation for a folder. Bundles the Documentation Standards it enforces.
+- [`doc-this`](agentic/skills/doc-this/SKILL.md) — turn raw materials (notes, transcripts, scattered docs) into structured contextual information and store into a relevant folder. Implements Contextful Folder pattern.
+
+See the [agentic skill catalog](agentic/README.md#skills) for the full list — including the subtitle, slides, and YouTube skills the meetup project relies on.
 
 
 ## Docs Manifest
 
-- [creating or conforming a SKILL.md — structure, headings, front-matter](docs/skill-convention.reference.md)
+- [SKILL.md convention in this workspace](docs/skill-convention.reference.md)
 
