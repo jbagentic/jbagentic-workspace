@@ -18,15 +18,11 @@ READMEs are the curated map, so reach for them before a blind `Find`/`Grep`/`Glo
 
 ### Keeping Context Current
 
-Whoever changes what's in a Contextful Folder should update its contextual information, so its docs stay accurate. This is a default you apply with judgment, not a hard rule — skip it when it doesn't fit (a throwaway experiment, or docs deliberately left for someone else).
+When you change what's in a Contextful Folder, update its docs at the same time — a default you apply with judgment, not a hard rule.
 
-When you add, remove, rename, or change files, the docs that describe them live in the **nearest Contextful Folder** — the nearest enclosing folder with a `README.md`. That may be the file's own folder or a parent, since not every folder has its own docs and some are left to a parent on purpose. After a change, find that folder and update its `README.md` (and any `AGENTS.md` or `docs/*`) in the same pass:
-
-- **New entry the README should list** → add it with a one-line description.
-- **Removed or renamed entry** → drop or fix its line in the README.
-- **Changed behavior** → update the doc that describes it.
-
-Keep it **just enough** — update only what your change affected. Don't over-document, and don't add a README to a folder that's meant to rely on its parent. For a bigger reorganization, or a folder with no docs yet, use the `doc-this` skill instead of editing by hand.
+- **Why** — the next agent or person relies on those docs and can't ask you later; if the docs are out of date, they get it wrong.
+- **Which docs** — the nearest Contextful Folder's: the nearest folder with a `README.md`, which is your file's own folder or, more often, a parent.
+- **If you're unsure what to change** — ask the `doc-this` skill to update the docs for you.
 
 
 ## Git Workflow
