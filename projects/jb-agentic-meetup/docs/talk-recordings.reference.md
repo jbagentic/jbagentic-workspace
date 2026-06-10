@@ -75,9 +75,9 @@ Use these skills when processing a new talk recording:
   - Input
     - polished English subtitles: `<talk-slug>.en.srt`
   - Output
-    - Simplified Chinese: `<talk-slug>.zh-Hans.srt`
-    - Traditional Chinese (Taiwan): `<talk-slug>.zh-Hant.srt`
-  - Audience: Malaysian Chinese readers — prefer vocabulary they'd naturally use (令吉 for ringgit, 巴仙 for percent); avoid mainland-only idioms when a more universal phrasing exists.
+    - Simplified Chinese: `<talk-slug>.zh-Hans.srt` — audience: Malaysian Chinese readers
+    - Traditional Chinese (Taiwan): `<talk-slug>.zh-Hant.srt` — audience: Taiwanese readers
+  - The skill owns each audience's vocabulary; we only name the audiences here.
 - `/slides-pdf-to-png`
   - Input
     - slide-deck: `slides.pdf`

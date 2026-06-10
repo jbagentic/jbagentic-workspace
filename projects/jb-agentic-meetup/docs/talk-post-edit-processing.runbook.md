@@ -17,7 +17,7 @@ These are ready when this phase starts, from earlier phases and manual assets:
 ## Steps
 
 1. **Polish the English subtitles** — run `/subtitle-polish`. It removes fillers and stutters, fixes mis-transcribed terms against the slides, and writes `<talk-slug>.en.srt` (the input stem with `.raw` removed).
-2. **Translate to Chinese** — run `/subtitle-translate-zh`. One run writes `<talk-slug>.zh-Hans.srt` (Simplified), then converts it to `<talk-slug>.zh-Hant.srt` (Taiwan Traditional) with OpenCC `s2twp`.
+2. **Translate to Chinese** — run `/subtitle-translate-zh`. One run writes `<talk-slug>.zh-Hans.srt` (Simplified, for Malaysian Chinese readers), then converts it to `<talk-slug>.zh-Hant.srt` (Taiwan Traditional) with OpenCC `s2twp`, correcting Malaysian localisms to Taiwan-standard forms for the Taiwanese-reader target.
 3. **Write YouTube metadata** — run `/series-youtube-metadata`. It reads `<talk-slug>.en.srt` and writes `youtube-content.md` (A/B titles, description, auto-generated chapters, tags). It reads the show profile in [meetup-info.reference.md](meetup-info.reference.md) for the series suffix, links, and footer (copied verbatim), and needs the meetup number in the folder name.
 
 **Ordering:** Steps 2 and 3 both need only `<talk-slug>.en.srt`. Once step 1 is done, they're independent — run them in parallel if you like. They're listed in order here just for an easy read.

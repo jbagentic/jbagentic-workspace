@@ -63,6 +63,15 @@ TW_VOCAB = [
     ("程序", "程式", "程序"),
 ]
 
+# (Malaysian localism in Hans, accepted Taiwan correction(s) in Hant, the
+# uncorrected form s2twp carries through verbatim). s2twp converts script and
+# tech vocab but leaves these loan-words alone, so the skill must correct them
+# for a Taiwanese-reader target. Checked only when the Hans localism occurs.
+TW_LOCALISM = [
+    ("令吉", ["林吉特"], "令吉"),
+    ("巴仙", ["百分比", "百分之"], "巴仙"),
+]
+
 CJK_RE = re.compile(r"[一-鿿]")
 
 
@@ -184,6 +193,20 @@ def chk_tw_vocab(ctx):
     return ok, ("; ".join(notes) if notes else "no mainland trap terms used in hans (vacuous pass)")
 
 
+def chk_tw_localism(ctx):
+    """zh-Hant must correct Malaysian localisms to Taiwan forms, not carry them through."""
+    hans, hant = bodies(ctx["hans"]), bodies(ctx["hant"])
+    notes, ok = [], True
+    for loc, corrects, uncorrected in TW_LOCALISM:
+        if loc not in hans:
+            continue
+        good = any(c in hant for c in corrects) and uncorrected not in hant
+        ok &= good
+        notes.append(f"{loc}->{'/'.join(corrects)} "
+                     + ("OK" if good else f"FAIL ({uncorrected} leaked or correction missing)"))
+    return ok, ("; ".join(notes) if notes else "no Malaysian localisms in hans (vacuous pass)")
+
+
 def chk_nouns(ctx, nouns):
     missing = [(n, tag) for n in nouns for tag in ("hans", "hant") if n not in bodies(ctx[tag])]
     return (not missing), ("all preserved: " + ", ".join(nouns) if not missing
@@ -227,6 +250,8 @@ def eval_assertions(ctx, assertions):
             p, e = chk_hant_script(ctx)
         elif "taiwan vocabulary" in al:
             p, e = chk_tw_vocab(ctx)
+        elif "taiwan localism" in al:
+            p, e = chk_tw_localism(ctx)
         elif "proper nouns" in al or "restraint" in al:
             p, e = chk_nouns(ctx, quoted(a))
         elif "令吉" in a:

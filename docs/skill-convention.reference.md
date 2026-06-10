@@ -26,14 +26,14 @@ description: <what it does + every trigger phrase/context>
 3. **Verify.** What to check before done.
 
 ## Conventions
-- Durable, capability-level rules only (e.g. "keep proper names in their original form"); defer project values — glossary, audience, locale — to the reference doc.
+- Durable, capability-level rules and the capability's own know-how (push depth to a `references/` file); a project's own values stay in its reference doc.
 ```
 
 Heading order is fixed: Title → Input → Output → Workflow → Conventions.
 
 ## Rules
 
-- **Context-agnostic by design.** Design each skill as a reusable *capability*, not a project task. Keep project-specific facts out of the body — paths, filenames, glossaries, target audience, naming schemes. Declare them as an **input contract** (describe the shape, give a sensible default) and let whoever installs the skill satisfy it from their own reference doc. This is what lets one skill serve many projects and teams. When a skill is irreducibly project-specific, that's fine — but externalize whatever *can* be.
+- **Context-agnostic by design.** Design each skill as a reusable *capability*, not a project task. Knowledge lives where its scope is — a project's knowledge in the project's folder, the capability's knowledge within the skill. The test for which is which: does it vary by project? If it varies, it's the project's — the skill takes it as an **input contract** rather than hard-coding it; if it holds wherever the capability runs, it's the skill's. This separation is what lets one skill serve many projects and teams. An irreducibly project-specific skill is fine — but externalize whatever genuinely varies.
 - **Frontmatter: `name` + `description` by default.** These two carry every skill; all other fields are optional — add `allowed-tools` to scope tools, or `model`/`effort` to tune cost, only when the skill genuinely needs them. Avoid `paths`: it pins a project's file layout into the skill (see *Context-agnostic by design*). Keep every trigger phrase in `description` — the one field every runtime reads — not in a separate field or the body. Lean slightly pushy on triggers (skills under-fire) and phrase them around the capability, not one project's filenames.
 - **Invariants go under Output**, since they're properties of the output (e.g. "same entry count", "no numbering holes", "UTF-8 without BOM").
 - **Pin the contract, free the method.** Input/output/invariants are strict — a more capable future model must still honor them. *How* a step is achieved stays open: name a tool only as a *suggestion* so a smarter model can override it, since implementation knowledge improves faster than this file does.
