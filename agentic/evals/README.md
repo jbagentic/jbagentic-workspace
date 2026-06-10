@@ -34,6 +34,13 @@ One folder per skill being evaluated, named to match the skill (e.g. `doc-this/`
   to `<run-dir>/outputs/final-response.md` (the multi-PDF case grades on it) and its
   token/duration notification to `<run-dir>/timing.json`. Grading is the deterministic
   `python3 slides-pdf-to-png/grade.py runs/<iteration>` — stdlib-only, zero LLM tokens.
+- **`subtitle-translate-zh` stages too** — same reason (the skill writes `.zh-Hans.srt` /
+  `.zh-Hant.srt` siblings that would clobber the committed translations). Run
+  `python3 subtitle-translate-zh/prepare.py`: it stages token-efficient **excerpts** of two
+  real talks (the minimal cue range covering each talk's trap terms) plus the committed
+  synthetic fixture into `subtitle-translate-zh/stage/` (gitignored). Grade with
+  `python3 subtitle-translate-zh/grade.py runs/iteration-N` — stdlib-only, re-derives the
+  staged sources itself.
 - Direct run outputs to `agentic/evals/<skill-name>/runs/` so specs and their results stay together;
   `runs/` is gitignored and disposable.
 - After aggregating a run, **promote** a curated summary to the committed
