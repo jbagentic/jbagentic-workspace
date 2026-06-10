@@ -78,7 +78,11 @@ Use these skills when processing a new talk recording:
     - Simplified Chinese: `<talk-slug>.zh-Hans.srt`
     - Traditional Chinese (Taiwan): `<talk-slug>.zh-Hant.srt`
   - Audience: Malaysian Chinese readers — prefer vocabulary they'd naturally use (令吉 for ringgit, 巴仙 for percent); avoid mainland-only idioms when a more universal phrasing exists.
-- `/slides-pdf-to-png` — `slides.pdf` → `slides/slide-NN.png`
+- `/slides-pdf-to-png`
+  - Input
+    - slide-deck: `slides.pdf`
+  - Output
+    - `slides/slide-NN.png`
 - `/redirect-bookmark`
   - Input
     - target folder: the talk folder

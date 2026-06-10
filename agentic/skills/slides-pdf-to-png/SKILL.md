@@ -9,8 +9,8 @@ description: Extract every page of a slide-deck PDF into HD PNG images for use a
 - A slide-deck `.pdf` (e.g. `slides.pdf`). If multiple PDFs are present, ask which one.
 
 ## Output
-- A `slides/` subfolder beside the source PDF, one PNG per page.
-- Naming: `slide-NN.png`, zero-padded to at least 2 digits, 1-based, in page order (`slide-01.png`, `slide-02.png`, …). Use more digits only if the deck has 100+ pages.
+- A subfolder containing one PNG file per page of the slide-deck PDF. By default, name the folder `slides/` and place it under the same folder as the slide-deck PDF.
+- PNG file naming: `slide-NN.png`, zero-padded to at least 2 digits, 1-based, in page order (`slide-01.png`, `slide-02.png`, …). Use more digits only if the deck has 100+ pages.
 - Invariants: one PNG per page, no gaps in numbering; each frame is HD — rendered at the deck's native aspect ratio scaled so height = 1080 px (a 16:9 deck yields exactly 1920×1080), with no padding, cropping, or letterboxing; `slides/` is emptied of prior `slide-*.png` first so stale frames never linger.
 
 ## Workflow
