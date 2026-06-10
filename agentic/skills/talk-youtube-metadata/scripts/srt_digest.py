@@ -1,23 +1,30 @@
 #!/usr/bin/env python3
-"""Digest a talk folder into the raw material for YouTube metadata.
+"""Digest a recording folder into the raw material for YouTube metadata.
 
 Usage:
-    python srt_digest.py <talk-folder> [--bucket SECONDS]
+    python srt_digest.py <folder> [--bucket SECONDS]
 
 Prints three blocks:
-  1. METADATA  — parsed from the folder name (date, meetup #, speaker, title)
+  1. METADATA  — parsed from the folder name (date, series #, person, title)
   2. TIMELINE  — the .en.srt collapsed into time-bucketed lines (for chapters)
   3. TRANSCRIPT — the full cleaned transcript (for titles / description)
 
 The skill (talk-youtube-metadata) consumes this so it doesn't re-derive
 timestamps by hand each run. Deterministic mechanics only — no judgement.
+
+The SRT mechanics are content-agnostic. Only DEFAULT_FOLDER_RE is show-specific:
+it matches the example scheme `<Series>-<YYYYMMDD>-meetup-<N>-<Person>-<Title>`.
+A project with a different naming scheme swaps that pattern (or has the agent
+parse the name per its show profile); everything else stays as-is.
 """
 import re
 import sys
 import glob
 import os
 
-FOLDER_RE = re.compile(
+# Default folder pattern — the JB Agentic meetup scheme. Swap this for another
+# show's convention, or skip it and parse the name per the show profile.
+DEFAULT_FOLDER_RE = re.compile(
     r"JBAgentic-(\d{8})-meetup-(\d+)-([A-Za-z0-9]+)-(.+)", re.IGNORECASE
 )
 
@@ -31,7 +38,7 @@ def split_camel(token: str) -> str:
 
 def parse_folder(folder: str):
     base = os.path.basename(os.path.normpath(folder))
-    m = FOLDER_RE.match(base)
+    m = DEFAULT_FOLDER_RE.match(base)
     if not m:
         return {
             "raw": base,
@@ -39,9 +46,10 @@ def parse_folder(folder: str):
             "meetup": None,
             "speaker": None,
             "topic": None,
-            "warning": "Folder name does not match "
-            "JBAgentic-<YYYYMMDD>-meetup-<N>-<Speaker>-<Title>. "
-            "Meetup number unknown — ask the user.",
+            "warning": "Folder name does not match the default pattern "
+            "(<Series>-<YYYYMMDD>-meetup-<N>-<Person>-<Title>). "
+            "Parse it per the project's source convention (show profile); "
+            "if the scheme uses a series number, ask the user for it.",
         }
     date, meetup, speaker, topic = m.groups()
     return {
