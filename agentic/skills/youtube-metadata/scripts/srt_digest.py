@@ -5,11 +5,11 @@ Usage:
     python srt_digest.py <folder> [--bucket SECONDS]
 
 Prints three blocks:
-  1. METADATA  — parsed from the folder name (date, series #, person, title)
+  1. METADATA  — parsed from the folder name (date, episode #, person, title)
   2. TIMELINE  — the .en.srt collapsed into time-bucketed lines (for chapters)
   3. TRANSCRIPT — the full cleaned transcript (for titles / description)
 
-The skill (talk-youtube-metadata) consumes this so it doesn't re-derive
+The skill (youtube-metadata) consumes this so it doesn't re-derive
 timestamps by hand each run. Deterministic mechanics only — no judgement.
 
 The SRT mechanics are content-agnostic. Only DEFAULT_FOLDER_RE is show-specific:
@@ -49,7 +49,7 @@ def parse_folder(folder: str):
             "warning": "Folder name does not match the default pattern "
             "(<Series>-<YYYYMMDD>-meetup-<N>-<Person>-<Title>). "
             "Parse it per the project's source convention (show profile); "
-            "if the scheme uses a series number, ask the user for it.",
+            "if the scheme uses an episode number, ask the user for it.",
         }
     date, meetup, speaker, topic = m.groups()
     return {

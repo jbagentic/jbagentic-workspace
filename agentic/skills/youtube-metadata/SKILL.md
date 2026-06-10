@@ -1,5 +1,5 @@
 ---
-name: talk-youtube-metadata
+name: youtube-metadata
 description: >-
   Generate YouTube publishing metadata for a recorded long-form spoken-word
   video — a talk, podcast episode, demo, story, or knowledge video — from its
@@ -20,24 +20,24 @@ Turn a recorded video into upload-ready YouTube metadata. The recording already 
 
 ## Input
 
-- A **recording folder** containing the English transcript `*.en.srt`. The folder name encodes the source facts the metadata needs — date, series number (if the show numbers its episodes), the people (speaker / host / guest), and the title (excluding any subtitle). The exact naming scheme is the project's to define in its show profile; default: `<Series>-<YYYYMMDD>-<NN>-<Person>-<Title>/`. If the scheme uses a series number but a folder lacks it, ask rather than guessing — it drives the title suffix and can't be read from the transcript.
-- A **show profile** — the project's reference doc(s) giving the series identity (name, numbering, **title suffix**), the **content type and role vocabulary**, the **audience**, the canonical **links**, and the verbatim description **footer**. This is the single source of truth for anything brand-specific. Copy links and blurbs verbatim — don't paraphrase. The installing project supplies it (e.g. its own meetup or show reference doc); if it isn't provided, ask rather than inventing links, suffixes, or blurbs.
+- A **recording folder** containing the English transcript `*.en.srt`. The folder name encodes the source facts the metadata needs — date, episode number (if the show numbers its episodes), the people (speaker / host / guest), and the title (excluding any subtitle). The exact naming scheme is the project's to define in its show profile; default: `<Series>-<YYYYMMDD>-<NN>-<Person>-<Title>/`. If the scheme uses an episode number but a folder lacks it, ask rather than guessing — it drives the title suffix and can't be read from the transcript.
+- A **show profile** — the project's reference doc(s) giving the series identity (name, **episode number**, **title suffix**), the **content type and role vocabulary**, the **audience**, the canonical **links**, and the verbatim description **footer**. This is the single source of truth for anything brand-specific. Copy links and blurbs verbatim — don't paraphrase. The installing project supplies it (e.g. its own meetup or show reference doc); if it isn't provided, ask rather than inventing links, suffixes, or blurbs.
 - Suggested helper: `scripts/srt_digest.py <folder>` prints the parsed folder metadata, the cleaned transcript, and a timestamp-bucketed timeline in one pass — the raw material for titles and chapters. Its folder-name pattern is only a default; if the project's scheme differs, parse the name per the show profile instead. Use it so you're not re-deriving timestamps by hand each run.
 
 ## Output
 
-- `youtube-content.md` written **inside the recording folder** (sibling to the SRTs). Sections, in order: original title → 3 A/B-test titles → description (copy-paste ready) → tags → category.
+- An output file written **inside the recording folder** (sibling to the SRTs); default name `youtube-content.md`, or whatever the show profile sets. Sections, in order: original title → 3 A/B-test titles → description (copy-paste ready) → tags → category.
 - Invariants (these are what make the output usable on YouTube):
   - Exactly **3 titles**, each ≤ ~70 characters *including* the show profile's title suffix, with the searchable keyword ahead of the suffix so it survives the ~60-char search truncation. The 3 test **different angles** (e.g. keyword / curiosity / benefit), not reworded twins — otherwise the A/B test teaches nothing.
   - **Chapters** begin at `0:00`, have ≥3 markers spaced ≥10s apart, and are derived from the `.en.srt` timestamps.
   - **Description** follows the fixed shape: one short hook paragraph → the content-type lead line (`<emoji> <Type>: "<title>" by <Role>`) → the series identity line (`📍 <series + number> — <date>`) → *What's covered* → *Chapters* → the footer (verbatim from the profile) → hashtags. No reader-facing timestamp caveat.
   - **Tags** are comma-separated and total < 500 characters (YouTube's limit).
   - Title suffix, links, and footer are byte-identical to the show profile.
-  - **Category** defaults to `Science & Technology` unless the profile overrides it.
+  - **Category** is the single most fitting YouTube category, chosen by the skill from the content — the skill's own recommendation, not a project input or a fixed default.
 
 ## Workflow
 
-1. **Digest the folder.** Run `scripts/srt_digest.py <folder>` (suggested) to parse the name into date / series number / people / title and to get the cleaned transcript plus a bucketed timeline. Parse per the project's source convention — the script's pattern is just a default. If the scheme uses a series number and the folder lacks it, ask before continuing.
+1. **Digest the folder.** Run `scripts/srt_digest.py <folder>` (suggested) to parse the name into date / episode number / people / title and to get the cleaned transcript plus a bucketed timeline. Parse per the project's source convention — the script's pattern is just a default. If the scheme uses an episode number and the folder lacks it, ask before continuing.
 
 2. **Understand the content.** From the transcript, pin down what was actually demoed/argued/told, the creator's own working title (often stated in the first minute), and the terms the profile's audience would actually search. Discovery comes from matching real search language, so prefer the audience's words over the speaker's slide wording.
 
@@ -69,11 +69,11 @@ Turn a recorded video into upload-ready YouTube metadata. The recording already 
 
 6. **Write tags.** 12–15 tags mixing broad reach terms with specific ones lifted from the transcript (tools, techniques, frameworks named in the content). Keep the total under 500 characters.
 
-7. **Write `youtube-content.md` and verify.** Save into the recording folder, then check the invariants: count titles and their character lengths, confirm tag total < 500, and confirm chapters start at 0:00 and are ordered. Fix anything that fails before reporting done.
+7. **Choose the category, write the output, and verify.** Pick the single most fitting YouTube category for the content — your call as the YouTube expert, not a project input. Save the output into the recording folder (default name `youtube-content.md`), then check the invariants: count titles and their character lengths, confirm tag total < 500, and confirm chapters start at 0:00 and are ordered. Fix anything that fails before reporting done.
 
 ## Conventions
 
 - The series suffix, identity, links, blurbs, and audience live in the show profile, not here — pull them each run so a change there propagates. If you find yourself typing a URL, a suffix, or a blurb from memory, stop and read the profile.
-- A series number in a title (e.g. `#N`) is a literal label, not a hashtag.
+- An episode number in a title (e.g. `#N`) is a literal label, not a hashtag.
 - English only. Any non-English SRTs in the folder are out of scope for this skill.
 - Don't invent facts. If the original title or a person's name can't be read confidently from the folder name or transcript, ask.

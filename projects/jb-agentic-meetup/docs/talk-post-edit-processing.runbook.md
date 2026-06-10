@@ -18,7 +18,7 @@ These are ready when this phase starts, from earlier phases and manual assets:
 
 1. **Polish the English subtitles** — run `/subtitle-polish`. It removes fillers and stutters, fixes mis-transcribed terms against the slides, and writes `<talk-slug>.en.srt` (the input stem with `.raw` removed).
 2. **Translate to Chinese** — run `/subtitle-translate-zh`. One run writes `<talk-slug>.zh-Hans.srt` (Simplified), then converts it to `<talk-slug>.zh-Hant.srt` (Taiwan Traditional) with OpenCC `s2twp`.
-3. **Write YouTube metadata** — run `/talk-youtube-metadata`. It reads `<talk-slug>.en.srt` and writes `youtube-content.md` (A/B titles, description, auto-generated chapters, tags). It reads the show profile in [meetup-info.reference.md](meetup-info.reference.md) for the series suffix, links, and footer (copied verbatim), and needs the meetup number in the folder name.
+3. **Write YouTube metadata** — run `/youtube-metadata`. It reads `<talk-slug>.en.srt` and writes `youtube-content.md` (A/B titles, description, auto-generated chapters, tags). It reads the show profile in [meetup-info.reference.md](meetup-info.reference.md) for the series suffix, links, and footer (copied verbatim), and needs the meetup number in the folder name.
 
 **Ordering:** Steps 2 and 3 both need only `<talk-slug>.en.srt`. Once step 1 is done, they're independent — run them in parallel if you like. They're listed in order here just for an easy read.
 
@@ -36,6 +36,6 @@ Now the talk is ready to upload to YouTube.
 
 ## Related
 
-- [`/subtitle-polish` SKILL.md](../../../agentic/skills/subtitle-polish/SKILL.md), [`/subtitle-translate-zh` SKILL.md](../../../agentic/skills/subtitle-translate-zh/SKILL.md), [`/talk-youtube-metadata` SKILL.md](../../../agentic/skills/talk-youtube-metadata/SKILL.md) — the skills this runbook drives.
+- [`/subtitle-polish` SKILL.md](../../../agentic/skills/subtitle-polish/SKILL.md), [`/subtitle-translate-zh` SKILL.md](../../../agentic/skills/subtitle-translate-zh/SKILL.md), [`/youtube-metadata` SKILL.md](../../../agentic/skills/youtube-metadata/SKILL.md) — the skills this runbook drives.
 - [talk-recordings.reference.md](talk-recordings.reference.md) — file names, folder convention, and the per-skill IO list.
 - [meetup-info.reference.md](meetup-info.reference.md) — the show profile (series identity, links, footer) the metadata step reads.

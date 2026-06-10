@@ -37,17 +37,17 @@ Pick the length that fits the medium.
 
 ## Show profile (for the YouTube-metadata skill)
 
-What `/talk-youtube-metadata` reads to brand its output. The skill is content-agnostic and keeps no JB facts of its own — these supply them. Another show fills in its own equivalents.
+What `/youtube-metadata` reads to brand its output. The skill is content-agnostic and keeps no JB facts of its own — these supply them. Another show fills in its own equivalents.
 
 - **Series name:** JB Agentic Meetup.
-- **Numbering:** `Meetup #N` — the Nth meetup in the series. (`#N` is a literal label, not a hashtag — see Conventions.)
+- **Episode number:** shown as `Meetup #N` — the Nth meetup in the series. (`#N` is a literal label, not a hashtag — see Conventions.)
 - **Title suffix:** append ` | JB Agentic Meetup #N` to every YouTube title, with the searchable keyword ahead of it so it survives YouTube's ~60-char search truncation.
 - **Content type:** talk — a recorded, conference-style talk.
 - **Role vocabulary:** the presenter is the **Speaker**. Description lead line is `🎤 Talk: "<title>" by <Speaker>`.
 - **Audience:** software practitioners around Johor Bahru, KL, and Singapore building software with AI — devs, tech leads, founders. Prefer the search terms they'd actually type over slide wording.
 - **Links & footer:** use the **Links** and the **YouTube description footer** blurb above, verbatim.
 - **Source convention:** per-talk folder and transcript naming live in [talk-recordings.reference.md](talk-recordings.reference.md) — the authority for how the skill parses date, meetup number, speaker, and title.
-- **Category:** the skill default `Science & Technology` fits; no override.
+- **Category:** the skill recommends the most fitting YouTube category from the content — not set here.
 
 ## Conventions
 

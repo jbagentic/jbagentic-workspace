@@ -86,7 +86,13 @@ Use these skills when processing a new talk recording:
   - Output
     - `video-file.html` (fixed name) — meta-refresh redirect + a "committee access only" fallback link
   - Why: the multi-GB `.mov` lives in committee-only Drive and is gitignored out of the public GitHub repo; this committed stub is the durable in-repo pointer to it.
-- `/talk-youtube-metadata` — reads `<talk-slug>.en.srt` → writes `youtube-content.md`
+- `/youtube-metadata`
+  - Input
+    - polished English subtitles: `<talk-slug>.en.srt`
+    - show profile: [meetup-info.reference.md](meetup-info.reference.md) — series identity, title suffix, content type, audience, links, footer
+    - source convention: the [Folder name](#folder-name) above — date, meetup number, speaker, title
+  - Output
+    - YouTube metadata: `youtube-content.md` — 3 A/B titles, description with 0:00 chapters, tags, and a recommended category
 
 ## Related
 
