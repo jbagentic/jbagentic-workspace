@@ -46,7 +46,8 @@ What `/series-youtube-metadata` reads to brand its output. The skill is content-
 - **Role vocabulary:** the presenter is the **Speaker**. Description lead line is `🎤 Talk: "<title>" by <Speaker>`.
 - **Audience:** software practitioners around Johor Bahru, KL, and Singapore building software with AI — devs, tech leads, founders. Prefer the search terms they'd actually type over slide wording.
 - **Links & footer:** use the **Links** and the **YouTube description footer** blurb above, verbatim.
-- **Source convention:** per-talk folder and transcript naming live in [talk-recordings.reference.md](talk-recordings.reference.md) — the authority for how the skill parses date, meetup number, speaker, and title.
+- **Episode records:** each talk's meetup number, date, full title, and speaker live in [meetup-records.reference.md](meetup-records.reference.md) — the source of truth for those facts.
+- **File locations:** folder and transcript naming live in [talk-recordings.reference.md](talk-recordings.reference.md) — used to locate the recording and match it to its record.
 
 ## Conventions
 

@@ -90,7 +90,8 @@ Use these skills when processing a new talk recording:
   - Input
     - polished English subtitles: `<talk-slug>.en.srt`
     - show profile: [meetup-info.reference.md](meetup-info.reference.md) — series identity, title suffix, content type, audience, links, footer
-    - source convention: the [Folder name](#folder-name) above — date, meetup number, speaker, title
+    - episode records: [meetup-records.reference.md](meetup-records.reference.md) — meetup number, date, full title, speaker (authoritative)
+    - locator: the [Folder name](#folder-name) above — identifies the talk and where the transcript lives
   - Output
     - YouTube metadata: `youtube-content.md` — 3 A/B titles, description with 0:00 chapters, tags, and a recommended category
 

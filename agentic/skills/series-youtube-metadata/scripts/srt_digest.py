@@ -11,6 +11,8 @@ Prints three blocks:
 
 The skill (series-youtube-metadata) consumes this so it doesn't re-derive
 timestamps by hand each run. Deterministic mechanics only — no judgement.
+The folder-name METADATA is a locator hint only; the show's episode records
+are authoritative for date / number / title / people.
 
 The SRT mechanics are content-agnostic. Only DEFAULT_FOLDER_RE is show-specific:
 it matches the example scheme `<Series>-<YYYYMMDD>-meetup-<N>-<Person>-<Title>`.
@@ -48,8 +50,9 @@ def parse_folder(folder: str):
             "topic": None,
             "warning": "Folder name does not match the default pattern "
             "(<Series>-<YYYYMMDD>-meetup-<N>-<Person>-<Title>). "
-            "Parse it per the project's source convention (show profile); "
-            "if the scheme uses an episode number, ask the user for it.",
+            "It is only a locator — identify the episode another way and read "
+            "its facts from the show's episode records; if you still can't, "
+            "ask the user.",
         }
     date, meetup, speaker, topic = m.groups()
     return {
