@@ -90,6 +90,8 @@ def source_text(case_key):
 
 def find_outputs(run_dir):
     out = Path(run_dir) / "outputs"
+    if not out.exists():  # run-k/ holds grading artifacts; outputs/ sits at config level
+        out = Path(run_dir).parent / "outputs"
     hans = sorted(out.rglob("*.zh-Hans.srt")) if out.exists() else []
     hant = sorted(out.rglob("*.zh-Hant.srt")) if out.exists() else []
     return (hans[0] if hans else None), (hant[0] if hant else None)

@@ -67,7 +67,25 @@ def stage_synthetic():
     print(f"staged synthetic-vocab-traps: {fixture.name}")
 
 
+def check_opencc():
+    """Parity guard: the skill's real workflow converts Hans -> Hant with
+    OpenCC s2twp. Eval subagents can't pip-install (sandboxed, no network),
+    so OpenCC must already be importable — otherwise runs silently exercise
+    a manual-conversion fallback instead of the workflow being measured.
+    Fix: pip3 install --user --break-system-packages opencc-python-reimplemented
+    """
+    try:
+        from opencc import OpenCC  # noqa: F401
+    except ImportError:
+        sys.exit(
+            "MISSING opencc: eval runs would fall back to manual Hans->Hant\n"
+            "conversion instead of the skill's real OpenCC step. Install it:\n"
+            "  pip3 install --user --break-system-packages opencc-python-reimplemented"
+        )
+
+
 def main():
+    check_opencc()
     for slug, last_cue in EXCERPTS.items():
         stage_talk(slug, last_cue)
     stage_synthetic()

@@ -40,7 +40,10 @@ One folder per skill being evaluated, named to match the skill (e.g. `doc-this/`
   real talks (the minimal cue range covering each talk's trap terms) plus the committed
   synthetic fixture into `subtitle-translate-zh/stage/` (gitignored). Grade with
   `python3 subtitle-translate-zh/grade.py runs/iteration-N` — stdlib-only, re-derives the
-  staged sources itself.
+  staged sources itself. **Parity prerequisite:** OpenCC must be importable by plain
+  `python3` (eval subagents are sandboxed and can't pip-install), or with-skill runs
+  silently fall back to manual Hans→Hant conversion instead of the skill's real OpenCC
+  step; `prepare.py` guards this and tells you the install command.
 - Direct run outputs to `agentic/evals/<skill-name>/runs/` so specs and their results stay together;
   `runs/` is gitignored and disposable.
 - After aggregating a run, **promote** a curated summary to the committed
