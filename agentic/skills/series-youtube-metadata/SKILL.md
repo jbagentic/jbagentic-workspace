@@ -1,5 +1,5 @@
 ---
-name: youtube-metadata
+name: series-youtube-metadata
 description: >-
   Generate YouTube publishing metadata for a recorded long-form spoken-word
   video — a talk, podcast episode, demo, story, or knowledge video — from its

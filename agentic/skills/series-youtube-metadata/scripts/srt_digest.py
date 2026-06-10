@@ -9,7 +9,7 @@ Prints three blocks:
   2. TIMELINE  — the .en.srt collapsed into time-bucketed lines (for chapters)
   3. TRANSCRIPT — the full cleaned transcript (for titles / description)
 
-The skill (youtube-metadata) consumes this so it doesn't re-derive
+The skill (series-youtube-metadata) consumes this so it doesn't re-derive
 timestamps by hand each run. Deterministic mechanics only — no judgement.
 
 The SRT mechanics are content-agnostic. Only DEFAULT_FOLDER_RE is show-specific:

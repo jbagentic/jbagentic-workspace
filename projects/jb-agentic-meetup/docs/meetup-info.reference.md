@@ -37,7 +37,7 @@ Pick the length that fits the medium.
 
 ## Show profile (for the YouTube-metadata skill)
 
-What `/youtube-metadata` reads to brand its output. The skill is content-agnostic and keeps no JB facts of its own — these supply them. Another show fills in its own equivalents.
+What `/series-youtube-metadata` reads to brand its output. The skill is content-agnostic and keeps no JB facts of its own — these supply them. Another show fills in its own equivalents.
 
 - **Series name:** JB Agentic Meetup.
 - **Episode number:** shown as `Meetup #N` — the Nth meetup in the series. (`#N` is a literal label, not a hashtag — see Conventions.)

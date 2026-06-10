@@ -8,7 +8,7 @@ never a skill at runtime, and it lives **outside the skill folders so it never s
 ## Structure
 
 One folder per skill being evaluated, named to match the skill (e.g. `doc-this/`,
-`youtube-metadata/`). Each holds:
+`series-youtube-metadata/`). Each holds:
 
 - `evals.json` — the eval spec (test cases: id, prompt, expected output, fixtures).
 - `fixtures/` — input materials the cases run against.
