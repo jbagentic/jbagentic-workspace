@@ -104,6 +104,10 @@ Topic atoms are living documents that get updated as things change. Decision rec
 
 Use them when design choices would otherwise be lost in PRs, Slack, or conversation — and future contributors will need that reasoning without asking the original author. They live in their own subfolder, separate from topic atoms.
 
+## A side benefit: context-agnostic skills
+
+The pattern also makes skills more reusable. Keep the skill and its context apart, and a job's inputs — paths, conventions, facts — live in the context, not in the skill. The skill holds only the steps, and takes its inputs from whatever context it runs in. So the same skill works in many contexts — projects, teams, organizations — instead of being tied to one.
+
 ## Related
 
 - [Contextful Folder reference](contextful-folder.reference.md) — the file vocabulary, naming, and rule-of-thumb table.
