@@ -47,7 +47,6 @@ What `/youtube-metadata` reads to brand its output. The skill is content-agnosti
 - **Audience:** software practitioners around Johor Bahru, KL, and Singapore building software with AI — devs, tech leads, founders. Prefer the search terms they'd actually type over slide wording.
 - **Links & footer:** use the **Links** and the **YouTube description footer** blurb above, verbatim.
 - **Source convention:** per-talk folder and transcript naming live in [talk-recordings.reference.md](talk-recordings.reference.md) — the authority for how the skill parses date, meetup number, speaker, and title.
-- **Category:** the skill recommends the most fitting YouTube category from the content — not set here.
 
 ## Conventions
 
