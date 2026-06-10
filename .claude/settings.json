@@ -24,6 +24,7 @@
       "Bash(git show *)",
       "Bash(git branch *)",
       "Bash(git status *)",
+      "Bash(python3 *)",
       "WebSearch",
       "Read(//tmp/**)"
     ]
