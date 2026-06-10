@@ -26,6 +26,14 @@ One folder per skill being evaluated, named to match the skill (e.g. `doc-this/`
   (gitignored) from `talk-recordings/`. The skill runs against that throwaway copy so its
   sibling output (`<slug>.en.srt`) never overwrites the committed talk folder. The decks and
   transcripts live once, in `talk-recordings/` — they are not copied into the eval.
+- **`slides-pdf-to-png` stages per-run work dirs.** Its fixtures are tiny committed synthetic
+  PDFs from `slides-pdf-to-png/fixtures/make_fixtures.py` (run it bare to verify, `--write` to
+  regenerate). Run `python3 slides-pdf-to-png/prepare.py runs/<iteration>` **before** spawning
+  executors — it stages one work dir per (case × config × run) inside the gitignored `runs/`
+  and prints ready-to-paste executor prompts. The harness must save each executor's final reply
+  to `<run-dir>/outputs/final-response.md` (the multi-PDF case grades on it) and its
+  token/duration notification to `<run-dir>/timing.json`. Grading is the deterministic
+  `python3 slides-pdf-to-png/grade.py runs/<iteration>` — stdlib-only, zero LLM tokens.
 - Direct run outputs to `agentic/evals/<skill-name>/runs/` so specs and their results stay together;
   `runs/` is gitignored and disposable.
 - After aggregating a run, **promote** a curated summary to the committed

@@ -1,0 +1,54 @@
+{
+  "skill_name": "slides-pdf-to-png",
+  "notes": "Designed to be cheap to execute: KB-sized committed fixture PDFs (fixtures/make_fixtures.py), per-run staging via prepare.py, and a fully deterministic stdlib-only grade.py (zero LLM grading tokens). HARNESS CONTRACT: (1) run `python3 prepare.py runs/<iteration>` BEFORE spawning executors — prompts below contain {WORK_DIR}, which prepare.py resolves into each run's eval_metadata.json and printed run plan; (2) after each executor finishes, write its final reply verbatim to <run-dir>/outputs/final-response.md and its token/duration notification to <run-dir>/timing.json — the multi-pdf-asks case is graded on final-response.md; (3) baseline (without_skill) executors must be told to ignore the installed slides-pdf-to-png skill (it is installed in this workspace; see the doc-this iteration-2 contamination note).",
+  "evals": [
+    {
+      "id": 0,
+      "name": "happy-path-16x9",
+      "prompt": "Convert my slide deck into PNG frames for video overlays. The deck is {WORK_DIR}/slides.pdf.",
+      "expected_output": "A slides/ folder beside the PDF with exactly slide-01.png..slide-03.png, each 1920x1080 (16:9 deck rendered at height 1080, aspect preserved), and the source PDF untouched.",
+      "files": ["fixtures/deck-3p-16x9.pdf"],
+      "assertions": [
+        "A slides/ folder exists beside the source slides.pdf",
+        "Exactly 3 slide-*.png frames exist — one per PDF page, no extras",
+        "Frame names are zero-padded, 1-based, contiguous: slide-01.png..slide-03.png",
+        "Every frame is a valid PNG (signature and IHDR parse)",
+        "Every frame height is exactly 1080 px",
+        "Every frame width is 1920 px (16:9 aspect preserved, no padding)",
+        "The source slides.pdf is byte-identical to the fixture (sha256 unchanged)",
+        "Every frame is non-trivial in size (>= 1 KB, not a blank stub)"
+      ]
+    },
+    {
+      "id": 1,
+      "name": "rerun-clears-stale",
+      "prompt": "The deck in {WORK_DIR} was updated — please re-export slides.pdf as PNG frames (the old export is still in slides/).",
+      "expected_output": "slides/ ends with exactly slide-01..03.png freshly rendered at 1440x1080 (4:3 deck); all 5 stale seed frames are gone including slide-04/05.png; slides/notes.txt untouched; source PDF untouched.",
+      "files": ["fixtures/deck-3p-4x3.pdf"],
+      "assertions": [
+        "Exactly 3 slide-*.png frames remain — stale slide-04.png and slide-05.png were cleared",
+        "Frames slide-01..03 are fresh renders, not the stale 10x10 seeds",
+        "Frame names are zero-padded, 1-based, contiguous: slide-01.png..slide-03.png",
+        "Every frame height is exactly 1080 px",
+        "Every frame width is 1440 px (4:3 aspect preserved, no padding)",
+        "The non-slide file slides/notes.txt is untouched (present, sha256 unchanged)",
+        "The source slides.pdf is byte-identical to the fixture (sha256 unchanged)",
+        "Every frame is a valid PNG of non-trivial size (>= 1 KB)"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "multi-pdf-asks",
+      "prompt": "Can you extract the slides in {WORK_DIR} into PNG images?",
+      "expected_output": "The folder holds slides-talk.pdf and slides-workshop.pdf; the skill must ask which PDF is the deck rather than guessing — no rendering, no new files, both PDFs untouched. A baseline is expected to pick one and render, so this case discriminates.",
+      "files": ["fixtures/deck-3p-16x9.pdf", "fixtures/deck-2p-a4.pdf"],
+      "assertions": [
+        "No slide-*.png was created anywhere under the work folder",
+        "No new files were left in the work folder (inventory matches the staged seed)",
+        "Both PDFs are byte-identical to their fixtures (sha256 unchanged)",
+        "The final response asks the user a question (contains '?')",
+        "The final response names both candidate PDFs"
+      ]
+    }
+  ]
+}

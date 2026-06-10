@@ -1,0 +1,26 @@
+{
+  "deck-3p-16x9.pdf": {
+    "pages": 3,
+    "page_width_pt": 720,
+    "page_height_pt": 405,
+    "sha256": "55a965b58c52839731e3355fe58812ac4d3b09f84225718f337ddfb4015a56fc",
+    "expected_frame_width_at_1080": 1920,
+    "expected_frame_height": 1080
+  },
+  "deck-3p-4x3.pdf": {
+    "pages": 3,
+    "page_width_pt": 640,
+    "page_height_pt": 480,
+    "sha256": "a4c26178248bff4360753351e38c8d43faece7f6040709d068c9a7a52695673b",
+    "expected_frame_width_at_1080": 1440,
+    "expected_frame_height": 1080
+  },
+  "deck-2p-a4.pdf": {
+    "pages": 2,
+    "page_width_pt": 595,
+    "page_height_pt": 842,
+    "sha256": "a6bfaff97761b56ce47e8a9a978ddb46a7c17b3b21267b249df01d577b2942bf",
+    "expected_frame_width_at_1080": 763,
+    "expected_frame_height": 1080
+  }
+}
