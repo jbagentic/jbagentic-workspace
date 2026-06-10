@@ -1,0 +1,20 @@
+{
+  "eval_id": 1,
+  "eval_name": "kowa-journey",
+  "prompt": "Prep Kowa Jia Liang's talk for upload \u2014 I need youtube titles, description and tags. Folder: projects/jb-agentic-meetup/talk-recordings/JBAgentic-20260530-meetup-1-KowaJiaLiang-OurAIJourney",
+  "assertions": [
+    "Exactly 3 A/B title variants",
+    "Every title <=70 chars incl. suffix",
+    "Every title <=72 chars incl. suffix (~70 target)",
+    "Every title carries ' | JB Agentic Meetup #1' suffix",
+    "Uses the full title (with subtitle) from the records",
+    "Exact series line '\ud83d\udccd JB Agentic Meetup #1 \u2014 30 May 2026'",
+    "Chapters start at 0:00",
+    "At least 3 chapter markers",
+    "Verbatim Luma footer line",
+    "Verbatim YouTube subscribe footer line",
+    "No reader-facing timestamp caveat",
+    "Tags total < 500 chars",
+    "Category present"
+  ]
+}

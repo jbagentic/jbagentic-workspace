@@ -1,0 +1,563 @@
+{
+  "metadata": {
+    "skill_name": "series-youtube-metadata",
+    "skill_path": "<path/to/skill>",
+    "executor_model": "<model-name>",
+    "analyzer_model": "<model-name>",
+    "timestamp": "2026-06-10T03:03:09Z",
+    "evals_run": [
+      0,
+      1,
+      2
+    ],
+    "runs_per_configuration": 3
+  },
+  "runs": [
+    {
+      "eval_id": 0,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.9231,
+        "passed": 12,
+        "failed": 1,
+        "total": 13,
+        "time_seconds": 185.9,
+        "tokens": 46705,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Exactly 3 A/B title variants",
+          "passed": true,
+          "evidence": "lens=[65, 69, 72]"
+        },
+        {
+          "text": "Every title <=70 chars incl. suffix",
+          "passed": false,
+          "evidence": "lens=[65, 69, 72]"
+        },
+        {
+          "text": "Every title <=72 chars incl. suffix (~70 target)",
+          "passed": true,
+          "evidence": "lens=[65, 69, 72]"
+        },
+        {
+          "text": "Every title carries ' | JB Agentic Meetup #1' suffix",
+          "passed": true,
+          "evidence": "substring check"
+        },
+        {
+          "text": "Uses the full title (with subtitle) from the records",
+          "passed": true,
+          "evidence": "substring check"
+        },
+        {
+          "text": "Exact series line '\ud83d\udccd JB Agentic Meetup #1 \u2014 30 May 2026'",
+          "passed": true,
+          "evidence": "substring check"
+        },
+        {
+          "text": "Chapters start at 0:00",
+          "passed": true,
+          "evidence": "substring check"
+        },
+        {
+          "text": "At least 3 chapter markers",
+          "passed": true,
+          "evidence": "13 markers"
+        },
+        {
+          "text": "Verbatim Luma footer line",
+          "passed": true,
+          "evidence": "substring check"
+        },
+        {
+          "text": "Verbatim YouTube subscribe footer line",
+          "passed": true,
+          "evidence": "substring check"
+        },
+        {
+          "text": "No reader-facing timestamp caveat",
+          "passed": true,
+          "evidence": "substring check"
+        },
+        {
+          "text": "Tags total < 500 chars",
+          "passed": true,
+          "evidence": "270 chars"
+        },
+        {
+          "text": "Category present",
+          "passed": true,
+          "evidence": "substring check"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 1,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.9231,
+        "passed": 12,
+        "failed": 1,
+        "total": 13,
+        "time_seconds": 138.7,
+        "tokens": 47708,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Exactly 3 A/B title variants",
+          "passed": true,
+          "evidence": "lens=[66, 67, 71]"
+        },
+        {
+          "text": "Every title <=70 chars incl. suffix",
+          "passed": false,
+          "evidence": "lens=[66, 67, 71]"
+        },
+        {
+          "text": "Every title <=72 chars incl. suffix (~70 target)",
+          "passed": true,
+          "evidence": "lens=[66, 67, 71]"
+        },
+        {
+          "text": "Every title carries ' | JB Agentic Meetup #1' suffix",
+          "passed": true,
+          "evidence": "substring check"
+        },
+        {
+          "text": "Uses the full title (with subtitle) from the records",
+          "passed": true,
+          "evidence": "substring check"
+        },
+        {
+          "text": "Exact series line '\ud83d\udccd JB Agentic Meetup #1 \u2014 30 May 2026'",
+          "passed": true,
+          "evidence": "substring check"
+        },
+        {
+          "text": "Chapters start at 0:00",
+          "passed": true,
+          "evidence": "substring check"
+        },
+        {
+          "text": "At least 3 chapter markers",
+          "passed": true,
+          "evidence": "14 markers"
+        },
+        {
+          "text": "Verbatim Luma footer line",
+          "passed": true,
+          "evidence": "substring check"
+        },
+        {
+          "text": "Verbatim YouTube subscribe footer line",
+          "passed": true,
+          "evidence": "substring check"
+        },
+        {
+          "text": "No reader-facing timestamp caveat",
+          "passed": true,
+          "evidence": "substring check"
+        },
+        {
+          "text": "Tags total < 500 chars",
+          "passed": true,
+          "evidence": "216 chars"
+        },
+        {
+          "text": "Category present",
+          "passed": true,
+          "evidence": "substring check"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 2,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 13,
+        "failed": 0,
+        "total": 13,
+        "time_seconds": 195.6,
+        "tokens": 45966,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Exactly 3 A/B title variants",
+          "passed": true,
+          "evidence": "lens=[64, 66, 69]"
+        },
+        {
+          "text": "Every title <=70 chars incl. suffix",
+          "passed": true,
+          "evidence": "lens=[64, 66, 69]"
+        },
+        {
+          "text": "Every title <=72 chars incl. suffix (~70 target)",
+          "passed": true,
+          "evidence": "lens=[64, 66, 69]"
+        },
+        {
+          "text": "Every title carries ' | JB Agentic Meetup #1' suffix",
+          "passed": true,
+          "evidence": "substring check"
+        },
+        {
+          "text": "Uses the full title (with subtitle) from the records",
+          "passed": true,
+          "evidence": "substring check"
+        },
+        {
+          "text": "Exact series line '\ud83d\udccd JB Agentic Meetup #1 \u2014 30 May 2026'",
+          "passed": true,
+          "evidence": "substring check"
+        },
+        {
+          "text": "Chapters start at 0:00",
+          "passed": true,
+          "evidence": "substring check"
+        },
+        {
+          "text": "At least 3 chapter markers",
+          "passed": true,
+          "evidence": "14 markers"
+        },
+        {
+          "text": "Verbatim Luma footer line",
+          "passed": true,
+          "evidence": "substring check"
+        },
+        {
+          "text": "Verbatim YouTube subscribe footer line",
+          "passed": true,
+          "evidence": "substring check"
+        },
+        {
+          "text": "No reader-facing timestamp caveat",
+          "passed": true,
+          "evidence": "substring check"
+        },
+        {
+          "text": "Tags total < 500 chars",
+          "passed": true,
+          "evidence": "238 chars"
+        },
+        {
+          "text": "Category present",
+          "passed": true,
+          "evidence": "substring check"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 0,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.7692,
+        "passed": 10,
+        "failed": 3,
+        "total": 13,
+        "time_seconds": 87.0,
+        "tokens": 70141,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Exactly 3 A/B title variants",
+          "passed": true,
+          "evidence": "lens=[75, 77, 79]"
+        },
+        {
+          "text": "Every title <=70 chars incl. suffix",
+          "passed": false,
+          "evidence": "lens=[75, 77, 79]"
+        },
+        {
+          "text": "Every title <=72 chars incl. suffix (~70 target)",
+          "passed": false,
+          "evidence": "lens=[75, 77, 79]"
+        },
+        {
+          "text": "Every title carries ' | JB Agentic Meetup #1' suffix",
+          "passed": true,
+          "evidence": "substring check"
+        },
+        {
+          "text": "Uses the full title (with subtitle) from the records",
+          "passed": true,
+          "evidence": "substring check"
+        },
+        {
+          "text": "Exact series line '\ud83d\udccd JB Agentic Meetup #1 \u2014 30 May 2026'",
+          "passed": true,
+          "evidence": "substring check"
+        },
+        {
+          "text": "Chapters start at 0:00",
+          "passed": true,
+          "evidence": "substring check"
+        },
+        {
+          "text": "At least 3 chapter markers",
+          "passed": true,
+          "evidence": "18 markers"
+        },
+        {
+          "text": "Verbatim Luma footer line",
+          "passed": true,
+          "evidence": "substring check"
+        },
+        {
+          "text": "Verbatim YouTube subscribe footer line",
+          "passed": true,
+          "evidence": "substring check"
+        },
+        {
+          "text": "No reader-facing timestamp caveat",
+          "passed": false,
+          "evidence": "substring check"
+        },
+        {
+          "text": "Tags total < 500 chars",
+          "passed": true,
+          "evidence": "207 chars"
+        },
+        {
+          "text": "Category present",
+          "passed": true,
+          "evidence": "substring check"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 1,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.8462,
+        "passed": 11,
+        "failed": 2,
+        "total": 13,
+        "time_seconds": 74.1,
+        "tokens": 65369,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Exactly 3 A/B title variants",
+          "passed": true,
+          "evidence": "lens=[60, 67, 72]"
+        },
+        {
+          "text": "Every title <=70 chars incl. suffix",
+          "passed": false,
+          "evidence": "lens=[60, 67, 72]"
+        },
+        {
+          "text": "Every title <=72 chars incl. suffix (~70 target)",
+          "passed": true,
+          "evidence": "lens=[60, 67, 72]"
+        },
+        {
+          "text": "Every title carries ' | JB Agentic Meetup #1' suffix",
+          "passed": true,
+          "evidence": "substring check"
+        },
+        {
+          "text": "Uses the full title (with subtitle) from the records",
+          "passed": true,
+          "evidence": "substring check"
+        },
+        {
+          "text": "Exact series line '\ud83d\udccd JB Agentic Meetup #1 \u2014 30 May 2026'",
+          "passed": false,
+          "evidence": "substring check"
+        },
+        {
+          "text": "Chapters start at 0:00",
+          "passed": true,
+          "evidence": "substring check"
+        },
+        {
+          "text": "At least 3 chapter markers",
+          "passed": true,
+          "evidence": "13 markers"
+        },
+        {
+          "text": "Verbatim Luma footer line",
+          "passed": true,
+          "evidence": "substring check"
+        },
+        {
+          "text": "Verbatim YouTube subscribe footer line",
+          "passed": true,
+          "evidence": "substring check"
+        },
+        {
+          "text": "No reader-facing timestamp caveat",
+          "passed": true,
+          "evidence": "substring check"
+        },
+        {
+          "text": "Tags total < 500 chars",
+          "passed": true,
+          "evidence": "194 chars"
+        },
+        {
+          "text": "Category present",
+          "passed": true,
+          "evidence": "substring check"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 2,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.7692,
+        "passed": 10,
+        "failed": 3,
+        "total": 13,
+        "time_seconds": 84.7,
+        "tokens": 62794,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Exactly 3 A/B title variants",
+          "passed": true,
+          "evidence": "lens=[71, 76, 77]"
+        },
+        {
+          "text": "Every title <=70 chars incl. suffix",
+          "passed": false,
+          "evidence": "lens=[71, 76, 77]"
+        },
+        {
+          "text": "Every title <=72 chars incl. suffix (~70 target)",
+          "passed": false,
+          "evidence": "lens=[71, 76, 77]"
+        },
+        {
+          "text": "Every title carries ' | JB Agentic Meetup #1' suffix",
+          "passed": true,
+          "evidence": "substring check"
+        },
+        {
+          "text": "Uses the full title (with subtitle) from the records",
+          "passed": true,
+          "evidence": "substring check"
+        },
+        {
+          "text": "Exact series line '\ud83d\udccd JB Agentic Meetup #1 \u2014 30 May 2026'",
+          "passed": true,
+          "evidence": "substring check"
+        },
+        {
+          "text": "Chapters start at 0:00",
+          "passed": true,
+          "evidence": "substring check"
+        },
+        {
+          "text": "At least 3 chapter markers",
+          "passed": true,
+          "evidence": "17 markers"
+        },
+        {
+          "text": "Verbatim Luma footer line",
+          "passed": true,
+          "evidence": "substring check"
+        },
+        {
+          "text": "Verbatim YouTube subscribe footer line",
+          "passed": true,
+          "evidence": "substring check"
+        },
+        {
+          "text": "No reader-facing timestamp caveat",
+          "passed": false,
+          "evidence": "substring check"
+        },
+        {
+          "text": "Tags total < 500 chars",
+          "passed": true,
+          "evidence": "239 chars"
+        },
+        {
+          "text": "Category present",
+          "passed": true,
+          "evidence": "substring check"
+        }
+      ],
+      "notes": []
+    }
+  ],
+  "run_summary": {
+    "with_skill": {
+      "pass_rate": {
+        "mean": 0.9487,
+        "stddev": 0.0444,
+        "min": 0.9231,
+        "max": 1.0
+      },
+      "time_seconds": {
+        "mean": 173.4,
+        "stddev": 30.4399,
+        "min": 138.7,
+        "max": 195.6
+      },
+      "tokens": {
+        "mean": 46793.0,
+        "stddev": 874.3277,
+        "min": 45966,
+        "max": 47708
+      }
+    },
+    "without_skill": {
+      "pass_rate": {
+        "mean": 0.7949,
+        "stddev": 0.0445,
+        "min": 0.7692,
+        "max": 0.8462
+      },
+      "time_seconds": {
+        "mean": 81.9333,
+        "stddev": 6.8806,
+        "min": 74.1,
+        "max": 87.0
+      },
+      "tokens": {
+        "mean": 66101.3333,
+        "stddev": 3727.8461,
+        "min": 62794,
+        "max": 70141
+      }
+    },
+    "delta": {
+      "pass_rate": "+0.15",
+      "time_seconds": "+91.5",
+      "tokens": "-19308"
+    }
+  },
+  "notes": []
+}
