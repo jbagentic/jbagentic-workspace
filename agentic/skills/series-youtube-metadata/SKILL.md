@@ -74,7 +74,7 @@ Turn a recorded video into upload-ready YouTube metadata. The recording already 
 
    The lead line and series line draw from the episode records and the show profile: the **full title** and **people** come from the records; the content-type label and role vocabulary (e.g. `🎤 Talk: "<title>" by <Speaker>`, or `🎙️ Podcast: "<title>" with <Host> & <Guest>`) and the series name come from the profile; the number comes from the records; format the date as `D Mon YYYY` (e.g. `30 May 2026`). A `Tech stack: …` line between *What's covered* and *Chapters* is optional — add it only when the content leans on a specific stack worth surfacing.
 
-6. **Write tags.** 12–15 tags mixing broad reach terms with specific ones lifted from the transcript (tools, techniques, frameworks named in the content). Keep the total under 500 characters.
+6. **Write tags.** 12–15 tags mixing broad reach terms with specific ones lifted from the transcript (tools, techniques, frameworks named in the content). Keep the total under 500 characters. Use natural casing — proper nouns as they're actually spelled (`MCP`, `SQLite`, `Telegram`), plain phrases lowercase: tags are case-insensitive to search, but humans read them in Studio and audits, and all-lowercase brand names read as machine output.
 
 7. **Choose the category, write the output, and verify.** Pick the single most fitting YouTube category for the content — your call as the YouTube expert, not a project input. Save the output into the recording folder (default name `youtube-content.md`), then check the invariants: count titles and their character lengths, confirm tag total < 500, and confirm chapters start at 0:00 and are ordered. Fix anything that fails before reporting done.
 
