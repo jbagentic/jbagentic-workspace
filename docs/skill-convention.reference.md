@@ -43,4 +43,4 @@ Heading order is fixed: Title → Input → Output → Workflow → Conventions.
 
 ## Reference implementations
 
-`skills/subtitle-polish/`, `skills/subtitle-translate-zh/`, and `skills/redirect-bookmark/` follow this standard.
+`skills/subtitle-polish/`, `skills/subtitle-translate-zh/`, `skills/redirect-bookmark/`, and `skills/talk-youtube-metadata/` follow this standard.

@@ -20,7 +20,7 @@ How a recorded talk becomes a published video, in four phases. Each links to its
 
 ## Docs Manifest
 
-- [Facts about the meetup brand — facts, links, social, blurbs](docs/meetup-info.reference.md)
+- [Facts about the meetup brand — facts, links, social, blurbs, and the YouTube show profile](docs/meetup-info.reference.md)
 - [Details of past meetups — talk titles, speaker names, meetup number, date, time, attendance](docs/meetup-records.reference.md)
 - [Talk recording file/folder convention — folder layout, naming, which skill makes each file](docs/talk-recordings.reference.md)
 - [Setup runbook — record a new meetup and scaffold its talk folders](docs/talk-setup.runbook.md)

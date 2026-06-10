@@ -20,7 +20,7 @@ The library in [`skills/`](skills/) — one folder per skill, each documented by
 - [`slides-pdf-to-png`](skills/slides-pdf-to-png/SKILL.md) — extract every page of a slide-deck PDF into HD PNG frames.
 - [`subtitle-polish`](skills/subtitle-polish/SKILL.md) — clean raw SRT subtitles and fix mis-transcribed terms against slide context.
 - [`subtitle-translate-zh`](skills/subtitle-translate-zh/SKILL.md) — translate an English SRT into Simplified and Taiwan-flavored Traditional Chinese.
-- [`talk-youtube-metadata`](skills/talk-youtube-metadata/SKILL.md) — generate YouTube titles, description, chapters, and tags for a recorded talk.
+- [`talk-youtube-metadata`](skills/talk-youtube-metadata/SKILL.md) — generate YouTube titles, description, chapters, and tags for a recorded talk, podcast, or other long-form video, driven by the project's show profile.
 
 ## Authoring
 
