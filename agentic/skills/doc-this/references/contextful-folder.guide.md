@@ -13,7 +13,7 @@ Context has always been critical for people to do good work. Language-model agen
 This raises a new challenge:
 
 - You need to get the information written down in the first place.
-- You need to **maintain it, moving forward**.
+- You need to maintain it from now on.
 
 ### Problem 2: Loading too much or too little hurts the work
 
