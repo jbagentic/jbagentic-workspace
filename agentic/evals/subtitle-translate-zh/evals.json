@@ -1,0 +1,75 @@
+{
+  "skill_name": "subtitle-translate-zh",
+  "notes": "Three cases: two real-talk excerpts staged by prepare.py (run it first; stage/ is gitignored) plus one committed synthetic SRT packed with vocabulary traps. Excerpts are cut to the minimal cue range that covers each talk's signature terms (Khew 1-130: IaC/Azure/Terraform/Bicep; Soh 1-140: Hermes/MCP/Telegram/OpenClaw restraint/ringgit at cues 86 and 92), since full ~850-cue talks cost 5x+ more and the subtitle-polish eval showed full real transcripts are non-discriminating. The synthetic case carries the controlled signal: Malaysian vocab (ringgit -> 令吉, percent -> 巴仙), Hans/Hant divergence terms where Taiwan vocabulary differs from naive character conversion (数据库 -> 資料庫 not 數據庫), and proper-noun preservation (Claude, Claude Code, MCP, GitHub, Telegram, SKILL.md). Prompts state the Malaysian Chinese audience explicitly, standing in for the project reference doc that supplies it in real use. Graded programmatically by grade.py.",
+  "evals": [
+    {
+      "id": 0,
+      "name": "excerpt-khew",
+      "prompt": "Please translate the subtitles for this infrastructure talk into Chinese — I need both Simplified Chinese and Traditional Chinese (Taiwan flavor) SRT files. The polished English subtitles are at agentic/evals/subtitle-translate-zh/stage/JBAgentic-20260530-meetup-1-KhewJiaPeng-AIMeetsInfrastructure/JBAgentic-20260530-meetup-1-KhewJiaPeng-AIMeetsInfrastructure.en.srt and the slide deck (slides.pdf) is in the same folder if you need it. The audience is Malaysian Chinese readers, so use vocabulary they'd naturally use. Save the translated files next to the English one.",
+      "expected_output": "Two SRT files next to the input with the language tag swapped: .zh-Hans.srt (Simplified) and .zh-Hant.srt (Traditional, Taiwan vocabulary). Same cue count as the source; every cue number and timestamp line preserved byte-for-byte; UTF-8 without BOM; no empty cues. Tech proper nouns IaC, Azure, Terraform, Bicep stay in their original Latin form in both files. The zh-Hant file uses Taiwan vocabulary, not a naive character-by-character conversion of the Simplified file.",
+      "files": [
+        "stage/JBAgentic-20260530-meetup-1-KhewJiaPeng-AIMeetsInfrastructure/JBAgentic-20260530-meetup-1-KhewJiaPeng-AIMeetsInfrastructure.en.srt",
+        "stage/JBAgentic-20260530-meetup-1-KhewJiaPeng-AIMeetsInfrastructure/slides.pdf"
+      ],
+      "assertions": [
+        "Both .zh-Hans.srt and .zh-Hant.srt outputs exist next to the input",
+        "Both outputs parse as valid SRT with the same cue count as the staged source",
+        "Every cue number and timestamp line is preserved byte-for-byte from the source, in order, in both outputs",
+        "Both outputs are UTF-8 without a BOM",
+        "No empty cues in either output",
+        "Cue bodies are translated into Chinese (majority of cues contain CJK characters) in both outputs",
+        "The zh-Hans output uses simplified script (no traditional-marker characters)",
+        "The zh-Hant output uses traditional script (no simplified-marker characters)",
+        "Taiwan vocabulary in zh-Hant: mainland terms in zh-Hans are converted to Taiwan forms, not naive character conversions",
+        "Proper nouns 'IaC', 'Azure', 'Terraform', 'Bicep' are preserved in Latin form in both outputs"
+      ]
+    },
+    {
+      "id": 1,
+      "name": "excerpt-soh",
+      "prompt": "I need Chinese subtitles for a meetup talk about using AI agents for everyday friction. The cleaned-up English SRT is agentic/evals/subtitle-translate-zh/stage/JBAgentic-20260530-meetup-1-SohJunWei-AIForEverydayFriction/JBAgentic-20260530-meetup-1-SohJunWei-AIForEverydayFriction.en.srt (slides.pdf is beside it for reference). Please produce a Simplified Chinese version and a Traditional Chinese (Taiwan vocabulary) version, saved as siblings of the English file. The readers are Malaysian Chinese, so prefer the vocabulary they'd naturally use.",
+      "expected_output": "Two SRT files (.zh-Hans.srt and .zh-Hant.srt) holding the invariants: same cue count, cue numbers and timestamps byte-for-byte, UTF-8 no BOM, no empty cues. Proper nouns Hermes, MCP, Telegram stay in Latin form. Restraint: 'OpenClaw' is the speaker's own coined word and must survive verbatim, not be translated or 'corrected'. 'ringgit' is rendered as 令吉 for the Malaysian audience (not 林吉特). The zh-Hant file uses Taiwan vocabulary (e.g. 資料庫 for database), not naive character conversion.",
+      "files": [
+        "stage/JBAgentic-20260530-meetup-1-SohJunWei-AIForEverydayFriction/JBAgentic-20260530-meetup-1-SohJunWei-AIForEverydayFriction.en.srt",
+        "stage/JBAgentic-20260530-meetup-1-SohJunWei-AIForEverydayFriction/slides.pdf"
+      ],
+      "assertions": [
+        "Both .zh-Hans.srt and .zh-Hant.srt outputs exist next to the input",
+        "Both outputs parse as valid SRT with the same cue count as the staged source",
+        "Every cue number and timestamp line is preserved byte-for-byte from the source, in order, in both outputs",
+        "Both outputs are UTF-8 without a BOM",
+        "No empty cues in either output",
+        "Cue bodies are translated into Chinese (majority of cues contain CJK characters) in both outputs",
+        "The zh-Hans output uses simplified script (no traditional-marker characters)",
+        "The zh-Hant output uses traditional script (no simplified-marker characters)",
+        "Taiwan vocabulary in zh-Hant: mainland terms in zh-Hans are converted to Taiwan forms, not naive character conversions",
+        "Proper nouns 'Hermes', 'MCP', 'Telegram' are preserved in Latin form in both outputs",
+        "Restraint: 'OpenClaw' is preserved verbatim in both outputs, not translated or corrected",
+        "'ringgit' is rendered as 令吉 in the zh-Hans output"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "synthetic-vocab-traps",
+      "prompt": "Can you translate this short talk transcript into Chinese subtitles? The English SRT is agentic/evals/subtitle-translate-zh/stage/synthetic-vocab-traps/synthetic-vocab-traps.en.srt. I want both Simplified Chinese and Traditional Chinese (Taiwan flavor) versions written next to it. The audience is Malaysian Chinese readers — please use the vocabulary they'd naturally use.",
+      "expected_output": "Two SRT files (.zh-Hans.srt and .zh-Hant.srt) holding the invariants: 30 cues each, cue numbers and timestamps byte-for-byte, UTF-8 no BOM, no empty cues. Malaysian vocabulary: ringgit -> 令吉, percent -> 巴仙 in the Simplified file. Taiwan vocabulary in the Traditional file where it diverges from naive character conversion: 資料庫 (not 數據庫), 軟體 (not 軟件), 影片 (not 視頻), 網路 (not 網絡), 程式 (not 程序). Proper nouns Claude, Claude Code, MCP, GitHub, Telegram, SKILL.md and the speaker's name Jia Wen stay in their original form in both files.",
+      "files": [
+        "stage/synthetic-vocab-traps/synthetic-vocab-traps.en.srt"
+      ],
+      "assertions": [
+        "Both .zh-Hans.srt and .zh-Hant.srt outputs exist next to the input",
+        "Both outputs parse as valid SRT with the same cue count as the staged source",
+        "Every cue number and timestamp line is preserved byte-for-byte from the source, in order, in both outputs",
+        "Both outputs are UTF-8 without a BOM",
+        "No empty cues in either output",
+        "Cue bodies are translated into Chinese (majority of cues contain CJK characters) in both outputs",
+        "The zh-Hans output uses simplified script (no traditional-marker characters)",
+        "The zh-Hant output uses traditional script (no simplified-marker characters)",
+        "Taiwan vocabulary in zh-Hant: mainland terms in zh-Hans are converted to Taiwan forms, not naive character conversions",
+        "Proper nouns 'Claude', 'Claude Code', 'MCP', 'GitHub', 'Telegram', 'SKILL.md', 'Jia Wen' are preserved in both outputs",
+        "'ringgit' is rendered as 令吉 in the zh-Hans output",
+        "'percent' is rendered as 巴仙 in the zh-Hans output"
+      ]
+    }
+  ]
+}

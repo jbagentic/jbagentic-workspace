@@ -1,0 +1,119 @@
+1
+00:00:00,100 --> 00:00:02,600
+hi everyone my name is Jia Wen
+
+2
+00:00:02,800 --> 00:00:05,600
+tonight I want to share how I track my spending
+
+3
+00:00:05,800 --> 00:00:08,000
+every lunch here costs around 15 ringgit
+
+4
+00:00:08,200 --> 00:00:10,700
+and some days it goes up to 20 ringgit
+
+5
+00:00:10,900 --> 00:00:13,700
+I used to record everything in a spreadsheet
+
+6
+00:00:13,900 --> 00:00:16,100
+almost 80 percent of my entries were wrong
+
+7
+00:00:16,300 --> 00:00:18,800
+so I decided to write a small program
+
+8
+00:00:19,000 --> 00:00:21,800
+it started as a weekend software project
+
+9
+00:00:22,000 --> 00:00:24,200
+the agent reads my receipts from Telegram
+
+10
+00:00:24,400 --> 00:00:26,900
+then it stores every record in a database
+
+11
+00:00:27,100 --> 00:00:29,900
+the database runs on my old laptop at home
+
+12
+00:00:30,100 --> 00:00:32,300
+I use Claude to extract the amounts
+
+13
+00:00:32,500 --> 00:00:35,000
+actually I write most of the code with Claude Code
+
+14
+00:00:35,200 --> 00:00:38,000
+the whole flow is wired up through MCP
+
+15
+00:00:38,200 --> 00:00:40,400
+the MCP server exposes three simple tools
+
+16
+00:00:40,600 --> 00:00:43,100
+all the source code is on GitHub
+
+17
+00:00:43,300 --> 00:00:46,100
+the skill instructions live in a SKILL.md file
+
+18
+00:00:46,300 --> 00:00:48,500
+without a network connection nothing syncs
+
+19
+00:00:48,700 --> 00:00:51,200
+so I added an offline queue for the data
+
+20
+00:00:51,400 --> 00:00:54,200
+every month it generates a short video summary
+
+21
+00:00:54,400 --> 00:00:56,600
+the video shows where my money actually went
+
+22
+00:00:56,800 --> 00:00:59,300
+last month food was 40 percent of everything
+
+23
+00:00:59,500 --> 00:01:02,300
+transport was another 25 percent
+
+24
+00:01:02,500 --> 00:01:04,700
+that information completely changed my habits
+
+25
+00:01:04,900 --> 00:01:07,400
+I cut my coffee budget by 100 ringgit
+
+26
+00:01:07,600 --> 00:01:10,400
+the program now runs every single night
+
+27
+00:01:10,600 --> 00:01:12,800
+it posts the summary back to Telegram
+
+28
+00:01:13,000 --> 00:01:15,500
+my friends asked if the software is hard to maintain
+
+29
+00:01:15,700 --> 00:01:18,500
+honestly Claude Code does most of the maintenance
+
+30
+00:01:18,700 --> 00:01:20,900
+thank you and find me on GitHub if you want the code
