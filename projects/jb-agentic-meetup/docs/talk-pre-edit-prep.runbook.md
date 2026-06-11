@@ -14,8 +14,8 @@ follows [setup](talk-setup.runbook.md) and runs once per talk. See the
 ## Steps
 
 1. Confirm `slides.pdf` is in the talk folder.
-2. Run `/slides-pdf-to-png` on the talk folder. It renders one HD PNG per page to `slides/slide-NN.png` (1080p, zero-padded, 1-based) and clears any stale `slide-*.png` first.
-3. The skill checks that the PNG count equals the PDF page count and the frame numbers are contiguous. Spot-check that the first and last frame look right.
+2. Run `/slides-pdf-to-png` on the talk folder. It writes one HD frame per page to `slides/slide-NN.png`.
+3. The skill verifies its own output. Spot-check that the first and last frame look right.
 
 ## Handoff
 
