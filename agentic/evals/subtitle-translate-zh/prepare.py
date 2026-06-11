@@ -56,7 +56,11 @@ def stage_talk(slug, last_cue):
     pdf = src / "slides.pdf"
     if pdf.exists():
         shutil.copy2(pdf, dst / "slides.pdf")
-    print(f"staged {slug}: cues 1-{last_cue}" + (" + slides.pdf" if pdf.exists() else ""))
+    txt = src / "slides.txt"
+    if txt.exists():
+        shutil.copy2(txt, dst / "slides.txt")
+    extras = "".join(s for s, p in ((" + slides.pdf", pdf), (" + slides.txt", txt)) if p.exists())
+    print(f"staged {slug}: cues 1-{last_cue}{extras}")
 
 
 def stage_synthetic():

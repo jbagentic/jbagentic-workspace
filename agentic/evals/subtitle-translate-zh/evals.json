@@ -5,10 +5,11 @@
     {
       "id": 0,
       "name": "excerpt-khew",
-      "prompt": "Please translate the subtitles for this infrastructure talk into Chinese — I need both Simplified Chinese and Traditional Chinese (Taiwan flavor) SRT files. The polished English subtitles are at agentic/evals/subtitle-translate-zh/stage/JBAgentic-20260530-meetup-1-KhewJiaPeng-AIMeetsInfrastructure/JBAgentic-20260530-meetup-1-KhewJiaPeng-AIMeetsInfrastructure.en.srt and the slide deck (slides.pdf) is in the same folder if you need it. The Simplified version is for Malaysian Chinese readers and the Traditional version is for Taiwanese readers. Save the translated files next to the English one.",
+      "prompt": "Please translate the subtitles for this infrastructure talk into Chinese — I need both Simplified Chinese and Traditional Chinese (Taiwan flavor) SRT files. The polished English subtitles are at agentic/evals/subtitle-translate-zh/stage/JBAgentic-20260530-meetup-1-KhewJiaPeng-AIMeetsInfrastructure/JBAgentic-20260530-meetup-1-KhewJiaPeng-AIMeetsInfrastructure.en.srt and the slide deck's extracted text (slides.txt) is in the same folder if you need it. The Simplified version is for Malaysian Chinese readers and the Traditional version is for Taiwanese readers. Save the translated files next to the English one.",
       "expected_output": "Two SRT files next to the input with the language tag swapped: .zh-Hans.srt (Simplified) and .zh-Hant.srt (Traditional, Taiwan vocabulary). Same cue count as the source; every cue number and timestamp line preserved byte-for-byte; UTF-8 without BOM; no empty cues. Tech proper nouns IaC, Azure, Terraform, Bicep stay in their original Latin form in both files. The zh-Hant file uses Taiwan vocabulary, not a naive character-by-character conversion of the Simplified file.",
       "files": [
         "stage/JBAgentic-20260530-meetup-1-KhewJiaPeng-AIMeetsInfrastructure/JBAgentic-20260530-meetup-1-KhewJiaPeng-AIMeetsInfrastructure.en.srt",
+        "stage/JBAgentic-20260530-meetup-1-KhewJiaPeng-AIMeetsInfrastructure/slides.txt",
         "stage/JBAgentic-20260530-meetup-1-KhewJiaPeng-AIMeetsInfrastructure/slides.pdf"
       ],
       "assertions": [
@@ -27,10 +28,11 @@
     {
       "id": 1,
       "name": "excerpt-soh",
-      "prompt": "I need Chinese subtitles for a meetup talk about using AI agents for everyday friction. The cleaned-up English SRT is agentic/evals/subtitle-translate-zh/stage/JBAgentic-20260530-meetup-1-SohJunWei-AIForEverydayFriction/JBAgentic-20260530-meetup-1-SohJunWei-AIForEverydayFriction.en.srt (slides.pdf is beside it for reference). Please produce a Simplified Chinese version and a Traditional Chinese (Taiwan vocabulary) version, saved as siblings of the English file. The Simplified version is for Malaysian Chinese readers and the Traditional version is for Taiwanese readers.",
+      "prompt": "I need Chinese subtitles for a meetup talk about using AI agents for everyday friction. The cleaned-up English SRT is agentic/evals/subtitle-translate-zh/stage/JBAgentic-20260530-meetup-1-SohJunWei-AIForEverydayFriction/JBAgentic-20260530-meetup-1-SohJunWei-AIForEverydayFriction.en.srt (slides.txt, the deck's extracted text, is beside it for reference). Please produce a Simplified Chinese version and a Traditional Chinese (Taiwan vocabulary) version, saved as siblings of the English file. The Simplified version is for Malaysian Chinese readers and the Traditional version is for Taiwanese readers.",
       "expected_output": "Two SRT files (.zh-Hans.srt and .zh-Hant.srt) holding the invariants: same cue count, cue numbers and timestamps byte-for-byte, UTF-8 no BOM, no empty cues. Proper nouns Hermes, MCP, Telegram stay in Latin form. Restraint: 'OpenClaw' is the speaker's own coined word and must survive verbatim, not be translated or 'corrected'. 'ringgit' is rendered as 令吉 in the Simplified (Malaysian) file; the Traditional (Taiwanese) file corrects it to 林吉特. The zh-Hant file uses Taiwan vocabulary (e.g. 資料庫 for database), not naive character conversion.",
       "files": [
         "stage/JBAgentic-20260530-meetup-1-SohJunWei-AIForEverydayFriction/JBAgentic-20260530-meetup-1-SohJunWei-AIForEverydayFriction.en.srt",
+        "stage/JBAgentic-20260530-meetup-1-SohJunWei-AIForEverydayFriction/slides.txt",
         "stage/JBAgentic-20260530-meetup-1-SohJunWei-AIForEverydayFriction/slides.pdf"
       ],
       "assertions": [
