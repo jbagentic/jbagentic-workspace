@@ -27,7 +27,7 @@ and [post-edit processing](talk-post-edit-processing.runbook.md). See the
 
 These are the contract into [post-edit processing](talk-post-edit-processing.runbook.md):
 
-- **Final exported video** — the finished video file, handed to [post-edit processing](talk-post-edit-processing.runbook.md). That phase uploads it to the JB Agentic private shared Drive and bookmarks it in-repo as `video-file.html`. (The multi-GB video is gitignored out of the public repo, so the stub is the durable in-repo pointer.)
+- **Final exported video** — the finished video file, handed to [post-edit processing](talk-post-edit-processing.runbook.md). That phase uploads it to the JB Agentic committee shared Drive (committee access only) and bookmarks it in-repo as `video-file.html`. (The multi-GB video is gitignored out of the public repo, so the stub is the durable in-repo pointer.)
 - **`<talk-slug>.en.raw.srt`** — the raw English subtitles (auto-transcript) exported from the edited video. Post-edit processing starts from this manual input.
 - **`cover.png`** present in the talk folder for the YouTube thumbnail.
 
