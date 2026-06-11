@@ -1,6 +1,6 @@
 # Talk Recording Assets
 
-How a talk's recording assets are named and laid out under `talk-recordings/`, and which skill produces each file. One folder per talk.
+How a talk's recording assets are named and laid out under `talk-recordings/`. One folder per talk. For *which* skill produces each file and how its inputs and outputs wire up, see the pipeline runbooks under [Related](#related).
 
 > **Licensing:** these talk assets are speaker-owned — © the respective speakers, all rights reserved, and **not** covered by the repo's MIT license. JB Agentic holds only a limited non-commercial license to publish them on its own channels. See the root [`NOTICE`](../../../NOTICE).
 
@@ -60,44 +60,6 @@ What you add by hand (**manual input**) vs. what a skill writes (**generated**):
 - `video-file.html` — generated
 - `youtube-content.md` — generated
 - `cover.png` — manual
-
-## Preferred Skills
-
-Use these skills when processing a new talk recording:
-
-- `/subtitle-polish`
-  - Input
-    - raw English subtitles: `<talk-slug>.en.raw.srt`
-    - domain context: `slides.pdf`, `slides/slide-NN.png` (siblings)
-  - Output
-    - polished subtitles: `<talk-slug>.en.srt` (input stem with `.raw` removed; sibling)
-- `/subtitle-translate-zh`
-  - Input
-    - polished English subtitles: `<talk-slug>.en.srt`
-  - Output
-    - Simplified Chinese: `<talk-slug>.zh-Hans.srt` — audience: Malaysian Chinese readers
-    - Traditional Chinese (Taiwan): `<talk-slug>.zh-Hant.srt` — audience: Taiwanese readers
-  - The skill owns each audience's vocabulary; we only name the audiences here.
-- `/slides-pdf-to-png`
-  - Input
-    - slide-deck: `slides.pdf`
-  - Output
-    - `slides/slide-NN.png`
-- `/redirect-bookmark`
-  - Input
-    - target folder: the talk folder
-    - external URL: the talk recording's Google Drive share link (`https://drive.google.com/file/d/<FILE_ID>/view?usp=drive_link`)
-  - Output
-    - `video-file.html` (fixed name) — meta-refresh redirect + a "committee access only" fallback link
-  - Why: the multi-GB `.mov` lives in committee-only Drive and is gitignored out of the public GitHub repo; this committed stub is the durable in-repo pointer to it.
-- `/series-youtube-metadata`
-  - Input
-    - polished English subtitles: `<talk-slug>.en.srt`
-    - show profile: [meetup-info.reference.md](meetup-info.reference.md) — series identity, title suffix, content type, audience, links, footer
-    - episode records: [meetup-records.reference.md](meetup-records.reference.md) — meetup number, date, full title, speaker (authoritative)
-    - locator: the [Folder name](#folder-name) above — identifies the talk and where the transcript lives
-  - Output
-    - YouTube metadata: `youtube-content.md` — 3 A/B titles, description with 0:00 chapters, tags, and a recommended category
 
 ## Related
 
