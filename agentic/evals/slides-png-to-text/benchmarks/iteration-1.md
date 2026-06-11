@@ -1,4 +1,4 @@
-# Iteration 1 — slides-pdf-to-text
+# Iteration 1 — slides-png-to-text (run under the old name slides-pdf-to-text)
 
 **Date:** 2026-06-11 · **Model:** claude-opus-4-8 · **Runs:** 1 sample per (case × config)
 

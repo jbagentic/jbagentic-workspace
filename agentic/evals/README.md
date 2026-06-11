@@ -47,18 +47,18 @@ One folder per skill being evaluated, named to match the skill (e.g. `doc-this/`
   `python3` (eval subagents are sandboxed and can't pip-install), or with-skill runs
   silently fall back to manual Hans→Hant conversion instead of the skill's real OpenCC
   step; `prepare.py` guards this and tells you the install command.
-- **`slides-pdf-to-text` stages per-run work dirs from real decks.** Run
-  `python3 slides-pdf-to-text/prepare.py runs/<iteration>` **before** spawning executors — it
-  copies a talk's `slides.pdf` + `slides/` PNGs (never the committed `slides.txt` oracle) into
-  one work dir per (case × config × run) under the gitignored `runs/`. Two cases cover both
-  skill branches: `textlayer-kowa` (a deck with a real PDF text layer) and `vision-khew` (an
-  image-only deck the cheap extractor can't read, forcing the vision fallback). `with_skill`
-  executors follow the skill; `without_skill` must be told to ignore the installed skill. Save
-  each executor's token/duration to `<run-dir>/timing.json`; the skill writes `work/slides.txt`
-  in place. Grade with the deterministic `python3 slides-pdf-to-text/grade.py runs/<iteration>`
-  (stdlib-only) — it checks the output contract (a `## slide-NN` `slides.txt` sibling, one
-  section per staged PNG, exact-casing term presence, source files untouched). See iteration 1
-  for the finding that the bundled stdlib extractor is lossy on this project's real exports.
+- **`slides-png-to-text` stages per-run work dirs from real decks.** Run
+  `python3 slides-png-to-text/prepare.py runs/<iteration>` **before** spawning executors — it
+  copies a talk's `slides.pdf` + `slides/` PNGs (never the committed `slides.txt`) into one work
+  dir per (case × config × run) under the gitignored `runs/`. Two real decks: `kowa` (21 slides,
+  incl. screenshot text like the `CLAUDE.md` editor view a text-layer parser misses) and `khew`
+  (6 slides). `with_skill` executors follow the skill (it transcribes the slide PNGs with the
+  vision model); `without_skill` must be told to ignore the installed skill. Save each executor's
+  token/duration to `<run-dir>/timing.json`; the skill writes `work/slides.txt` in place. Grade
+  with the deterministic `python3 slides-png-to-text/grade.py runs/<iteration>` (stdlib-only) —
+  it checks the output contract (a `## slide-NN` `slides.txt` sibling, one section per staged
+  PNG, exact-casing term presence, source files untouched). Iteration 1 ran under the old name
+  `slides-pdf-to-text` (a hand-rolled PDF text-layer parser), retired in iteration 2.
 - Direct run outputs to `agentic/evals/<skill-name>/runs/` so specs and their results stay together;
   `runs/` is gitignored and disposable.
 - After aggregating a run, **promote** a curated summary to the committed

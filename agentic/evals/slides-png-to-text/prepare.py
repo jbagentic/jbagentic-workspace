@@ -1,17 +1,15 @@
 #!/usr/bin/env python3
-"""Stage per-run work folders for the slides-pdf-to-text evals.
+"""Stage per-run work folders for the slides-png-to-text evals.
 
 Like slides-pdf-to-png, this stages ONE work dir per (case x config x run) so
 concurrent runs never collide, all inside the gitignored runs/. Unlike that
 eval, the fixtures are the REAL committed talk decks — each case copies a talk
 folder's slides.pdf + slides/ PNG folder into work/. It deliberately does NOT
-copy the talk's committed slides.txt: that file is the human-verified oracle the
-curated term lists were drawn from, and staging it would hand the executor the
-answer. grade.py reads it from the talk folder, never from work/.
+copy the talk's committed slides.txt (staging it would hand the executor the
+answer).
 
-The vision case's deck (Khew) is image-only — the cheap extractor returns nothing
-and the skill must transcribe the slides/ PNGs via vision — so the PNGs are
-essential inputs, not just untouched-check bait, and are always staged.
+The slide PNGs are the skill's primary input — it transcribes them with the
+vision model — so they are always staged, not just untouched-check bait.
 
 Prompts in evals.json carry a {WORK_DIR} placeholder; it is resolved to each
 run's absolute work path and printed in the run plan below, so the harness can
@@ -29,13 +27,13 @@ import shutil
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-REPO = HERE.parents[2]  # slides-pdf-to-text -> evals -> agentic -> repo root
+REPO = HERE.parents[2]  # slides-png-to-text -> evals -> agentic -> repo root
 TALKS = REPO / "projects/jb-agentic-meetup/talk-recordings"
 
 # case name -> talk slug whose slides.pdf + slides/ feed it.
 CASE_SLUGS = {
-    "textlayer-kowa": "JBAgentic-20260530-meetup-1-KowaJiaLiang-OurAIJourney",
-    "vision-khew": "JBAgentic-20260530-meetup-1-KhewJiaPeng-AIMeetsInfrastructure",
+    "kowa": "JBAgentic-20260530-meetup-1-KowaJiaLiang-OurAIJourney",
+    "khew": "JBAgentic-20260530-meetup-1-KhewJiaPeng-AIMeetsInfrastructure",
 }
 
 

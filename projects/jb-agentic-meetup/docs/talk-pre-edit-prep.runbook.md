@@ -16,7 +16,7 @@ later glossary, before the video edit. This phase follows
 
 1. Confirm `slides.pdf` is in the talk folder.
 2. Run `/slides-pdf-to-png` on the talk folder. It writes one HD frame per page to `slides/slide-NN.png`.
-3. Run `/slides-pdf-to-text` on the talk folder. It writes the deck's text to `slides.txt` (cheap stdlib extraction for decks with a text layer; a one-time read of the PNGs for image-only decks).
+3. Run `/slides-png-to-text` on the talk folder. It transcribes the `slides/` PNGs from step 2 with the vision model and writes the deck's text to `slides.txt`.
 4. The skills verify their own output. Spot-check that the first and last frame look right and that `slides.txt` captured the key product/tool/file names.
 
 ## Handoff
@@ -26,6 +26,6 @@ later glossary, before the video edit. This phase follows
 
 ## Related
 
-- [`/slides-pdf-to-png` SKILL.md](../../../agentic/skills/slides-pdf-to-png/SKILL.md) and [`/slides-pdf-to-text` SKILL.md](../../../agentic/skills/slides-pdf-to-text/SKILL.md) — the skills this runbook drives.
+- [`/slides-pdf-to-png` SKILL.md](../../../agentic/skills/slides-pdf-to-png/SKILL.md) and [`/slides-png-to-text` SKILL.md](../../../agentic/skills/slides-png-to-text/SKILL.md) — the skills this runbook drives.
 - [talk-recordings.reference.md](talk-recordings.reference.md) — file names and folder convention.
 - [talk-video-edit.runbook.md](talk-video-edit.runbook.md) — the next phase.

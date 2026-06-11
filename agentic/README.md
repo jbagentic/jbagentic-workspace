@@ -18,7 +18,7 @@ The library in [`skills/`](skills/) — one folder per skill, each documented by
 - [`doc-this`](skills/doc-this/SKILL.md) — turn raw materials (notes, transcripts, scattered docs) into Contextful Folder documentation.
 - [`redirect-bookmark`](skills/redirect-bookmark/SKILL.md) — committed HTML meta-refresh stub that bookmarks an external/Drive URL in the repo.
 - [`slides-pdf-to-png`](skills/slides-pdf-to-png/SKILL.md) — extract every page of a slide-deck PDF into HD PNG frames.
-- [`slides-pdf-to-text`](skills/slides-pdf-to-text/SKILL.md) — extract a slide deck's text into a reusable `slides.txt` so later steps build a glossary from cheap text instead of slide images.
+- [`slides-png-to-text`](skills/slides-png-to-text/SKILL.md) — transcribe a deck's rendered slide images into a reusable `slides.txt` so later steps build a glossary from cheap text instead of re-reading the images.
 - [`subtitle-polish`](skills/subtitle-polish/SKILL.md) — clean raw SRT subtitles and fix mis-transcribed terms against slide context.
 - [`subtitle-translate-zh`](skills/subtitle-translate-zh/SKILL.md) — translate an English SRT into Simplified and Taiwan-flavored Traditional Chinese.
 - [`series-youtube-metadata`](skills/series-youtube-metadata/SKILL.md) — generate YouTube titles, description, chapters, and tags for a recorded talk, podcast, or other long-form video, driven by the project's show profile.

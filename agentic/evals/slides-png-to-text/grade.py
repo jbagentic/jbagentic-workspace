@@ -1,11 +1,9 @@
 #!/usr/bin/env python3
-"""Deterministic grader for the slides-pdf-to-text evals. Stdlib only, zero LLM tokens.
+"""Deterministic grader for the slides-png-to-text evals. Stdlib only, zero LLM tokens.
 
 Grades each run IN PLACE against its staged work/ folder (executors write
-work/slides.txt; they don't copy outputs). The grader is branch-agnostic: it
-checks the OUTPUT CONTRACT the skill promises regardless of whether the text
-came from the cheap stdlib extractor (textlayer-kowa) or the vision fallback
-(vision-khew):
+work/slides.txt; they don't copy outputs). It checks the OUTPUT CONTRACT the
+skill promises after it transcribes the slide PNGs:
 
   - slides.txt exists beside the staged slides.pdf
   - one `## slide-NN` section per slide, count == staged PNG count, zero-padded,
