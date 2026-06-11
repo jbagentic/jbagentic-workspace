@@ -1,10 +1,10 @@
 # Audience vocabulary — reference
 
-Reusable know-how for translating subtitles into the right Chinese for a *named* audience. The project's reference doc names which audiences it wants; this file is the skill's expertise on what each implies — output script, locale vocabulary, and idiom. It is the same wherever the skill runs, so it ships with the skill.
+Reusable know-how for translating subtitles into the right Chinese for a *named* audience. The project names which audiences it wants (in whatever context invokes the skill); this file is the skill's expertise on what each implies — output script, locale vocabulary, and idiom. It is the same wherever the skill runs, so it ships with the skill.
 
 ## How to use this
 
-1. Read the target audience(s) the project's reference doc names.
+1. Read the target audience(s) the project names.
 2. Look each up in the profile table below for its output script and vocabulary rules.
 3. An audience not listed here → produce widely-understood Chinese and ask.
 
@@ -34,4 +34,4 @@ Apply to the converted Traditional file — the small set OpenCC leaves behind:
 
 ## What does not belong here
 
-Only reusable locale/audience vocabulary lives here. A project's *own* values — product and coined-term names, speaker names, project glossary, and which audiences the project wants — stay in the project's reference doc.
+Only reusable locale/audience vocabulary lives here. A project's *own* values — product and coined-term names, speaker names, project glossary, and which audiences the project wants — stay with the project, wherever it keeps its own context.

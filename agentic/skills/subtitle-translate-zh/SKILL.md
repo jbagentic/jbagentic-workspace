@@ -8,7 +8,7 @@ description: Translate an English SRT subtitle file from a talk, recording, or p
 ## Input
 - A polished English subtitle file (SRT/VTT) — typically the output of `/subtitle-polish`. Default convention: `<basename>.en.srt`; a project may define another via its own reference doc. If the file still looks like raw ASR output (mangled proper nouns, single-letter acronyms, speaker fillers everywhere), suggest running `/subtitle-polish` first rather than carrying that burden here.
 - Companion materials (slides, PDF, README) when present — consulted only to disambiguate terms, not as a default opener.
-- Target audience(s) — named by the project's reference doc (e.g. "Malaysian Chinese readers", "Taiwanese readers"). The project names the audience; this skill owns what each implies for output script and vocabulary — see [`references/audience-vocabulary.reference.md`](references/audience-vocabulary.reference.md). Absent a named audience, produce widely-understood Chinese and ask if unsure.
+- Target audience(s) — named by whatever context invokes the skill (a runbook, README, reference doc, or the prompt itself), e.g. "Malaysian Chinese readers", "Taiwanese readers". The project names the audience; this skill owns what each implies for output script and vocabulary — see [`references/audience-vocabulary.reference.md`](references/audience-vocabulary.reference.md). Absent a named audience, produce widely-understood Chinese and ask if unsure.
 
 ## Output
 - Two Chinese subtitle files, named and placed per the project's subtitle-file convention. Default: siblings of the input with the language tag swapped:
