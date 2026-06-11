@@ -110,6 +110,17 @@ def chk_keep(ctx, tokens):
     return ok, ("preserved: " + ", ".join(tokens) if ok else f"wrongly removed: {missing}")
 
 
+def chk_restraint(ctx, term):
+    """A speaker's own term counts as preserved in any rendering — spacing, case,
+    and a trailing plural are the transcriber's choices, not the speaker's. So we
+    compare space-stripped and case-insensitive (e.g. 'Open Claw' / 'OpenClaws'
+    all satisfy keeping 'OpenClaw'). The point of the assertion is that the term
+    was NOT rewritten to the slide's word, not that it was spelled solid."""
+    norm = lambda s: re.sub(r"\s+", "", s).lower()
+    ok = norm(term) in norm(body_text(ctx))
+    return ok, f"'{term}' {'preserved (any spacing/case)' if ok else 'MISSING / rewritten to the slide term'}"
+
+
 def term_gone_canonical(ctx, wrong, canon, tol=0):
     """Wrong form appears <= tol times (word-boundary, case-insensitive) and the
     canonical form is present. tol gives slack for terms whose mis-hearing is also
@@ -179,8 +190,9 @@ def eval_assertions(ctx, assertions, keeps):
             tol = 3 if "stray" in al else 0
             p, e = term_gone_canonical(ctx, q[0], q[1], tol)
         elif "restraint" in al:
-            keep = [q[0]] if q else keeps  # preserve the first quoted token (not rewrite it)
-            p, e = chk_keep(ctx, keep)
+            # preserve the first quoted token (don't rewrite it to the slide term);
+            # match space/case-insensitively so a spaced rendering still counts as kept
+            p, e = chk_restraint(ctx, q[0]) if q else chk_keep(ctx, keeps)
         elif "preserved" in al or "particle" in al:
             keep = q if q else keeps
             p, e = chk_keep(ctx, keep)
