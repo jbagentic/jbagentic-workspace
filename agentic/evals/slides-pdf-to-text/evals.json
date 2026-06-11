@@ -1,0 +1,52 @@
+{
+  "skill_name": "slides-pdf-to-text",
+  "notes": "Two real committed decks, one per skill branch. textlayer-kowa has a genuine PDF text layer (108 fonts, ToUnicode CMaps) so the cheap stdlib scripts/extract_deck_text.py recovers it (exit 0) — here the skill's win over a baseline is COST (free script vs reading 21 slide PNGs as vision). vision-khew is an image-only deck (DCTDecode JPEGs, zero fonts) — the script returns nothing (exit 1), so the skill must fall back to a one-time vision pass over the slides/ PNGs; here both with- and without-skill must use vision, so the discriminator is the OUTPUT CONTRACT (a slides.txt sibling, ## slide-NN sections one per slide, exact-casing term preservation), not cost. (The third talk deck, Soh, is also image-only and would be a redundant second vision case; left out to keep iteration-1 cheap.) Graded deterministically by grade.py against the staged inputs: section count == staged PNG count, structure/encoding invariants, and per-term verbatim (case-sensitive) presence. The committed slides.txt in each talk folder is the human-verified oracle the curated term lists were drawn from; prepare.py never stages it (the work dir gets only slides.pdf + slides/). HARNESS CONTRACT: (1) run `python3 prepare.py runs/<iteration>` BEFORE spawning executors — prompts carry {WORK_DIR}, resolved into each run's eval_metadata.json and the printed run plan; (2) the skill IS installed in this workspace, so without_skill executors must be told to ignore the installed slides-pdf-to-text skill and extract the deck text however they would unaided (baseline-contamination guard); (3) after each executor finishes, write its token/duration notification to <run-dir>/timing.json — outputs are graded in place under <run-dir>/work/. with_skill executors run the skill, which writes work/slides.txt.",
+  "evals": [
+    {
+      "id": 0,
+      "name": "textlayer-kowa",
+      "prompt": "I have a talk's slide deck at {WORK_DIR}/slides.pdf, with the rendered slide images in {WORK_DIR}/slides/. Please pull the deck's text out into a single reusable plain-text file beside the PDF, so later steps can build a term glossary from it without re-reading the slide images. Keep the exact spelling and casing of product, tool, and tech names.",
+      "expected_output": "A slides.txt written beside slides.pdf with one `## slide-NN` section per slide in order (21 slides), every section non-empty, UTF-8 without a BOM. This deck carries a real PDF text layer, so the cheap stdlib extractor recovers it (the skill should NOT need a vision pass). Product/tech names appear verbatim with exact casing: ChatGPT, Cursor, Claude Code, Ruby on Rails, Vue JS, Payboy, HRMS, StackOverflow. The source slides.pdf and the slides/ PNGs are left untouched.",
+      "files": ["slides.pdf", "slides/"],
+      "assertions": [
+        "slides.txt exists beside the source slides.pdf",
+        "slides.txt parses into ## slide-NN sections, one per slide (count == staged PNG count)",
+        "Section headers are zero-padded, 1-based, contiguous: slide-01..slide-NN",
+        "No empty sections in slides.txt",
+        "slides.txt is UTF-8 without a BOM",
+        "The term 'ChatGPT' is preserved verbatim (exact casing)",
+        "The term 'Cursor' is preserved verbatim (exact casing)",
+        "The term 'Claude Code' is preserved verbatim (exact casing)",
+        "The term 'Ruby on Rails' is preserved verbatim (exact casing)",
+        "The term 'Vue JS' is preserved verbatim (exact casing)",
+        "The term 'Payboy' is preserved verbatim (exact casing)",
+        "The term 'HRMS' is preserved verbatim (exact casing)",
+        "The term 'StackOverflow' is preserved verbatim (exact casing)",
+        "The source slides.pdf is byte-identical to the fixture (sha256 unchanged)",
+        "The slide PNGs under slides/ are untouched (sha256 unchanged)"
+      ]
+    },
+    {
+      "id": 1,
+      "name": "vision-khew",
+      "prompt": "I have a talk's slide deck at {WORK_DIR}/slides.pdf, with the rendered slide images in {WORK_DIR}/slides/. Please pull the deck's text out into a single reusable plain-text file beside the PDF, so later steps can build a term glossary from it without re-reading the slide images. Keep the exact spelling and casing of product, tool, and tech names.",
+      "expected_output": "A slides.txt written beside slides.pdf with one `## slide-NN` section per slide in order (6 slides), every section non-empty, UTF-8 without a BOM. This deck is image-only (no PDF text layer), so the cheap extractor returns nothing and the skill must transcribe the slides/ PNGs via a one-time vision pass. Tech names appear verbatim with exact casing: IaC, Infrastructure as Code, Terraform, Bicep, Ansible, Markdown. The source slides.pdf and the slides/ PNGs are left untouched.",
+      "files": ["slides.pdf", "slides/"],
+      "assertions": [
+        "slides.txt exists beside the source slides.pdf",
+        "slides.txt parses into ## slide-NN sections, one per slide (count == staged PNG count)",
+        "Section headers are zero-padded, 1-based, contiguous: slide-01..slide-NN",
+        "No empty sections in slides.txt",
+        "slides.txt is UTF-8 without a BOM",
+        "The term 'IaC' is preserved verbatim (exact casing)",
+        "The term 'Infrastructure as Code' is preserved verbatim (exact casing)",
+        "The term 'Terraform' is preserved verbatim (exact casing)",
+        "The term 'Bicep' is preserved verbatim (exact casing)",
+        "The term 'Ansible' is preserved verbatim (exact casing)",
+        "The term 'Markdown' is preserved verbatim (exact casing)",
+        "The source slides.pdf is byte-identical to the fixture (sha256 unchanged)",
+        "The slide PNGs under slides/ are untouched (sha256 unchanged)"
+      ]
+    }
+  ]
+}
