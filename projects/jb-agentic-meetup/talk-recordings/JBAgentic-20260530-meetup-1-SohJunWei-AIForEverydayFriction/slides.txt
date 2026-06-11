@@ -1,0 +1,399 @@
+## slide-01
+AI for Everyday Friction
+Building a personal expense agent with Hermes and MCP
+Soh Jun Wei
+01 / 14
+
+## slide-02
+The Habit I Keep Skipping
+Recording expenses is a good habit — but small frictions make me skip it.
+1 It gets tedious when repeated many times.
+2 At restaurants, everyone is ready to leave.
+3 Recording it right away feels awkward.
+4 If I delay it, I might forget later.
+open app
+type
+calculate
+categorize
+remember later
+Let's go!
+THANK YOU!
+The enemy is not expense tracking apps. The enemy is friction.
+02 / 14
+
+## slide-03
+What If Input Was Effortless?
+Text input
+午餐 5.5
+晚餐 10.5 加 3.5 加 7.3
+Voice message
+Say it naturally
+Receipt photo
+Upload and let AI parse it
+AI Agent
+1 Understand input
+2 Extract amount, description, category, date
+3 Perform calculation if needed
+4 Store the record
+5 Let dashboard visualize or edit later
+Structured Expense Record
+Description 午餐
+Amount RM 5.50
+Category Food
+Date Today
+Dinner expenses were calculated:
+10.5 + 3.5 + 7.3 = RM 21.30
+Stored as separate records.
+The user experience should become as simple as sending a message.
+03 / 14
+
+## slide-04
+From Message to Record
+1 Telegram message
+午餐 5.5
+10:32 AM
+2 Category detection
+食物 / Food
+3 Amount extraction
+RM 5.50
+4 Saved to database
+SQLite
+Saved to database
+5 Visible in dashboard
+RM 1,245.80
+Short text
+Chinese input
+Fixed categories
+Deterministic calculate tool
+SQLite storage
+Summaries & statistics
+Receipt attachments
+View & edit in dashboard
+The agent is not just chatting; it performs real actions through tools.
+04 / 14
+
+## slide-05
+A Quick Look at the Flow
+1 Input
+Telegram
+Expense Bot
+午餐 5.5
+Got it! I saved your expense.
+- Description: 午餐
+- Amount: 5.50
+- Currency: CNY
+Saved successfully
+2 Agent understanding
+Telegram
+Expense Bot
+午餐豆浆油条，花了 6.5 元
+3 Saved record
+Telegram
+Expense Bot
+4 Dashboard view
+Expenses Dashboard
+¥1,245.60
+42
+¥40.18
+Prepared screenshots keep the talk on time. Dashboard can still be shown live if time allows.
+expenses.admijw.xyz
+The system is real and working — the talk focuses on the thinking behind it.
+05 / 14
+
+## slide-06
+What Is Behind It?
+Oracle Cloud Always Free VPS
+Docker containers
+1 User Inputs
+Text message "午餐 5.5"
+Voice note / Speech input
+Receipt photo
+Telegram / Web Telegram
+2 AI Orchestration Layer
+Hermes Agent
+Agent orchestrator
+Structured tool calls
+A Speech-to-Text
+- Groq Free API
+- Whisper Large
+- Higher accuracy STT
+- Daily usage limit
+B OpenRouter LLMs
+- Qwen 3.5 235 ...
+- understanding
+- Gemini Flash Vision
+- receipt parsing
+AI handles fuzzy input
+3 Tool Execution Layer
+Expense Assistant MCP Server
+add_expense
+expense_summary
+calculate
+list_categories
+attachments
+SQLite Database
+Read / Write
+Attachments Storage
+Files / images
+Read / Write
+Tools handle deterministic actions
+4 Dashboard / Admin Interface
+Expense Dashboard (Next.js)
+Manual CRUD, charts, filters
+Admin / User
+Manual access
+The agent is useful because it is connected to a real tool layer and real data.
+06 / 14
+
+## slide-07
+Why Not Just Prompt It?
+Prompting teaches behavior. MCP defines capability.
+Prompt Only
+Re-explain rules repeatedly
+Higher chance of inconsistent behavior
+More correction tokens
+Session compression may lose context
+Model may invent the process
+Prompts guide behavior...
+...but outcomes are probabilistic.
+VS
+MCP Tool Contract
+Named tools
+Required fields
+Valid categories
+Validation rules
+Predictable outputs
+Reusable capability boundary
+Structured tool calls with validation.
+Example tools
+add_expense
+expense_summary
+calculate
+Expense recording needs correctness.
+The agent should not freely invent records or generate SQL directly.
+Syntax can look correct while the actual inserted data is wrong.
+MCP can save tokens because less time is spent correcting behavior and reteaching rules.
+If the session is cleared or compressed, prompts may be forgotten, but tool contracts stay more stable.
+MCP reduces guesswork by giving the agent a well-defined tool boundary.
+07 / 14
+
+## slide-08
+A Tool Contract for Money
+Tool Contract Examples
+Simplified
+add_expense({
+  amount: number,
+  category: "食物" | "饮料" | "交通" | ...,
+  description: string,
+  date?: ISODateTime,
+  remark?: string
+})
+calculate({
+  expression: string
+})
+Required fields
+Valid categories
+Deterministic calculation
+Database-safe action
+Bulk tools for multiple expenses
+What This Means
+add_expense defines what a valid expense looks like.
+list_categories prevents the agent from inventing categories.
+calculate prevents the model from doing money arithmetic by itself.
+Bulk tools handle multiple expenses in one transaction.
+AI Interprets Fuzzy Input
+Understands natural language, intent, and messy details.
+VS
+Tools Validate & Execute Safely
+Enforces rules, validates data, and performs deterministic actions.
+For fuzzy input, use AI. For money, validation, and calculation, use tools.
+08 / 14
+
+## slide-09
+Our Role Changes
+AI doesn't remove developers. It changes what we focus on.
+User Asks AI (Vague Prompt)
+帮我记录这顿饭花费，算一算费用多少，
+然后存起来，最好的能帮我看报表。
+Record my expense, calculate total, save it, and show me reports.
+AI (General Model)
+Probabilistic · May guess · May get wrong
+Coder → Orchestrator → Architect
+Coder
+Write code
+Orchestrator
+Combine tools and flows
+Architect
+Design systems and boundaries
+A normal user asks AI to solve the problem. A developer designs how AI is allowed to solve the problem.
+Developer Designs AI System
+Agent Boundary
+What AI can do and not do
+Tool Contracts (MCP)
+add_expense, calculate, ...
+Validation Rules
+Required fields, valid categories, date
+Deterministic Actions
+Calculations, business logic
+Data Layer
+SQLite Database (expenses)
+Attachments
+Receipts / image files
+Dashboard (Next.js)
+View · Edit · Filter · Manual CRUD
+AI Orchestrator (Hermes Agent)
+Understands input · Uses tools · Returns result
+Unclear requirements
+AI guesses the process
+Higher chance of mistake
+Harder to validate and maintain
+Understand the problem and real context
+Define system boundaries and data rules
+Decide what must be validated or deterministic
+Design tools, contracts, and interfaces
+Build for maintainability and long-term value
+We don't just code. We design how AI is allowed to act.
+09 / 14
+
+## slide-10
+Fuzzy Input, Deterministic Action
+Different problems, different strengths. Combine them for correctness and reliability.
+FUZZY INPUT
+Unstructured, ambiguous, human
+Natural language understanding
+"午餐 5.5"
+AI
+Voice / messy phrasing
+AI + STT
+Receipt interpretation
+AI vision
+AI understands the fuzzy input
+Use AI for interpretation.
+Use tools for correctness.
+DETERMINISTIC ACTION
+Structured, validated, reliable
+Problem Type | Best Handled By | Example
+Category validation | Tool / Schema (MCP) | Fixed category list (食物 / 交通 / ...)
+Tax and calculation | Deterministic tool | calculate ("10.5 + 3.5")
+Data validation & rules | Tool / Schema (MCP) | Required fields, format, ranges
+Database write | MCP tool | add_expense
+Query & summary | MCP tool | expense_summary (...)
+Attachments handling | MCP tool | attach_file (...)
+Avoid letting AI generate SQL and insert data directly.
+SQL syntax may be correct, but interpretation may be wrong.
+Leads to wrong data and repeated corrections.
+Wastes tokens and increases cost.
+10 / 14
+
+## slide-11
+MCP or CLI?
+A discussion with my mentor Hui Ming, and what I learned.
+Context: I had a discussion with my mentor Hui Ming: should agents use CLI tools or MCP?
+Balanced Takeaway
+CLI is powerful, familiar, and has existed for a long time.
+LLMs already understand many common CLI patterns.
+CLI can work well when the command is simple and the output is easy to inspect.
+But CLI still usually needs a skill, prompt, or instruction layer to teach the agent how to use it, what parameters to pass, what output means, and what errors look like.
+MCP comes with a tool schema and structured contract out of the box.
+CLI
+Command Line Interface
+CLI works well when...
+Command is simple
+Output is easy to read
+Tool is familiar
+Human can inspect result
+A skill / prompt can teach usage
+Fast exploration is needed
+MCP
+Model Context Protocol
+MCP works well when...
+Input needs structure
+Validation matters
+Repeatability matters
+Agent must act predictably
+Tool schema should describe usage
+Workflow should be safer
+How much guesswork do we want to leave to the AI?
+Both have value. The difference is the amount of structure you want.
+CLI
+More freedom
+More guesswork
+Choose based on the problem
+MCP
+More structure
+Less guesswork
+I still plan to experiment with custom CLI tooling. For this expense agent, MCP gave me the control and contract I wanted.
+11 / 14
+
+## slide-12
+Where Things Went Wrong
+Real AI apps fail at boundaries. Improving the system means designing better boundaries.
+1 Voice STT
+Problem
+- Chinese speech can be mis-transcribed.
+- Example: "六合仙" may become "六八仙".
+Fix direction
+- Better phrasing from user
+- Better STT model
+- Clarification flow when confidence is low
+六合仙 (wrong)
+六八仙 (correct)
+2 Receipt Photo Context
+Problem
+- Receipt image may be interpreted as related to a previous record.
+Fix direction
+- Clearer prompt / tool flow
+- Attachment intent handling
+- Ask for confirmation if context is uncertain
+Confirm intent before linking
+3 Tax & Calculation
+Problem
+- LLM may calculate tax or multiplication wrongly.
+- "消费税 六" may be interpreted as RM6 instead of 6%.
+Fix direction
+- Use calculate tool for math
+- Memory / rules for tax logic
+- Explicit percentage handling (6% ≠ RM6)
+消费税 六 → 6% (correct)
+RM6 (wrong)
+Study failures. Improve boundaries. Build a more reliable agent.
+12 / 14
+
+## slide-13
+What Comes Next?
+The project is evolving into a more personal finance assistant.
+1 Now
+Expense recording
+2 Next
+Reliability improvements
+STT, tax, receipt handling
+3 Budget tracking
+budgets, alerts, insights
+4 Fixed-period / subscription expenses
+recurring expenses, reminders
+5 Bilingual support
+Chinese + English
+6 Personality / Auria
+more personal guidance
+7 CLI experiments
+custom CLI tooling
+Auria — Personal Finance Assistant
+A friendly finance companion for recording, understanding, and planning money.
+"From expense recorder to personal finance assistant."
+13 / 14
+
+## slide-14
+Start from Friction
+Start from friction.
+Use AI for fuzzy understanding.
+Use tools for deterministic action.
+As developers, design the boundary.
+You do not always need a huge AI product idea. Sometimes the best AI project starts from one small repeated frustration that you personally understand very well.
+1 Notice Friction
+2 Design Natural Input
+3 Connect AI to Tools
+4 Improve from Failures
+Better System. Better Experience.
+Small friction today. Meaningful impact tomorrow.
+Build with care. Solve real problems. Make life better.
+14 / 14

@@ -22,10 +22,13 @@ One folder per skill being evaluated, named to match the skill (e.g. `doc-this/`
 - Auto-discovery does not reach this path, so **point skill-creator at the eval folder explicitly**
   when running or improving a skill.
 - **`subtitle-polish` stages its inputs first.** Run `python3 subtitle-polish/prepare.py` to
-  materialize each talk's real `.en.raw.srt` + slide deck into `subtitle-polish/stage/`
-  (gitignored) from `talk-recordings/`. The skill runs against that throwaway copy so its
-  sibling output (`<slug>.en.srt`) never overwrites the committed talk folder. The decks and
-  transcripts live once, in `talk-recordings/` — they are not copied into the eval.
+  materialize each talk's real `.en.raw.srt` + slide deck (`slides/`, `slides.pdf`, and
+  `slides.txt` when present) into `subtitle-polish/stage/` (gitignored) from
+  `talk-recordings/`. The skill runs against that throwaway copy so its sibling output
+  (`<slug>.en.srt`) never overwrites the committed talk folder. The decks and transcripts
+  live once, in `talk-recordings/` — they are not copied into the eval. The skill prefers
+  `slides.txt` (the deck's extracted text) for its glossary over reading the slide PNGs —
+  see iteration 3 for the token/time saving.
 - **`slides-pdf-to-png` stages per-run work dirs.** Its fixtures are tiny committed synthetic
   PDFs from `slides-pdf-to-png/fixtures/make_fixtures.py` (run it bare to verify, `--write` to
   regenerate). Run `python3 slides-pdf-to-png/prepare.py runs/<iteration>` **before** spawning

@@ -1,0 +1,94 @@
+## slide-01
+AI Meets Infrastructure
+Integrating IaC, AI Agents & Markdown
+How the integration works, how it differs from traditional methods, and the key benefits.
+IaC
+Infrastructure as Code
+AI Agents
+Intelligent automation and orchestration
+Markdown
+Human-readable documentation
+1. Introduction
+2. How It Works
+3. Traditional vs AI
+4. Benefits
+Prepared for presentation
+
+## slide-02
+Introduction
+My Experience Before IaC & AI
+What infrastructure work looked like in the traditional approach.
+1. Manual provisioning
+Servers, networks, and changes were configured by hand.
+2. Scattered requirements
+Details lived in emails, chats, tickets, and separate documents.
+3. Slow change cycles
+Even small updates took time to prepare and verify.
+4. Environment inconsistency
+Settings could differ between dev, test, and production.
+5. Knowledge dependency
+Progress relied heavily on individual experience and memory.
+These challenges created the need for a more repeatable, automated, and well-documented way of working.
+
+## slide-03
+Integration Flow
+How the Integration Works
+1. Markdown
+Requirements, policies, notes
+2. AI Agent
+Reads, reasons, generates
+3. IaC
+Terraform / Bicep / Ansible
+4. Validation
+fmt, validate, plan, security scan
+5. Deployment
+PR review, approval, apply
+Role of each component
+Markdown = source of intent
+AI Agent = interpreter + automation layer
+IaC = executable infrastructure definition
+Human stays in control through review and approval.
+
+## slide-04
+Operational Process
+End-to-End Workflow
+1. Write requirements in Markdown
+2. Agent interprets goals and rules
+3. Generate or update IaC
+4. Run validation and security checks
+5. Review plan / pull request
+6. Deploy and auto-document
+Typical outputs
+Terraform / Bicep files
+README and architecture notes
+Change summary
+Risk or issue report
+From idea to deployment in a repeatable workflow.
+
+## slide-05
+What Changed
+Traditional Method vs AI-Assisted Method
+Traditional Approach
+AI-Assisted Approach
+Requirements
+Scattered in emails, tickets, docs
+Captured clearly in Markdown
+IaC Creation
+Manual coding by engineer
+Agent drafts code from requirements
+Review
+Human-only review
+Human review + automated analysis
+Speed
+Slower, more repetitive
+Faster iteration and updates
+Knowledge Sharing
+Dependent on individual expertise
+Documented, repeatable, easier onboarding
+AI does not replace engineers — it amplifies them.
+
+## slide-06
+Closing
+Q&A
+Questions & Discussion
+Thank you

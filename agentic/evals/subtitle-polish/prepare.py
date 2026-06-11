@@ -48,8 +48,12 @@ def stage_one(slug):
     pdf = src / "slides.pdf"
     if pdf.exists():
         shutil.copy2(pdf, dst / "slides.pdf")
+    txt = src / "slides.txt"
+    if txt.exists():
+        shutil.copy2(txt, dst / "slides.txt")
     n = len(list((dst / "slides").glob("*.png")))
-    print(f"staged {slug}: {raw.name} + {n} slides" + (" + slides.pdf" if pdf.exists() else ""))
+    extras = "".join(s for s, p in ((" + slides.pdf", pdf), (" + slides.txt", txt)) if p.exists())
+    print(f"staged {slug}: {raw.name} + {n} slides{extras}")
 
 
 def main():

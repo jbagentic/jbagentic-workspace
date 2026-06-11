@@ -15,6 +15,7 @@ talk-recordings/
     ├── <talk-slug>.zh-Hant.srt         # Traditional Chinese subtitles
     ├── cover.png                       # video cover image (manual)
     ├── slides.pdf                      # full slide deck (manual input)
+    ├── slides.txt                      # deck text extracted for the glossary
     ├── slides/slide-NN.png             # one PNG per slide, zero-padded, 1-based
     ├── video-file.html                 # meta-refresh redirect to the Drive video
     └── youtube-content.md              # YouTube titles, description, tags
@@ -56,6 +57,7 @@ What you add by hand (**manual input**) vs. what a skill writes (**generated**):
 - `<talk-slug>.en.raw.srt` — manual input (raw subtitles)
 - `<talk-slug>.en.srt`, `<talk-slug>.zh-Hans.srt`, `<talk-slug>.zh-Hant.srt` — generated subtitles
 - `slides.pdf` — manual input
+- `slides.txt` — generated (deck text for the subtitle glossary)
 - `slides/slide-NN.png` — generated
 - `video-file.html` — generated
 - `youtube-content.md` — generated
@@ -66,6 +68,6 @@ What you add by hand (**manual input**) vs. what a skill writes (**generated**):
 - [Details of past meetups — date, time, number, talks, speakers, attendance](meetup-records.reference.md)
 - Pipeline runbooks — the procedures that produce the files above:
   - [Setup](talk-setup.runbook.md) — record meetup & scaffold talk folders
-  - [Pre-edit prep](talk-pre-edit-prep.runbook.md) — slides → overlay frames
+  - [Pre-edit prep](talk-pre-edit-prep.runbook.md) — slides → overlay frames + `slides.txt`
   - [Video edit (CapCut)](talk-video-edit.runbook.md) — manual edit handoff
   - [Post-edit processing](talk-post-edit-processing.runbook.md) — subtitles & YouTube metadata
