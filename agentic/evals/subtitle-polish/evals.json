@@ -46,7 +46,8 @@
         "'Claude Code' appears, recovered from 'cloud code'",
         "'Jason' is corrected to 'JSON'",
         "'MCP' is preserved (already correct in the raw)",
-        "Singlish particles and affirmations (ya/okay/lah) are preserved, not scrubbed"
+        "Singlish particles and affirmations (ya/okay/lah) are preserved, not scrubbed",
+        "Particle thinning: the heavily-used 'lah' is thinned — fewer in the output than in the raw, but not scrubbed to zero"
       ]
     },
     {

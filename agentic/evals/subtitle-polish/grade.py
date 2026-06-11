@@ -110,6 +110,17 @@ def chk_keep(ctx, tokens):
     return ok, ("preserved: " + ", ".join(tokens) if ok else f"wrongly removed: {missing}")
 
 
+def chk_thinned(ctx, term):
+    """A heavily-used particle should be thinned in the output — strictly fewer than
+    the raw, but never scrubbed to zero (it still carries the speaker's voice)."""
+    pat = r"\b" + re.escape(term) + r"\b"
+    raw_n = len(re.findall(pat, "\n".join(x["body"] for x in ctx["raw"]), re.I))
+    out_n = len(re.findall(pat, body_text(ctx), re.I))
+    ok = 0 < out_n < raw_n
+    verdict = "thinned, kept voice" if ok else ("scrubbed to zero" if out_n == 0 else "not thinned")
+    return ok, f"'{term}' raw={raw_n} -> output={out_n} ({verdict})"
+
+
 def chk_restraint(ctx, term):
     """A speaker's own term counts as preserved in any rendering — spacing, case,
     and a trailing plural are the transcriber's choices, not the speaker's. So we
@@ -189,6 +200,10 @@ def eval_assertions(ctx, assertions, keeps):
         elif "corrected to" in al and len(q) >= 2:
             tol = 3 if "stray" in al else 0
             p, e = term_gone_canonical(ctx, q[0], q[1], tol)
+        elif "thinn" in al:
+            # heavy particle must be reduced but not zeroed; check before the
+            # "preserved"/"particle" branch since this assertion names both
+            p, e = chk_thinned(ctx, q[0] if q else "lah")
         elif "restraint" in al:
             # preserve the first quoted token (don't rewrite it to the slide term);
             # match space/case-insensitively so a spaced rendering still counts as kept
