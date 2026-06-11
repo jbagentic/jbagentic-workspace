@@ -22,7 +22,7 @@ These are ready when this phase starts, from earlier phases and manual assets:
    - In: `<talk-slug>.en.raw.srt` (source) · `slides.txt` (glossary context)
    - Out: `<talk-slug>.en.srt` (polished)
 3. **Translate to Chinese** — run `/subtitle-translate-zh`. One run writes both files.
-   - In: `<talk-slug>.en.srt` (source) · audiences: Malaysian Chinese readers, Taiwanese readers
+   - In: `<talk-slug>.en.srt` (source) · `slides.txt` (glossary context, on demand) · audiences: Malaysian Chinese readers, Taiwanese readers
    - Out: `<talk-slug>.zh-Hans.srt` (Simplified, for Malaysian Chinese readers) · `<talk-slug>.zh-Hant.srt` (Taiwan Traditional, for Taiwanese readers)
 4. **Write YouTube metadata** — run `/series-youtube-metadata`.
    - In: `<talk-slug>.en.srt` (transcript source) · brand identity (series suffix, links, footer) → [meetup-info.reference.md](meetup-info.reference.md) · this talk's facts (number, date, full title, speaker) → [meetup-records.reference.md](meetup-records.reference.md) · folder name = locator only (match talk → record)

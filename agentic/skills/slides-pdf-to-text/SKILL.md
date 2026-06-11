@@ -17,7 +17,7 @@ again on every run. Extract once here; every later run and skill reads the text.
   only when the PDF has no text layer (see step 2).
 
 ## Output
-- `slides.txt`, a committed sibling of `slides.pdf`. One section per slide in
+- The slide deck's text as a committed sibling of the PDF — default name `slides.txt`; a project's layout may define another. One section per slide in
   document order, each headed `## slide-NN`, holding the slide's text — title,
   bullets, inline code, file names, product/tool names, URLs. It captures
   *glossary text, not layout*. Preserve the exact casing and spelling of technical
