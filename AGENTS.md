@@ -34,6 +34,13 @@ Use the `doc-this` skill for a folder's docs — don't hand-write them.
 - **Keeping docs current** — when you change what's in a Contextful Folder, update its docs in the same pass: the nearest folder with a `README.md`. If you're unsure what to change, ask `doc-this` to reconcile them.
 - **Why** — the next agent or person works from these docs and can't ask you later; stale or missing docs make them get it wrong.
 
+### Write Files In-Project
+
+Create and edit files with the **Write/Edit tools** at **in-project paths** — not shell heredocs into system temp (`$TMPDIR`, `/var/folders`).
+
+- **Why** — Write-tool output is reviewable and diffable, and in-project paths stay inside the sandbox, so unattended runs don't stall on an approval prompt (or silently auto-deny). See [`docs/permissions-and-sandbox.guide.md`](docs/permissions-and-sandbox.guide.md).
+- Use shell or temp files only for genuine throwaway scratch, never for a deliverable.
+
 ## Git Workflow
 
 Branch-based workflow, no PRs (solo dev).
