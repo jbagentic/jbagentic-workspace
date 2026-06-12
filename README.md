@@ -26,6 +26,7 @@ For other skills, see the [agentic skill catalog](agentic/README.md#skills) for 
 ## Docs Manifest
 
 - [SKILL.md convention in this workspace](docs/skill-convention.reference.md)
+- [Agent permissions & sandbox security model](docs/permissions-and-sandbox.guide.md) — how the agent stays useful but contained: Away/Around modes, the deny/ask policy, and what the sandbox does and doesn't guarantee.
 
 ## License
 
