@@ -42,6 +42,13 @@
       "prompt": "We dropped SVG support from the widget exporter — it's PNG-only now. Update the docs in agents/evals/doc-this/fixtures/existing-widget/ to match.",
       "expected_output": "A change is stated and the folder is named and already documented, so the skill reconciles in place — it does NOT ask for raw material first and does NOT run a home-folder approval round-trip (both gates apply to authoring from scratch, not to syncing a named, documented folder). The stale SVG mention is removed: docs/widget-config.reference.md's format note becomes PNG-only and the README summary line stops saying PNG/SVG. No new or parallel file, README manifest left intact, no frontmatter introduced. Minimal and idempotent — only the SVG mentions change. This is primarily a regression guard for the change-driven path: a capable model on the old skill can also execute this once invoked (the folder is named), so the change's discriminating value is in triggering — the description now advertises change-driven use — which is tested separately, not by this execution case.",
       "files": ["fixtures/existing-widget/README.md", "fixtures/existing-widget/docs/widget-config.reference.md"]
+    },
+    {
+      "id": 6,
+      "name": "triggers-on-brief-mention",
+      "prompt": "oh and while you're in there — can you document the references for the tools/backup-tool/ folder? just write it up properly.",
+      "expected_output": "A TRIGGERING case, not an execution-quality one. With the doc-this skill installed and NOT suppressed or instructed, the model spontaneously invokes Skill(doc-this) from this terse, oblique aside — the kind of brief mid-task mention that previously slipped past — and follows the skill's flow instead of hand-writing ad-hoc docs. A skill-suppressed baseline does not invoke it and free-forms a doc instead, so this case discriminates on triggering. NOTE: the real discriminating condition — a half-full context window where the brief mention competes for attention — is a run-time setup, not encoded in this prompt string; grade by observing whether Skill(doc-this) fires (spontaneous firing is observable in this repo, per the iteration-2 baseline-contamination note). 'references' here means the folder's source material/citations and must route to doc-this, NOT to redirect-bookmark (which is for a single external URL / Drive link).",
+      "files": []
     }
   ]
 }
