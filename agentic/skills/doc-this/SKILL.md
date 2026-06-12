@@ -8,12 +8,15 @@ description: >-
   in sync with what was added, removed, renamed, or changed in behavior.
   Use whenever the user wants to document a folder or project, write or clean up
   a README, organize messy/scattered docs, turn notes or a transcript into proper
-  documentation, standardize how a directory is documented, keep a folder's docs in
-  sync after a change ("we changed X, fold it in"), or just says "doc this"
-  / "document this folder" — even if they don't name the file types. Not for polishing
-  an existing doc's prose in place (just edit it), but do use it to reconcile a
-  folder's docs after its files or behavior change; not for authoring context-discovery
-  rules as a standalone task.
+  documentation, add a doc / guide / reference to a folder or the workspace,
+  standardize how a directory is documented, keep a folder's docs in sync after a
+  change ("we changed X, fold it in"), or just drops a brief aside — "doc this"
+  / "document this folder" / "document the references / sources / notes for X"
+  / "write this up" / "structure the docs" — even if they don't name the file types
+  or the request is terse and mid-task. Not for polishing an existing doc's prose in
+  place (just edit it), nor for bookmarking a single external URL / Drive link (that's
+  the redirect-bookmark skill); but do use it to reconcile a folder's docs after its
+  files or behavior change; not for authoring context-discovery rules as a standalone task.
 ---
 
 # Doc This
@@ -57,7 +60,7 @@ Invariants (what makes the output conform):
 
 5. **Verify before reporting done.** Confirm: a README exists; only approved file types/names are present; the manifest and `docs/` are in sync — every `docs/*` file has a manifest entry and every manifest link resolves; content is routed to the correct type; nothing is duplicated across files. Fix anything that fails.
 
-6. **Offer to install the always-on conventions (first time only).** The docs you just wrote only pay off if agents are told to *navigate* by them and to *keep them current*. Both rules are always-on behavior, so they belong in your **always-on agent instructions** — the top-level `AGENTS.md` or `CLAUDE.md` that's loaded on every task and applies to every folder, not the local `AGENTS.md` of the folder you just documented, and not this skill's on-demand scope. Check that file for each convention — **context-discovery** ([`references/context-discovery.reference.md`](references/context-discovery.reference.md)) and **context-maintenance** ([`references/context-maintenance.reference.md`](references/context-maintenance.reference.md)). For whichever is **absent**, offer to add its block and **ask the user before writing** — confirm where it should go, since both apply above the folder you're documenting. If they decline, point them to the atoms so they can copy them in themselves.
+6. **Offer to install the always-on conventions (first time only).** The docs you just wrote only pay off if agents are told to *navigate* by them, to *route documentation work back to this skill*, and to *keep the docs current*. Both rules are always-on behavior, so they belong in your **always-on agent instructions** — the top-level `AGENTS.md` or `CLAUDE.md` that's loaded on every task and applies to every folder, not the local `AGENTS.md` of the folder you just documented, and not this skill's on-demand scope. Check that file for each convention — **context-discovery** (the `Context Discovery Rule` heading, [`references/context-discovery.reference.md`](references/context-discovery.reference.md)) and **documenting-a-folder** (the `Documenting a Folder` heading, which routes doc work here and keeps docs current, [`references/context-maintenance.reference.md`](references/context-maintenance.reference.md)). For whichever is **absent**, offer to add its block and **ask the user before writing** — confirm where it should go, since both apply above the folder you're documenting. If they decline, point them to the atoms so they can copy them in themselves.
 
 ## Conventions
 
@@ -80,5 +83,5 @@ The bundled [`references/contextful-folder.reference.md`](references/contextful-
 
 - **Reference (bundled)** — [Contextful Folder reference](references/contextful-folder.reference.md) and its [guide](references/contextful-folder.guide.md) — the authority this skill enforces, shipped inside the skill.
 - **Context-discovery convention (bundled)** — [context-discovery.reference.md](references/context-discovery.reference.md) — the always-on navigation rule to install into your top-level `AGENTS.md`/`CLAUDE.md` (the always-on instructions), so agents read the docs this skill writes.
-- **Context-maintenance convention (bundled)** — [context-maintenance.reference.md](references/context-maintenance.reference.md) — the always-on rule to install alongside discovery, so agents keep these docs current when a folder's contents change.
+- **Documenting-a-folder convention (bundled)** — [context-maintenance.reference.md](references/context-maintenance.reference.md) — the always-on rule to install alongside discovery, so agents route documentation work to this skill and keep these docs current when a folder's contents change.
 
