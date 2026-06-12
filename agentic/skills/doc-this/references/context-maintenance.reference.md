@@ -43,5 +43,3 @@ keeps paying off instead of decaying.
 - [Contextful Folder guide](contextful-folder.guide.md) — why the pattern works.
 - [Contextful Folder reference](contextful-folder.reference.md) — how to produce contextful folders.
 - [Context discovery reference](context-discovery.reference.md) — the navigation half: how to read contextful folders.
-</content>
-</invoke>
