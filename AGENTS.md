@@ -26,17 +26,13 @@ From there, follow the context instead of searching:
 
 READMEs are the map, so use them before a blind `Find`/`Grep`/`Glob` sweep — searching first wastes tokens and skips the map. If the trail doesn't cover what you need, then search.
 
-### Context Maintenance Rule
-
-When you change what's in a Contextful Folder, update its docs at the same time.
-
-- **Why** — the next agent or person depends on those docs and can't ask you later; if the docs are stale, they get it wrong.
-- **Which docs** — the nearest Contextful Folder's: the closest folder with a `README.md`, which is your file's own folder or, more often, a parent.
-- **If you're unsure what to change** — ask the `doc-this` skill to update the docs for you.
-
 ### Documenting a Folder
 
-When you need to create or clean up a folder's docs — a `README.md`, an `AGENTS.md`, or a typed `docs/*.{guide|reference|runbook}.md` — from notes, a brain-dump, or scattered materials, use the `doc-this` skill rather than hand-writing docs. This holds even for a brief, mid-task aside ("document the references", "write this up", "add a guide for X") — the skill structures it into the Contextful Folder vocabulary. For syncing docs after a change, see the Context Maintenance Rule above.
+Use the `doc-this` skill for a folder's docs — don't hand-write them.
+
+- **Creating or organizing docs** — turning notes, a brain-dump, or scattered materials into a `README.md` / `AGENTS.md` / typed `docs/*.{guide|reference|runbook}.md`, or a brief aside like "doc this" / "document the references" / "write this up" → run `doc-this`.
+- **Keeping docs current** — when you change what's in a Contextful Folder, update its docs in the same pass: the nearest folder with a `README.md`. If you're unsure what to change, ask `doc-this` to reconcile them.
+- **Why** — the next agent or person works from these docs and can't ask you later; stale or missing docs make them get it wrong.
 
 ## Git Workflow
 
