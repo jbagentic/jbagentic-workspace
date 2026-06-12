@@ -34,12 +34,13 @@ Use the `doc-this` skill for a folder's docs — don't hand-write them.
 - **Keeping docs current** — when you change what's in a Contextful Folder, update its docs in the same pass: the nearest folder with a `README.md`. If you're unsure what to change, ask `doc-this` to reconcile them.
 - **Why** — the next agent or person works from these docs and can't ask you later; stale or missing docs make them get it wrong.
 
-### Write Files In-Project
+### Sandbox
 
-Create and edit files with the **Write/Edit tools** at **in-project paths** — not shell heredocs into system temp (`$TMPDIR`, `/var/folders`).
+**Treat the project folder as your boundary.** Keep files, outputs, and temp work in-project; use only allowlisted network; don't read credential dirs. Reach outside only when the task truly needs it — then surface it, don't route around it.
 
-- **Why** — Write-tool output is reviewable and diffable, and in-project paths stay inside the sandbox, so unattended runs don't stall on an approval prompt (or silently auto-deny). See [`docs/permissions-and-sandbox.guide.md`](docs/permissions-and-sandbox.guide.md).
-- Use shell or temp files only for genuine throwaway scratch, never for a deliverable.
+Concretely: write with the Write/Edit tools at in-project paths; for scratch/temp use the gitignored `tmp/` at the repo root — never system temp (`$TMPDIR`, `/var/folders`, `/tmp`).
+
+**Under Claude Code** this is OS-enforced via `.claude/settings.json` — out-of-box actions prompt (supervised) or auto-deny (unattended); see [`docs/permissions-and-sandbox.guide.md`](docs/permissions-and-sandbox.guide.md). **Other agents** enforce through their own config (e.g. Codex's sandbox/approval policy, OpenCode's permission rules), not this file — honor the norm and set yours to match; don't assume `.claude/settings.json` governs you.
 
 ## Git Workflow
 
