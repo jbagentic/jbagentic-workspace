@@ -34,6 +34,10 @@ When you change what's in a Contextful Folder, update its docs at the same time.
 - **Which docs** — the nearest Contextful Folder's: the closest folder with a `README.md`, which is your file's own folder or, more often, a parent.
 - **If you're unsure what to change** — ask the `doc-this` skill to update the docs for you.
 
+### Documenting a Folder
+
+When you need to create or clean up a folder's docs — a `README.md`, an `AGENTS.md`, or a typed `docs/*.{guide|reference|runbook}.md` — from notes, a brain-dump, or scattered materials, use the `doc-this` skill rather than hand-writing docs. This holds even for a brief, mid-task aside ("document the references", "write this up", "add a guide for X") — the skill structures it into the Contextful Folder vocabulary. For syncing docs after a change, see the Context Maintenance Rule above.
+
 ## Git Workflow
 
 Branch-based workflow, no PRs (solo dev).
