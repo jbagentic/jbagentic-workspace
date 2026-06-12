@@ -84,8 +84,53 @@ The sandbox is strong but not total. You own these:
    protected paths, so editable) and build files (`Makefile`, `package.json` scripts, CI YAML),
    which run later outside the sandbox.
 
+## Tuning safely
+
+Editing the posture means editing [`.claude/settings.json`](../.claude/settings.json). **Do it on a
+branch, review the diff, and merge** — never hand-loosen on `main` unreviewed. The guiding rule is
+**least privilege: add the narrowest thing that unblocks the work, grant it in Around so you see
+exactly what's asked, and re-tighten when the task is done.** Changes take effect next session.
+
+### Add a web domain (`sandbox.network.allowedDomains`)
+
+- **Let the agent hit the wall in Around first.** It will prompt for the *exact* host it needs;
+  approve, then copy that host into `allowedDomains`. Don't pre-add domains speculatively.
+- **Add the most specific host that works** — `api.example.com`, not `example.com`; never a bare
+  TLD or a wildcard you don't need.
+- **Every domain is an exfiltration channel** an injected agent can also use. Avoid general-purpose
+  sinks (paste sites, gists, generic object stores). GitHub is already dual-use — don't widen it.
+- **TLS isn't inspected**, so a broad entry enables domain fronting. Keep the list tight, especially
+  for Away runs. If a domain was needed for a one-off, remove it afterward.
+
+### Add a secret path to block (`sandbox.filesystem.denyRead`)
+
+- `denyRead` is **allow-by-default**: the sandbox reads the whole disk *except* what you list. So you
+  **add to it, you don't remove** — any new credential location you keep (a vault dir, a cloud cred
+  cache, a `.env` *outside* the project) belongs here.
+- Use `~/` for home-relative paths, absolute for elsewhere. Over-inclusion is safe (it's a denylist);
+  re-allow a sub-path with `allowRead` only if something legitimate breaks.
+- **It does not cover in-project secrets** — a `.env` inside the project sits in the writable cwd.
+  Gate those with a permission rule instead: `deny: ["Read(/.env)", "Read(/**/.env*)"]` (trade-off:
+  breaks legit reads of that file, so opt in deliberately).
+
+### Move a command between `allow` / `ask` / `deny`
+
+- Decide by the rule of thumb: safe and frequent → **`allow`**; sensibly approvable at a prompt →
+  **`ask`**; a reflex you'd regret, unreviewable, or catastrophic → **`deny`**.
+- To let the agent run a new command **unattended**, add a **narrow** `allow` rule
+  (`Bash(npm test *)`, not blanket). To allow it **only under supervision**, put it in `ask`.
+- When you approve a prompt with "yes, don't ask again", the rule is written to
+  `settings.local.json` (local, git-ignored) — fine for personal/machine-specific approvals. To make
+  it part of the **shared** posture, move it into the committed `.claude/settings.json` `allow` list.
+
+### After any change
+
+- Restart `claude` (changes apply next session) and **re-verify**: `/permissions`, the `/sandbox`
+  Config tab, and the wall tests (in-project write, a denied command, a non-allow-listed `curl`).
+- Commit with a clear message. For unattended runs, ship the **smallest** allowlist that works.
+
 ## Portability
 
 This posture is **self-contained in `.claude/settings.json`** — no dependency on global
 `~/.claude` settings. To give another project the same posture, copy that file over and tune its
-`allowedDomains` / `denyRead` to fit.
+`allowedDomains` / `denyRead` to fit (see [Tuning safely](#tuning-safely)).
