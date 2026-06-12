@@ -8,12 +8,15 @@ description: >-
   in sync with what was added, removed, renamed, or changed in behavior.
   Use whenever the user wants to document a folder or project, write or clean up
   a README, organize messy/scattered docs, turn notes or a transcript into proper
-  documentation, standardize how a directory is documented, keep a folder's docs in
-  sync after a change ("we changed X, fold it in"), or just says "doc this"
-  / "document this folder" — even if they don't name the file types. Not for polishing
-  an existing doc's prose in place (just edit it), but do use it to reconcile a
-  folder's docs after its files or behavior change; not for authoring context-discovery
-  rules as a standalone task.
+  documentation, add a doc / guide / reference to a folder or the workspace,
+  standardize how a directory is documented, keep a folder's docs in sync after a
+  change ("we changed X, fold it in"), or just drops a brief aside — "doc this"
+  / "document this folder" / "document the references / sources / notes for X"
+  / "write this up" / "structure the docs" — even if they don't name the file types
+  or the request is terse and mid-task. Not for polishing an existing doc's prose in
+  place (just edit it), nor for bookmarking a single external URL / Drive link (that's
+  the redirect-bookmark skill); but do use it to reconcile a folder's docs after its
+  files or behavior change; not for authoring context-discovery rules as a standalone task.
 ---
 
 # Doc This
