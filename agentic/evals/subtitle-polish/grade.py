@@ -7,10 +7,13 @@ case's eval_metadata.json, and writes grading.json with the exact fields the
 eval viewer needs: {text, passed, evidence}.
 
 All three cases are real talks: the input is the talk's genuine auto-transcript,
-and grading is invariants + filler-density drop + per-talk term spot-checks
-against the slide-canonical forms (the speaker's own polish legitimately differs
-from the skill's, so we don't diff against a gold). The raw input is read from
-the committed talk folder under talk-recordings/.
+and grading is invariants + filler-density drop + default discourse-particle
+removal (lah/ya stripped, no caller kept the voice) with meaningful affirmations
+surviving + non-English speech translated to English + per-talk term spot-checks,
+both slide-canonical and recovered-from-field-knowledge (off-slide jargon). The
+speaker's own polish legitimately differs from the skill's, so we don't diff
+against a gold. The raw input is read from the committed talk folder under
+talk-recordings/.
 
 Usage:
   python3 grade.py runs/iteration-1
@@ -24,11 +27,11 @@ ROOT = Path(__file__).resolve().parent
 REPO = ROOT.parents[2]  # subtitle-polish -> evals -> agentic -> repo root
 TALKS = REPO / "projects/jb-agentic-meetup/talk-recordings"
 
-# eval-name keyword -> (talk slug, restraint tokens that must survive)
+# eval-name keyword -> (talk slug, Singlish particles stripped by default)
 CASES = {
     "khew": ("JBAgentic-20260530-meetup-1-KhewJiaPeng-AIMeetsInfrastructure", ["lah", "ya"]),
-    "kowa": ("JBAgentic-20260530-meetup-1-KowaJiaLiang-OurAIJourney", ["ya", "okay", "lah"]),
-    "soh":  ("JBAgentic-20260530-meetup-1-SohJunWei-AIForEverydayFriction", ["ya", "lah", "ah"]),
+    "kowa": ("JBAgentic-20260530-meetup-1-KowaJiaLiang-OurAIJourney", ["lah", "ya"]),
+    "soh":  ("JBAgentic-20260530-meetup-1-SohJunWei-AIForEverydayFriction", ["lah", "ya"]),
 }
 
 
@@ -110,15 +113,26 @@ def chk_keep(ctx, tokens):
     return ok, ("preserved: " + ", ".join(tokens) if ok else f"wrongly removed: {missing}")
 
 
-def chk_thinned(ctx, term):
-    """A heavily-used particle should be thinned in the output — strictly fewer than
-    the raw, but never scrubbed to zero (it still carries the speaker's voice)."""
-    pat = r"\b" + re.escape(term) + r"\b"
-    raw_n = len(re.findall(pat, "\n".join(x["body"] for x in ctx["raw"]), re.I))
-    out_n = len(re.findall(pat, body_text(ctx), re.I))
-    ok = 0 < out_n < raw_n
-    verdict = "thinned, kept voice" if ok else ("scrubbed to zero" if out_n == 0 else "not thinned")
-    return ok, f"'{term}' raw={raw_n} -> output={out_n} ({verdict})"
+CJK_RE = re.compile(r"[぀-ヿ㐀-鿿豈-﫿ｦ-ﾟ]")
+
+
+def chk_removed(ctx, tokens, tol=2):
+    """Discourse particles are stripped by default (no caller asked to keep the
+    voice). Each named particle should be near-zero in the output — tol absorbs a
+    rare genuine survivor (inside a quote, a name) without rewarding a no-op."""
+    t = body_text(ctx)
+    counts = {w: len(re.findall(r"\b" + re.escape(w) + r"\b", t, re.I)) for w in tokens}
+    over = {w: n for w, n in counts.items() if n > tol}
+    summary = ", ".join(f"{w}={counts[w]}" for w in tokens)
+    return (not over), (f"removed (<= {tol} each): {summary}" if not over else f"still present: {over}")
+
+
+def chk_translated(ctx):
+    """Non-English speech must be rendered in English in place — no original-script
+    (CJK / kana) characters survive in the polished track."""
+    raw_n = len(CJK_RE.findall("\n".join(x["body"] for x in ctx["raw"])))
+    out_n = len(CJK_RE.findall(body_text(ctx)))
+    return (out_n == 0), f"non-English chars: raw={raw_n} -> output={out_n}"
 
 
 def chk_restraint(ctx, term):
@@ -169,7 +183,7 @@ def quoted(a):
     return re.findall(r"'([^']+)'", a)
 
 
-def eval_assertions(ctx, assertions, keeps):
+def eval_assertions(ctx, assertions, particles):
     out = []
     raw_txt = "\n".join(x["body"] for x in ctx["raw"])
     txt = body_text(ctx)
@@ -200,16 +214,18 @@ def eval_assertions(ctx, assertions, keeps):
         elif "corrected to" in al and len(q) >= 2:
             tol = 3 if "stray" in al else 0
             p, e = term_gone_canonical(ctx, q[0], q[1], tol)
-        elif "thinn" in al:
-            # heavy particle must be reduced but not zeroed; check before the
-            # "preserved"/"particle" branch since this assertion names both
-            p, e = chk_thinned(ctx, q[0] if q else "lah")
+        elif "translat" in al:
+            p, e = chk_translated(ctx)
+        elif ("removed" in al or "scrubbed" in al) and "particle" in al:
+            # particles stripped by default; the assertion names which ones.
+            # Must precede the "preserved"/"particle" branch (this names both).
+            p, e = chk_removed(ctx, q if q else particles)
         elif "restraint" in al:
             # preserve the first quoted token (don't rewrite it to the slide term);
             # match space/case-insensitively so a spaced rendering still counts as kept
-            p, e = chk_restraint(ctx, q[0]) if q else chk_keep(ctx, keeps)
+            p, e = chk_restraint(ctx, q[0]) if q else chk_keep(ctx, particles)
         elif "preserved" in al or "particle" in al:
-            keep = q if q else keeps
+            keep = q if q else particles
             p, e = chk_keep(ctx, keep)
         elif ("appears" in al or "present" in al) and q:
             p, e = chk_present(ctx, q[0])
@@ -241,7 +257,7 @@ def grade_run(eval_dir, cfg):
     key = case_key(name)
     if key is None:
         raise SystemExit(f"unknown talk for eval '{name}' (expected one of {list(CASES)})")
-    slug, keeps = CASES[key]
+    slug, particles = CASES[key]
     raw_path = TALKS / slug / f"{slug}.en.raw.srt"
 
     ctx = {
@@ -250,7 +266,7 @@ def grade_run(eval_dir, cfg):
         "out": parse(out_path),
         "raw": parse(raw_path),
     }
-    expectations = eval_assertions(ctx, assertions, keeps)
+    expectations = eval_assertions(ctx, assertions, particles)
     (run_dir / "grading.json").write_text(json.dumps({"expectations": expectations}, indent=2))
     passed = sum(1 for x in expectations if x["passed"])
     return name, cfg, passed, len(expectations)

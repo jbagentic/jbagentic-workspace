@@ -1,12 +1,12 @@
 {
   "skill_name": "subtitle-polish",
-  "notes": "Three real cases, one per JB Agentic Meetup #1 talk. Each input is the talk's genuine auto-transcript (<slug>.en.raw.srt) plus its slide deck, staged into stage/<slug>/ by prepare.py (run it first; stage/ is gitignored). Graded on invariants (valid SRT, no empties, contiguous, timestamps subset of input, UTF-8 no BOM) + filler-density drop + per-talk term spot-checks against the slide-canonical forms, since each speaker's own polish legitimately differs from the skill's. The real transcripts mangle terms differently: Khew's 'IaC'/'Azure', Kowa's 'cloud'->'Claude'/'Jason'->'JSON', while Soh's terms are mostly transcribed correctly so its value is invariants + filler cleanup + the OpenClaw restraint.",
+  "notes": "Three real cases, one per JB Agentic Meetup #1 talk. Each input is the talk's genuine auto-transcript (<slug>.en.raw.srt) plus its slide deck, staged into stage/<slug>/ by prepare.py (run it first; stage/ is gitignored). Graded on invariants (valid SRT, no empties, contiguous, timestamps subset of input, UTF-8 no BOM) + filler-density drop + default discourse-particle removal (lah/ya stripped, since no caller asked to keep the voice) while meaningful affirmations survive + non-English speech rendered in English + per-talk term fixes, both slide-canonical and recovered-from-field-knowledge (off-slide jargon the slides never mention). The real transcripts differ: Khew code-switches into Mandarin (must translate to English), mangles 'IaC'/'Azure', and says 'Cortez' for the off-slide tool 'Codex'; Kowa hears 'Claude' as 'cloud' and 'JSON' as 'Jason' and 'Codex' as 'cortex'; Soh's terms are mostly transcribed correctly, so its value is invariants + filler/particle cleanup + the OpenClaw restraint.",
   "evals": [
     {
       "id": 0,
       "name": "real-khewjiapeng",
       "prompt": "Can you polish the subtitles for my talk? The raw transcript and the slide deck are in agentic/evals/subtitle-polish/stage/JBAgentic-20260530-meetup-1-KhewJiaPeng-AIMeetsInfrastructure/ — the .en.raw.srt is the auto-generated SRT, and slides/ plus slides.pdf are the deck. Clean it up and save the polished version next to it.",
-      "expected_output": "A polished SRT (raw marker dropped from the stem) that strips fillers/stutters and fixes mis-transcribed terms against the slides, holding the invariants: no empty cues, contiguous numbering (cues may be dropped+renumbered but no holes), surviving cues keep their original timestamps, UTF-8 without BOM. The speaker mangles 'IaC' many ways (IAC, ISC, ISA, ICNA, 'I a C') and 'Azure' ('Asia bottle'); these should converge to the slide-canonical forms.",
+      "expected_output": "A polished SRT (raw marker dropped from the stem) that strips fillers/stutters, removes the Singlish discourse particles (lah/ya) by default since no caller asked to keep the voice, translates the speaker's Mandarin passages into English in place, and fixes mis-transcribed terms — holding the invariants: no empty cues, contiguous numbering (cues may be dropped+renumbered but no holes), surviving cues keep their original timestamps, UTF-8 without BOM. The speaker mangles 'IaC' many ways (IAC, ISC, ISA, ICNA, 'I a C') and 'Azure' ('Asia bottle'); these converge to slide-canonical forms. 'Cortez' — a tool named beside 'agent', never on a slide — is recovered to 'Codex' from knowledge of the AI-coding field.",
       "files": [
         "stage/JBAgentic-20260530-meetup-1-KhewJiaPeng-AIMeetsInfrastructure/JBAgentic-20260530-meetup-1-KhewJiaPeng-AIMeetsInfrastructure.en.raw.srt",
         "stage/JBAgentic-20260530-meetup-1-KhewJiaPeng-AIMeetsInfrastructure/slides.pdf",
@@ -22,14 +22,17 @@
         "Filler density (standalone um/uh) is lower in the output than in the raw input",
         "The term 'IaC' appears in slide-canonical form and the mis-hearings (IAC/ISC/ISA/ICNA/'I a C') are gone",
         "'Azure portal' is recovered from 'Asia bottle' mis-transcriptions where context supports it",
-        "Affirmations and Singlish particles (lah/ya) are preserved, not scrubbed"
+        "Discourse particles ('lah', 'ya') are removed by default (no caller asked to keep the speaker's voice)",
+        "Meaningful affirmations ('okay') are preserved as real responses, not dropped with the particles",
+        "Non-English (Mandarin) speech is translated to English in place — no original-script characters remain in the output",
+        "An off-slide field term is recovered from AI-coding domain knowledge: 'Cortez' is corrected to 'Codex'"
       ]
     },
     {
       "id": 1,
       "name": "real-kowajialiang",
       "prompt": "I have a rough auto-transcript of a meetup talk that needs cleaning up — fillers and some wrong technical terms. The raw transcript and the talk's slides are in agentic/evals/subtitle-polish/stage/JBAgentic-20260530-meetup-1-KowaJiaLiang-OurAIJourney/ (the .en.raw.srt and the slides/ folder beside it). Please polish it and save the result alongside.",
-      "expected_output": "A polished SRT (raw marker dropped) holding the invariants. The transcriber heard the product 'Claude' as 'cloud' throughout (including 'cloud code' -> 'Claude Code' and 'cloud MD' -> 'CLAUDE.md') and 'JSON' as 'Jason'; these should converge to slide-canonical forms while a genuinely generic 'cloud' may remain. 'MCP'/'API' are already correct and must survive. Singlish particles (ya/okay/lah) preserved.",
+      "expected_output": "A polished SRT (raw marker dropped) holding the invariants. The transcriber heard the product 'Claude' as 'cloud' throughout (including 'cloud code' -> 'Claude Code' and 'cloud MD' -> 'CLAUDE.md') and 'JSON' as 'Jason'; these converge to slide-canonical forms while a genuinely generic 'cloud' may remain. 'MCP'/'API' are already correct and must survive. Singlish discourse particles (lah/ya) are removed by default; meaningful affirmations (okay) survive. The off-slide tool 'Codex', misheard as 'cortex', is recovered from AI-coding domain knowledge.",
       "files": [
         "stage/JBAgentic-20260530-meetup-1-KowaJiaLiang-OurAIJourney/JBAgentic-20260530-meetup-1-KowaJiaLiang-OurAIJourney.en.raw.srt",
         "stage/JBAgentic-20260530-meetup-1-KowaJiaLiang-OurAIJourney/slides/"
@@ -46,15 +49,16 @@
         "'Claude Code' appears, recovered from 'cloud code'",
         "'Jason' is corrected to 'JSON'",
         "'MCP' is preserved (already correct in the raw)",
-        "Singlish particles and affirmations (ya/okay/lah) are preserved, not scrubbed",
-        "Particle thinning: the heavily-used 'lah' is thinned — fewer in the output than in the raw, but not scrubbed to zero"
+        "Discourse particles ('lah', 'ya') are removed by default (no caller asked to keep the speaker's voice)",
+        "Meaningful affirmations ('okay') are preserved as real responses, not dropped with the particles",
+        "An off-slide field term is recovered from AI-coding domain knowledge: 'cortex' is corrected to 'Codex'"
       ]
     },
     {
       "id": 2,
       "name": "real-sohjunwei",
       "prompt": "This SRT is an auto-transcribed meetup talk that needs filler cleanup and a consistency pass. The raw transcript and the deck are in agentic/evals/subtitle-polish/stage/JBAgentic-20260530-meetup-1-SohJunWei-AIForEverydayFriction/ (the .en.raw.srt and the slides/ folder beside it). Clean it up for me and write the polished file next to the raw one.",
-      "expected_output": "A polished SRT (raw marker dropped) holding the invariants. This transcript got the product names mostly right (Hermes, Telegram, MCP, dashboard, database), so the skill must preserve them rather than 'correct' them. Restraint: 'OpenClaw' is the speaker's own word (the slides say 'OpenRouter') and must be left as-is. Fillers/stutters removed; Singlish particles preserved.",
+      "expected_output": "A polished SRT (raw marker dropped) holding the invariants. This transcript got the product names mostly right (Hermes, Telegram, MCP, dashboard, database), so the skill must preserve them rather than 'correct' them. Restraint: 'OpenClaw' is the speaker's own word (the slides say 'OpenRouter') and must be left as-is. Fillers/stutters removed; Singlish discourse particles (lah/ya) removed by default; meaningful affirmations survive.",
       "files": [
         "stage/JBAgentic-20260530-meetup-1-SohJunWei-AIForEverydayFriction/JBAgentic-20260530-meetup-1-SohJunWei-AIForEverydayFriction.en.raw.srt",
         "stage/JBAgentic-20260530-meetup-1-SohJunWei-AIForEverydayFriction/slides/"
@@ -71,7 +75,8 @@
         "'Telegram' is preserved",
         "'MCP' is preserved",
         "Restraint: 'OpenClaw' is preserved and NOT rewritten to the slide term 'OpenRouter'",
-        "Singlish particles and affirmations (ya/lah/ah) are preserved, not scrubbed"
+        "Discourse particles ('lah', 'ya') are removed by default (no caller asked to keep the speaker's voice)",
+        "Meaningful affirmations ('okay') are preserved as real responses, not dropped with the particles"
       ]
     }
   ]
