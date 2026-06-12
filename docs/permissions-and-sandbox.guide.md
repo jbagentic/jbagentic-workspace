@@ -4,6 +4,14 @@ How this workspace keeps an AI coding agent useful but contained. The enforcemen
 [`.claude/settings.json`](../.claude/settings.json); this guide explains how to *operate* it and
 why it's safe.
 
+> **Scope — Claude Code-specific.** This documents the enforcement *mechanism*
+> (`.claude/settings.json`): the two modes, the allow/ask/deny policy, and tuning. The
+> portable *norm* — "treat the project folder as your boundary" — lives in
+> [`AGENTS.md`](../AGENTS.md) → Sandbox, which every agent reads. Below, the **principles**
+> ("Why this is safe") are general; the **configuration and tuning** are Claude Code only.
+> An agent running without this sandbox must honor the norm itself — the enforcement here
+> won't apply to it.
+
 ## Two operating modes
 
 Both modes run on the **same OS-sandbox baseline** (`sandbox.enabled: true`) — the agent's files
