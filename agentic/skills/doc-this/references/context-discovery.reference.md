@@ -14,24 +14,19 @@ block below there once.
 ## The rule (install this)
 
 ```md
-## Context Discovery Rule
+## How to Discover Context
 
-A folder is a context boundary, and its `README.md` is the front door that tells you what's
-inside. When you need context, start from the README closest to your task and follow where it
-points — not just other READMEs, but anything it links: reference docs, skill files, code.
+A folder is a context boundary; its `README.md` is the onboarding guide to what's inside and
+how to work there. Start from the README nearest your task and follow where it points — linked
+guides, references, runbooks, and code. Then walk the tree: **up** to a parent for broader
+context, **down** into a subfolder for specifics. Stop once you know enough.
 
-From there, follow the context instead of searching:
-
-- Need **broader** context? Go *up* to the parent folders.
-- Need **more specific** context? Go *down* into the subfolders.
-- Stop once you know enough.
-
-READMEs are the map, so use them before a blind `Find`/`Grep`/`Glob` sweep — searching first
-wastes tokens and skips the map. If the trail doesn't cover what you need, then search.
+Use READMEs as a map before any blind `Find`/`Grep`/`Glob` search; search only when the map
+runs out.
 ```
 
 Adjust the heading level (`##` vs `###`) to fit the host file's structure; keep the
-"Context Discovery Rule" heading so it's easy to detect on re-install.
+"How to Discover Context" heading so it's easy to detect on re-install.
 
 ## Why
 

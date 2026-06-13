@@ -15,17 +15,16 @@ folder's local `AGENTS.md`. Install the block below there once.
 ## The rule (install this)
 
 ```md
-## Documenting a Folder
+## How to Document Context
 
-Use the `doc-this` skill for a folder's docs — don't hand-write them.
+Folders follow the **Contextful Folder** convention. Use the `doc-this` skill to write or organize a folder's docs — don't hand-write them free-form; the skill owns the spec and loads it only when needed.
 
-- **Creating or organizing docs** — turning notes, a brain-dump, or scattered materials into a `README.md` / `AGENTS.md` / typed `docs/*.{guide|reference|runbook}.md`, or a brief aside like "doc this" / "document the references" / "write this up" → run `doc-this`.
-- **Keeping docs current** — when you change what's in a Contextful Folder, update its docs in the same pass: the nearest folder with a `README.md`. If you're unsure what to change, ask `doc-this` to reconcile them.
-- **Why** — the next agent or person works from these docs and can't ask you later; stale or missing docs make them get it wrong.
+- **Writing or organizing docs** → run `doc-this`.
+- **Changing a folder's contents** → update its docs in the same pass, while it's fresh (`doc-this` reconciles). Stale docs mislead whoever comes next.
 ```
 
 Adjust the heading level (`##` vs `###`) to fit the host file's structure; keep the
-"Documenting a Folder" heading so it's easy to detect on re-install.
+"How to Document Context" heading so it's easy to detect on re-install.
 
 ## Why
 

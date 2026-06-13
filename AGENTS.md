@@ -14,25 +14,18 @@ Instructions for every agent we collaborate with in this workspace.
 
 ## Ground Rules
 
-### Context Discovery Rule
+### How to Discover Context
 
-A folder is a context boundary, and its `README.md` is the front door that tells you what's inside. When you need context, start from the README closest to your task and follow where it points — not just other READMEs, but anything it links: reference docs, skill files, code.
+A folder is a context boundary; its `README.md` is the onboarding guide to what's inside and how to work there. Start from the README nearest your task and follow where it points — linked guides, references, runbooks, and code. Then walk the tree: **up** to a parent for broader context, **down** into a subfolder for specifics. Stop once you know enough.
 
-From there, follow the context instead of searching:
+Use READMEs as a map before any blind `Find`/`Grep`/`Glob` search; search only when the map runs out.
 
-- Need **broader** context? Go *up* to the parent folders.
-- Need **more specific** context? Go *down* into the subfolders.
-- Stop once you know enough.
+### How to Document Context
 
-READMEs are the map, so use them before a blind `Find`/`Grep`/`Glob` sweep — searching first wastes tokens and skips the map. If the trail doesn't cover what you need, then search.
+Folders follow the **Contextful Folder** convention. Use the `doc-this` skill to write or organize a folder's docs — don't hand-write them free-form; the skill owns the spec and loads it only when needed.
 
-### Documenting a Folder
-
-Use the `doc-this` skill for a folder's docs — don't hand-write them.
-
-- **Creating or organizing docs** — turning notes, a brain-dump, or scattered materials into a `README.md` / `AGENTS.md` / typed `docs/*.{guide|reference|runbook}.md`, or a brief aside like "doc this" / "document the references" / "write this up" → run `doc-this`.
-- **Keeping docs current** — when you change what's in a Contextful Folder, update its docs in the same pass: the nearest folder with a `README.md`. If you're unsure what to change, ask `doc-this` to reconcile them.
-- **Why** — the next agent or person works from these docs and can't ask you later; stale or missing docs make them get it wrong.
+- **Writing or organizing docs** → run `doc-this`.
+- **Changing a folder's contents** → update its docs in the same pass, while it's fresh (`doc-this` reconciles). Stale docs mislead whoever comes next.
 
 ### Sandbox
 
