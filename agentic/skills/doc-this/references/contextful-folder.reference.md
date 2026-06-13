@@ -15,9 +15,11 @@ my-folder/
 │   ├── release.runbook.md
 │   └── decisions/
 │       └── 20260608-use-dita-topic-types.md
-├── src/                      # other subfolders these docs describe
+├── src/                      # subfolders covered by this README — no README of their own
 └── scripts/
 ```
+
+`src/` and `scripts/` here have no README of their own — they're **covered by** the parent's README. A subfolder gets its own README only when it earns one (see [When a subfolder needs its own README](#when-a-subfolder-needs-its-own-readme)).
 
 ## File vocabulary
 
@@ -67,6 +69,21 @@ Decision records are named `YYYYMMDD-{topic}.md` inside `docs/decisions/`:
 
 `README.md` and `AGENTS.md` are orientation and instruction, not encyclopedias. Push depth into a typed doc and **link** to it rather than duplicating. One file, one topic. When the same fact would appear twice, keep it in one place and link.
 
+## When a subfolder needs its own README
+
+Not every folder has a README. A README marks a context boundary; a small subfolder without one is **covered by** the nearest README above it — named there in the structure section with a one-line hook. The default is **cover-by-parent**: don't give a subfolder its own README until it earns one.
+
+**Promote** a subfolder to its own Contextful Folder (give it a README) when **any** of these clearly holds:
+
+| Signal | Promote when… |
+|--------|---------------|
+| Bloats the parent | Documenting it inline would crowd the parent's README — it needs more than a hook. |
+| Worked in on its own | People or agents land and work here directly, without going through the parent — an independent entry point. |
+| Needs its own deeper docs | It warrants its own `AGENTS.md`, typed `docs/`, or decision records. |
+| Distinct purpose/audience | Its purpose, conventions, or audience differ enough that mixing would confuse readers. |
+
+When none holds, leave it covered by the parent.
+
 ## Presenting structure
 
 The README's structure coverage — the part that lists what the folder contains — should follow a **consistent, scannable convention** so any folder can be eyeballed the same way. Give it a labeled section, and make each entry pair a linked path with a one-line description of what it holds. Keep the shape uniform within a folder, and ideally across the repo.
@@ -75,7 +92,7 @@ The *exact* shape is the repo's house style, not something this spec fixes: a he
 
 ## Finding more context
 
-Need broader context? Read the `README.md` in a parent folder. Need something more specific? Read the `README.md` in a nested folder.
+Need broader context? Read the nearest `README.md` above you. Need something more specific? Read the `README.md` in a nested folder that has one — a subfolder without a README is covered by the README above it, so there's nothing deeper to open.
 
 ## Related
 

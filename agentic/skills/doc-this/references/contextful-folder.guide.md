@@ -29,6 +29,8 @@ Getting the right amount of context for a task is hard. Two things go wrong:
 
 When you do digital work, you naturally gather inputs into a folder, run tools to transform or summarize them, and write the results back to the same folder. It's already where the work happens — so the context for that work, what you need to know and how it's done, can live there too.
 
+A folder isn't a boundary just by existing, though. The boundary is the folder that carries a **README** — a Contextful Folder. A plain subfolder with no README isn't its own boundary; it's contents that the nearest README above it covers. So "the folder" below means the README-bearing one.
+
 That turns the folder into a natural contextual boundary for work:
 
 **Working in a folder, most of what you need to know is already in it.** You can still look elsewhere when you have to, but usually you won't need to — no scanning the whole repo, no guessing where the knowledge lives.
@@ -39,14 +41,14 @@ You're already in the folder, doing the work. Reading its context and keeping it
 
 ### The test
 
-Drop a human or agent into the folder cold — no prior conversation, no external briefing. Can they read the local docs and answer:
+Drop a human or agent into the folder cold — no prior conversation, no external briefing. Reading from the **nearest README** — the folder's own if it has one, otherwise the one above it that covers it — can they answer:
 
 1. What is this folder for?
 2. What lives here?
 3. How do I work here?
 4. Where do I look for more detail?
 
-If yes, the folder is contextful. If no, something is missing or misrouted.
+If yes, the folder is contextful. If no, the covering README is missing something or misrouted — or the folder has outgrown being covered and needs its own README (see [Not every folder needs its own README](#not-every-folder-needs-its-own-readme)).
 
 ### Why folders?
 
@@ -54,10 +56,10 @@ Folders are already how people organize information everywhere — codebases, do
 
 More importantly, folders are **hierarchical**. That gives you context that unfolds as you need it, for free:
 
-- **Need broader context?** Look up to the parent folder.
-- **Need more specific context?** Look into a nested folder.
+- **Need broader context?** Look up to the parent's README.
+- **Need more specific context?** Look down to the next folder that has its own README.
 
-Each level is self-contained at its scope. Parents handle the bigger picture. Children handle specifics. No single folder explains the whole world — it handles its layer and links up or down when you need to zoom.
+Each README-bearing level is self-contained at its scope. Parents handle the bigger picture. Children handle specifics. Small subfolders without a README fold into the nearest README above them. No single folder explains the whole world — it handles its layer and links up or down when you need to zoom.
 
 This nesting lets the pattern scale from a single utility folder to an entire monorepo.
 
@@ -75,6 +77,19 @@ Every contextful folder starts with a **README**. It does two jobs:
 2. **Manifest** — list each deeper doc with a one-line hook, so a reader sees what's available without loading everything.
 
 The manifest enables **selective loading**. You see the menu before you order. Without a README, you'd have to scan all files to know what's there — the folder isn't contextful.
+
+### Not every folder needs its own README
+
+A README has a cost: someone writes it and keeps it true. A small, simple subfolder doesn't earn that cost — a line in the parent's README, naming it with a one-line hook, says everything there is to say. So the default is **cover-by-parent**: a subfolder is documented by the nearest README above it, not by one of its own. Fewer READMEs, less to maintain.
+
+You **promote** a subfolder to its own Contextful Folder — give it a README — when it outgrows a line in the parent. Any one of these is enough:
+
+- **It would bloat the parent.** Documenting it inline crowds the parent's README; it needs more than a hook.
+- **It's worked in on its own.** People or agents land here and work directly, without going through the parent first — it's an independent entry point.
+- **It needs its own deeper docs.** It warrants its own `AGENTS.md`, typed `docs/`, or decision records — depth the parent shouldn't carry.
+- **Its purpose or audience is distinct.** It differs enough from the parent that mixing the two would confuse readers.
+
+Promotion is just the hierarchy growing a new boundary where one is earned. Start cheap; promote when the subfolder asks for it.
 
 ### Topic atoms — deeper knowledge, selectively loaded
 

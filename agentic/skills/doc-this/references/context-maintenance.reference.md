@@ -20,7 +20,7 @@ folder's local `AGENTS.md`. Install the block below there once.
 Folders follow the **Contextful Folder** convention. Use the `doc-this` skill to write or organize a folder's docs — don't hand-write them free-form; the skill owns the spec and loads it only when needed.
 
 - **Writing or organizing docs** → run `doc-this`.
-- **Changing a folder's contents** → update its docs in the same pass, while it's fresh (`doc-this` reconciles). Stale docs mislead whoever comes next.
+- **Changing a folder's contents** → update the docs that cover it in the same pass, while it's fresh — the folder's own README, or the nearest one above it if it has none (`doc-this` reconciles). Stale docs mislead whoever comes next.
 ```
 
 Adjust the heading level (`##` vs `###`) to fit the host file's structure; keep the

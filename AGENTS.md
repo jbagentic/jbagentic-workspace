@@ -16,7 +16,7 @@ Instructions for every agent we collaborate with in this workspace.
 
 ### How to Discover Context
 
-A folder is a context boundary; its `README.md` is the onboarding guide to what's inside and how to work there. Start from the README nearest your task and follow where it points — linked guides, references, runbooks, and code. Then walk the tree: **up** to a parent for broader context, **down** into a subfolder for specifics. Stop once you know enough.
+A `README.md` marks a context boundary; it's the onboarding guide to what's inside and how to work there. Not every folder has one — a folder without a README is covered by the nearest README above it. Start from the README nearest your task and follow where it points — linked guides, references, runbooks, and code. Then walk the tree: **up** to a parent for broader context, **down** to the next folder that has its own README for specifics. Stop once you know enough.
 
 Use READMEs as a map before any blind `Find`/`Grep`/`Glob` search; search only when the map runs out.
 
@@ -25,7 +25,7 @@ Use READMEs as a map before any blind `Find`/`Grep`/`Glob` search; search only w
 Folders follow the **Contextful Folder** convention. Use the `doc-this` skill to write or organize a folder's docs — don't hand-write them free-form; the skill owns the spec and loads it only when needed.
 
 - **Writing or organizing docs** → run `doc-this`.
-- **Changing a folder's contents** → update its docs in the same pass, while it's fresh (`doc-this` reconciles). Stale docs mislead whoever comes next.
+- **Changing a folder's contents** → update the docs that cover it in the same pass, while it's fresh — the folder's own README, or the nearest one above it if it has none (`doc-this` reconciles). Stale docs mislead whoever comes next.
 
 ### Make Autonomous Safe
 

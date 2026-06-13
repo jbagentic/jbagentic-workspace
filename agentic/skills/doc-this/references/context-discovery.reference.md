@@ -16,10 +16,12 @@ block below there once.
 ```md
 ## How to Discover Context
 
-A folder is a context boundary; its `README.md` is the onboarding guide to what's inside and
-how to work there. Start from the README nearest your task and follow where it points — linked
+A `README.md` marks a context boundary; it's the onboarding guide to what's inside and how to
+work there. Not every folder has one — a folder without a README is covered by the nearest
+README above it. Start from the README nearest your task and follow where it points — linked
 guides, references, runbooks, and code. Then walk the tree: **up** to a parent for broader
-context, **down** into a subfolder for specifics. Stop once you know enough.
+context, **down** to the next folder that has its own README for specifics. Stop once you know
+enough.
 
 Use READMEs as a map before any blind `Find`/`Grep`/`Glob` search; search only when the map
 runs out.
