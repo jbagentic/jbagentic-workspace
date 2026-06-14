@@ -77,7 +77,7 @@ Not every folder has a README. A README marks a context boundary; a small subfol
 
 | Signal | Promote when… |
 |--------|---------------|
-| Independent entry point | People or agents land and work here directly, without going through the parent — an independent entry point. |
+| Independent entry point | People or agents land and work here directly, without going through the parent. |
 | Needs deeper docs | It warrants its own `AGENTS.md`, several typed `docs/`, or decision records. |
 | Distinct purpose | Its purpose, conventions, or work differ enough that mixing would confuse users. |
 
