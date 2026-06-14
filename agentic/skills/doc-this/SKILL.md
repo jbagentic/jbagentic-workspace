@@ -27,7 +27,7 @@ Take raw input materials — or a change that just happened in a folder — and 
 
 - **A source — what to document.** Either *raw materials* the user hands over (loose notes, a transcript, a description, a feature brief, scattered/half-written docs) **or** *a change that just happened* in an already-documented folder (files added, removed, renamed, or behavior changed) — then the change is the material and the job is to bring the folder's docs back in sync. **Required** — if neither was given (e.g. the skill was invoked bare), ask what to document first, before anything else. Don't scan the repo to invent a subject; but a change the user states or points you to is a legitimate subject.
 - **A home folder** (the directory the docs describe). If the user named one, use it. When you're reconciling a change, it's the folder whose contents changed — the nearest Contextful Folder — so there's nothing to approve. Otherwise infer it *from the raw material* and propose it with a reason for approval before writing — never assumed silently or guessed by walking the tree.
-- **The Contextful Folder spec** — bundled with this skill at [`references/contextful-folder.reference.md`](references/contextful-folder.reference.md) and its [guide](references/contextful-folder.guide.md). These travel inside the skill, so the contract is satisfied in any repo without external files. Read the reference for the authoritative spec; the *Conventions* section below is a routing quick-reference.
+- **The Contextful Folder spec** — at [`references/contextful-folder.reference.md`](references/contextful-folder.reference.md). Read it for the authoritative spec; the *Conventions* section below is a routing quick-reference.
 
 ## Output
 
@@ -64,7 +64,7 @@ Invariants (what makes the output conform):
 
 ## Conventions
 
-The bundled [`references/contextful-folder.reference.md`](references/contextful-folder.reference.md) (with its [guide](references/contextful-folder.guide.md)) is the **authoritative** spec — file vocabulary, naming, structure, and the rest. It ships inside this skill, so it's always available; read it for anything beyond the routing table below. The routing table is the one piece mirrored here because it's needed on nearly every classification decision.
+[`references/contextful-folder.reference.md`](references/contextful-folder.reference.md) is the **authoritative** spec — file vocabulary, naming, structure, and the rest. Read it for anything beyond the routing table below. The routing table is the one piece mirrored here because it's needed on nearly every classification decision.
 
 **Routing — pick by the job the content does:**
 
@@ -81,7 +81,8 @@ The bundled [`references/contextful-folder.reference.md`](references/contextful-
 
 ## Related
 
-- **Reference (bundled)** — [Contextful Folder reference](references/contextful-folder.reference.md) and its [guide](references/contextful-folder.guide.md) — the authority this skill enforces, shipped inside the skill.
-- **Context-discovery convention (bundled)** — [context-discovery.reference.md](references/context-discovery.reference.md) — the always-on navigation rule to install into your top-level `AGENTS.md`/`CLAUDE.md` (the always-on instructions), so agents read the docs this skill writes.
-- **Documenting-a-folder convention (bundled)** — [context-maintenance.reference.md](references/context-maintenance.reference.md) — the always-on rule to install alongside discovery, so agents route documentation work to this skill and keep these docs current when a folder's contents change.
+- **Reference** — [Contextful Folder reference](references/contextful-folder.reference.md) — the authority this skill enforces.
+- **Guide** — [Contextful Folder guide](references/contextful-folder.guide.md) — optional: the *why* behind the pattern, not needed to apply the spec; read only for rationale.
+- **Context-discovery convention** — [context-discovery.reference.md](references/context-discovery.reference.md) — the always-on navigation rule to install into your top-level `AGENTS.md`/`CLAUDE.md` (the always-on instructions), so agents read the docs this skill writes.
+- **Documenting-a-folder convention** — [context-maintenance.reference.md](references/context-maintenance.reference.md) — the always-on rule to install alongside discovery, so agents route documentation work to this skill and keep these docs current when a folder's contents change.
 

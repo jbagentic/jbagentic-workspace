@@ -71,28 +71,27 @@ Decision records are named `YYYYMMDD-{topic}.md` inside `docs/decisions/`:
 
 ## When a subfolder needs its own README
 
-Not every folder has a README. A README marks a context boundary; a small subfolder without one is **covered by** the nearest README above it — named there in the structure section with a one-line hook. The default is **cover-by-parent**: don't give a subfolder its own README until it earns one.
+Not every folder has a README. A README marks a context boundary; a small subfolder without one is **covered by** the nearest README above it. The default is **cover-by-parent**: don't give a subfolder its own README until it earns one.
 
 **Promote** a subfolder to its own Contextful Folder (give it a README) when **any** of these clearly holds:
 
 | Signal | Promote when… |
 |--------|---------------|
-| Bloats the parent | Documenting it inline would crowd the parent's README — it needs more than a hook. |
-| Worked in on its own | People or agents land and work here directly, without going through the parent — an independent entry point. |
-| Needs its own deeper docs | It warrants its own `AGENTS.md`, typed `docs/`, or decision records. |
-| Distinct purpose/audience | Its purpose, conventions, or audience differ enough that mixing would confuse readers. |
+| Independent entry point | People or agents land and work here directly, without going through the parent — an independent entry point. |
+| Needs deeper docs | It warrants its own `AGENTS.md`, several typed `docs/`, or decision records. |
+| Distinct purpose | Its purpose, conventions, or work differ enough that mixing would confuse users. |
 
 When none holds, leave it covered by the parent.
 
-## Presenting structure
+## Consistent content structure
 
-The README's structure coverage — the part that lists what the folder contains — should follow a **consistent, scannable convention** so any folder can be eyeballed the same way. Give it a labeled section, and make each entry pair a linked path with a one-line description of what it holds. Keep the shape uniform within a folder, and ideally across the repo.
+The content of READMEs should follow a **consistent, uniform convention** so any folder can be easily scanned and eyeballed.
 
-The *exact* shape is the repo's house style, not something this spec fixes: a heading word (`Structure`, `Layout`, …) and a table or a bullet list — pick what reads best for the content (a flat set of folders suits a table; entries that nest suit a list). Consistency is the requirement; the template is not.
+For example, when documenting what's in the folder, give the section a consistent title, and describe each file (or file pattern) and subfolder with a linked path and a one-line description. Keep the shape uniform across READMEs.
 
 ## Finding more context
 
-Need broader context? Read the nearest `README.md` above you. Need something more specific? Read the `README.md` in a nested folder that has one — a subfolder without a README is covered by the README above it, so there's nothing deeper to open.
+Need broader context? Read the nearest `README.md` above you. Need something more specific? Read the `README.md` in a nested folder that has one — a subfolder without a README is covered by the README above it.
 
 ## Related
 
