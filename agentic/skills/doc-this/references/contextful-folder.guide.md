@@ -41,14 +41,7 @@ You're already in the folder, doing the work. Reading its context and keeping it
 
 ### The test
 
-Drop a human or agent into the folder cold — no prior conversation, no external briefing. Reading from the **nearest README** — the folder's own if it has one, otherwise the one above it that covers it — can they answer:
-
-1. What is this folder for?
-2. What lives here?
-3. How do I work here?
-4. Where do I look for more detail?
-
-If yes, the folder is contextful. If no, the covering README is missing something or misrouted — or the folder has outgrown being covered and needs its own README (see [Not every folder needs its own README](#not-every-folder-needs-its-own-readme)).
+There's a simple way to tell whether a folder is contextful: drop a reader into it cold and see if the nearest README answers what it's for, what's in it, how to work there, and where to look for more. That cold-start check is the operational diagnostic for the whole pattern — the canonical four-question form lives in the [reference](contextful-folder.reference.md#the-contextful-test).
 
 ### Why folders?
 

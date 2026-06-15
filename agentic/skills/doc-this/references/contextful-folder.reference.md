@@ -2,6 +2,17 @@
 
 The authoritative reference on how to build **a "contextful" folder**: how to organize the files within it, what each is for, and how they're named. For the *why* behind this vocabulary, see the [Contextful Folder guide](contextful-folder.guide.md).
 
+## The contextful test
+
+To check whether a folder is contextful — or find what's missing — drop a human or agent into it cold: no prior conversation, no external briefing. Reading from the **nearest README** (the folder's own if it has one, otherwise the one above that covers it), can they answer:
+
+1. What is this folder for?
+2. What lives here?
+3. How do I work here?
+4. Where do I look for more detail?
+
+If yes, the folder is contextful. If no, the covering README is missing something or misrouted — or the folder has outgrown being covered and needs its own README (see [When a subfolder needs its own README](#when-a-subfolder-needs-its-own-readme)).
+
 ## Where these files live
 
 The documentation files are **co-located in the folder itself**: `README.md` and `AGENTS.md` sit directly in it, and `docs/` is a subfolder inside it. The folder can also hold other subfolders — code, assets, nested modules — and these docs describe those too.
