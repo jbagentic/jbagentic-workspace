@@ -16,7 +16,7 @@ Instructions for every agent we collaborate with in this workspace.
 
 ### How to Discover Context
 
-A `README.md` marks a context boundary; it's the onboarding guide to what's inside and how to work there. Not every folder has one — a folder without a README is covered by the nearest README above it. Start from the README nearest your task and follow where it points — linked guides, references, runbooks, and code. Then walk the tree: **up** to a parent for broader context, **down** to the next folder that has its own README for specifics. Stop once you know enough.
+**Before working in any folder, read its nearest `README.md` first** — the folder's own if it has one, otherwise the nearest one above that covers it. A folder with a `README.md` forms a logical context boundary; the README is its onboarding guide to what's inside and how to work there. Follow where it points — linked guides, references, runbooks, and code — then walk the tree only as needed: **up** to a parent for broader context, **down** to the next folder that has its own README for specifics. Stop once you know enough.
 
 Use READMEs as a map before any blind `Find`/`Grep`/`Glob` search; search only when the map runs out.
 

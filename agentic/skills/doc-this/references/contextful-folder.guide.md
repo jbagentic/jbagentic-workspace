@@ -37,7 +37,7 @@ That turns the folder into a natural contextual boundary for work:
 
 **When your work changes the folder, you record it in the same folder.** The docs to update sit right next to the files you touched, so you fix them in the same motion.
 
-You're already in the folder, doing the work. Reading its context and keeping it current is just staying where you are — and that's what makes context cheap to get and cheap to keep.
+You're already in the folder, doing the work. Reading its context and keeping it current is just staying where you are — and that's what makes context cheap to get and cheap to keep. (For a human "already in the folder" is literal; an agent has to be *told* to read the nearest README first — that trigger is the [context-discovery rule](context-discovery.reference.md), the navigation half of this pattern.)
 
 ### The test
 
@@ -119,3 +119,4 @@ The pattern also makes skills more reusable. Keep the skill and its context apar
 ## Related
 
 - [Contextful Folder reference](contextful-folder.reference.md) — the file vocabulary, naming, and rule-of-thumb table.
+- [Context discovery reference](context-discovery.reference.md) — the navigation half: the always-on rule for *reading* these folders.

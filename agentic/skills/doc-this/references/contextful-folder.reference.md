@@ -102,8 +102,9 @@ For example, when documenting what's in the folder, give the section a consisten
 
 ## Finding more context
 
-Need broader context? Read the nearest `README.md` above you. Need something more specific? Read the `README.md` in a nested folder that has one — a subfolder without a README is covered by the README above it.
+Need broader context? Read the nearest `README.md` above you. Need something more specific? Read the `README.md` in a nested folder that has one — a subfolder without a README is covered by the README above it. For the full always-on navigation rule agents follow, see the [context discovery reference](context-discovery.reference.md).
 
 ## Related
 
 - [Contextful Folder guide](contextful-folder.guide.md) — the pattern and the topic-atom model behind this vocabulary.
+- [Context discovery reference](context-discovery.reference.md) — the navigation half: the always-on rule for *reading* these folders.
