@@ -82,7 +82,7 @@ Decision records are named `YYYYMMDD-{topic}.md` inside `docs/decisions/`:
 
 ## When a subfolder needs its own README
 
-Not every folder has a README. A README marks a context boundary; a small subfolder without one is **covered by** the nearest README above it. The default is **cover-by-parent**: don't give a subfolder its own README until it earns one.
+Not every folder has a README. A folder with a README is a context boundary; a small subfolder without one is **covered by** the nearest README above it. The default is **cover-by-parent**: don't give a subfolder its own README until it earns one.
 
 **Promote** a subfolder to its own Contextful Folder (give it a README) when **any** of these clearly holds:
 
