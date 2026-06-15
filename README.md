@@ -8,7 +8,7 @@ A digital workspace for the projects run by the JB Agentic community.
 |--------|---------------|
 | [`agentic/`](agentic/README.md) | Agent capabilities — the skill library (`skills/`) and the evals that measure them. |
 | [`projects/`](projects/) | Community projects, one folder per project (see below). |
-| [`docs/`](docs/) | Workspace-wide reference docs and architecture decisions. |
+| [`docs/`](docs/) | Workspace-wide reference docs. |
 
 ### Projects
 
@@ -26,7 +26,6 @@ For other skills, see the [agentic skill catalog](agentic/README.md#skills) for 
 ## Docs Manifest
 
 - [SKILL.md convention in this workspace](docs/skill-convention.reference.md)
-- [Agent permissions & sandbox security model](docs/permissions-and-sandbox.guide.md) — how the agent stays useful but contained: Away/Around modes, the deny/ask policy, and what the sandbox does and doesn't guarantee.
 
 ## License
 
