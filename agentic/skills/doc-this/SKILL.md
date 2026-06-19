@@ -25,8 +25,8 @@ Take raw input materials — or a change that just happened in a folder — and 
 
 ## Input
 
-- **A source — what to document.** Either *raw materials* the user hands over (loose notes, a transcript, a description, a feature brief, scattered/half-written docs) **or** *a change that just happened* in an already-documented folder (files added, removed, renamed, or behavior changed) — then the change is the material and the job is to bring the folder's docs back in sync. **Required** — if neither was given (e.g. the skill was invoked bare), ask what to document first, before anything else. Don't scan the repo to invent a subject; but a change the user states or points you to is a legitimate subject.
-- **A home folder** (the directory the docs describe). If the user named one, use it. When you're reconciling a change, it's the folder whose contents changed — the nearest Contextful Folder — so there's nothing to approve. Otherwise infer it *from the raw material* and propose it with a reason for approval before writing — never assumed silently or guessed by walking the tree.
+- **A source — what to document.** *Required.* Either *raw materials* the user hands over (notes, a transcript, a description, a brief, scattered/half-written docs) **or** *a change that just happened* in an already-documented folder (files added, removed, renamed, or behavior changed) — then the change is the material and the job is to sync the folder's docs.
+- **A home folder** — the single directory the docs describe. Named by the user, the folder you're reconciling, or inferred from the material with approval (settled in step 2).
 - **The Contextful Folder spec** — at [`references/contextful-folder.reference.md`](references/contextful-folder.reference.md). Read it for the authoritative spec; the *Conventions* section below is a routing quick-reference.
 
 ## Output
@@ -50,21 +50,42 @@ Invariants (what makes the output conform):
 
 ## Workflow
 
-1. **Get the source first — don't go fishing.** This skill runs on what the user gives you: raw materials, or a change they've described or pointed you to. If neither was given (e.g. the skill was invoked bare), ask what to document and stop. Don't glob the tree or read unrelated files to invent a subject — that produces docs nobody asked for. A stated change is the exception: it names the subject, so reading the changed files and the folder's existing docs to sync them is the job, not fishing.
+1. **Get the source — don't go fishing.**
+   - Work only from what the user gives: raw materials, or a change they've described or pointed you to.
+   - **Neither given?** Ask what to document, then stop.
+   - **Don't** glob the tree or read unrelated files to invent a subject — that produces docs nobody asked for.
+   - **A stated change is the subject:** read the changed files and the folder's existing docs, then sync them — that's the job, not fishing.
 
-2. **Settle the home folder.** Decide the single directory the docs describe *and the right level for it* — attach to the nearest specific existing folder, or create one when none fits. Don't park docs too high (a parent that owns more than this material) or too low (a leaf that's really part of a larger unit). A small, simple subfolder usually doesn't get its own README — document it from the parent (cover-by-parent) and promote it to its own README only when it earns one (see [When a subfolder needs its own README](references/contextful-folder.reference.md#when-a-subfolder-needs-its-own-readme)). Everything downstream anchors to this folder layer. If the user already named a target folder, that's your answer — use it. If they didn't, infer the best fit *from the raw material*, tell the user your choice and why, and wait for their approval before writing — placement is the user's final call, so don't create a folder and dump docs into it unprompted. When you're reconciling a change, the home folder is already settled — it's the folder whose contents changed, which already has docs — so skip the placement question and go straight to updating it.
+2. **Settle the home folder** — the single directory the docs describe, at the right level.
+   - **User named one?** Use it. **Reconciling a change?** It's the changed folder (already documented) — skip placement.
+   - **Otherwise:** infer the best fit *from the material* (not by walking the tree), then tell the user your choice and why and wait for approval — placement is their call; don't create a folder and dump docs in unprompted.
+   - **Right level:** the nearest specific existing folder, or a new one if none fits — not too high (a parent owning more than this material), nor too low (a leaf that's part of a larger unit).
+   - **Small, simple subfolder:** cover it from the parent (cover-by-parent); give it its own README only when it [earns one](references/contextful-folder.reference.md#when-a-subfolder-needs-its-own-readme).
 
-3. **Classify each piece of raw material by intent.** For every chunk of input, ask which one job it does: *orientation* → README; *agent instruction/constraint* → AGENTS; *concept/explanation* → guide; *fact/spec* → reference; *procedure/recurring task* → runbook. One chunk, one home — if a note mixes intents, split it into atoms first. This routing is the heart of the skill.
+   Everything downstream anchors to this layer.
 
-4. **Write or update the files.** Produce the README (with a manifest that links each deeper doc and a one-line hook), then any AGENTS and typed docs the material warranted. When updating an existing folder, fold new material into the right existing file instead of creating a parallel one; replace stale content rather than appending duplicates. **Whenever you add, remove, or rename a `docs/` file**, update the README manifest in the same pass so it lists every current doc and no stale ones. Keep each file to one topic and link across them.
+3. **Classify each chunk by intent** — this routing is the heart of the skill.
+   - Ask the one job each chunk does — *orientation*, *agent instruction/constraint*, *concept*, *fact*, or *procedure* — and route it per the routing table below.
+   - One chunk, one home — split a note that mixes intents into atoms first.
 
-5. **Verify before reporting done.** Confirm: a README exists; only approved file types/names are present; the manifest and `docs/` are in sync — every `docs/*` file has a manifest entry and every manifest link resolves; content is routed to the correct type; nothing is duplicated across files. Fix anything that fails.
+4. **Write or update the files.**
+   - Write the `README.md` first (with its manifest), then any `AGENTS.md` and typed docs the material warrants.
+   - Updating an existing folder: fold new material into the right existing file — don't spawn a parallel one; replace stale content, don't append duplicates.
+   - Add, remove, or rename a `docs/` file → update the README manifest in the **same pass**.
+   - One topic per file; link across them.
 
-6. **Offer the always-on agent rules (first run only).** Docs only pay off if agents are told to use them. Add two always-on rules to the **top-level `AGENTS.md`/`CLAUDE.md`**, so that the rules are loaded on every task:
+5. **Verify before reporting done** — fix anything that fails:
+   - A `README.md` exists.
+   - Only approved file types/names are present.
+   - Manifest and `docs/` in sync — every `docs/*` has a manifest entry, every manifest link resolves.
+   - Content routed to the correct type.
+   - No duplication across files.
+
+6. **Offer the always-on agent rules (first run only).** Docs pay off only when agents are told to use them. Add to the **top-level `AGENTS.md`/`CLAUDE.md`** (loaded on every task) whichever of these is absent — ask first and confirm where it goes:
    - **`How to Discover Context`** — makes agents read contextual docs first ([reference copy](references/context-discovery.reference.md)).
    - **`How to Document Context`** — routes documentation work to this skill and keeps docs current ([reference copy](references/context-maintenance.reference.md)).
 
-   Add whichever heading is **absent**, but ask first and confirm where it goes. If the user declines, point them to the reference file to copy manually.
+   If the user declines, point them to the reference file to copy manually.
 
 ## Conventions
 
