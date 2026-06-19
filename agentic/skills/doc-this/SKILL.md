@@ -60,7 +60,11 @@ Invariants (what makes the output conform):
 
 5. **Verify before reporting done.** Confirm: a README exists; only approved file types/names are present; the manifest and `docs/` are in sync — every `docs/*` file has a manifest entry and every manifest link resolves; content is routed to the correct type; nothing is duplicated across files. Fix anything that fails.
 
-6. **Offer to install the always-on conventions (first time only).** The docs you just wrote only pay off if agents are told to *navigate* by them, to *route documentation work back to this skill*, and to *keep the docs current*. Both rules are always-on behavior, so they belong in your **always-on agent instructions** — the top-level `AGENTS.md` or `CLAUDE.md` that's loaded on every task and applies to every folder, not the local `AGENTS.md` of the folder you just documented, and not this skill's on-demand scope. Check that file for each convention — **context-discovery** (the `How to Discover Context` heading, [`references/context-discovery.reference.md`](references/context-discovery.reference.md)) and **documenting-a-folder** (the `How to Document Context` heading, which routes doc work here and keeps docs current, [`references/context-maintenance.reference.md`](references/context-maintenance.reference.md)). For whichever is **absent**, offer to add its block and **ask the user before writing** — confirm where it should go, since both apply above the folder you're documenting. If they decline, point them to the atoms so they can copy them in themselves.
+6. **Offer the always-on agent rules (first run only).** Docs only pay off if agents are told to use them. Add two always-on rules to the **top-level `AGENTS.md`/`CLAUDE.md`**, so that the rules are loaded on every task:
+   - **`How to Discover Context`** — makes agents read contextual docs first ([reference copy](references/context-discovery.reference.md)).
+   - **`How to Document Context`** — routes documentation work to this skill and keeps docs current ([reference copy](references/context-maintenance.reference.md)).
+
+   Add whichever heading is **absent**, but ask first and confirm where it goes. If the user declines, point them to the reference file to copy manually.
 
 ## Conventions
 
@@ -83,6 +87,6 @@ Invariants (what makes the output conform):
 
 - **Reference** — [Contextful Folder reference](references/contextful-folder.reference.md) — the authority this skill enforces.
 - **Guide** — [Contextful Folder guide](references/contextful-folder.guide.md) — optional: the *why* behind the pattern, not needed to apply the spec; read only for rationale.
-- **Context-discovery convention** — [context-discovery.reference.md](references/context-discovery.reference.md) — the always-on navigation rule to install into your top-level `AGENTS.md`/`CLAUDE.md` (the always-on instructions), so agents read the docs this skill writes.
-- **Documenting-a-folder convention** — [context-maintenance.reference.md](references/context-maintenance.reference.md) — the always-on rule to install alongside discovery, so agents route documentation work to this skill and keep these docs current when a folder's contents change.
+- **Context discovery rule** — [context-discovery.reference.md](references/context-discovery.reference.md) — the always-on navigation rule to install into your top-level `AGENTS.md`/`CLAUDE.md` (the always-on instructions), so agents read the docs this skill writes.
+- **Context documentation rule** — [context-maintenance.reference.md](references/context-maintenance.reference.md) — the always-on rule to install alongside discovery, so agents route documentation work to this skill and keep these docs current when a folder's contents change.
 
