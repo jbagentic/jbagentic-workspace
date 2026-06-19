@@ -59,6 +59,17 @@ One folder per skill being evaluated, named to match the skill (e.g. `doc-this/`
   it checks the output contract (a `## slide-NN` `slides.txt` sibling, one section per staged
   PNG, exact-casing term presence, source files untouched). Iteration 1 ran under the old name
   `slides-pdf-to-text` (a hand-rolled PDF text-layer parser), retired in iteration 2.
+- **`doc-this--context-discovery` is a rule eval, not a skill eval, and runs fully automated.** It
+  measures the always-on "How to Discover Context" rule doc-this installs, so its configs are
+  `with_rule`/`without_rule` (the rule block present/absent in a staged `CLAUDE.md`), not
+  `with_skill`/`without_skill`. Because this workspace's own `AGENTS.md` carries the rule, the
+  baseline can't run in-repo — `python3 doc-this--context-discovery/prepare.py runs/<iteration>`
+  stages each run in a **`$TMPDIR` clean room outside the repo** (the spike confirmed the workspace
+  rule doesn't leak there, and that headless `claude` loads a local `CLAUDE.md` but not a bare
+  `AGENTS.md`). Then `run.py` launches headless `claude -p` executors restricted to `Read,Grep,Glob`
+  and captures each stream-json transcript + `timing.json`; `grade.py` re-reads the transcripts
+  (re-gradable without re-running) for correctness, README-first process, and tool-budget. See that
+  folder's `README.md` for the isolation rationale and the honest read on what the numbers mean.
 - Direct run outputs to `agentic/evals/<skill-name>/runs/` so specs and their results stay together;
   `runs/` is gitignored and disposable.
 - After aggregating a run, **promote** a curated summary to the committed

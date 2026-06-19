@@ -1,0 +1,58 @@
+{
+  "skill_name": "doc-this--context-discovery",
+  "_comment": "Tests the always-on 'How to Discover Context' rule doc-this installs. Configs are with_rule / without_rule (the rule block present/absent in the staged CLAUDE.md), NOT with_skill/without_skill. Each case is a read-only question answered against the staged corpus. grade.py reads answer_keywords (AND-of-ORs, case-insensitive), answer_forbidden (none may appear), process (readme_first | fallback_file), target_file, and tool_budget.",
+  "evals": [
+    {
+      "id": 0,
+      "name": "retry-policy-value",
+      "type": "efficiency+trap",
+      "prompt": "What is the billing service's payment retry policy? State the number of attempts and the backoff strategy.",
+      "expected_output": "3 attempts with exponential backoff. The value is stated in services/billing/README.md and configured in services/billing/settings.py (RETRY_ATTEMPTS=3, RETRY_BACKOFF=exponential). The README-first path reads billing/README.md and answers directly; a blind grep for 'retry' also surfaces legacy_config.py (5 attempts, fixed) and risks reporting the stale value.",
+      "answer_keywords": [["3", "three"], ["exponential", "backoff"]],
+      "answer_forbidden": [],
+      "process": "readme_first",
+      "target_file": "services/billing/README.md",
+      "tool_budget": 6,
+      "files": []
+    },
+    {
+      "id": 1,
+      "name": "notify-naming-convention",
+      "type": "navigation-up",
+      "prompt": "What naming convention do events emitted by the notify service follow? Give the format.",
+      "expected_output": "The platform-wide format <service>.<entity>.<action> (lowercase, dot-separated, three parts), e.g. notify.email.sent. It is defined once in services/README.md; notify/README.md points up to it. Answering requires walking up from the notify service to the parent services README.",
+      "answer_keywords": [["<service>.<entity>.<action>", "service.entity.action", "notify.email.sent", "notify.sms.sent", "billing.invoice.created", ".email.sent", ".invoice.created"]],
+      "answer_forbidden": [],
+      "process": "readme_first",
+      "target_file": "services/notify/README.md",
+      "tool_budget": 6,
+      "files": []
+    },
+    {
+      "id": 2,
+      "name": "billing-source-of-truth",
+      "type": "correctness-trap",
+      "prompt": "Which file holds the source-of-truth configuration for the billing service's retry behavior?",
+      "expected_output": "services/billing/settings.py. The billing README names settings.py as authoritative and explicitly flags legacy_config.py as deprecated/no-longer-loaded. A blind grep for retry config surfaces both files; without reading the README an agent can wrongly name legacy_config.py.",
+      "answer_keywords": [["settings.py"]],
+      "answer_forbidden": [],
+      "process": "readme_first",
+      "target_file": "services/billing/README.md",
+      "tool_budget": 6,
+      "files": []
+    },
+    {
+      "id": 3,
+      "name": "ops-script-purpose",
+      "type": "no-readme-fallback",
+      "prompt": "What does ops/scripts/rotate-keys.sh do? Summarize its purpose.",
+      "expected_output": "It rotates the API signing keys: generates a new signing key, publishes it to the key store, marks the previous key as retiring (valid 24h), then revokes keys older than 24h; runs weekly via cron. ops/scripts/ has NO README, so the correct behavior is to fall back to reading the script directly rather than hunting for documentation that does not exist.",
+      "answer_keywords": [["rotat"], ["key", "signing"], ["revok", "retir", "key store", "publish"]],
+      "answer_forbidden": [],
+      "process": "fallback_file",
+      "target_file": "ops/scripts/rotate-keys.sh",
+      "tool_budget": 5,
+      "files": []
+    }
+  ]
+}
