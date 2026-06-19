@@ -5,14 +5,18 @@ Maintenance is a WRITE behavior, so — unlike the discovery grader — this one
 the MUTATED files back from each run's $TMPDIR clean room (seed.json records the
 work_dir) and grades three dimensions the rule is supposed to improve:
 
-  1. correctness — the requested code change actually landed: work_dir/<change_file>
-     exists and contains all change_keywords (AND-of-ORs, case-insensitive).
-  2. reconcile   — the doc that COVERS the change was kept true (the rule's core
-     behavior): work_dir/<doc_file> exists (always, or newly — doc_must_exist),
-     contains all doc_required groups, and contains NONE of doc_forbidden (the
-     stale fact is gone). This is the headline metric, the analog of the discovery
-     grader's "process": it grades the outcome whether the agent hand-edited,
-     created the file, or invoked doc-this.
+  1. dimension 1 depends on the case mode:
+       change (default) — the requested code change actually landed:
+         work_dir/<change_file> exists and contains all change_keywords.
+       author           — the rule's OTHER trigger ("writing or organizing docs ->
+         run doc-this"): the agent routed the doc work through doc-this (a Skill
+         tool_use for doc-this). This is the one place we grade the MEANS, not just
+         the outcome.
+  2. reconcile   — every doc that COVERS the change was kept true (the rule's core
+     behavior): the primary doc_file plus any also_reconcile entry each exists
+     (always, or newly — doc_must_exist/must_exist), contains all required groups,
+     and contains NONE of forbidden (the stale fact is gone). Outcome-based: grades
+     the same whether the agent hand-edited, created the file, or invoked doc-this.
   3. efficiency  — total read/search/edit tool calls <= the case's tool_budget.
 
 It also records raw metrics (which docs were edited/created, read/edit/write counts,
@@ -55,7 +59,7 @@ def tool_calls(transcript_path: Path):
                 continue
             name = block.get("name", "")
             inp = block.get("input", {}) or {}
-            target = inp.get("file_path") or inp.get("path") or inp.get("pattern") or ""
+            target = inp.get("file_path") or inp.get("path") or inp.get("pattern") or inp.get("skill") or ""
             calls.append({"name": name, "target": str(target)})
     return calls
 
@@ -86,20 +90,39 @@ def check_correctness(work: Path, meta):
     return True, f"change applied in {meta['change_file']}"
 
 
-def check_reconcile(work: Path, meta):
-    df = work / meta["doc_file"]
-    if not df.exists():
-        if meta["doc_must_exist"]:
-            return False, f"doc {meta['doc_file']} was not created"
-        return False, f"doc {meta['doc_file']} missing"
-    text = df.read_text(encoding="utf-8", errors="replace")
-    miss = missing_groups(text, meta["doc_required"])
-    hit = present_forbidden(text, meta.get("doc_forbidden", []))
+def check_one_doc(work: Path, rel: str, must_exist: bool, required, forbidden):
+    """Reconcile a single covering doc: exists (if required), has required, lacks forbidden."""
+    p = work / rel
+    if not p.exists():
+        return False, (f"{rel} was not created" if must_exist else f"{rel} missing")
+    text = p.read_text(encoding="utf-8", errors="replace")
+    hit = present_forbidden(text, forbidden)
     if hit:
-        return False, f"stale fact still in {meta['doc_file']}: {hit}"
+        return False, f"stale fact still in {rel}: {hit}"
+    miss = missing_groups(text, required)
     if miss:
-        return False, f"doc not reconciled — missing in {meta['doc_file']}: {miss}"
-    return True, f"{meta['doc_file']} reconciled (new fact present, stale gone)"
+        return False, f"{rel} not reconciled — missing: {miss}"
+    return True, f"{rel} reconciled"
+
+
+def check_reconcile(work: Path, meta):
+    """Every covering doc — the primary doc_file plus any also_reconcile — must reconcile."""
+    targets = [(meta["doc_file"], meta["doc_must_exist"], meta["doc_required"], meta.get("doc_forbidden", []))]
+    for extra in meta.get("also_reconcile", []) or []:
+        targets.append((extra["file"], extra.get("must_exist", True),
+                        extra.get("required", []), extra.get("forbidden", [])))
+    evidence = []
+    all_ok = True
+    for rel, must, req, forb in targets:
+        ok, ev = check_one_doc(work, rel, must, req, forb)
+        all_ok = all_ok and ok
+        evidence.append(ev)
+    return all_ok, "; ".join(evidence)
+
+
+def doc_this_invoked(calls) -> bool:
+    """True iff the transcript shows a Skill tool_use routing to the doc-this skill."""
+    return any(c["name"] == "Skill" and "doc-this" in c["target"].lower() for c in calls)
 
 
 def check_secondary(work: Path, meta):
@@ -146,11 +169,20 @@ def grade_run(meta, run_dir: Path):
     calls = tool_calls(run_dir / "transcript.jsonl")
     metrics = compute_metrics(work, meta, calls)
 
+    mode = meta.get("mode", "change")
+    if mode == "author":
+        # Dimension 1 = the MEANS directive: route doc work through doc-this.
+        d1_text = "Routed doc work to doc-this"
+        d1_ok = doc_this_invoked(calls)
+        d1_ev = "invoked the doc-this skill" if d1_ok else "did not invoke doc-this (hand-wrote / other)"
+    else:
+        d1_text = "Change applied to code"
+        d1_ok, d1_ev = (False, f"work dir missing ({work}) — re-run prepare.py/run.py") \
+            if not work.is_dir() else check_correctness(work, meta)
+
     if not work.is_dir():
-        c_ok, c_ev = False, f"work dir missing ({work}) — re-run prepare.py/run.py"
         r_ok, r_ev = False, "work dir missing"
     else:
-        c_ok, c_ev = check_correctness(work, meta)
         r_ok, r_ev = check_reconcile(work, meta)
 
     budget = meta["tool_budget"]
@@ -158,7 +190,7 @@ def grade_run(meta, run_dir: Path):
     e_ev = f"{metrics['total_action_tools']} action tool calls (budget {budget})"
 
     expectations = [
-        {"text": "Change applied to code", "passed": c_ok, "evidence": c_ev},
+        {"text": d1_text, "passed": d1_ok, "evidence": d1_ev},
         {"text": "Covering doc reconciled", "passed": r_ok, "evidence": r_ev},
         {"text": f"Within tool budget ({budget})", "passed": e_ok, "evidence": e_ev},
     ]

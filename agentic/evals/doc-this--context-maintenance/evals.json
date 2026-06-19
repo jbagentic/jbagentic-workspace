@@ -1,6 +1,6 @@
 {
   "skill_name": "doc-this--context-maintenance",
-  "_comment": "Tests the always-on 'How to Document Context' rule doc-this installs. Configs are with_rule / without_rule (the rule block present/absent in the staged CLAUDE.md), NOT with_skill/without_skill — the doc-this skill is copied into BOTH arms, so the rule block is the only variable. Each case is an ACTION: the agent makes a real code change with Edit/Write in an isolated clean room, and grade.py reads the mutated files back. Per case: change_file/change_keywords (the code change actually landed; file may be newly created), doc_file (the doc that covers the change), doc_must_exist (the doc must exist after — for create-a-doc cases), doc_required (AND-of-ORs, must all appear in doc_file), doc_forbidden (none may appear in doc_file — the stale fact is gone), optional secondary_doc (recorded as a metric, not pass/fail), and tool_budget. Keyword matching is case-insensitive substring; pick doc_forbidden strings that are NOT substrings of the desired new content.",
+  "_comment": "Tests the always-on 'How to Document Context' rule doc-this installs. Configs are with_rule / without_rule (the rule block present/absent in the staged CLAUDE.md), NOT with_skill/without_skill — the doc-this skill is copied into BOTH arms, so the rule block is the only variable. grade.py reads the mutated files back from each clean room. Per case: mode ('change' default | 'author'); for 'change', change_file/change_keywords say the code change landed (file may be newly created), and dimension 1 grades that; for 'author' (the 'writing or organizing docs' trigger) there is no change_file and dimension 1 instead grades that the agent ROUTED the doc work through doc-this (a Skill tool_use for doc-this). doc_file is the doc that covers the change; doc_must_exist requires it to exist after (create-a-doc cases); doc_required (AND-of-ORs, all must appear in doc_file); doc_forbidden (none may appear — the stale fact is gone); also_reconcile is a list of EXTRA covering docs {file,required,forbidden} all of which must also reconcile (e.g. README + AGENTS.md); secondary_doc is recorded as a metric only; tool_budget caps action tool calls. Keyword matching is case-insensitive substring; pick forbidden strings that are NOT substrings of the desired new content.",
   "evals": [
     {
       "id": 0,
@@ -29,6 +29,13 @@
       "doc_must_exist": false,
       "doc_required": [["access_tokens.py"], ["refresh_tokens.py"]],
       "doc_forbidden": ["session_tokens.py"],
+      "also_reconcile": [
+        {
+          "file": "services/auth/AGENTS.md",
+          "required": [["access_tokens.py", "refresh_tokens.py"]],
+          "forbidden": ["session_tokens.py"]
+        }
+      ],
       "secondary_doc": null,
       "tool_budget": 15
     },
@@ -76,6 +83,22 @@
       "doc_forbidden": ["10 second"],
       "secondary_doc": null,
       "tool_budget": 15
+    },
+    {
+      "id": 5,
+      "name": "document-undocumented-folder",
+      "type": "writing-organizing-docs-trigger",
+      "mode": "author",
+      "prompt": "Document the services/reporting/ folder.",
+      "expected_output": "services/reporting/ has code (report.py, exporter.py) but no README. This is the rule's OTHER trigger — 'writing or organizing docs → run doc-this'. The graded means signal is that the agent routes the doc work through the doc-this skill (a Skill tool_use for doc-this), and the outcome is a services/reporting/README.md describing the folder (reporting / report generation, CSV/PDF export). without_rule may hand-write the README without invoking doc-this.",
+      "change_file": null,
+      "change_keywords": [],
+      "doc_file": "services/reporting/README.md",
+      "doc_must_exist": true,
+      "doc_required": [["report"], ["export", "exporter", "csv", "pdf"]],
+      "doc_forbidden": [],
+      "secondary_doc": null,
+      "tool_budget": 20
     }
   ]
 }

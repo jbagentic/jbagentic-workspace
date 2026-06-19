@@ -23,6 +23,20 @@ after a change more reliably than one that doesn't.
 The A/B is *rule present vs absent in the agent's instructions* — **not**
 `with_skill`/`without_skill`. The two configs are `with_rule` and `without_rule`.
 
+The rule has **two triggers**, and the suite exercises both: *changing a folder's
+contents* (the five `change`-mode cases) and *writing or organizing docs* (the one
+`author`-mode case). For `author` mode the graded signal is the rule's **means** —
+that the agent routes the doc work through the doc-this skill — the one place the
+suite checks the *how*, not just the outcome.
+
+### What "same pass" means here
+
+The rule says reconcile docs *"in the same pass, while it's fresh."* We don't test
+the timing literally — in practice "same pass" means the docs are true **before the
+change would merge to main**. That is exactly what the reconcile dimension grades:
+the doc's end-of-session state. A doc left for "later" is stale at grading time and
+fails. So no separate temporal test is needed.
+
 ## Why this isn't read-only (and why the skill is in the room)
 
 Discovery is a read behavior, so its eval is read-only and grades an answer string.
@@ -65,11 +79,13 @@ A headless `claude -p` from a `$TMPDIR` cwd does not inherit the workspace
 
 ## Layout
 
-- `evals.json` — 5 action cases spanning the doc-this file vocabulary. Each carries
-  `change_file`/`change_keywords` (the code change landed), `doc_file` (the covering
-  doc), `doc_must_exist` (for create-a-doc cases), `doc_required` (AND-of-ORs),
-  `doc_forbidden` (stale fact gone), an optional `secondary_doc` (recorded metric),
-  and a `tool_budget`.
+- `evals.json` — 6 cases covering both of the rule's triggers. Each carries a
+  `mode` (`change` — a code change must land, default; or `author` — the "writing or
+  organizing docs" trigger, graded on routing the work through doc-this), `doc_file`
+  (the covering doc), `doc_must_exist` (for create-a-doc cases), `doc_required`
+  (AND-of-ORs), `doc_forbidden` (stale fact gone), optional `also_reconcile` (extra
+  covering docs — e.g. an `AGENTS.md` — that must reconcile too), an optional
+  `secondary_doc` (recorded metric), and a `tool_budget`.
 - `fixtures/corpus/` — a small committed contextful tree (services with READMEs, a
   typed `docs/*.reference.md`, a README file-manifest, and an undocumented
   sub-folder whose behavior is documented in its parent).
@@ -78,15 +94,17 @@ A headless `claude -p` from a `$TMPDIR` cwd does not inherit the workspace
 - `benchmarks/` — committed durable record (`iteration-N.md`, `history.md`).
 - `runs/` — gitignored scratch (transcripts, per-run grading/timing).
 
-The five cases, by which doc the change makes stale:
+The six cases. Five are `change` mode (a code change makes a doc stale); the last is
+`author` mode (the doc-authoring trigger):
 
-| case | type | task → reconcile target |
+| case | trigger / type | task → graded behavior |
 |------|------|-------------------------|
-| `modify-reference-in-doc` | modify feature, ref in `docs/*` | retry 3→5 → update `billing/docs/retry.reference.md` |
-| `refactor-update-manifest` | refactor file structure | split a file → update the `## Files` manifest in `auth/README.md` |
-| `add-function-update-readme` | add fn under sub-module | add `send_push` → update `notify/README.md` (+ a new `docs/*`, secondary) |
-| `new-module-create-readme` | add brand-new module | create `audit/audit.py` → **create** `audit/README.md` (+ parent manifest row, secondary) |
-| `parent-doc-reconcile` | change in undocumented sub-folder | capture timeout 10→30 → update the **parent** `billing/README.md` |
+| `modify-reference-in-doc` | change, ref in `docs/*` | retry 3→5 → update `billing/docs/retry.reference.md` |
+| `refactor-update-manifest` | change, multi-doc | split a file → update the `## Files` manifest in `auth/README.md` **and** the convention in `auth/AGENTS.md` (`also_reconcile`) |
+| `add-function-update-readme` | change, add fn | add `send_push` → update `notify/README.md` (+ a new `docs/*`, secondary) |
+| `new-module-create-readme` | change, new module | create `audit/audit.py` → **create** `audit/README.md` (+ parent manifest row, secondary) |
+| `parent-doc-reconcile` | change, undocumented sub-folder | capture timeout 10→30 → update the **parent** `billing/README.md` |
+| `document-undocumented-folder` | **author** (doc-authoring trigger) | "document `services/reporting/`" → **route the work through doc-this** (the graded *means*) and produce `reporting/README.md` |
 
 ## Running
 
