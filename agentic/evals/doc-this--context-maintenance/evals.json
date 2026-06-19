@@ -1,0 +1,81 @@
+{
+  "skill_name": "doc-this--context-maintenance",
+  "_comment": "Tests the always-on 'How to Document Context' rule doc-this installs. Configs are with_rule / without_rule (the rule block present/absent in the staged CLAUDE.md), NOT with_skill/without_skill — the doc-this skill is copied into BOTH arms, so the rule block is the only variable. Each case is an ACTION: the agent makes a real code change with Edit/Write in an isolated clean room, and grade.py reads the mutated files back. Per case: change_file/change_keywords (the code change actually landed; file may be newly created), doc_file (the doc that covers the change), doc_must_exist (the doc must exist after — for create-a-doc cases), doc_required (AND-of-ORs, must all appear in doc_file), doc_forbidden (none may appear in doc_file — the stale fact is gone), optional secondary_doc (recorded as a metric, not pass/fail), and tool_budget. Keyword matching is case-insensitive substring; pick doc_forbidden strings that are NOT substrings of the desired new content.",
+  "evals": [
+    {
+      "id": 0,
+      "name": "modify-reference-in-doc",
+      "type": "modify-feature-reference-in-doc",
+      "prompt": "The billing service should retry a failed payment capture 5 times instead of 3. Make that change.",
+      "expected_output": "Change RETRY_ATTEMPTS from 3 to 5 in services/billing/config.py, and reconcile the typed doc that restates it — services/billing/docs/retry.reference.md must now say 5 attempts, not '3 attempts'. The covering doc here is a docs/*.reference.md, not the README (the README points to it).",
+      "change_file": "services/billing/config.py",
+      "change_keywords": [["5", "five"]],
+      "doc_file": "services/billing/docs/retry.reference.md",
+      "doc_must_exist": false,
+      "doc_required": [["5", "five"]],
+      "doc_forbidden": ["3 attempts", "three attempts"],
+      "secondary_doc": null,
+      "tool_budget": 15
+    },
+    {
+      "id": 1,
+      "name": "refactor-update-manifest",
+      "type": "refactor-update-readme-manifest",
+      "prompt": "Split services/auth/session_tokens.py into two files: access_tokens.py (holding issue_access_token) and refresh_tokens.py (holding issue_refresh_token). Remove the original session_tokens.py.",
+      "expected_output": "Create access_tokens.py and refresh_tokens.py, remove session_tokens.py, and update the '## Files' manifest in services/auth/README.md so it lists the two new files and no longer lists session_tokens.py. The README's file manifest is the doc that goes stale on a structural refactor.",
+      "change_file": "services/auth/access_tokens.py",
+      "change_keywords": [["issue_access_token"]],
+      "doc_file": "services/auth/README.md",
+      "doc_must_exist": false,
+      "doc_required": [["access_tokens.py"], ["refresh_tokens.py"]],
+      "doc_forbidden": ["session_tokens.py"],
+      "secondary_doc": null,
+      "tool_budget": 15
+    },
+    {
+      "id": 2,
+      "name": "add-function-update-readme",
+      "type": "add-function-update-readme",
+      "prompt": "Add a push notification channel to the notify service: add a send_push(user, message) function to services/notify/sender.py.",
+      "expected_output": "Add send_push to services/notify/sender.py and update services/notify/README.md '## Channels' to include push. Ideally also add a typed doc under services/notify/docs/ (recorded as a secondary metric, not required to pass).",
+      "change_file": "services/notify/sender.py",
+      "change_keywords": [["send_push"]],
+      "doc_file": "services/notify/README.md",
+      "doc_must_exist": false,
+      "doc_required": [["push"]],
+      "doc_forbidden": [],
+      "secondary_doc": {"kind": "dir_has_md", "path": "services/notify/docs"},
+      "tool_budget": 15
+    },
+    {
+      "id": 3,
+      "name": "new-module-create-readme",
+      "type": "new-module-create-doc",
+      "prompt": "Add a new audit module at services/audit/ with an audit.py that logs admin actions.",
+      "expected_output": "Create services/audit/audit.py that logs admin actions, and — because a new folder needs documenting — create services/audit/README.md describing the module. Ideally also add a row for audit/ to the parent services/README.md manifest (recorded as a secondary metric).",
+      "change_file": "services/audit/audit.py",
+      "change_keywords": [["log"], ["admin"]],
+      "doc_file": "services/audit/README.md",
+      "doc_must_exist": true,
+      "doc_required": [["audit"], ["admin", "action"]],
+      "doc_forbidden": [],
+      "secondary_doc": {"kind": "contains", "path": "services/README.md", "value": "audit"},
+      "tool_budget": 18
+    },
+    {
+      "id": 4,
+      "name": "parent-doc-reconcile",
+      "type": "change-in-undocumented-subfolder-update-parent",
+      "prompt": "Increase the billing payment-capture timeout from 10 seconds to 30 seconds.",
+      "expected_output": "Change CAPTURE_TIMEOUT from 10 to 30 in services/billing/capture/capture.py. The capture/ folder has no README of its own, so the covering doc is the nearest one above — services/billing/README.md must now say 30 seconds, not '10 seconds'. Exercises the 'or the nearest one above it if it has none' clause.",
+      "change_file": "services/billing/capture/capture.py",
+      "change_keywords": [["30"]],
+      "doc_file": "services/billing/README.md",
+      "doc_must_exist": false,
+      "doc_required": [["30"]],
+      "doc_forbidden": ["10 second"],
+      "secondary_doc": null,
+      "tool_budget": 15
+    }
+  ]
+}

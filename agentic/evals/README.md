@@ -70,6 +70,15 @@ One folder per skill being evaluated, named to match the skill (e.g. `doc-this/`
   and captures each stream-json transcript + `timing.json`; `grade.py` re-reads the transcripts
   (re-gradable without re-running) for correctness, README-first process, and tool-budget. See that
   folder's `README.md` for the isolation rationale and the honest read on what the numbers mean.
+- **`doc-this--context-maintenance` is the write-side companion rule eval.** It measures the always-on
+  "How to Document Context" rule (configs `with_rule`/`without_rule`, same `$TMPDIR` clean-room
+  isolation). Maintenance is a **write** behavior, so each case is an *action*: `run.py` whitelists
+  `Read,Edit,Write,Grep,Glob,Skill` (and `--disallowedTools Bash`), the agent makes a real code change,
+  and `grade.py` reads the **mutated** files back from the clean room (not the transcript) for three
+  dimensions — change applied, **covering doc reconciled** (the headline), and tool-budget. The doc-this
+  skill is copied into **both** arms (held constant; the rule block is the only variable), so the room
+  must allow `Skill`. See that folder's `README.md` for the action-eval rationale, the skill-copy spike,
+  and what the numbers mean.
 - Direct run outputs to `agentic/evals/<skill-name>/runs/` so specs and their results stay together;
   `runs/` is gitignored and disposable.
 - After aggregating a run, **promote** a curated summary to the committed
