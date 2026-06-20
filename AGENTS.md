@@ -27,10 +27,12 @@ Stop once you know enough context.
 
 ### How to Document Context
 
-Folders follow the **Contextful Folder** convention. Use the `doc-this` skill to write or organize a folder's docs — don't hand-write them free-form; the skill owns the spec and loads it only when needed.
+**Document folders with the `doc-this` skill — never hand-write docs free-form.**
 
-- **Writing or organizing docs** → run `doc-this`.
-- **Changing a folder's contents** → update the docs that cover it in the same pass, while it's fresh — the folder's own README, or the nearest one above it if it has none (`doc-this` reconciles). Stale docs mislead whoever comes next.
+- **Writing or organizing** a folder's docs → run `doc-this`.
+- **Changing** a folder's contents → reconcile its covering docs in the same pass. Existing docs are either in the folder or in the nearest parent folder with README.
+
+Stale docs mislead the next task — always leave the docs more current than you found them.
 
 ### Make Autonomous Safe
 
