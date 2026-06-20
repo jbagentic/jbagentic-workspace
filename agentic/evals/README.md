@@ -7,151 +7,49 @@ never a skill at runtime, and it lives **outside the skill folders so it never s
 
 ## Structure
 
-One folder per skill being evaluated, named to match the skill (e.g. `doc-this/`,
-`series-youtube-metadata/`). Each holds:
+One folder per skill (or rule) being evaluated, named to match it. Each holds:
 
-- `evals.json` — the eval spec (test cases: id, prompt, expected output, fixtures).
-- `fixtures/` — input materials the cases run against.
-- `benchmarks/` — **committed**, the durable quality-over-time record:
-  - `iteration-N.md` — curated summary of one run.
-  - `history.md` — one row per iteration (pass rates, deltas).
+- `evals.json` — the eval spec (cases: id, prompt, expected output, assertions).
+- `prepare.py` / `grade.py` — stage inputs; grade outputs deterministically (stdlib, zero LLM
+  tokens). Several evals also stage per-run work dirs — see the eval's own README.
+- `fixtures/` — committed input materials (where used).
+- `benchmarks/` — **committed** durable record: `iteration-N.md` (one run's summary) + `history.md`
+  (one row per iteration).
 - `runs/` — **gitignored** scratch; raw per-run outputs, disposable.
 
-## Running and promoting evals
+A bigger eval is its own
+[contextful folder](../skills/doc-this/references/contextful-folder.reference.md) with its own README
+(linked below); simpler ones are covered here.
 
-- Auto-discovery does not reach this path, so **point skill-creator at the eval folder explicitly**
-  when running or improving a skill.
-- **`subtitle-polish` stages its inputs first.** Run `python3 subtitle-polish/prepare.py` to
-  materialize each talk's real `.en.raw.srt` + slide deck (`slides/`, `slides.pdf`, and
-  `slides.txt` when present) into `subtitle-polish/stage/` (gitignored) from
-  `talk-recordings/`. The skill runs against that throwaway copy so its sibling output
-  (`<slug>.en.srt`) never overwrites the committed talk folder. The decks and transcripts
-  live once, in `talk-recordings/` — they are not copied into the eval. The skill prefers
-  `slides.txt` (the deck's extracted text) for its glossary over reading the slide PNGs —
-  see iteration 3 for the token/time saving.
-- **`slides-pdf-to-png` stages per-run work dirs.** Its fixtures are tiny committed synthetic
-  PDFs from `slides-pdf-to-png/fixtures/make_fixtures.py` (run it bare to verify, `--write` to
-  regenerate). Run `python3 slides-pdf-to-png/prepare.py runs/<iteration>` **before** spawning
-  executors — it stages one work dir per (case × config × run) inside the gitignored `runs/`
-  and prints ready-to-paste executor prompts. The harness must save each executor's final reply
-  to `<run-dir>/outputs/final-response.md` (the multi-PDF case grades on it) and its
-  token/duration notification to `<run-dir>/timing.json`. Grading is the deterministic
-  `python3 slides-pdf-to-png/grade.py runs/<iteration>` — stdlib-only, zero LLM tokens.
-- **`subtitle-translate-zh` stages too** — same reason (the skill writes `.zh-Hans.srt` /
-  `.zh-Hant.srt` siblings that would clobber the committed translations). Run
-  `python3 subtitle-translate-zh/prepare.py`: it stages token-efficient **excerpts** of two
-  real talks (the minimal cue range covering each talk's trap terms) plus the committed
-  synthetic fixture into `subtitle-translate-zh/stage/` (gitignored). Grade with
-  `python3 subtitle-translate-zh/grade.py runs/iteration-N` — stdlib-only, re-derives the
-  staged sources itself. **Parity prerequisite:** OpenCC must be importable by plain
-  `python3` (eval subagents are sandboxed and can't pip-install), or with-skill runs
-  silently fall back to manual Hans→Hant conversion instead of the skill's real OpenCC
-  step; `prepare.py` guards this and tells you the install command.
-- **`slides-png-to-text` stages per-run work dirs from real decks.** Run
-  `python3 slides-png-to-text/prepare.py runs/<iteration>` **before** spawning executors — it
-  copies a talk's `slides.pdf` + `slides/` PNGs (never the committed `slides.txt`) into one work
-  dir per (case × config × run) under the gitignored `runs/`. Two real decks: `kowa` (21 slides,
-  incl. screenshot text like the `CLAUDE.md` editor view a text-layer parser misses) and `khew`
-  (6 slides). `with_skill` executors follow the skill (it transcribes the slide PNGs with the
-  vision model); `without_skill` must be told to ignore the installed skill. Save each executor's
-  token/duration to `<run-dir>/timing.json`; the skill writes `work/slides.txt` in place. Grade
-  with the deterministic `python3 slides-png-to-text/grade.py runs/<iteration>` (stdlib-only) —
-  it checks the output contract (a `## slide-NN` `slides.txt` sibling, one section per staged
-  PNG, exact-casing term presence, source files untouched). Iteration 1 ran under the old name
-  `slides-pdf-to-text` (a hand-rolled PDF text-layer parser), retired in iteration 2.
-- **`doc-this--context-discovery` is a rule eval, not a skill eval, and runs fully automated.** It
-  measures the always-on "How to Discover Context" rule doc-this installs, so its configs are
-  `with_rule`/`without_rule` (the rule block present/absent in a staged `CLAUDE.md`), not
-  `with_skill`/`without_skill`. Because this workspace's own `AGENTS.md` carries the rule, the
-  baseline can't run in-repo — `python3 doc-this--context-discovery/prepare.py runs/<iteration>`
-  stages each run in a **`$TMPDIR` clean room outside the repo** (the spike confirmed the workspace
-  rule doesn't leak there, and that headless `claude` loads a local `CLAUDE.md` but not a bare
-  `AGENTS.md`). Then `run.py` launches headless `claude -p` executors restricted to `Read,Grep,Glob`
-  and captures each stream-json transcript + `timing.json`; `grade.py` re-reads the transcripts
-  (re-gradable without re-running) for correctness, README-first process (by the *principle* —
-  see "Grade the principle, not the method" below), and tool-budget. See that folder's `README.md`
-  for the isolation rationale and the honest read on what the numbers mean.
-- **`doc-this--context-maintenance` is the write-side companion rule eval.** It measures the always-on
-  "How to Document Context" rule (configs `with_rule`/`without_rule`, same `$TMPDIR` clean-room
-  isolation). Maintenance is a **write** behavior, so each case is an *action*: `run.py` whitelists
-  `Read,Edit,Write,Grep,Glob,Skill` (and `--disallowedTools Bash`), the agent makes a real code change,
-  and `grade.py` reads the **mutated** files back from the clean room (not the transcript) for three
-  dimensions — change applied, **covering doc reconciled** (the headline), and tool-budget. The doc-this
-  skill is copied into **both** arms (held constant; the rule block is the only variable), so the room
-  must allow `Skill`. See that folder's `README.md` for the action-eval rationale, the skill-copy spike,
-  and what the numbers mean.
-- Direct run outputs to `agentic/evals/<skill-name>/runs/` so specs and their results stay together;
-  `runs/` is gitignored and disposable.
-- After aggregating a run, **promote** a curated summary to the committed
-  `agentic/evals/<skill-name>/benchmarks/iteration-N.md` and append a row to `benchmarks/history.md` —
-  that's the durable record; the `runs/` scratch can be thrown away.
+## Evals in this suite
 
-## Dependencies & environment parity
+| Eval | What it measures |
+|------|------------------|
+| [doc-this](doc-this/) | the doc-this skill — documenting a folder to the Contextful Folder spec. |
+| [doc-this--context-discovery](doc-this--context-discovery/) | rule eval — the always-on "How to Discover Context" rule (read side). |
+| [doc-this--context-maintenance](doc-this--context-maintenance/) | rule eval — the always-on "How to Document Context" rule (write side). |
+| [series-youtube-metadata](series-youtube-metadata/) | the series-youtube-metadata skill — YouTube titles / description / chapters from a transcript. |
+| [slides-pdf-to-png](slides-pdf-to-png/) | the slides-pdf-to-png skill — render a deck PDF into PNG frames. |
+| [slides-png-to-text](slides-png-to-text/) | the slides-png-to-text skill — transcribe slide PNGs into `slides.txt`. |
+| [subtitle-polish](subtitle-polish/) | the subtitle-polish skill — clean a raw talk SRT. |
+| [subtitle-translate-zh](subtitle-translate-zh/) | the subtitle-translate-zh skill — translate an SRT into zh-Hans + zh-Hant. |
 
-Eval executors are spawned subagents: a `pip install` inside one needs a permission
-prompt the subagent can't answer (so it's auto-denied) and, if the Bash sandbox is on,
-network too. Relying on runtime `pip` therefore makes runs flaky and breaks eval-vs-actual
-parity — the executor silently does something different from production. So **don't install
-at run time**; pre-provision instead:
+Each linked folder with its own README documents that eval's staging, run, and grading specifics.
+`doc-this` and `series-youtube-metadata` are covered here and follow the generic flow below.
 
-1. **Install the dependency once into the same `python3`** the executors use:
-   `pip3 install --user --break-system-packages <pkg>`. It is then importable for every
-   interactive run and subagent — no network in the loop.
-2. **Guard it in the eval's `prepare.py`** with an importability check that fails loudly with
-   the install command, so a missing dep stops the run instead of silently degrading it.
-   `subtitle-translate-zh/prepare.py` does this for OpenCC (`check_opencc()`).
+## Running & promoting
 
-Current eval dependencies: `opencc-python-reimplemented` (subtitle-translate-zh, OpenCC
-`s2twp` conversion). The other skills need none — `slides-png-to-text` transcribes slide PNGs
-with the model (no library), and the rest are stdlib-only. Prefer keeping it that way: a
-zero-dependency skill has parity by construction.
+1. **Point skill-creator at the eval folder explicitly** — auto-discovery doesn't reach this path.
+2. **Prepare → run → grade** per the eval's own README (several stage inputs or per-run work dirs
+   first; the exact commands differ — see the eval).
+3. **Aggregate**, then **guard**: `python3 agentic/evals/check_benchmark.py <iteration-dir>` — the
+   aggregator silently zeros on mismatched artifacts, so treat a non-zero exit as a failed run (see
+   [benchmark contract](docs/benchmark-contract.reference.md)).
+4. **Promote** a curated summary to the eval's committed `benchmarks/iteration-N.md` and append a row
+   to `benchmarks/history.md`. The `runs/` scratch is disposable.
 
-## Benchmark contract (avoid silent zeros)
+## Deeper docs
 
-`skill-creator`'s `aggregate_benchmark.py` reads grading artifacts in a fixed
-layout — and emits **all-zero pass rates instead of erroring** when they don't
-match. That silent zero is easy to miss and has bitten us more than once. Two
-safeguards keep it from shipping a wrong number:
-
-**1. Write the artifacts in the layout it expects** — per eval, per config:
-
-```
-<iteration>/eval-<name>/<config>/run-<k>/
-├── grading.json
-└── timing.json
-```
-
-`grading.json` carries **both** shapes, for its two readers:
-- `summary` — `{pass_rate, passed, failed, total}` — what the **aggregator** reads.
-- `expectations[]` — `{text, passed, evidence}` — what the **viewer** renders.
-
-Tokens/time live in the sibling `timing.json` (`total_tokens`,
-`total_duration_seconds`). The aggregator only falls back to it when
-`grading.json` has no inline `total_duration_seconds`, so keep timing out of the
-`run-*/grading.json`.
-
-**2. Guard the result** — after aggregating, run the check; it exits non-zero
-(and says why) when the benchmark looks silently zeroed (artifacts on disk but 0
-runs aggregated, or every config at 0% pass):
-
-```bash
-python3 agentic/evals/check_benchmark.py <iteration-dir>
-```
-
-Treat a non-zero exit as a **failed run**, not a 0% score. The guard exists
-because the vendored skill-creator tools degrade to silent zeros in this
-environment rather than failing loudly.
-
-## Grade the principle, not the method
-
-When an eval flags a regression, check the **metric measures the principle** before
-changing the thing under test. The `doc-this--context-discovery` grader once required
-the agent's *literal first action* to be a README **read** and counted any non-README
-glob as a "blind search" — so it failed benign "glob to locate the README, then read
-it" and manufactured a phantom regression that burned a whole copy-tuning cycle. The
-fix: grade whether a README is read **before any code/content access** (a content `Grep`
-or a non-README `Read`); globs only *locate* files and are navigation, not violations.
-
-General rule: a good check **passes obviously-correct behavior and fails
-obviously-wrong behavior**. If it doesn't, fix the grader first — don't tune the
-artifact to satisfy a metric that's testing the wrong thing.
+- [docs/benchmark-contract.reference.md](docs/benchmark-contract.reference.md) — grading-artifact layout + the silent-zero guard.
+- [docs/environment-parity.reference.md](docs/environment-parity.reference.md) — no runtime `pip`; pre-provision deps so runs match production.
+- [docs/grading.guide.md](docs/grading.guide.md) — grade the principle, not the method.
