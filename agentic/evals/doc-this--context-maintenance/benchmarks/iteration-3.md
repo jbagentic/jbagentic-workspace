@@ -21,8 +21,8 @@ update the parent `services/billing/README.md`).
 
 | Config | Blended pass | Reconcile | Dim-1 (change / means) | Within budget | Tools | doc-this calls |
 |---|---|---|---|---|---|---|
-| `with_rule` | **100%** (36/36) | **12/12** | 12/12 | 12/12 | 7.4 | 0 |
-| `without_rule` | 97.2% (35/36) | 11/12 | 12/12 | 12/12 | 6.5 | 0 |
+| `with_rule` | **100%** (36/36) | **12/12** | 12/12 | 12/12 | 7.4 | 4 |
+| `without_rule` | 97.2% (35/36) | 11/12 | 12/12 | 12/12 | 6.5 | 2 |
 
 **No regression.** `with_rule` holds 100% and reconcile 12/12 — identical to iteration 2.
 The one `without_rule` miss is the familiar additive omission (`new-module`: didn't create
@@ -37,10 +37,23 @@ materialise.
   missed this round instead of two — baseline run variance at n=2, not an effect of the
   rule (the rewrite touches only the `with_rule` arm). The headline is `with_rule` holding
   100% / 12-12, not the shrunken blended delta (+0.03).
-- **doc-this calls dropped to 0 in both arms** this round (iter 2 had 6 `with_rule` / 2
-  `without_rule`). Agents hand-edited the covering docs throughout. Reconcile is graded
-  outcome-based, so this passes — and it confirms the trimmed rule (which no longer says
-  "`doc-this` reconciles" on the change bullet) still gets the docs reconciled by hand.
-  The author-mode routing means (`document-undocumented-folder`) still passed.
+- **Efficiency is a non-signal, and the baseline's lower count is partly an artifact.**
+  Mean action tools: `with_rule` 7.4 vs `without_rule` 6.5 — the rule arm runs slightly
+  *heavier*, same direction as every prior iteration (it does the additive reconcile work
+  the baseline sometimes skips). Every run is well under budget (max 11 vs budgets of
+  15–20), so efficiency doesn't separate the arms. Don't read the baseline's lower mean as
+  thrift: `new-module` `without_rule` was `[4, 11]`, and the 4-tool run is the one that
+  *failed* to create the audit README — fewer tools because it did less, not because it was
+  efficient. A text rewrite shouldn't move tool efficiency anyway; it changes what the
+  agent reads, not what it does.
+- **doc-this usage: 4 `with_rule` / 2 `without_rule`, concentrated in two cases.** The
+  author case (`document-undocumented-folder`) routed through doc-this in *both* arms (2
+  each) — an explicit doc task is obviously the skill's job, so the rule adds no delta
+  there. The only *change*-case routing was `new-module`, where `with_rule` invoked
+  doc-this (2) and reconciled both runs, while `without_rule` didn't invoke it and one run
+  failed to create the README. Every other change case (`modify-reference`, `parent-doc`,
+  `refactor`, `add-function`) hand-edited in both arms — confirming the trimmed rule (which
+  no longer says "`doc-this` reconciles" on the change bullet) still gets docs reconciled
+  by hand, while doc-this remains the path the rule reaches for on net-new docs.
 - **Small sample (n=2).** The reconcile signal still rests on a single baseline failure.
   Widen with `--runs 4+` and weight the additive cases to firm it up.
