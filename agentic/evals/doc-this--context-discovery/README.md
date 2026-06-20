@@ -89,9 +89,17 @@ change.
 ## What the numbers mean
 
 Correctness alone barely separates the arms on a 10-file corpus — both usually
-answer right. The rule's measurable effect is in the **process** (does it consult
-the README map before blind-searching?) and **tool-call count**, plus
-**correctness on the trap**, where blind grep can latch onto the stale decoy.
+answer right. The rule's measurable effect is in the **process** and
+**tool-call count**, plus **correctness on the trap**, where blind grep can latch
+onto the stale decoy.
+
+The **process** metric measures the *principle*, not the method: does the agent
+**read a README as the entry point before accessing any code/content** (a content
+`Grep` or a non-README `Read`)? *How* it locates the README is irrelevant —
+globbing `**/README.md` or `**/foo/**` to find the entry point is navigation, not
+a violation. (Earlier iterations used a stricter check that counted any
+non-README glob as a "blind search"; that penalized benign glob-then-read
+navigation and was corrected — see `benchmarks/iteration-2.md`.)
 See [`benchmarks/`](benchmarks/) for results and honest caveats — notably that on
 the no-README folder the rule costs *more* (it globs for a map that isn't there),
 and that the token sum is cache-read-dominated, so it is not a clean efficiency

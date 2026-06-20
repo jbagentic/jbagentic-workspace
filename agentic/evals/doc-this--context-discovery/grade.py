@@ -6,16 +6,20 @@ and grades three dimensions the rule is supposed to improve:
 
   1. correctness — the final answer contains the case's answer_keywords
      (AND-of-ORs, case-insensitive) and none of its answer_forbidden phrases.
-  2. process     — HOW context was gathered:
-       readme_first  -> the first read/search action was a Read of a README.md
-                        (the rule's core behavior: map before blind search)
+  2. process     — HOW context was gathered. This measures the PRINCIPLE, not
+                   the method: *how* the agent locates a README doesn't matter.
+       readme_first  -> a README was read before any code/content access (a
+                        non-README Read or a content Grep). Globs only *locate*
+                        files (navigation), so they never count against this —
+                        globbing **/README.md or **/foo/** to find the entry
+                        point is fine, as long as a README is read first.
        fallback_file -> the target file was read directly (correct when the
                         folder has no README — graceful fallback, not paralysis)
   3. efficiency  — total read/search tool calls <= the case's tool_budget.
 
-It also records raw metrics (reads/greps/globs, blind searches before the first
-README, readme-first flag, total tool calls) so the iteration write-up can show
-the with_rule vs without_rule deltas the aggregator's pass-rate alone can't.
+It also records raw metrics (reads/greps/globs, content accesses before the
+first README, readme-first flag, total tool calls) so the iteration write-up can
+show the with_rule vs without_rule deltas the aggregator's pass-rate alone can't.
 
 Writes per run a grading.json carrying the benchmark-contract shapes
 (expectations[] for the viewer, summary{} for the aggregator) plus
@@ -62,19 +66,22 @@ def is_readme(target: str) -> bool:
     return target.lower().rstrip("/").endswith("readme.md")
 
 
-def is_blind_search(call) -> bool:
-    """A content/code search done WITHOUT first consulting the README map.
+def is_content_access(call) -> bool:
+    """Accessing file *contents* without first consulting a README.
 
-    Grepping for a term is always a blind content search. Globbing is only blind
-    when it targets non-README patterns — globbing **/README.md is itself
-    map-building (locating the READMEs), exactly what the rule asks for, so it
-    does not count against readme-first.
+    The principle is "use a README as the entry point before diving into code" —
+    so what counts is content access, not how the README was located:
+      - Grep reads file contents -> content access.
+      - Read of a non-README file -> content access.
+      - Read of a README -> that IS consulting the map (handled by the caller).
+      - Glob only *locates* files (navigation); globbing **/README.md or
+        **/foo/** to find the entry point is fine -> never content access.
     """
     if call["name"] == "Grep":
         return True
-    if call["name"] == "Glob":
-        return "readme" not in call["target"].lower()
-    return False
+    if call["name"] == "Read":
+        return not is_readme(call["target"])
+    return False  # Glob is navigation, not content access
 
 
 def compute_metrics(calls):
@@ -89,10 +96,11 @@ def compute_metrics(calls):
         None,
     )
     before = ctx[:first_readme_idx] if first_readme_idx is not None else ctx
-    blind_before = sum(1 for c in before if is_blind_search(c))
-    # README-first = a README was read, with no blind content search before it
-    # (a README-locating glob beforehand is allowed — that's the map step).
-    readme_first = first_readme_idx is not None and blind_before == 0
+    content_before = sum(1 for c in before if is_content_access(c))
+    # README-first = a README was read before any code/content access. Globs that
+    # merely locate the README (or a folder) beforehand are navigation, not a
+    # violation — only a content Grep or a non-README Read ahead of it counts.
+    readme_first = first_readme_idx is not None and content_before == 0
 
     return {
         "reads": len(reads),
@@ -100,7 +108,7 @@ def compute_metrics(calls):
         "globs": len(globs),
         "total_context_tools": len(ctx),
         "readme_first": readme_first,
-        "blind_searches_before_readme": blind_before,
+        "content_access_before_readme": content_before,
         "read_paths": [c["target"] for c in reads],
         "all_calls": [f"{c['name']}:{c['target']}" for c in ctx],
     }
@@ -124,10 +132,10 @@ def check_process(meta, metrics):
     if process == "readme_first":
         ok = metrics["readme_first"]
         ev = (
-            "first read/search action was a README"
+            "a README was read before any code/content access (globs to locate it are fine)"
             if ok
-            else f"first actions were not a README read; blind searches before any README: "
-            f"{metrics['blind_searches_before_readme']}; calls: {metrics['all_calls'][:4]}"
+            else f"code/content was accessed before any README read; content accesses before "
+            f"README: {metrics['content_access_before_readme']}; calls: {metrics['all_calls'][:4]}"
         )
         return ok, ev
     if process == "fallback_file":
@@ -199,7 +207,7 @@ def main():
                     f"{meta['eval_name']} / {config_dir.name} / {run_dir.name}: "
                     f"{s['passed']}/{s['total']}  "
                     f"[reads={m['reads']} grep={m['greps']} glob={m['globs']} "
-                    f"readme_first={m['readme_first']} blind_before={m['blind_searches_before_readme']}]"
+                    f"readme_first={m['readme_first']} content_before={m['content_access_before_readme']}]"
                 )
                 for e in g["expectations"]:
                     print(f"    [{'PASS' if e['passed'] else 'FAIL'}] {e['text']} — {e['evidence']}")
