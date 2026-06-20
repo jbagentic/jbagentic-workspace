@@ -19,10 +19,10 @@ update the parent `services/billing/README.md`).
 
 ## Result
 
-| Config | Blended pass | Reconcile | Dim-1 (change / means) | Within budget | Tools | doc-this calls |
-|---|---|---|---|---|---|---|
-| `with_rule` | **100%** (36/36) | **12/12** | 12/12 | 12/12 | 7.4 | 4 |
-| `without_rule` | 97.2% (35/36) | 11/12 | 12/12 | 12/12 | 6.5 | 2 |
+| Config | Blended pass | Reconcile | Dim-1 (change / means) | Within budget | Tools | Time (directional) | doc-this calls |
+|---|---|---|---|---|---|---|---|
+| `with_rule` | **100%** (36/36) | **12/12** | 12/12 | 12/12 | 7.4 | 42.4s | 4 |
+| `without_rule` | 97.2% (35/36) | 11/12 | 12/12 | 12/12 | 6.5 | 34.9s | 2 |
 
 **No regression.** `with_rule` holds 100% and reconcile 12/12 — identical to iteration 2.
 The one `without_rule` miss is the familiar additive omission (`new-module`: didn't create
@@ -40,7 +40,8 @@ materialise.
 - **Efficiency is a non-signal, and the baseline's lower count is partly an artifact.**
   Mean action tools: `with_rule` 7.4 vs `without_rule` 6.5 — the rule arm runs slightly
   *heavier*, same direction as every prior iteration (it does the additive reconcile work
-  the baseline sometimes skips). Every run is well under budget (max 11 vs budgets of
+  the baseline sometimes skips). Mean wall-clock mirrors this (42.4s vs 34.9s) and is
+  reported as directional only — at n=2 it tracks the tool count, not a clean signal. Every run is well under budget (max 11 vs budgets of
   15–20), so efficiency doesn't separate the arms. Don't read the baseline's lower mean as
   thrift: `new-module` `without_rule` was `[4, 11]`, and the 4-tool run is the one that
   *failed* to create the audit README — fewer tools because it did less, not because it was

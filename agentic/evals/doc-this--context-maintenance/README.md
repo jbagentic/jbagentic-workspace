@@ -134,4 +134,7 @@ supporting dimensions, parallel to the discovery eval's correctness/process/
 efficiency. See [`benchmarks/`](benchmarks/) for results and caveats — including
 whether the rule's "use doc-this" wording helped or hurt in the skill-present room,
 and that with-skill invocations inflate tool counts (so the efficiency budget is
-deliberately generous and not a clean signal).
+deliberately generous and not a clean signal). Every iteration writeup reports the
+full metric set for both arms (pass rate, reconcile, tools, and mean time) per the
+[reporting contract](../docs/benchmark-contract.reference.md) (§3) — a noisy metric
+like time is flagged *directional*, never dropped.

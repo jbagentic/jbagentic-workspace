@@ -46,10 +46,13 @@ Each linked folder with its own README documents that eval's staging, run, and g
    aggregator silently zeros on mismatched artifacts, so treat a non-zero exit as a failed run (see
    [benchmark contract](docs/benchmark-contract.reference.md)).
 4. **Promote** a curated summary to the eval's committed `benchmarks/iteration-N.md` and append a row
-   to `benchmarks/history.md`. The `runs/` scratch is disposable.
+   to `benchmarks/history.md`, reporting the full metric set for both arms — pass rate, the eval's
+   discriminating dimension, mean time, and tokens — per the [reporting
+   contract](docs/benchmark-contract.reference.md) (§3). Never drop a metric you reported before; flag
+   a noisy one, don't hide it. The `runs/` scratch is disposable.
 
 ## Deeper docs
 
-- [docs/benchmark-contract.reference.md](docs/benchmark-contract.reference.md) — grading-artifact layout + the silent-zero guard.
+- [docs/benchmark-contract.reference.md](docs/benchmark-contract.reference.md) — grading-artifact layout, the silent-zero guard, and the writeup reporting contract.
 - [docs/environment-parity.reference.md](docs/environment-parity.reference.md) — no runtime `pip`; pre-provision deps so runs match production.
 - [docs/grading.guide.md](docs/grading.guide.md) — grade the principle, not the method.

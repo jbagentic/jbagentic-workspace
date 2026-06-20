@@ -22,6 +22,7 @@
 | correctness | 14/14 | 14/14 | 0 |
 | process (docs as entry point) | **14/14 (100%)** | 6/14 (43%) | **+57pp** |
 | within tool budget | 14/14 | 12/14 | +2 |
+| mean wall-clock / task (directional) | 20.2s | 25.9s | −5.7s |
 
 ### The new `AGENTS.md` cases (the point of this iteration)
 
@@ -71,6 +72,9 @@ unchanged from iterations 1–2).
   searching (4.67 vs 5.33 mean calls on the new cases).
 - **Tokens** remain cache-read-dominated and are not a clean efficiency signal at
   this corpus size; tool-call count is the cleaner one.
+- **Time is directional.** 20.2s vs 25.9s tracks the tool-call gap but is
+  executor/environment-variance-prone at n=2; reported for completeness, don't
+  over-read it — tool calls are the cleaner efficiency signal.
 - **n=2.** Smaller than iteration 2's n=6; the process gap is large enough
   (+83pp on the new cases) to read clearly, but treat the exact rates as
   indicative.

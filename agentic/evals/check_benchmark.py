@@ -15,6 +15,10 @@ Fails when:
     disk (the classic layout/schema drift); or
   - every configuration has a 0 pass rate (degenerate result).
 
+On success it prints pass_rate, mean time, and mean tokens for every config, so the
+full metric set the writeup must report (see the reporting contract in
+agentic/evals/README.md) is in front of you at guard time and can't be quietly dropped.
+
 See agentic/evals/README.md ("Benchmark contract") for the layout/schema the
 aggregator requires.
 """
@@ -66,14 +70,24 @@ def main():
     if all(m == 0 for m in means.values()):
         fail(f"every configuration has pass_rate 0 — suspect silent failure: {means}")
 
+    # Surface the full metric set for every config so a writeup can't silently drop
+    # one. The reporting contract (docs/benchmark-contract.reference.md §3) requires
+    # time + tokens in every iteration writeup; printing them here keeps the number in
+    # front of the author at guard time.
     print(f"benchmark check OK — {len(runs)} runs aggregated:")
     for c, m in means.items():
         tok = configs[c].get("tokens", {}).get("mean")
+        secs = configs[c].get("time_seconds", {}).get("mean")
         line = f"  {c}: pass_rate {m:.3f}"
+        if secs:
+            line += f", time {secs:.1f}s"
         if tok:
             line += f", tokens {tok:.0f}"
         print(line)
-        if tok == 0:
+        if not secs:
+            print(f"    note: time read as 0 for {c} "
+                  f"(check sibling timing.json total_duration_seconds).")
+        if not tok:
             print(f"    note: tokens read as 0 for {c} (check sibling timing.json total_tokens).")
     sys.exit(0)
 

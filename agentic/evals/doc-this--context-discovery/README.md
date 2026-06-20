@@ -119,4 +119,7 @@ search"; that penalized benign glob-then-read navigation and was corrected — s
 See [`benchmarks/`](benchmarks/) for results and honest caveats — notably that on
 the no-README folder the rule costs *more* (it globs for a map that isn't there),
 and that the token sum is cache-read-dominated, so it is not a clean efficiency
-signal at this corpus size.
+signal at this corpus size. Every iteration writeup reports the full metric set for
+both arms (pass rate, process, tool calls, and mean time) per the [reporting
+contract](../docs/benchmark-contract.reference.md) (§3) — a noisy metric like time
+is flagged *directional*, never dropped.

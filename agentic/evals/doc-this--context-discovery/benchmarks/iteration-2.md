@@ -18,6 +18,7 @@
 | process (README as entry point) | **24/24 (100%)** | 11/24 (46%) | **+54pp** |
 | within tool budget | 24/24 | 21/24 | +3 |
 | mean tool calls / task | **2.88** | 4.5 | −1.62 (~36%) |
+| mean wall-clock / task (directional) | 15.7s | 19.4s | −3.8s |
 
 ## The grader fix (why the numbers are cleaner than iteration 1)
 
@@ -65,6 +66,9 @@ navigation targets.
   These are capture glitches, not behavior, and hit both arms.
 - **Tokens** remain cache-read-dominated and are not a clean efficiency signal at
   this corpus size; tool-call count is the cleaner one.
+- **Time is directional.** 15.7s vs 19.4s tracks the tool-call gap but is
+  executor/environment-variance-prone; reported for completeness, don't over-read it
+  — tool calls are the cleaner efficiency signal.
 
 ## Verdict
 
