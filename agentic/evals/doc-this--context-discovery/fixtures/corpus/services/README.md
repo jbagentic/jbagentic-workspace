@@ -5,6 +5,8 @@ README first for its behavior and configuration.
 
 - [billing/](billing/) — charges customers; handles payment-capture retries.
 - [notify/](notify/) — sends user notifications (email, SMS, push).
+- [payments/](payments/) — processes charges and refunds via the gateway.
+- `auth/` — issues and refreshes tokens. No README; see its `AGENTS.md` for working rules.
 
 ## Event naming convention
 

@@ -7,12 +7,18 @@ and grades three dimensions the rule is supposed to improve:
   1. correctness — the final answer contains the case's answer_keywords
      (AND-of-ORs, case-insensitive) and none of its answer_forbidden phrases.
   2. process     — HOW context was gathered. This measures the PRINCIPLE, not
-                   the method: *how* the agent locates a README doesn't matter.
+                   the method: *how* the agent locates a doc doesn't matter.
+                   A case's `process` is one check or a list (all must pass).
        readme_first  -> a README was read before any code/content access (a
-                        non-README Read or a content Grep). Globs only *locate*
+                        non-doc Read or a content Grep). Globs only *locate*
                         files (navigation), so they never count against this —
                         globbing **/README.md or **/foo/** to find the entry
                         point is fine, as long as a README is read first.
+       agents_first  -> the nearest AGENTS.md (the case's target_file) was read
+                        before any code/content access. AGENTS.md is the per-
+                        folder instructions artifact; its nearest-lookup is
+                        independent of README's (the nearest README can be a
+                        parent while the nearest AGENTS.md is the subfolder).
        fallback_file -> the target file was read directly (correct when the
                         folder has no README — graceful fallback, not paralysis)
   3. efficiency  — total read/search tool calls <= the case's tool_budget.
@@ -66,21 +72,31 @@ def is_readme(target: str) -> bool:
     return target.lower().rstrip("/").endswith("readme.md")
 
 
-def is_content_access(call) -> bool:
-    """Accessing file *contents* without first consulting a README.
+def is_agents(target: str) -> bool:
+    return target.lower().rstrip("/").endswith("agents.md")
 
-    The principle is "use a README as the entry point before diving into code" —
-    so what counts is content access, not how the README was located:
+
+def is_discovery_doc(target: str) -> bool:
+    """README and AGENTS.md are both 'the map' — orientation and instructions."""
+    return is_readme(target) or is_agents(target)
+
+
+def is_content_access(call) -> bool:
+    """Accessing file *contents* without first consulting the map (README/AGENTS.md).
+
+    The principle is "use the folder's docs as the entry point before diving into
+    code" — so what counts is content access, not how the doc was located:
       - Grep reads file contents -> content access.
-      - Read of a non-README file -> content access.
-      - Read of a README -> that IS consulting the map (handled by the caller).
+      - Read of a non-doc file -> content access.
+      - Read of a README or AGENTS.md -> that IS consulting the map (handled by
+        the caller).
       - Glob only *locates* files (navigation); globbing **/README.md or
         **/foo/** to find the entry point is fine -> never content access.
     """
     if call["name"] == "Grep":
         return True
     if call["name"] == "Read":
-        return not is_readme(call["target"])
+        return not is_discovery_doc(call["target"])
     return False  # Glob is navigation, not content access
 
 
@@ -99,8 +115,18 @@ def compute_metrics(calls):
     content_before = sum(1 for c in before if is_content_access(c))
     # README-first = a README was read before any code/content access. Globs that
     # merely locate the README (or a folder) beforehand are navigation, not a
-    # violation — only a content Grep or a non-README Read ahead of it counts.
+    # violation — only a content Grep or a non-doc Read ahead of it counts.
     readme_first = first_readme_idx is not None and content_before == 0
+
+    # Independent AGENTS.md track — its nearest-lookup differs from README's (the
+    # nearest README can be a parent while the nearest AGENTS.md is the subfolder).
+    first_agents_idx = next(
+        (i for i, c in enumerate(ctx) if c["name"] == "Read" and is_agents(c["target"])),
+        None,
+    )
+    agents_before = ctx[:first_agents_idx] if first_agents_idx is not None else ctx
+    content_before_agents = sum(1 for c in agents_before if is_content_access(c))
+    agents_first = first_agents_idx is not None and content_before_agents == 0
 
     return {
         "reads": len(reads),
@@ -108,8 +134,12 @@ def compute_metrics(calls):
         "globs": len(globs),
         "total_context_tools": len(ctx),
         "readme_first": readme_first,
+        "agents_first": agents_first,
         "content_access_before_readme": content_before,
+        "content_access_before_agents": content_before_agents,
         "read_paths": [c["target"] for c in reads],
+        "readme_paths": [c["target"] for c in reads if is_readme(c["target"])],
+        "agents_paths": [c["target"] for c in reads if is_agents(c["target"])],
         "all_calls": [f"{c['name']}:{c['target']}" for c in ctx],
     }
 
@@ -127,8 +157,7 @@ def check_correctness(answer: str, keyword_groups, forbidden):
     return True, "answer contains all required keyword groups; no forbidden phrases"
 
 
-def check_process(meta, metrics):
-    process = meta["process"]
+def check_one_process(process, meta, metrics):
     if process == "readme_first":
         ok = metrics["readme_first"]
         ev = (
@@ -136,6 +165,18 @@ def check_process(meta, metrics):
             if ok
             else f"code/content was accessed before any README read; content accesses before "
             f"README: {metrics['content_access_before_readme']}; calls: {metrics['all_calls'][:4]}"
+        )
+        return ok, ev
+    if process == "agents_first":
+        target = meta["target_file"]
+        read_target = any(c.endswith(target) for c in metrics["agents_paths"])
+        ok = read_target and metrics["agents_first"]
+        ev = (
+            f"read the nearest AGENTS.md ({target}) before any code/content access"
+            if ok
+            else f"did not consult {target} before content; agents read: "
+            f"{metrics['agents_paths']}; content before AGENTS.md: "
+            f"{metrics['content_access_before_agents']}; calls: {metrics['all_calls'][:4]}"
         )
         return ok, ev
     if process == "fallback_file":
@@ -150,19 +191,32 @@ def check_process(meta, metrics):
     return False, f"unknown process '{process}'"
 
 
+def check_process(meta, metrics):
+    """`process` is a single check (str) or a list of checks (all must pass)."""
+    process = meta["process"]
+    if isinstance(process, str):
+        return check_one_process(process, meta, metrics)
+    results = [check_one_process(p, meta, metrics) for p in process]
+    ok = all(r[0] for r in results)
+    ev = "; ".join(f"{p}: {r[1]}" for p, r in zip(process, results))
+    return ok, ev
+
+
 def grade_run(meta, run_dir: Path):
     answer = (run_dir / "answer.txt").read_text(encoding="utf-8") if (run_dir / "answer.txt").exists() else ""
     metrics = compute_metrics(tool_calls(run_dir / "transcript.jsonl"))
 
     c_ok, c_ev = check_correctness(answer, meta["answer_keywords"], meta.get("answer_forbidden", []))
     p_ok, p_ev = check_process(meta, metrics)
+    process = meta["process"]
+    process_label = process if isinstance(process, str) else " + ".join(process)
     budget = meta["tool_budget"]
     e_ok = metrics["total_context_tools"] <= budget
     e_ev = f"{metrics['total_context_tools']} read/search calls (budget {budget})"
 
     expectations = [
         {"text": "Reaches the correct answer", "passed": c_ok, "evidence": c_ev},
-        {"text": f"Discovery process: {meta['process']}", "passed": p_ok, "evidence": p_ev},
+        {"text": f"Discovery process: {process_label}", "passed": p_ok, "evidence": p_ev},
         {"text": f"Within tool budget ({budget})", "passed": e_ok, "evidence": e_ev},
     ]
     passed = sum(1 for e in expectations if e["passed"])
@@ -207,7 +261,8 @@ def main():
                     f"{meta['eval_name']} / {config_dir.name} / {run_dir.name}: "
                     f"{s['passed']}/{s['total']}  "
                     f"[reads={m['reads']} grep={m['greps']} glob={m['globs']} "
-                    f"readme_first={m['readme_first']} content_before={m['content_access_before_readme']}]"
+                    f"readme_first={m['readme_first']} agents_first={m['agents_first']} "
+                    f"content_before={m['content_access_before_readme']}]"
                 )
                 for e in g["expectations"]:
                     print(f"    [{'PASS' if e['passed'] else 'FAIL'}] {e['text']} — {e['evidence']}")

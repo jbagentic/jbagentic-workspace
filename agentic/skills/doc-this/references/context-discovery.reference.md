@@ -1,9 +1,10 @@
 # Context discovery — reference
 
 The **navigation half** of the Contextful Folder pattern: how an agent should *read*
-contextful folders to gather context efficiently. The [guide](contextful-folder.guide.md) and
-[reference](contextful-folder.reference.md) cover how to *produce* such folders; this covers
-how to *consume* them.
+contextful folders to gather context efficiently — pulling the nearest `README.md` (orientation)
+**and** the nearest `AGENTS.md` (instructions it must follow) before working in any folder. The
+[guide](contextful-folder.guide.md) and [reference](contextful-folder.reference.md) cover how to
+*produce* such folders; this covers how to *consume* them.
 
 This rule is **always-on behavior** — it shapes how an agent gathers context on every task,
 not just when documenting. So it belongs in your **always-on agent instructions** — the
@@ -16,10 +17,11 @@ block below there once.
 ```md
 ## How to Discover Context
 
-**Before working in any folder, read its nearest `README.md` first**. The README is either in
-the folder or in the nearest parent folder.
+**Before working in any folder, read its nearest `README.md` and `AGENTS.md` first.** Each is
+either in the folder or in the nearest parent folder that has one.
 
-- **Read** the README as the onboarding guide to know the context.
+- **Read** the README as the onboarding guide to know the context, and the AGENTS.md for the
+  instructions you **must** follow while working in the folder.
 - **Follow** links in README, if relevant, to read more guides, references, runbooks, or files.
 - **Walk** the folder tree to adjust the context boundary — **up** to a parent folder with
   README for broader context, **down** into a subfolder with README for specific context.
@@ -37,6 +39,13 @@ Producing contextful folders only pays off if agents navigate by them. Without t
 agent falls back to blind `Grep`/`Glob` sweeps — loading too much or missing what's there — and
 the READMEs-as-map investment is wasted. See [the guide](contextful-folder.guide.md)
 ("Why folders?" / selective loading) for the rationale behind up/down progressive disclosure.
+
+The rule also covers `AGENTS.md`, not just `README.md`, because no harness reliably auto-loads a
+*subfolder's* `AGENTS.md` when an agent touches a file there: Claude Code auto-loads `CLAUDE.md`
+(not `AGENTS.md`), and Codex loads a subfolder's `AGENTS.md` only when it is the current working
+directory. Only the top-level `AGENTS.md` is dependably in context. So the agent must read the
+nearest `AGENTS.md` itself — otherwise the mandatory per-folder instructions it carries are
+silently skipped.
 
 ## Related
 

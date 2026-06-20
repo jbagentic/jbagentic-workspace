@@ -1,6 +1,6 @@
 {
   "skill_name": "doc-this--context-discovery",
-  "_comment": "Tests the always-on 'How to Discover Context' rule doc-this installs. Configs are with_rule / without_rule (the rule block present/absent in the staged CLAUDE.md), NOT with_skill/without_skill. Each case is a read-only question answered against the staged corpus. grade.py reads answer_keywords (AND-of-ORs, case-insensitive), answer_forbidden (none may appear), process (readme_first | fallback_file), target_file, and tool_budget.",
+  "_comment": "Tests the always-on 'How to Discover Context' rule doc-this installs. Configs are with_rule / without_rule (the rule block present/absent in the staged CLAUDE.md), NOT with_skill/without_skill. Each case is a read-only question answered against the staged corpus. grade.py reads answer_keywords (AND-of-ORs, case-insensitive), answer_forbidden (none may appear), process, target_file, and tool_budget. process is one check or a list of checks (all must pass): readme_first | agents_first | fallback_file. agents_first asserts the nearest AGENTS.md (= target_file) was read before any content access — AGENTS.md is the per-folder instructions artifact and its nearest-lookup is independent of README's.",
   "evals": [
     {
       "id": 0,
@@ -52,6 +52,45 @@
       "process": "fallback_file",
       "target_file": "ops/scripts/rotate-keys.sh",
       "tool_budget": 5,
+      "files": []
+    },
+    {
+      "id": 4,
+      "name": "subfolder-agents-no-readme",
+      "type": "agents-split-lookup",
+      "prompt": "In the auth service (services/auth/), how should I add a new token type?",
+      "expected_output": "Edit services/auth/token_types.yaml and run `python gen_tokens.py` to regenerate tokens.py. tokens.py is generated and must not be hand-edited. services/auth/ has its own AGENTS.md (the binding rule) but NO README, so the two discovery artifacts resolve independently: the nearest AGENTS.md is services/auth/AGENTS.md (the subfolder's) while the nearest README is the parent services/README.md. An agent that never reads the subfolder AGENTS.md cannot name token_types.yaml + the generator and would wrongly suggest editing tokens.py.",
+      "answer_keywords": [["token_types.yaml"], ["gen_tokens", "generator", "regenerat", "generat"]],
+      "answer_forbidden": [],
+      "process": ["agents_first", "readme_first"],
+      "target_file": "services/auth/AGENTS.md",
+      "tool_budget": 7,
+      "files": []
+    },
+    {
+      "id": 5,
+      "name": "payments-refund-constraint",
+      "type": "agents-trap-readme-present",
+      "prompt": "How should application code in the payments service issue a refund?",
+      "expected_output": "By calling request_refund(charge_id), which enqueues the refund for approval — never by calling refund() directly (that bypasses fraud review; only the approval worker calls refund()). services/payments/ has BOTH a README and an AGENTS.md; the README describes refunds and names refund() as the low-level reversal, but the binding rule lives only in services/payments/AGENTS.md. An agent that reads just the README (or treats README/CLAUDE.md as sufficient) wrongly answers refund(); reading the subfolder AGENTS.md is required.",
+      "answer_keywords": [["request_refund", "approval queue", "approval"]],
+      "answer_forbidden": [],
+      "process": "agents_first",
+      "target_file": "services/payments/AGENTS.md",
+      "tool_budget": 6,
+      "files": []
+    },
+    {
+      "id": 6,
+      "name": "auth-handlers-agents-walkup",
+      "type": "agents-navigation-up",
+      "prompt": "I'm working in services/auth/handlers/refresh.py and need a new token type it can use. How should that token type be defined?",
+      "expected_output": "Edit services/auth/token_types.yaml and run `python gen_tokens.py` to regenerate tokens.py — never hand-edit tokens.py. services/auth/handlers/ has no AGENTS.md of its own, so the binding rule must be found by walking UP to the nearest parent AGENTS.md at services/auth/AGENTS.md (the mirror of walking up for a README). An agent that doesn't walk up misses the generated-file rule.",
+      "answer_keywords": [["token_types.yaml"], ["gen_tokens", "generator", "regenerat", "generat"]],
+      "answer_forbidden": [],
+      "process": "agents_first",
+      "target_file": "services/auth/AGENTS.md",
+      "tool_budget": 6,
       "files": []
     }
   ]

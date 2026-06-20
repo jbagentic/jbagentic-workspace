@@ -16,9 +16,9 @@ Instructions for every agent we collaborate with in this workspace.
 
 ### How to Discover Context
 
-**Before working in any folder, read its nearest `README.md` first**. The README is either in the folder or in the nearest parent folder.
+**Before working in any folder, read its nearest `README.md` and `AGENTS.md` first.** Each is either in the folder or in the nearest parent folder that has one.
 
-- **Read** the README as the onboarding guide to know the context.
+- **Read** the README as the onboarding guide to know the context, and the AGENTS.md for the instructions you **must** follow while working in the folder.
 - **Follow** links in README, if relevant, to read more guides, references, runbooks, or files.
 - **Walk** the folder tree to adjust the context boundary — **up** to a parent folder with README for broader context, **down** into a subfolder with README for specific context.
 - **Search** with `Find`/`Grep`/`Glob` as a fallback option.

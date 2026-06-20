@@ -1,0 +1,5 @@
+# Source of truth for token types. Edit here, then run: python gen_tokens.py
+access:
+  ttl_seconds: 900
+refresh:
+  ttl_seconds: 1209600
