@@ -68,8 +68,9 @@ One folder per skill being evaluated, named to match the skill (e.g. `doc-this/`
   rule doesn't leak there, and that headless `claude` loads a local `CLAUDE.md` but not a bare
   `AGENTS.md`). Then `run.py` launches headless `claude -p` executors restricted to `Read,Grep,Glob`
   and captures each stream-json transcript + `timing.json`; `grade.py` re-reads the transcripts
-  (re-gradable without re-running) for correctness, README-first process, and tool-budget. See that
-  folder's `README.md` for the isolation rationale and the honest read on what the numbers mean.
+  (re-gradable without re-running) for correctness, README-first process (by the *principle* —
+  see "Grade the principle, not the method" below), and tool-budget. See that folder's `README.md`
+  for the isolation rationale and the honest read on what the numbers mean.
 - **`doc-this--context-maintenance` is the write-side companion rule eval.** It measures the always-on
   "How to Document Context" rule (configs `with_rule`/`without_rule`, same `$TMPDIR` clean-room
   isolation). Maintenance is a **write** behavior, so each case is an *action*: `run.py` whitelists
@@ -140,3 +141,17 @@ python3 agentic/evals/check_benchmark.py <iteration-dir>
 Treat a non-zero exit as a **failed run**, not a 0% score. The guard exists
 because the vendored skill-creator tools degrade to silent zeros in this
 environment rather than failing loudly.
+
+## Grade the principle, not the method
+
+When an eval flags a regression, check the **metric measures the principle** before
+changing the thing under test. The `doc-this--context-discovery` grader once required
+the agent's *literal first action* to be a README **read** and counted any non-README
+glob as a "blind search" — so it failed benign "glob to locate the README, then read
+it" and manufactured a phantom regression that burned a whole copy-tuning cycle. The
+fix: grade whether a README is read **before any code/content access** (a content `Grep`
+or a non-README `Read`); globs only *locate* files and are navigation, not violations.
+
+General rule: a good check **passes obviously-correct behavior and fails
+obviously-wrong behavior**. If it doesn't, fix the grader first — don't tune the
+artifact to satisfy a metric that's testing the wrong thing.
