@@ -45,14 +45,16 @@ Each linked folder with its own README documents that eval's staging, run, and g
 3. **Aggregate**, then **guard**: `python3 agentic/evals/check_benchmark.py <iteration-dir>` — the
    aggregator silently zeros on mismatched artifacts, so treat a non-zero exit as a failed run (see
    [benchmark contract](docs/benchmark-contract.reference.md)).
-4. **Promote** a curated summary to the eval's committed `benchmarks/iteration-N.md` and append a row
-   to `benchmarks/history.md`, reporting the full metric set for both arms — pass rate, the eval's
-   discriminating dimension, mean time, and tokens — per the [reporting
-   contract](docs/benchmark-contract.reference.md) (§3). Never drop a metric you reported before; flag
-   a noisy one, don't hide it. The `runs/` scratch is disposable.
+4. **Promote** a curated summary to the eval's committed `benchmarks/iteration-N.md` (the full metric
+   set for both arms, including the eval's discriminating dimension) and append a row to
+   `benchmarks/history.md` (the blended trend — pass rate, mean time, tokens, both arms) per the
+   [reporting contract](docs/benchmark-contract.reference.md) (§3) and the [history
+   format](docs/history.reference.md). Never drop a metric you reported before; flag a noisy one,
+   don't hide it. The `runs/` scratch is disposable.
 
 ## Deeper docs
 
 - [docs/benchmark-contract.reference.md](docs/benchmark-contract.reference.md) — grading-artifact layout, the silent-zero guard, and the writeup reporting contract.
+- [docs/history.reference.md](docs/history.reference.md) — the canonical `benchmarks/history.md` format: columns, paired arms, blank-vs-`—`, notes-below.
 - [docs/environment-parity.reference.md](docs/environment-parity.reference.md) — no runtime `pip`; pre-provision deps so runs match production.
 - [docs/grading.guide.md](docs/grading.guide.md) — grade the principle, not the method.
