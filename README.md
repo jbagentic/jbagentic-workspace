@@ -6,7 +6,7 @@ A digital workspace for the projects run by the JB Agentic community.
 
 | File/Folder | What it holds |
 |--------|---------------|
-| [`AGENTS.md`](AGENTS.md) | Ground rules and instructions for agents. |
+| [`AGENTS.md`](AGENTS.md) | Ground rules for agents. |
 | [`agentic/`](agentic/README.md) | Agent capabilities — the skill library (`skills/`) and the evals that measure them. |
 | [`projects/`](projects/) | Community projects, one folder per project (see below). |
 | [`docs/`](docs/) | Workspace-wide reference docs. |
