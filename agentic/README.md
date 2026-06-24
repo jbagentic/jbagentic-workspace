@@ -23,6 +23,19 @@ The library in [`skills/`](skills/) — one folder per skill, each documented by
 - [`subtitle-translate-zh`](skills/subtitle-translate-zh/SKILL.md) — translate an English SRT into Simplified and Taiwan-flavored Traditional Chinese.
 - [`series-youtube-metadata`](skills/series-youtube-metadata/SKILL.md) — generate YouTube titles, description, chapters, and tags for a recorded talk, podcast, or other long-form video, driven by the project's show profile.
 
+## Install a skill into your project
+
+Pull any skill from this repo into your project with the GitHub CLI's `gh skill`
+command. Run from your project's root, pointing at the skill's path:
+
+```bash
+gh skill install jbagentic/jbagentic-workspace agentic/skills/doc-this
+```
+
+Swap `agentic/skills/doc-this` for any skill's path under [`skills/`](skills/). For scope,
+agent, and version flags, see the
+[`gh skill install` manual](https://cli.github.com/manual/gh_skill_install).
+
 ## Authoring
 
 Skills are written with the **skill-creator** skill and follow the workspace house
