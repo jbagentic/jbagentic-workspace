@@ -17,15 +17,16 @@ block below there once.
 ```md
 ## How to Discover Context
 
-**Before working in any folder, read its nearest `README.md` and `AGENTS.md` first.** Each is
-either in the folder or in the nearest parent folder that has one.
+**Before working in any folder, ALWAYS read its nearest `README.md` and `AGENTS.md` first — read
+them to onboard yourself, DO NOT delegate.** Each is either in the folder or in the nearest parent
+folder that has one.
 
 - **Read** the README as the onboarding guide to know the context, and the AGENTS.md for the
   instructions you **must** follow while working in the folder.
 - **Follow** links in README, if relevant, to read more guides, references, runbooks, or files.
 - **Walk** the folder tree to adjust the context boundary — **up** to a parent folder with
   README for broader context, **down** into a subfolder with README for specific context.
-- **Search** with `Find`/`Grep`/`Glob` as a fallback option.
+- **(Optional) Search** with `Find`/`Grep`/`Glob` or `Explore` agents as a fallback option.
 
 Stop once you know enough context.
 ```
@@ -39,6 +40,14 @@ Producing contextful folders only pays off if agents navigate by them. Without t
 agent falls back to blind `Grep`/`Glob` sweeps — loading too much or missing what's there — and
 the READMEs-as-map investment is wasted. See [the guide](contextful-folder.guide.md)
 ("Why folders?" / selective loading) for the rationale behind up/down progressive disclosure.
+
+The rule says read them *yourself* because delegating the onboarding read to a subagent fails
+quietly: the subagent reads the docs and reports a summary back, but the deciding agent never
+grounds itself in the folder's own map — it acts on a second-hand digest, and any per-folder
+`AGENTS.md` instruction the summary glossed over is silently skipped. A search or `Explore` agent
+is a fallback you may reach for after orienting — never the onboarding read itself. (This is
+distinct from the `AGENTS.md` auto-load gap below — that one is about the harness not loading the
+file at all.)
 
 The rule also covers `AGENTS.md`, not just `README.md`, because no harness reliably auto-loads a
 *subfolder's* `AGENTS.md` when an agent touches a file there: Claude Code auto-loads `CLAUDE.md`
