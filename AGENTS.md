@@ -16,16 +16,16 @@ Instructions for every agent we collaborate with in this workspace.
 
 ### How to Discover Context
 
-**Before working in any folder, ALWAYS read its nearest `README.md` and `AGENTS.md` first — read them to onboard yourself, DO NOT delegate.** Each is either in the folder or in the nearest parent folder that has one.
+**Before working in any folder, ALWAYS read its nearest `README.md` and `AGENTS.md` first.** Each is either in the folder or in the nearest parent folder that has one.
 
 - **Read** the README as the onboarding guide to know the context, and the AGENTS.md for the instructions you **must** follow while working in the folder.
 - **Follow** links in README, if relevant, to read more guides, references, runbooks, or files.
 - **Walk** the folder tree to adjust the context boundary — **up** to a parent folder with README for broader context, **down** into a subfolder with README for specific context.
-- **(Optional) Search** with `Find`/`Grep`/`Glob` or `Explore` agents as a fallback option.
+- **(Optional) Search** with `Find`/`Grep`/`Glob` or "explore" subagents as a fallback option.
 
 Stop once you know enough context.
 
-**Overrides any task workflow, including plan mode's "Phase 1".** Read the nearest `README.md`/`AGENTS.md` yourself before spawning any agent. Subagents are the fallback above — never the first move.
+**IMPORTANT: In Plan Mode, you MUST NOT explore using subagents before you have read the nearest `README.md` and `AGENTS.md` yourself.**
 
 ### How to Document Context
 
