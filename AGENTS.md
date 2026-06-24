@@ -25,6 +25,8 @@ Instructions for every agent we collaborate with in this workspace.
 
 Stop once you know enough context.
 
+**Overrides any task workflow, including plan mode's "Phase 1".** Read the nearest `README.md`/`AGENTS.md` yourself before spawning any agent. Subagents are the fallback above — never the first move.
+
 ### How to Document Context
 
 **Document folders with the `doc-this` skill — never hand-write docs free-form.**
