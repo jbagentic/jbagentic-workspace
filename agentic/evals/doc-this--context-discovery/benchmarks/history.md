@@ -12,6 +12,7 @@ Format: [history.reference.md](../../docs/history.reference.md).
 | [1](#iteration-1) | 2026-06-19 | claude-opus-4-8 | 100% (24/24) / 83.3% (20/24) | +17pp | 3.25 / 4.62 | 16.8s / 26.1s | 98.6k / 57.4k |
 | [2](#iteration-2) | 2026-06-20 | claude-opus-4-8 | 100% (72/72) / 77.8% (56/72) | +22pp | 2.88 / 4.5 | 15.7s / 19.4s | 89.2k / 65.9k |
 | [3](#iteration-3) | 2026-06-20 | claude-opus-4-8 | 100% (42/42) / 76.2% (32/42) | +24pp | 3.71 / 5.36 | 20.2s / 25.9s | 85.6k / 67.7k |
+| [4](#iteration-4) | 2026-06-24 | claude-opus-4-8 | 100% (42/42) / 69.0% (29/42) | +31pp | 3.93 / 5.57 | 22.5s / 28.3s | 94.9k / 67.3k |
 
 ## Notes
 
@@ -35,3 +36,12 @@ fixtures (no-README subfolder, README+AGENTS both present, AGENTS walk-up). Grad
 an independent `agents_first` track; `process` can be a list. n=2. On the 3 new cases:
 process **6/6 vs 1/6 (+83pp)** — without the rule, agents read the nearest `AGENTS.md`
 only 1 time in 6. No regression on the 4 README cases (`with_rule` 8/8).
+
+### Iteration 4
+**Wording: "read them yourself, DO NOT delegate"; `Explore` filed as a fallback.** No
+new cases/fixtures. The clause targets delegating the onboarding read to a
+subagent/`Explore` — which a `Read,Grep,Glob`-only executor can't exercise, so this is
+a **regression check**, not validation of the new behavior. `with_rule` holds at 100%
+on all three dims (correctness/process/budget) with tool calls unchanged from iter-3
+(3.93 vs 3.71). The widened delta (+31pp) is baseline drift — `without_rule` fell to
+69% from 76% on identical fixtures, the unguided arm's run-to-run variance. n=2.
