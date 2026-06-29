@@ -1,0 +1,410 @@
+## slide-01
+
+Make Your Folder "Contextful"
+
+Simplify how we share contextual knowledge with AI agents
+
+Huiming Teo
+
+## slide-02
+
+(Screenshot of a folder of files with messy, inconsistent names)
+
+Data_Gamma_Archive
+Proc_D_Memos
+Proc_D_Memos
+Set_E_Profiles
+Log_F_Surveys
+Ref_F_Polons
+Data_H_Reports
+Data_H_Reports
+Proc_I_Notes
+Set_J_Records
+Log_K_Exits
+Log_K_Exits
+Data_N_Consolidated_Set
+Gemini_Generated_Image_1rbmot1rbmot1rbm.png
+Proc_O_Onboarding_Key (PDF)
+Ref_P_Exit_Review_Final (Word doc)
+
+## slide-03
+
+(Same messy folder screenshot, now with a README Word doc added and highlighted)
+
+Data_Gamma_Archive
+Proc_D_Memos
+Proc_D_Memos
+Set_E_Profiles
+Log_F_Surveys
+Ref_F_Polons
+Data_H_Reports
+Data_H_Reports
+Proc_I_Notes
+Set_J_Records
+Log_K_Exits
+Log_K_Exits
+Data_N_Consolidated_Set
+Gemini_Generated_Image_1rbmot1rbmot1rbm.png
+Proc_O_Onboarding_Key (PDF)
+Ref_P_Exit_Review_Final (Word doc)
+README (Word doc)
+
+## slide-04
+
+Your project folder has README file?
+
+README.md
+
+## slide-05
+
+Folder creates information boundary.
+
+Login
+Payment
+
+## slide-06
+
+README provides useful contextual information
+
+Login
+Email & Google sign-in screen.
+
+Structure
+Item | What it is
+*Form.tsx | form & validation logic
+styles.css | UI styles
+design/ | UX designs
+
+Runbooks
+- rotate-oauth-secret — rotate the OAuth secret
+
+Agent skills
+- add-auth-provider — add a social login
+- audit-accessibility — fix WCAG gaps
+
+See also
+- Button — button assets
+- Auth service — sessions & tokens
+
+## slide-07
+
+Useful README reads like MAPS.
+
+Mission & Purpose
+What is this folder for?
+
+Asset File Structure
+What's inside here?
+
+Process / Procedures
+How we do work here?
+
+See Also / Related
+Where to read more?
+
+(README example on the right)
+Login
+Email & Google sign-in screen.
+
+Structure
+Item | What it is
+*Form.tsx | form & validation logic
+styles.css | UI styles
+design/ | UX designs
+
+Runbooks
+- rotate-oauth-secret — rotate the OAuth secret
+
+Agent skills
+- add-auth-provider — add a social login
+- audit-accessibility — fix WCAG gaps
+
+See also
+- Button — button assets
+- Auth service — sessions & tokens
+
+## slide-08
+
+Folder with useful README makes the folder contextful.
+(contextually useful)
+
+my-project/
+  README.md
+  main.py
+  config.yaml
+  docs/
+    guide.md
+    reference.md
+  src/
+    app.py
+    utils.py
+  payment-module/
+    README.md
+
+## slide-09
+
+(Human emoji)
+Work is more effective when the folder is contextful.
+(contextually useful)
+
+has sufficient context to reason for the best possible decision
+
+my-project/
+  README.md
+  main.py
+  config.yaml
+  docs/
+    guide.md
+    reference.md
+  src/
+    app.py
+    utils.py
+  payment-module/
+    README.md
+
+## slide-10
+
+(Robot emoji)
+Work is more effective when the folder is contextful.
+(contextually useful)
+
+has sufficient context to calculate the next best-possible "word"
+
+my-project/
+  README.md
+  main.py
+  config.yaml
+  docs/
+    guide.md
+    reference.md
+  src/
+    app.py
+    utils.py
+  payment-module/
+    README.md
+
+## slide-11
+
+Bigger project? Make subfolders contextful.
+
+my-project/
+  README.md
+  main.py
+  config.yaml
+  docs/
+    guide.md
+    reference.md
+  payment-module/
+    README.md
+    docs/
+    payment.py
+  auth-module/
+    README.md
+    docs/
+    auth.py
+
+## slide-12
+
+(Human emoji)
+Work on specific context? Read README in subfolder.
+
+less cognitive load
+
+my-project/
+  README.md
+  main.py
+  config.yaml
+  docs/
+    guide.md
+    reference.md
+  payment-module/
+    README.md
+    docs/
+    payment.py
+  auth-module/
+    README.md
+    docs/
+    auth.py
+
+## slide-13
+
+(Robot emoji)
+Work on specific context? Read README in subfolder.
+
+less token usage
+
+my-project/
+  README.md
+  main.py
+  config.yaml
+  docs/
+    guide.md
+    reference.md
+  payment-module/
+    README.md
+    docs/
+    payment.py
+  auth-module/
+    README.md
+    docs/
+    auth.py
+
+## slide-14
+
+(Human emoji)
+Work on broader context? Read README in parent folder.
+
+less cognitive load
+
+my-project/
+  README.md
+  main.py
+  config.yaml
+  docs/
+    guide.md
+    reference.md
+  payment-module/
+    README.md
+    docs/
+    payment.py
+  auth-module/
+    README.md
+    docs/
+    auth.py
+
+## slide-15
+
+(Robot emoji)
+Work on broader context? Read README in parent folder.
+
+less token usage
+
+my-project/
+  README.md
+  main.py
+  config.yaml
+  docs/
+    guide.md
+    reference.md
+  payment-module/
+    README.md
+    docs/
+    payment.py
+  auth-module/
+    README.md
+    docs/
+    auth.py
+
+## slide-16
+
+Bigger project? Split README into small files and linked from README.
+
+payment-module/
+  README.md
+  AGENTS.md
+  docs/
+    decisions/
+      20260608-use-stripe.md
+      20260610-idempotency-keys.md
+    checkout-flow.guide.md
+    refunds.guide.md
+    payment-api.reference.md
+    incident-response.runbook.md
+  payment.py
+
+## slide-17
+
+M.A.P.S. onboarding guide
+
+README
+AGENTS — Instructions for AI
+Guide — Concepts, how it works
+Reference — Facts to refer
+Runbook — Step-by-step workflow
+Decisions — Key decision history
+
+payment-module/
+  README.md
+  AGENTS.md
+  docs/
+    decisions/
+      20260608-use-stripe.md
+      20260610-idempotency-keys.md
+    checkout-flow.guide.md
+    refunds.guide.md
+    payment-api.reference.md
+    incident-response.runbook.md
+  payment.py
+
+## slide-18
+
+Experimental Project –
+JB Agentic Workspace
+github.com/jbagentic/jbagentic-workspace
+
+## slide-19
+
+Work: Publish meetup talks on YouTube
+
+Video-record meetup talks (Phone)
+Edit videos + Generate English subtitles (CapCut)
+Publish on YouTube channel @jbagentic
+
+Post-Edit Processing
+Polish English subtitles
+Translate to Chinese subtitles
+Generate YouTube data fields
+
+"Help me run post-edit processing"
+
+## slide-20
+
+Highlights
+
+AGENTS.md
+Ground-rule instructions to AI agents.
+
+meetup/README.md
+High-level workflow, linked to runbooks.
+
+meetup/docs/*.runbook.md
+Steps + configure input/output of each skill
+
+agentic/skills/
+Context-free, reusable skills for agents.
+
+github.com/jbagentic/jbagentic-workspace
+
+## slide-21
+
+Context-free skill makes it reusable
+
+Previous: Hardcode JB Agentic meetup-specific context into the skill.
+
+talk-subtitle-polish skill input is meetup/<talk>.raw.srt.
+
+Now: Reusable for any talk-show videos e.g. podcasts, talks, interviews.
+
+subtitle-polish skill input is a raw unpolished subtitle file.
+
+meetup/post-edit.runbook.md configures input as meetup/<talk>.raw.srt.
+podcast/post-edit.runbook.md configures input as podcast/<show>.raw.vtt.
+
+## slide-22
+
+Install doc-this skill to your project
+
+Normal Way: Command Line
+
+gh skill install \
+    jbagentic/jbagentic-workspace \
+    agentic/skills/doc-this
+
+Simpler Way: AI Prompt
+
+Help me install doc-this skill from
+https://github.com/jbagentic/jbagentic-workspace
+
+## slide-23
+
+Q & A

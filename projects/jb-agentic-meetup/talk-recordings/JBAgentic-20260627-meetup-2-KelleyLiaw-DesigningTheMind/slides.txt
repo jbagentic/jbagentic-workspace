@@ -1,0 +1,433 @@
+## slide-01
+
+Designing the Mind
+
+Building AI Products Through a UX Lens — my field log on building a reusable cast of ten characters with an AI that can't draw.
+
+Kelley Liaw · JB Agentic · 27 Jun 2026
+
+## slide-02
+
+The material
+
+(Screenshot of short-form video: "How to Crush a Job Interview" / "I write resumes for a lot of people")
+
+- Short-form video
+- Talking head
+- No b-rolls
+
+## slide-03
+
+01 · THE TWIST
+
+The ask
+
+It started with the simplest possible brief.
+
+"Can you generate b-roll for this video?"
+
+Claude's answer:
+I can't generate actual video footage — I don't have video generation capability, so I can't hand you ready-to-drop b-roll clips. Being upfront about that so you're not waiting on something that isn't coming.
+
+Claude generates no images and no video. It reads, reasons, and writes — that's it.
+
+That "can't" turned out to be the most useful constraint in the whole project.
+
+## slide-04
+
+(Screenshot of short-form video, Chinese title 当我试图驯服AI / "内容虚构演绎 仅供娱乐"; 你好 / Hello)
+
+What do you think?
+
+- Fully automated workflow – trustworthy?
+- Does AI know how to make good judgment?
+- What will happen if there is no human agency?
+
+## slide-05
+
+The "Great Wall"
+
+(Image collage of generated artwork; Midjourney sailboat logo)
+
+## slide-06
+
+Claude + Skill
+- Transcribe video — Captions → full script
+- Understand content — Beats, topics, tone
+- Decide what to generate — Which lines need b-roll coverage
+- Map insertion points — Timestamped cut list
+- Write MJ prompts — Character + scene + style per point
+
+Human + Midjourney
+- Generate images — Run prompts in Midjourney
+- Review & select keepers — Tune weight, retry if needed
+- Animate to video — Stills → motion in Midjourney
+- Edit final cut — Assemble b-roll with source video
+
+## slide-07
+
+15 · THE PAYOFF
+
+The UX lens: Nielsen's heuristics, in this story
+
+I didn't plan them — they emerged from what the tools did and what I had to fix.
+
+1 · Visibility of system status
+2 · Match with the real world
+3 · User control & freedom
+4 · Consistency & standards
+5 · Error prevention
+6 · Recognition over recall
+7 · Flexibility & efficiency
+8 · Aesthetic & minimalist design
+9 · Recover from errors
+10 · Help & documentation
+
+Without planning to, this became a heuristic evaluation.
+
+## slide-08
+
+Nielsen Norman Group
+Jakob's Ten Usability Heuristics
+
+1 Visibility of System Status
+Designs should keep users informed about what is going on, through appropriate, timely feedback.
+Interactive mall maps have to show people where they currently are, to help them understand where to go next.
+
+2 Match between System and the Real World
+The design should speak the users' language. Use words, phrases, and concepts familiar to the user, rather than internal jargon.
+Users can quickly understand which stovetop control maps to each heating element.
+
+3 User Control and Freedom
+Users often perform actions by mistake. They need a clearly marked "emergency exit" to leave the unwanted action.
+Just like physical spaces, digital spaces need quick "emergency" exits too.
+
+4 Consistency and Standards
+Users should not have to wonder whether different words, situations, or actions mean the same thing. Follow platform conventions.
+Check-in counters are usually located at the front of hotels, which meets expectations.
+
+## slide-09
+
+5 Error Prevention
+Good error messages are important, but the best designs carefully prevent problems from occurring in the first place.
+Guard rails on curvy mountain roads prevent drivers from falling off cliffs.
+
+6 Recognition Rather Than Recall
+Minimize the user's memory load by making elements, actions, and options visible. Avoid making users remember information.
+People are likely to correctly answer "Is Lisbon the capital of Portugal?".
+
+7 Flexibility and Efficiency of Use
+Shortcuts — hidden from novice users — may speed up the interaction for the expert user.
+Regular routes are listed on maps, but locals with more knowledge of the area can take shortcuts.
+
+8 Aesthetic and Minimalist Design
+Interfaces should not contain information which is irrelevant. Every extra unit of information in an interface competes with the relevant units of information.
+A minimalist three-legged stool is still a place to sit.
+
+9 Recognize, Diagnose, and Recover from Errors
+Error messages should be expressed in plain language (no error codes), precisely indicate the problem, and constructively suggest a solution.
+Wrong-way signs on the road remind drivers that they are heading in the wrong direction.
+
+10 Help and Documentation
+It's best if the design doesn't need any additional explanation. However, it may be necessary to provide documentation to help users complete their tasks.
+Information kiosks at airports are easily recognizable and solve customers' problems in context and immediately.
+
+NN/g
+www.nngroup.com/articles/ten-usability-heuristics/
+
+## slide-10
+
+03 · THE BUILD
+
+AI's job: Read the source
+
+Before any b-roll, the work was analysis — not generation.
+
+Read the burned-in captions → reconstruct the full script
+Map a cutaway to each beat on a timestamped cut list
+Decide which lines should stay on the speaker's face
+
+Knowing what not to cover is half the craft.
+
+## slide-11
+
+(Claude desktop app screenshot — "B-roll generation for video"; Chat / Cowork / Code; New chat, Projects, Artifacts, Customize; Recents list: B-roll generation for video, AI presentation topic ideas for JB agentic, Transferring EdD programs to a better-fit, Adapting debate script for 3x3 format, Converting Bahasa Melayu audio lessons, Cybergatekeeper agent won't delete from, Transcribing and organizing qualitative re, Simplifying advanced presentation langua, Chinese broadcasting camp volunteer sch, Finding previous conversation threads, Adding kami to Claude, Converting Word document to Google for, Obsidian MCP installation requirements, Logo design for R & K Co., Translating assignment descriptor to Engl; Relaunch to update v1.13576.4; Design Labs; Kelley · Pro; Opus 4.8 High)
+
+"Can you put all the details in a table?"
+
+...keeping his face on the two punchlines ("Don't ever do that" and the power question itself), because covering those kills the impact. Six inserts instead of seven:
+
+# | Cut TO b-roll | Cut BACK | Covers (line) | B-roll shot | Search terms
+1 | 0:00.5 | 0:03 | "I write resumes... advice I give to everybody" | Hands typing/editing a resume on a laptop | resume editing laptop close up, cv on screen
+2 | 0:03 | 0:08 | "every employer always asks this question... at the end" | Interview across a desk; interviewer glancing at notes/clock | job interview office desk, interviewer checking notes
+3 | 0:08 | 0:11 | "Oh no, I think you covered everything!... trying to be polite" | Candidate shrugging, awkward polite smile | nervous candidate shrug interview, awkward forced smile meeting
+— | KEEP FACE | 0:11–0:12 | "Don't ever do that." | No cut — stay on him, ...land | —
+— | KEEP ... | 0:12– | "If you hire me today..." | Stay on him; optionally ... | —
+
+Claude is AI and can make mistakes. Please double-check responses.
+
+## slide-12
+
+UX • Consistency and standards
+
+(Claude desktop app screenshot — same "B-roll generation for video" table as slide-11, with header banner "UX • Consistency and standards" and the quote "Can you put all the details in a table?")
+
+them on the conceptual beats and deliberately ... ("Don't ever do that" and the power question... Six inserts instead of seven:
+
+# | Cut TO b-roll | Cut BACK | Covers (line) | B-roll shot | Search terms
+1 | 0:00.5 | 0:03 | "I write resumes... advice I give to everybody" | Hands typing/editing a resume on a laptop | resume editing laptop close up, cv on screen
+2 | 0:03 | 0:08 | "every employer always asks this question... at the end" | Interview across a desk; interviewer glancing at notes/clock | job interview office desk, interviewer checking notes
+3 | 0:08 | 0:11 | "Oh no, I think you covered everything!... trying to be polite" | Candidate shrugging, awkward polite smile | nervous candidate shrug interview, awkward forced smile meeting
+— | KEEP FACE | 0:11–0:12 | "Don't ever do that." | No cut — stay on him, ...land | —
+
+You're now past your plan's included usage. Your session limit resets at 3:40 AM.
+Claude Fable 5 is currently unavailable. Learn more
+
+## slide-13
+
+05 · THE BUILD
+
+Character inconsistency
+
+Character consistency is a prerequisite for generating seamless, continuous animations.
+
+"Can we have consistent characters across all b-rolls?"
+
+The problem
+Random stock clips have no identity and no through-line. Nothing ties one video to the next.
+
+The idea
+A small recurring cast — a visual signature people start to recognise, reused across scenes and videos.
+
+Design the people once; reuse them everywhere.
+
+## slide-14
+
+UX • Error prevention
+
+(Note: this is slide-14 PNG. The page header banner reads "UX • Error prevention"; title text is "Idea to overcome inconsistency: a recurring cast")
+
+Idea to overcome inconsistency: a recurring cast
+
+Character consistency is a prerequisite for generating seamless, continuous animations.
+
+"Can we have consistent characters across all b-rolls?"
+
+The problem
+Random stock clips have no identity and no through-line. Nothing ties one video to the next.
+
+The idea
+A small recurring cast — a visual signature people start to recognise, reused across scenes and videos.
+
+Design the people once; reuse them everywhere.
+
+## slide-15
+
+04 · THE BUILD
+
+Bug #1 — same reference, different outputs
+
+First test: total failure — four random kids instead of my character.
+
+(Midjourney output screenshot — "Today")
+Prompt: an 8-year-old girl in a bright yellow raincoat and rubber boots, joyfully jumping in a puddle on a rainy street, dynamic motion, soft 3D-rendered animation style, warm cinematic lighting
+ar 16:9 | ow 75 | v 7
+profile Global V7/V8 Profile
+Style Creator
+Rerun | Use | Trash | More
+reference
+
+The weight dial runs 0–1000, not 0–100 — I set 75 ≈ "off."
+
+## slide-16
+
+06 · THE BUILD
+
+Bug #2 — style drift
+
+Some characters came back as photos, others as flat 2D — inconsistent style.
+
+Photoreal — too real
+Flat 2D — too flat
+Glossy 3D — the target
+
+Fix: negative prompting — "not flat, not 2D, not painterly." Pin a style from both sides.
+
+## slide-17
+
+UX • User control and freedom
+
+(midjourney.com/imagine browser screenshot; bookmarks bar: HMIS, edD Resources, Gen-AI, Fantastic Resourc..., Interest, Bookmarks, R & K Co., About AIFE 2026 –...; New Chrome available; sidebar: midjourney / Explore, Create, Edit, Organize / AESTHETICS / Personalize, Moodboards, Style Creator / COMMUNITY / Tasks, Help, Updates, Light Mode; sinless2399)
+
+Prompt: side-by-side animated-render character reference LEFT: close-up face, warm dignified neutral expression, all facial detail visible; RIGHT: full body head to toe including shoes a man in his early 70s, dark brown skin, bald head, short white beard, warm dignified face, larger rounded build, plain cream crew-neck t-shirt, dark trousers, tan sneakers, plain light-grey background, soft 3D-rendered Pixar-style animation, stylized not photorealistic, warm cinematic lighting
+
+Image Prompts — Use the elements of an image
+Style References — Use the style of an image
+Omni Reference — Use a person's likeness, or an object's form
+Upload a file or drop it here
+
+"Do I have full control of each character?"
+
+## slide-18
+
+08 · THE BUILD
+
+The reference-sheet trick
+
+One image to hold the face steady: a close-up face, plus the full body, side by side.
+
+A plain background strips the noise so the face becomes the signal.
+
+## slide-19
+
+07 · THE BUILD
+
+The key idea: identity ≠ role
+
+A master character turnaround you re-costume per scene.
+
+Role-locked — wrong
+"The Candidate," baked into an interview suit. Single-use; useless for the next topic.
+
+Identity-only — right
+Just a person — face, hair, build, plain background. Outfit and scene are added per shot.
+
+"Can we build characters that are scene- agnostic?"
+
+Reusable assets, accelerators for a task you repeat every video.
+
+## slide-20
+
+09 · THE BUILD
+
+Meet the cast
+
+Ten characters — kids to seniors, varied builds — castable into almost any human scene.
+
+"Have I made sure all the characters share a similar style?"
+
+Leo · 7
+Aisha · 8
+Marcus · 16
+Sofia · 15
+Maya · 20s
+Theo · 30s
+Diane · 50s
+Raj · 50s
+Eleanor · 70s
+Walter · 70s
+
+## slide-21
+
+UX • Aesthetic and minimalist design
+
+(Note: this is slide-21 PNG — same "Meet the cast" layout as slide-20, with header banner "UX • Aesthetic and minimalist design")
+
+Meet the cast
+
+Ten characters — kids to seniors, varied builds — castable into almost any human scene.
+
+"Have I made sure all the characters share a similar style?"
+
+Leo · 7
+Aisha · 8
+Marcus · 16
+Sofia · 15
+Maya · 20s
+Theo · 30s
+Diane · 50s
+Raj · 50s
+Eleanor · 70s
+Walter · 70s
+
+## slide-22
+
+12 · THE PAYOFF
+
+The result
+
+(Three animated stills of Maya editing a resume, plus her reference sheet)
+
+Maya — the same character from her reference sheet, now animated, in a new outfit, editing a resume.
+
+Same face throughout the short, never the same shot twice. The library works end to end.
+
+## slide-23
+
+(iMovie "App Preview" project screenshot; My Media, Audio & Video, Titles, Backgrounds, Transitions; iMovie Library; All Clips; PROJECT MEDIA / App Preview; LIBRARIES / Photos, All Events, iMovie Library, 19-6-26; Interview (4); App Preview (6); 5.2s; Reset All; 00:19 / 00:24; Settings; preview shows "How to Crush a Job Interview" / "The question you ask is:")
+
+"Can I not follow Claude's suggestions entirely?"
+
+## slide-24
+
+UX • Flexibility and efficiency
+
+(Note: this is slide-24 PNG — same iMovie "App Preview" screenshot as slide-23, with header banner "UX • Flexibility and efficiency")
+
+My Media, Audio & Video, Titles, Backgrounds, Transitions; iMovie Library; All Clips; PROJECT MEDIA / App Preview; LIBRARIES / Photos, All Events, iMovie Library, 19-6-26; Interview (4); App Preview (6); 5.2s; 00:19 / 00:24; Settings; preview "How to Crush a Job Interview" / "The question you ask is:"
+
+"Can I not follow Claude's suggestions entirely?"
+
+## slide-25
+
+10 · THE BUILD
+
+Package it as a reusable Skill
+
+Once it worked, I saved the whole recipe so it never has to be re-figured.
+
+Ten reference sheets + each character's identity notes
+The scene-prompt template
+Every rule learned the hard way (the weight scale, the negatives)
+
+The system holds the knowledge, not your head. Programmers call this DRY.
+
+## slide-26
+
+11 · THE BUILD
+
+Human in the loop
+
+The AI set everything up; a human made every judgment call.
+
+AI maps the prompts to each beat
+Human generates, picks the keepers, reuses variations
+Human tunes, edits, and cuts the final piece
+
+The AI proposes; the human decides — a useful frame for teaching with AI, too.
+
+## slide-27
+
+(Short-form video screenshot: "How to Crush a Job Interview" / "I write resumes for a lot of people")
+
+The final output
+
+- Short-form video
+- Talking head
+- AI generated scenarios
+- Animated b-rolls
+
+## slide-28
+
+(Short-form video screenshot, Chinese title 亚裔为何更爱同族恋爱; Flick Fluent; "If I remember correctly, you guys date within your race" / 如果我没记错的话,你们谈恋爱通常会更倾向于找同族裔的人 / within 在…范围内 / 仅供英语学习参考 For educational use only / 精选访谈 | 重点讲解 | 流利听说)
+
+The final output
+
+- Short-form video
+- Talking head
+- AI generated scenarios
+- Animated b-rolls
+
+## slide-29
+
+16 · THE PAYOFF
+
+The honest footnote
+
+Claude never rendered a pixel. It analysed, wrote, and structured — I directed and edited.
+
+That's also UX lens at work: usability thinking applied to a workflow, turning tools that fight you into a process that works for you — and you don't need to write a line of code to do it.
+
+(Animated still of a curly-haired character in a film-editing studio; Midjourney sailboat logo)
+
+Thank you. — Questions?
