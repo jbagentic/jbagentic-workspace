@@ -2,6 +2,17 @@
 
 Per-meetup facts of record. Append a new `## JB Agentic Meetup #N` section after each event, newest at the top. Each **Talks** entry is `Full Title — Speaker`, where the [full title](talk-recordings.reference.md#talk-title-and-subtitle) is `Title: Subtitle` (the talk subtitle is optional).
 
+## JB Agentic Meetup #2 — 2026-06-27
+
+- **Time:** 2:30–5:20pm
+- **Location:** Design Classroom 350, Level 3, Main Building, Southern University College, Skudai, JB
+- **Guests:** 32
+
+**Talks**
+1. "Claude Plans, Codex Builds": My AI-First Dev Workflow as a Student — Samy Aridhan Hon
+2. "Designing the Mind": Building AI Products Through a UX Lens — Kelley Liaw
+3. "Make Your Folder Contextful": Simplify how we share knowledge with AI — Huiming Teo
+
 ## JB Agentic Meetup #1 — 2026-05-30
 
 - **Time:** 7:00–10:00pm
